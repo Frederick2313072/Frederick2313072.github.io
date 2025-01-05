@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="记号\n$$\\binom n{n_1,n_2,\\cdots,n_r}=\\frac{n!}{n_1!n_2!\\cdots n_r!}$$因此，$\\binom n{n_1,n_2,\\ldots,n_r}$表示把 $n$ 个 不 同 的 元 素 分 成 大 小 分 别 为 $n_1, n_2, \\ldots , n_r$的$r$个\n">
+<title>概率论模型及小结</title>
+
+<link rel='canonical' href='https://Frederick2313072.github.io/p/%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%B0%8F%E7%BB%93/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="概率论模型及小结">
+<meta property='og:description' content="记号\n$$\\binom n{n_1,n_2,\\cdots,n_r}=\\frac{n!}{n_1!n_2!\\cdots n_r!}$$因此，$\\binom n{n_1,n_2,\\ldots,n_r}$表示把 $n$ 个 不 同 的 元 素 分 成 大 小 分 别 为 $n_1, n_2, \\ldots , n_r$的$r$个\n">
+<meta property='og:url' content='https://Frederick2313072.github.io/p/%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%B0%8F%E7%BB%93/'>
+<meta property='og:site_name' content='Frederick'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-27T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-01-05T11:11:23&#43;00:00'/>
+<meta name="twitter:title" content="概率论模型及小结">
+<meta name="twitter:description" content="记号\n$$\\binom n{n_1,n_2,\\cdots,n_r}=\\frac{n!}{n_1!n_2!\\cdots n_r!}$$因此，$\\binom n{n_1,n_2,\\ldots,n_r}$表示把 $n$ 个 不 同 的 元 素 分 成 大 小 分 别 为 $n_1, n_2, \\ldots , n_r$的$r$个\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "dark");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu11453142057237025175.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐋</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Frederick</a></h1>
+            <h2 class="site-description">Welcome to my alter ego&#39;s site!</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Frederick2313072'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/resources/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Resources</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#生日问题">生日问题</a></li>
+    <li><a href="#配对问题">配对问题</a>
+      <ol>
+        <li><a href="#用条件概率解决配对问题">用条件概率解决配对问题</a></li>
+      </ol>
+    </li>
+    <li><a href="#夫妇围圈坐一起问题">夫妇围圈坐一起问题</a></li>
+    <li><a href="#游程问题">游程问题</a></li>
+    <li><a href="#一个事件出现在另外一个事件之前">一个事件出现在另外一个事件之前</a></li>
+    <li><a href="#优惠券问题">优惠券问题</a>
+      <ol>
+        <li><a href="#收集完n种优惠券时优惠券总张数n">收集完N种优惠券时优惠券总张数n</a></li>
+      </ol>
+    </li>
+    <li><a href="#点数问题">点数问题</a></li>
+    <li><a href="#无放回取出球中标号最大">无放回取出球中标号最大</a></li>
+    <li><a href="#求期望最大化">求期望最大化</a></li>
+    <li><a href="#二项分布近似于泊松分布">二项分布近似于泊松分布</a></li>
+    <li><a href="#负二项分布第r次成功发生在m次失败之前">负二项分布：第r次成功发生在m次失败之前</a></li>
+    <li><a href="#巴拿赫火柴问题">巴拿赫火柴问题</a></li>
+    <li><a href="#超几何分布近似二项分布">超几何分布近似二项分布</a></li>
+    <li><a href="#二项分布的正态近似">二项分布的正态近似</a>
+      <ol>
+        <li><a href="#棣莫弗-拉普拉斯极限定理">棣莫弗-拉普拉斯极限定理</a></li>
+      </ol>
+    </li>
+    <li><a href="#随机变量函数的分布">随机变量函数的分布</a></li>
+    <li><a href="#对数正态分布">对数正态分布</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%B0%8F%E7%BB%93/">概率论模型及小结</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2024-12-27</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>记号</p>
+$$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\binom n{n_1,n_2,\ldots,n_r}$表示把 $n$ 个 不 同 的 元 素 分 成 大 小 分 别 为 $n_1, n_2, \ldots , n_r$的$r$个</p>
+<p>不同组的组合数.
+例 5e 假设有$n+m$个球，其中$n$个红的，$m$个蓝的，将它们随机排成一排，即所$(n+m)!$种排列都是等可能的. 如果只记录连续排列的球的颜色，证明各种可能的结果概率是一样的.
+解 我们将$(n+m$)个球的次序排列称为一组球的排列，将 $n+m$ 个球的颜色次序排称为一组球的颜色次序排列. 球的排列共有($n+m$)!种，在红球之间作任何一个位于换，在蓝球之间作任何一个位置置换，置换的结果并不影响球的颜色次序排列. 从而组球的颜色次序排列，对应于$n!m!$个球的排列，这说明球的次序排列也是等可能的且每一种颜色次序出现的概率为$n!m!/(n+m)!.$</p>
+<p>多项式定理</p>
+$$(x_{1}+x_{2}+\cdots+x_{r})^{n}=\sum_{\begin{array}{c}(n_{1},\cdots,n_{r}):\\n_{1}+\cdots+n_{r}=n\end{array}}\binom{n}{n_{1},n_{2},\cdots,n_{r}}x_{1}^{n_{1}}x_{2}^{n_{2}}\cdots x_{r}^{n_{r}}$$<p>上式的求和号是对满足 $n_1+n_2+\cdotp\cdotp\cdotp\cdotp+n_r=n$ 的所有非负整数向量($n_1,n_2,\cdotp\cdotp\cdotp,n_r)$求和.</p>
+<p>命题 6.1 共有$\binom{n-1}{r-1}$个不同的正整数向量$(x_1,x_2,\cdots,x_r)$满足
+为了得到非负整数解(而不是正整数解)的个数，注意，$x_1+x_2+\cdots+x_r=n$的非负整数解个数与$y_1+y_2+\cdotp\cdotp\cdotp+y_r=n+r$的正整数解个数是相同的(令$y_i= x_i+ 1$, $i= 1$, $\cdots$, $r) .$ 因此，利用命题 6.1,可得到如下命题。</p>
+<h2 id="生日问题">生日问题
+</h2><p>如果房间里有$n$个人，那么没有两人的生日是同一天的概率是多大？当$n$多大
+时，才能保证此概率小于1/2?
+解 每个人的生日都有 365 种可能，所以$n$个人一共是 365&quot; 种可能(此处忽略有人生日是 2月 29 日的可能性). 假定每种结果的可能性都是一样的，那么所求事件的概率为$365\times364\times363\times\cdots\times(365-n+1)/365^n.$令人惊奇的是，一旦$n\geqslant23$,这个概率就比1/2要小. 即房间里人数如果超过 23 的话，那么至少有两人为同一天生日的概率就大于 1/2. 很多人一开始对这个结果很吃惊，因为 23 相对于一年 365 天来说太小了.然而，对每两个人来说，生日相同的概率为$\frac{365\cdot\tilde{}}{(365)^2}=\frac1{365}$,23个人一共可以组成$\binom{23}2=253$ 对，这样来看上述结果似乎就不再令人吃惊了.</p>
+<h2 id="配对问题">配对问题
+</h2><p>假设有 N 位男士参加舞会，所有人都将帽子扔到房间中央混在一
+起，然后每人再随机拿一顶帽子.所有人都没有拿到自己帽子的概率是多少？
+解 先计算至少有一人拿到自己的帽子的概率.令$E_i(i=1,2,&hellip;,N)$表示事件“第$i$
+人拿到了自己的帽子”.这样，由命题 4.4,至少有一人拿到了自己的帽子的概率为：</p>
+$$P\Big(\bigcup_{i=1}^{N}E_{i}\Big)\:=\sum_{i=1}^{N}P(E_{i})-\sum_{i_{1}<i_{2}<\cdots<i_{n}}P(E_{i_{1}}E_{i_{2}}\cdots E_{i_{n}})\\+(-1)^{n+1}\sum_{i_{1}<i_{2}<\cdots<i_{n}}P(E_{i_{1}}E_{i_{2}}\cdots E_{i_{n}})\\+\cdots+(-1)^{N+1}P(E_{1}E_{2}\cdots E_{N})$$<p>如果把试验结果看成是一个$N$维向量，其中第$i$个元素是第$i$个人拿到的帽子编号，那么一共有 N! 种可能的结果.「如结果(1,2,3,&hellip;,N)表示每人拿到的都是自己的帽子.] 进一步，$E_{i_1}E_{i_2}\cdots E_{i_n}$表示$i_1,i_2,\cdots,i_n$ 这$n$ 个人拿到的是自己的帽子，这种可能的方式会有($N-n)(N-n-1)\cdots3\bullet2\bullet1=(N-n)!$种，因为剩下的$N-n$个人，第一个人有$N-n$种选择方法，第二人有$N-n-1$种选择方法，以此类推.由假定知$N$个人的$N!$种选择都是等可能的，因此</p>
+$$P(E_{i_1}E_{i_2}\cdots E_{i_n})=\frac{(N-n)!}{N!}$$<p>${\text{又因为}\sum_{i_{1}&lt;i_{2}&lt;\cdots&lt;i_{n}}P\left(E_{i_{1}}E_{i_{2}}\cdots E_{i_{n}}\right)}$一共含有${\binom Nn}$项，所以</p>
+$$\sum_{i_1<i_2<\cdots<i_n}P(E_{i_1}E_{i_2}\cdots E_{i_n})=\frac{N!(N-n)!}{(N-n)!n!N!}=\frac{1}{n!}$$<p>将上式代人 $P\Big(\bigcup_i=1^nE_i\Big)$的公式，得</p>
+$$P\Big(\bigcup\limits_{i=1}^NE_i\Big)\:=\:1-\frac{1}{2!}+\frac{1}{3!}-\cdots+(-1)^{N+1}\:\frac{1}{N!}$$$$1-1+\frac{1}{2!}-\frac{1}{3!}+\cdots+(-1)^N\frac{1}{N!}=\sum_{i=0}^N(-1)^i/i!$$<p>当$N$足够大时，上式右端的值约等于 e$^{-1}\approx0.3679$,这可以由令等式$\mathrm{e}^x=\sum_{i=0}x^i/i!$中$x=$ -1得出.即当$N$很大时，没有一个人拿到自己帽子的概率接近 0.37.(有多少读者会错
+冒
+误地认为随着 $N\to\infty$时，此概率值会趋近 1?)</p>
+<p>那么$N$个人中刚好有$k$个人配对成功的概率是多少呢？
+解 让我们先考虑固定$k$个人配对成功的情况，即确定这$k$个人全配对成功而其他人都没有配对的概率. 设$E$表示这$k$个人都拿到自己帽子的事件，$G$表示剩下的$N-k$个人都没有拿到自己帽子的事件，我们有</p>
+$$P(EG)=P(E)P(G|E)$$$$\begin{aligned}P(E)&=P(F_{1}F_{2}\cdotp\cdotp\cdotp F_{k})\:=P(F_{1})P(F_{2}\mid F_{1})P(F_{3}\mid F_{1}F_{2})\cdotp\cdotp\cdotp P(F_{k}\mid F_{1}\cdotp\cdotp\cdotp F_{k-1})\\&=\frac{1}{N}\frac{1}{N-1}\frac{1}{N-2}\cdotp\cdotp\cdotp\frac{1}{N-k+1}=\frac{(N-k)!}{N!}\end{aligned}$$<p>假设这$k$个人都配对好了正确的帽子，剩下的$N-k$个人随机地从另外$N-k$顶帽子中选择。那么$N-k$人中没有一个人配对成功的概率等于这$N-k$个人在这$N-k$顶帽子选择时没有配对.因此</p>
+$$P(G\:|\:E\:)\:=\:P_{N-k}\:=\:\sum_{i=0}^{N-k}(-\:1)^i/i\:!$$<p>表明只有$k$个人配对成功的概率为</p>
+$$P(EG)=\frac{(N-k)!}{N!}P_{N-k}$$<p>由于上面的结果对于$N$个人中的任意$k$个人适用，因此</p>
+<p>$P($刚好反个配对成功$)=P_N-k/k!\approx\mathrm{e}^{-1}/k!$当$N$很大时</p>
+<ul>
+<li>最后一个式子成立因为取N=k，“刚好k”是有k人拿到帽子，N-k人没拿到帽子</li>
+</ul>
+<h3 id="用条件概率解决配对问题">用条件概率解决配对问题
+</h3>$$P_n=P(E)=P(E|M)P(M)+P(E|M^c)P(M^c)$$<p>
+显然 $P(E\mid M)=0$,因此</p>
+<p>(5.9)</p>
+$$P_n=P(E|M^c)\:\frac{n-1}{n}$$<p>
+现在，$P(E|M^{\epsilon})$是在已知 $n-1$ 个人中有一个特殊的人(此人的帽子已被第一人选走)必定</p>
+<p>选不到自己帽子的条件下，这$n-1$个人选$n-1$顶帽子没有配对的概率.此处有两种互不相容的选取方式：该特殊的人没有选中第一人的帽子且其余的人中也没有配对；该特殊的人选中了第一人的帽子，且其余的人中也没有配对. 前者的概率正是$P_{<em>{n-1}}$,此时可把该特殊的人理解成第一人，而后者的概率为[1/(n-1)]$P</em>{n-2}$,我们有</p>
+<p>于是由式(5.9)可得</p>
+$$P(E\:|\:M^c)\:=\:P_{n-1}+\frac{1}{n-1}P_{n-2}$$$$P_n=\frac{n-1}nP_{n-1}+\frac1nP_{n-2}$$<p>或等价地，</p>
+<p>(5.10)</p>
+$$P_n-P_{n-1}=-\frac{1}{n}(P_{n-1}-P_{n-2})$$<p>但是，由于$P_{\mathrm{n}}$表示$n$个人在他们的帽子中任选一顶没有配对的概率，我们有</p>
+$$P_1\:=\:0\quad P_2\:=\:\frac12$$<p>从而由式(5.10)可得</p>
+$$P_3-P_2=-\frac{P_2-P_1}{3}=-\frac{1}{3!}\quad\text{或}\quad P_3=\frac{1}{2!}-\frac{1}{3!}$$$$P_4-P_3=-\frac{P_3-P_2}{4}=\frac{1}{4!}\quad\text{或}\quad P_4=\frac{1}{2!}-\frac{1}{3!}+\frac{1}{4!}$$<p>一般地，我们有</p>
+$$P_n=\frac1{2!}-\frac1{3!}+\frac1{4!}-\cdots+\frac{(-1)^n}{n!}$$$$\frac1n\frac1{n-1}\cdotp\cdotp\cdotp\frac1{n-(k-1)}P_{n-k}=\frac{(n-k)!}{n!}P_{n-k}$$<p>其中$P_{n-k}$是已知$k$ 个人选中自己的帽子，其余 $n-k$ 个人在他们自己的 $n-k$ 顶帽子中选取
+而没有配对的条件概率，再因这$k$个人有$\binom nk$种选法，故正好有k个配对的概率为</p>
+$$\frac{P_{n-k}}{k!}=\frac{\frac{1}{2!}-\frac{1}{3!}+\cdots+\frac{(-1)^{n-k}}{(n-k)!}}{k!}$$<h2 id="夫妇围圈坐一起问题">夫妇围圈坐一起问题
+</h2>$$P\Big(\bigcup_{i=1}^{10}E_i\Big)\:=\:\sum_{i=1}^{10}P(E_i)-\cdots+(-1)^{n+1}\sum_{i_1<i_2<\cdots<i_n}P(E_{i_1}E_{i_2}\cdots E_{i_n})+\cdots-P(E_1E_2\cdots E_{10})$$$$P(E_{i_1}E_{i_2}\cdots E_{i_n})=\frac{2^n(19-n)!}{(19)!}$$<p>再由命题 4.4,可以得到至少有一对夫妇是坐在一起的概率为</p>
+$$\binom{10}{1}2^1\:\frac{(18)!}{(19)!}-\binom{10}{2}2^2\:\frac{(17)!}{(19)!}+\binom{10}{3}2^3\:\frac{(16)!}{(19)!}-\cdots-\binom{10}{10}2^{10}\:\frac{9!}{(19)!}\approx0.6605$$<p>这样，所有的妻子都不坐在她丈夫旁边的概率大约为 0.3395.</p>
+<ul>
+<li>对于此类“没有”问题，可以先算“至少概率”</li>
+</ul>
+<h2 id="游程问题">游程问题
+</h2><p>假设某个赛季过后，田径队的成绩为$n$次赢$m$次输. 通过研究这个赢和输的序列，希望得到更多关于田径队的潜力的信息.一种办法是研究赢和输的游程的规律。所谓赢的一个游程就是指赢的连续序列.例如，如果$n=10,m=6$,这个序列为WWLLWWWLWLLLWWWW,其中 W为赢，L为输，那么这里有4个赢的游程，第一个游程的大小为2，第二个游程的大小为3，第三个游程的大小为1，第四个游程的大小为4.
+现在假定这个球队有$n$次赢，$m$次输. 假定所有的($n+m)!/(n!m!)=\binom{n+m}n$种次序是等可能的，我们希望求出球队输赢的序列具有$r$个游程的概率.为此，考虑满足条件$x_1+\cdotp\cdotp\cdotp+x_r=n$ 的正整数解$x_1,\cdotp\cdotp\cdotp,x_r$所组成的向量. 现在我们观察，有多少个输赢序列满足如下条件：(i)具有$r$个游程，(ii)第一个游程的大小为$x_1,\cdots$,第$r$个游程的大小为$x_r.$为此，我们令$y_1$为第一个赢的游程以前输的次数，$y_2$为第一个赢的游程与第二个赢$的游程之间输的次数，&hellip;,y_{r+1}为最后一个赢的游程后面输的次数，那么这些 y_i 满足$
+$y_1+ y_2+ \cdots + y_{r+ 1}= m$ $y_1\geqslant 0, y_{r+ 1}\geqslant 0, y_i&gt; 0, i= 2, \cdots , r$
+这些$x_i,y_i$与相应的序列可以形象地表示为</p>
+$$\overline{y}_1=y_1+1,\quad\overline{y}_i=y_i,i=2,\cdots,r,\quad\overline{y}_{r+1}=y_{r+1}+1$$<p>输序列的个数变成满足下列条件</p>
+$$\overline{y}_1+\overline{y}_2+\cdots+\overline{y}_{r+1}=m+2$$<p>
+的正整数向量($\overline{y}<em>1,&hellip;,\overline{y}</em>{r+1}$)的个数. 根据第 l 章的命题 6.1,这个方程的正整数解的个数</p>
+<p>为$\binom{m+1}r$,这样，具有 $r$ 个游程的输赢序列的个数为$\binom{m+1}r$乘以$x_1+\cdots+x_r=n$ 的正整数解的个数. 再次利用第 l 章的命题 6.1,可知具有$r$个赢的游程的输赢序列的个数为
+$\binom{m+1}r\binom{n-1}{r-1}.$ 由于我们假定$\binom{n+m}n$个输赢序列是等可能的，故</p>
+<p>$P(${赢的游程的个数为 }$r} ) = \binom m{+ }1r\binom {n- 1}{r- 1}/ \binom {m+ n}n$ $r\geqslant 1$</p>
+<ul>
+<li>用方程组解游程问题，列方程组可以参考插序问题</li>
+</ul>
+<p>例 5c 设有一个独立重复试验序列，每次试验成功的概率为 p,失败的概率为 $q=1$一
+$p.$ 计算长度为 $n$ 的成功游程先于长度为$m$ 的失败游程出现的概率.
+解 记$E$为事件“长度为 $n$ 的成功游程先于长度为 $m$ 的失败游程出现”.以第一次试验
+结果为条件，得到</p>
+<p>(5.2)</p>
+$$P(E)=pP(E\mid H)+qP(E\mid H^{\circ})$$$$P(E\:|\:H)=P(E\:|\:FH)P(F\:|\:H)+P(E\:|\:F^{c}H)P(F^{c}\:|\:H)$$$$P(E|F^{\mathrm{c}}H)=P(E|H^{\mathrm{c}})$$<p>
+(5.4)</p>
+$$P(E|H)=p^{n-1}+(1-p^{n-1})P(E|H^{c})$$$$P(E\big|H^{\circ})=P(E\big|GH^{\circ})P(G\big|H^{\circ})+P(E\big|G^{\circ}H^{\circ})P(G^{\circ}\big|H^{\circ})$$$$P(E|G^cH^c)=P(E|H)$$$$P(E|H^{\mathrm{c}})=(1-q^{m-1})P(E|H)$$<p>(5.6)</p>
+<p>求解方程(5.4)和方程(5.6)可得</p>
+$$P(E\mid H)=\frac{p^{n-1}}{p^{n-1}+q^{m-1}-p^{n-1}q^{m-1}}$$$$P(E\mid H^{\mathrm{c}})=\frac{(1-q^{m-1})p^{n-1}}{p^{n-1}+.q^{m-1}-p^{n-1}q^{m-1}}$$<p>最后得到</p>
+<p>(5.7)</p>
+$$\begin{aligned}P(E)&=\:pP\left(E\left|H\right.\right)+qP\left(E\left|H^{c}\right.\right)=\frac{p^{n}+qp^{n-1}\left(1-q^{m-1}\right)}{p^{n-1}+q^{m-1}-p^{n-1}q^{m-1}}\\&=\frac{p^{n-1}\left(1-q^{m}\right)}{p^{n-1}+q^{m-1}-p^{n-1}q^{m-1}}\\\end{aligned}$$$$=\frac{q^{m-1}\left(1-p^n\right)}{q^{m-1}+p^{n-1}-q^{m-1}p^{n-1}}$$<p>(5.8)</p>
+<p>因为式(5.7)和式(5.8)之和为 1,所以长度为$n$的成功游程和长度为$m$的失败游程终有一
+个会出现.
+作为式(5.7)的一个具体例子，我们注意，在掷一枚均匀的硬币试验中，长度为2 的正面游程先于长度为 3 的反面游程出现的概率为 7/10. 长度为 2 的正面游程先于长度为 4 的反面游程出现的概率为5/6.
+冒</p>
+<h2 id="一个事件出现在另外一个事件之前">一个事件出现在另外一个事件之前
+</h2><p>进行独立重复试验，每次试验为掷两枚均匀的骰子，每次试验的结果是两枚骰
+子点数之和，那么“和为 5”出现在“和为 7”之前的概率是多少？
+解 令$E_n$表示事件“前$n-1$次试验中，结果 5 和 7 都不出现，而第$n$次试验出现 5”,
+那么所求概率为</p>
+$$P\Big(\bigcup_{n=1}^\infty E_n\Big)\:=\:\sum_{n=1}^\infty P(E_n)$$<p>因为任一次试验中，$P(\langle$和为 5})=4/36,且$P({$和为 7}))=6/36,这样，利用试验的独立
+性可以得到</p>
+$$P(E_n)=\left(1-\frac{10}{36}\right)^{n-1}\times\frac{4}{36}$$<p>因此，</p>
+$$P\Big(\bigcup_{n=1}^\infty E_n\Big)\:=\:\frac{1}{9}\sum_{n=1}^\infty\Big(\frac{13}{18}\Big)^{n-1}\:=\:\frac{1}{9}\times\frac{1}{1-13/18}=\frac{2}{5}$$$$P(E)=P(E|F)P(F)+P(E|G)P(G)+P(E|H)P(H)$$<p>然而，</p>
+$$P(E\:|\:F)=1\quad P(E\:|\:G)=0\quad P(E\:|\:H)=P(E)$$$$P(E)=\frac19+P(E)\:\frac{13}{18}$$<ul>
+<li>第一次出现5+第一次不出现5和7，重新开始</li>
+</ul>
+<p>或者</p>
+$$P(E)=\frac25$$<p>读者可能会发现答案很直观，因为既然 5出现的概率为 4/36 而 7 出现的概率为 6/36,
+那么直观地看，5出现在7之前的比例为4ः6,因此概率就为 4/10,事实上的确如此.
+这说明了如果$E$和$F$是一次试验中的两个互不相容事件，那么在连续试验时，事件$E$
+在事件$F$之前发生的概率为</p>
+$$\frac{P(E)}{P(E)+P(F)}$$<h2 id="优惠券问题">优惠券问题
+</h2><p>有$n$种类型的优惠券，某人收集到第$i$种优惠券的概率为$p_i,\sum p_i=1.$假定各种券的收集是相互独立的.假设这个人收集了k张优惠券，令$A_i$ 表示事件“其中至少有一张第$i$种优惠券”,对于$i\neq j$,计算
+(a)$P(A_{i});($b$)P(A_{i}\cup A_{j});($c$)P(A_{i}\mid A_{j})$
+（a)同(b)类似
+$\begin{aligned}P(A_{i}\bigcup A_{j})&amp;=1-P\left((A_{i}\bigcup A_{j})^{\mathrm{c}}\right)\&amp;=1-P(\langle\text{既没有第 }i\text{ 种优惠券},\text{也没有第 }j\text{ 种优惠券}\rangle)\&amp;=1-(1-p_i-p_j)^k\end{aligned}$
+为了计算$P(A_i\mid A_j)$,我们利用等式</p>
+$$P(A_i\cup A_j)=P(A_i)+P(A_j)-P(A_iA_j)$$<p>其中，利用(a)和(b),可以得到</p>
+$$P(A_{i}A_{j})=1-(1-p_{i})^{k}+1-(1-p_{j})^{k}-[1-(1-p_{i}-p_{j})^{k}]\\=1-(1-p_{i})^{k}-(1-p_{j})^{k}+(1-p_{i}-p_{j})^{k}$$<p>这样，</p>
+$$P(A_i\:|\:A_j\:)=\frac{P(A_iA_j)}{P(A_j\:)}=\frac{1-(1-p_i)^k-(1-p_j)^k+(1-p_i-p_j)^k}{1-(1-p_j)^k}$$<h3 id="收集完n种优惠券时优惠券总张数n">收集完N种优惠券时优惠券总张数n
+</h3><ul>
+<li>先计算前n张优惠券中没有收集完N种优惠券的概率</li>
+</ul>
+<p>设想有 N 种不同的优惠券，某人每次收集一张，且每种优惠券都以相同的可能性被收集到，并假定各次收集是相互独立的. 假设某人想收集全一套 N 种优惠券，那么他所收集到的优惠券的总张数是一个随机变量，记为$T.$在计算$P\langle T=n\rangle$,我们先考虑$T$ 大于$n$的概率. 为此，先固定$n$,并且分别定义事件$A_1,A_2,\cdots,A_N$,其中$A_j(j=1,\cdots$, $N$)表示“前$n$张优惠券里没有第$j$种优惠券”.于是</p>
+$$\begin{aligned}P\{T>n\}&=P\Big(\bigcup_{j=1}^{N}A_{j}\Big)\:=\:\sum_{j}P(A_{j})\:-\:\sum_{j_{1}<j_{2}}P(A_{j_{1}}A_{j_{2}})\:+\:\cdots\\&+(-1)^{k+1}\:\sum_{j_{1}<j_{2}<\cdots<j_{k}}P(A_{j_{1}}A_{j_{2}}\cdots A_{j_{k}})\:+\cdots+(-1)^{N+1}P(A_{1}A_{2}\cdots A_{N})\end{aligned}$$$$P(A_j)=\left(\frac{N-1}{N}\right)^n$$<p>而当前$n$张优惠券里既没有第$j_\text{1}$种优惠券，也没有第$j_2$种优惠券时，$A_{j_1}A_{j_2}$发生，因此，
+再次利用独立性，得到</p>
+$$P(A_{j_1}A_{j_2})=\left(\frac{N-2}{N}\right)^n$$<p>类似地，可以得到</p>
+$$P(A_{j_1}A_{j_2}\cdots A_{j_k})\:=\:\left(\frac{N-k}{N}\right)^n$$$$P\{\:T>n\}=\:N\Big(\frac{N-1}{N}\Big)^{n}-\binom{N}{2}\Big(\frac{N-2}{N}\Big)^{n}+\binom{N}{3}\Big(\frac{N-3}{N}\Big)^{n}-\cdots\\+(-1)^N\binom N{N-1}\left(\frac1N\right)^n=\sum_{i=1}^{N-1}\binom Ni\left(\frac{N-i}N\right)^n(-1)^{i+1}$$<p>(1.1)</p>
+<p>$T$等于$n$的概率可利用式(1.1)和下式得到</p>
+$$P\langle T>n-1\rangle=P\langle T=n\rangle+P\langle T>n\rangle $$<p>或，等价地</p>
+$$P\{T=n\}=P\{T>n-1\}-P\{T>n\}$$<h2 id="点数问题">点数问题
+</h2>$$P_{n,m}\:=\:pP_{n-1,m}+(\:1-p\:)P_{n,m-1}\:,\quad n\geqslant1\:,m\geqslant1$$$$\binom{m+n-1}kp^k\left(1-p\right)^{m+n-1-k}$$<p>我们可得所求的$n$次成功出现在$m$次失败之前的概率为</p>
+$$P_{n,m}=\sum_{k=n}^{m+n-1}\binom{m+n-1}kp^k(1-p)^{m+n-1-k}$$<ul>
+<li>在m+n-1前至少有n次成功，求和</li>
+</ul>
+$$Q(E_1\:\bigcup\:E_2)=Q(E_1)+Q(E_2)-Q(E_1E_2)$$<p>或者等价地，</p>
+$$P(E_1\:\bigcup\:E_2\:|\:F)\:=\:P(E_1\:|\:F)+P(E_2\:|\:F)-P(E_1E_2\:|\:F)$$<p>而且，如果我们定义条件概率$Q(E_1\mid E_2$)为$Q(E_1\mid E_2)=Q(E_1E_2)/Q(E_2)$,那么根据式(3.1)</p>
+<p>可得</p>
+$$Q(E_1)=Q(E_1\mid E_2)Q(E_2)+Q(E_1\mid E_2^c)Q(E_2^c)$$<p>(5.1)</p>
+<p>由于</p>
+$$Q(E_1\mid E_2)=\frac{Q(E_1E_2)}{Q(E_2)}=\frac{P(E_1E_2\mid F)}{P(E_2\mid F)}=\frac{P(E_1E_2F)/P(F)}{P(E_2F)/P(F)}=P(E_1\mid E_2F)$$<p>所以式(5.1)等价于</p>
+$$P(E_1\mid F)=P(E_1\mid E_2F)P(E_2\mid F)+P(E_1\mid E_2^cF)P(E_2^c\mid F)$$$$P(H\mid F_n)=\sum_{i=0}^kP(H\mid F_nC_i)P(C_i\mid F_n)$$<p>
+现在，已知取出的是第$i$枚硬币，假设各次抛掷的结果条件独立是合理的，每次出现
+正面朝上的概率为$i/k.$ 于是有</p>
+$$P(H\mid F_nC_i)=P(H\mid C_i)=\frac{i}{k}$$<p>而且，</p>
+$$P(C_{i}\mid F_{n})=\frac{P(C_{i}F_{n})}{P(F_{n})}=\frac{P(F_{n}\mid C_{i})P(C_{i})}{\sum_{j=0}^{k}P(F_{n}\mid C_{j})P(C_{j})}=\frac{(i/k)^{n}\bigl[1/(k+1)\bigr]}{\sum_{j=0}^{k}(j/k)^{n}\bigl[1/(k+1)\bigr]}$$<p>因此</p>
+$$P(H\mid F_n)=\frac{\sum_{i=0}^k(i/k)^{n+1}}{\sum_{j=0}^k(j/k)^n}$$<p>但当k很大时，可利用积分近似</p>
+$$\frac{1}{k}\sum_{i=0}^{k}\left(\frac{i}{k}\right)^{n+1}\approx\int_{0}^{1}x^{n+1}\:\mathrm{d}x=\frac{1}{n+2}$$$$\frac1k\sum_{j=0}^k\left(\frac jk\right)^n\approx\int_0^1x^n\mathrm{d}x=\frac1{n+1}$$$$P(H\mid F_n)\approx\frac{n+1}{n+2}$$<h2 id="无放回取出球中标号最大">无放回取出球中标号最大
+</h2>$$P\{X=i\}=\frac{\binom{i-1}{3}}{\binom{20}{4}}\quad i=4,\cdotp\cdotp\cdotp,20$$<h2 id="求期望最大化">求期望最大化
+</h2><p>例 4b 某种季节性销售的产品，如果每卖出一件商品，可获得纯利润$b$元，如果季节末仍未卖出，则每件商品将损失$\iota$元.设某百货商店在某个季节的销售量(即卖出商品的件数)是一个随机变量，其分布列为 $p( i) , i\geqslant 0.$ 商店需要在销售旺季前囤货，请问它要囤多少件才能使得期望利润最大化
+解 令$X$表示季节销售量，若囤货数量为 s,销售利润记为$P(s),P(s)$可表示为</p>
+$$\begin{aligned}P(s)&=bX-(s-X)l&&\text{若 }X\leqslant s\\&=sb&&\text{若 }X>s\end{aligned}$$<p>因此，期望利润为</p>
+$$\begin{aligned}&E[P(s)]&&=\sum_{i=0}^{s}\bigl[bi-(s-i)l\bigr]p(i)+\sum_{i=i+1}^{\infty}s\:bp\left(i\right)\\&&&=(b+l)\sum_{i=0}^{s}ip\left(i\right)-sl\sum_{i=0}^{s}p\left(i\right)+sb\left[1-\sum_{i=0}^{s}p\left(i\right)\right]\\&&&=(b+l)\sum_{i=0}^{s}ip\left(i\right)-(b+l)s\sum_{i=0}^{s}p\left(i\right)+sb\\&&&=sb+(b+l)\sum_{i=0}^{s}\left(i-s\right)p\left(i\right)\\&\text{故}\end{aligned}$$$$\begin{aligned}&\text{时,期至利润为}\\&E[P(s+1)]=b(s+1)+(b+l)\sum_{i=0}^{s+1}(i-s-1)p(i)\\&=b(s+1)+(b+l)\sum_{i=0}^{s}(i-s-1)p(i)\end{aligned}$$<p>因此，</p>
+$$\mathbb{C}[P(s+1)]-\mathbb{E}[P(s)]=b-(b+l)\sum_{i=0}^{s}p(i)$$<p>
+只要下列条件满足，囤货数量为 s+1 得到的期望利润就会大于国货数量为 s 的情形：</p>
+$$\sum_{i=0}^sp(i)<\frac b{b+l}$$<p>(4.1)</p>
+<p>由于式(4.1)的左边随着 s 的增加而增加，而右边为一常数，因此以上不等式对所有的 s &lt;
+$s^{\text{“总是成立的，其中 }s^{\text{“为满足不等式(4.1)的最大值}}}$.因为
+$E[P(0)]&lt;\cdots&lt;E[P(s^{\prime})]&lt;E[P(s^{\prime}+1)]&gt;E[P(s^{\prime}+2)]&gt;\cdots$
+这样，囤货数量为 s&rsquo;+1 时将会使得期望利润达到最大</p>
+<h2 id="二项分布近似于泊松分布">二项分布近似于泊松分布
+</h2><p>泊松分布在各领域中有非常广泛的应用，这是由于当$n$足够大，$p$充分小，而使得$np$ 保持适当的大小时，参数为($n$,$p$)的二项随机变量可近似地看做是参数为$\lambda=np$的泊松随机变量.为证明这点，假设$X$是一个服从参数为($n,p$)的二项随机变量，并记$\lambda=np$, 那么</p>
+$$P\langle X=i\rangle=\frac{n!}{(n-i)!i!}p^i(1-p)^{n-i}=\frac{n!}{(n-i)!i!}\Big(\frac{\lambda}{n}\Big)^i\Big(1-\frac{\lambda}{n}\Big)^{n-i}$$$$=\frac{n(n-1)\cdots(n-i+1)}{n^i}\frac{\lambda^i}{i!}\:\frac{(1-\lambda/n)^n}{(1-\lambda/n)^i}$$<p>现在，对充分大的 $n$ 和适当的$\lambda$,有</p>
+$$\left(1-\frac\lambda n\right)^n\approx\mathrm{e}^{-\lambda}\:,\quad\frac{n(n-1)\cdots(n-i+1)}{n^i}\approx1\:,\quad\left(1-\frac\lambda n\right)^i\approx1$$<p>因此，有</p>
+$$P\{X=i\}\approx\mathrm{e}^{-\lambda}\frac{\lambda^i}{i!}$$<p>换句话说，独立重复地进行$n$次试验，每次成功的概率为$p$,当$n$充分大，而$p$足够小， 使得$np$保持适当的话，那么成功的次数近似地服从参数为$\lambda=np$的泊松分布，这个$\lambda$值(以后将要证明这就是成功次数的期望值)通常凭经验确定.</p>
+<h2 id="负二项分布第r次成功发生在m次失败之前">负二项分布：第r次成功发生在m次失败之前
+</h2><ul>
+<li>r次成功发生在r+m-1次前，第r+m次必然是失败</li>
+</ul>
+<p>独立重复试验中，设每次试验成功的概率为$p$,求第$r$次成功发生在$m$次失败
+之前的概率.
+解 注意到当且仅当第$r$次成功的时刻不晚于第($r+m-1)$次试验，才能保证在$m$次失败之前出现第$r$次成功.这是因为，如果在($r+m-1$)次试验之前或此时已经有$r$次成功发生，那么在$m$次失败之前必然有$r$次成功，反之也成立.因此，利用式(8.2),得所求概率</p>
+$$\sum_{n=r}^{r+m-1}\binom{n-1}{r-1}p^r(1-p)^{n-r}$$<h2 id="巴拿赫火柴问题">巴拿赫火柴问题
+</h2><ul>
+<li>总共取了多少次口袋？第几次抽取火柴时发现时空的？</li>
+</ul>
+<p>某个抽烟的数学家总是随身带着两盒火柴，一盒放在左边口袋，另一盒放在右边口袋.每次他需要火柴时，都是随机地从两个口袋中任取一盒，并取出其中一根. 如果假设开始时两盒中都有 N 根火柴，那么在他第一次发现其中有一个盒子已经空了的时候，另一盒中恰好有 $k(k=0,1,2,\cdotp\cdotp\cdotp,N)$根火柴的概率有多大？
+解 设$E$表示事件“数学家第一次发现右边口袋里的火柴盒是空的，而此时左边口袋里的火柴盒里还有反根火柴”,这个事件发生当且仅当第($N+1+N-k$)次抽取火柴时正好取中的是右边口袋，而且是第(N+1)次取中右边口袋.因此，利用式(8.2)(其中$p=1/2$, $r=N+1$且$n=2N-k+1$),有</p>
+$$P(E)\:=\:\binom{2N-k}{N}\Big(\frac{1}{2}\Big)^{2N-k+1}$$<p>又因为事件“第一次发现左边口袋里的火柴盒是空的，而此时右边口袋火柴盒里恰好还有$k$
+根火柴”与$E$ 是等概率的，而这两个事件又是互不相容的，因此我们要求的概率为</p>
+$$2P(E)=\binom{2N-k}N\left(\frac12\right)^{2N-k}$$<h2 id="超几何分布近似二项分布">超几何分布近似二项分布
+</h2><p>从$N$个球(白球比例为$p=m/N$)里，无放回随机抽取$n$个球，那么取中的白球数为超几何随机变量. 如果对于$n$来说，$m$和 N 很大的话，那么有放回和无放回取球没什么差别，因为当$m$和$N$很大时，不管前面取了哪个球，接下来的取到的是白球的概率仍然近似等于$p.$换言之，直觉认为，当$m$和$N$相比$n$很大时，$X$的分布列应该近似等于参数为$(n,p)$的二项随机变量的分布列.为了证明这个直觉，注意，如果 $X$ 是超几何随机变量， 那么对$i\leqslant n$,有</p>
+$$\begin{aligned}P\langle X=i\rangle&=\frac{\binom mi\binom{N-m}{n-i}}{\binom Nn}=\frac{m!}{(m-i)!i!}\cdot\frac{(N-m)!}{(N-m-n+i)!(n-i)!}\cdot\frac{(N-n)!n!}{N!}\\&=\binom ni\frac mN\cdot\frac{m-1}{N-1}\cdotp\cdotp\cdotp\frac{m-i+1}{N-i+1}\cdot\frac{N-m}{N-i}\cdot\frac{N-m-1}{N-i-1}\cdotp\cdotp\cdotp\frac{N-m-(n-i-1)}{N-i-(n-i-1)}\\&\approx\binom nip^i(1-p)^{n-i}\end{aligned}$$<p>其中，最后一个等式成立的条件是$p=m/N$且$m$和$N$相对$n$和$i$来说都很大.</p>
+<h2 id="二项分布的正态近似">二项分布的正态近似
+</h2><p>概率论中一个重要的结论就是棣莫弗-拉普拉斯极限定理，它表明当$n$充分大时，参数为(n, $p$)的二项随机变量可以由正态随机变量来近似，其中正态随机变量的期望和方差与二项随机变量的期望和方差相同. 棣莫弗在 1733 年证明了 $p=\frac{1}{2}$的特殊情形.之后，在1812年，拉普拉斯对一般的$p$进行了证明. 更一般的叙述是：我们可以如下将二项随机变量标准化，先减去其均值 $np$,然后再除以标准差$\sqrt{np(1-p)}$,那么经过标准化后的随机变量(均值为 0, 方差为 1)的分布函数当 $n\to\infty$时收敛到标准正态分布函数.</p>
+<h3 id="棣莫弗-拉普拉斯极限定理">棣莫弗-拉普拉斯极限定理
+</h3><p>在$n$次独立重复试验中，设每次成功的概率为$p$, 记 成 功 的 总 次 数 为 $S_n$,那么对任
+意 $a&lt;b$ 有：当 $n\to\infty$时，</p>
+$$P\Big|a\leqslant\frac{S_n-np}{\sqrt{np(1-p)}}\leqslant b\Big|\to\Phi(b)-\Phi(a)$$<h2 id="随机变量函数的分布">随机变量函数的分布
+</h2><p>设$X$为一连续型随机变量，密度函数为$f_{x}.$ 设 $g(x)$为一严格单调(递增或
+递减)且可微(因此必连续)的函数，那么随机变量$Y=g(X)$的密度函数为</p>
+$$f_Y(y)=\begin{cases}f_X\bigl[g^{-1}(y)\bigr]\biggl|\frac{\mathrm{d}}{\mathrm{d}y}g^{-1}(y)\biggr|\\\\0\end{cases}$$<p>如果存在某 $x$,使得 $y=g(x)$
+如果对一切$x,y\neq g(x)$</p>
+$$F_Y(y)=P\langle g(X)\leqslant y\rangle=P\langle X\leqslant g^{-1}(y)\rangle=F_X(g^{-1}(y))$$<p>
+求导可得</p>
+$$f_Y(y)=f_X(g^{-1}(y))\:\frac{\mathrm{d}}{\mathrm{d}y}g^{-1}(y)$$<p>因为 $g^{-1}(y)$单调非降，所以导数非负，这与定理 7.1 所述一致.
+若对任意$x$都有$y\neq g(x)$,那么$F_Y(y)$等于0或 1,无论$F_Y(y)=0$还是$F_Y(y)=1$,
+均有$f_Y(y)=0.$</p>
+<h2 id="对数正态分布">对数正态分布
+</h2><p>如果$X$是均值为$\mu$和方差为$\sigma^{2}$的正态随机变量，那么随机变量
+$Y=\mathrm{e}^x$
+就称为参数为$\mu$和$\sigma^2$的对数正态随机变量.因此，如果$\ln(Y)$服从正态分布.则称随机变量$Y$服从对数正态分布. 对数正态随机变量常用于描述一天结束时的证券价格与前一天结束时价格的比率的分布. 也就是说，设$S_n$为第$n$天结束时某证券的价格，那么通常假定$\frac{S_n}{S_{n-1}}$服从对数正态分布，即 $X\equiv\ln(\frac{S_n}{S_{n-1}})$服从正态分布.因此，假定$\frac{S_n}{S_{n-1}}$为对数正态随机</p>
+<p>变量意味着假定</p>
+$$S_n=S_{n-1}\operatorname{e}^X$$<p>其中 X 服从正态分布.
+现在我们利用定理 7.1 来推导参数为$\mu$和 $\sigma ^{2}$的对数正态随机变量 Y 的分布密度. 因为$Y=\mathrm{e}^{x},X$服从均值为$\mu$ 和方差为$\sigma^2$ 的正态分布，我们需要确定函数 $g(x)=\mathrm{e}^x$ 的反函数. 因为</p>
+<p>两边取对数得</p>
+$$y=g(g^{-1}(y))=\mathrm{e}^{g^{-1}}(y)$$$$g^{-1}\left(y\right)=\ln(y)$$<p>利用定理 7.1 和$\frac{\mathrm{d}}{\mathrm{d}y}g^{-1}(y)=1/y$ 可得密度函数</p>
+$$f_Y(y)=\frac{1}{\sqrt{2\pi}\sigma y}\mathrm{exp}\{-(\ln(y)-\mu)^2/2\sigma^2\}\quad y>0$$
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Jan 05, 2025 11:11 UTC
+        </span>
+    </section></footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Frederick2313072/utterances-comments"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Frederick
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+  body {
+    background: url(https://Frederick2313072.github.io/background/background.jpg) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+    </body>
+</html>
