@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Frederick</copyright>
-        <lastBuildDate>Fri, 24 Jan 2025 14:03:28 +0000</lastBuildDate><atom:link href="https://Frederick2313072.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 24 Jan 2025 14:06:35 +0000</lastBuildDate><atom:link href="https://Frederick2313072.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>脚本小子</title>
         <link>https://Frederick2313072.github.io/p/%E8%84%9A%E6%9C%AC%E5%B0%8F%E5%AD%90/</link>
         <pubDate>Mon, 20 Jan 2025 00:00:00 +0000</pubDate>
@@ -730,6 +730,823 @@
 &lt;li&gt;发现线索，让我们找到 nibbles 的有效管理员密码&lt;/li&gt;
 &lt;/ul&gt;
 </description>
+        </item>
+        <item>
+        <title>nmap基础</title>
+        <link>https://Frederick2313072.github.io/p/nmap%E5%9F%BA%E7%A1%80/</link>
+        <pubDate>Sun, 12 Jan 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Frederick2313072.github.io/p/nmap%E5%9F%BA%E7%A1%80/</guid>
+        <description>&lt;ul&gt;
+&lt;li&gt;TCP扫描，默认常用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt; sudo nmap -sS localhost
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;发现主机&#34;&gt;发现主机
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d&amp;#34; &amp;#34; -f5
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.0/24&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;目标网络范围。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sn&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用端口扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-oA tnet&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;以名称“tnet”开头的所有格式存储结果。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;Firewall and IDS Evasion&lt;/code&gt;此扫描方法仅在主机的防火墙允许的情况下才有效&lt;/p&gt;
+&lt;p&gt;禁用端口扫描，则会启用ICMP扫描&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;扫描IP列表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;cat hosts.lst
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这可能意味着其他主机由于其防火墙配置而忽略了默认的&lt;strong&gt;ICMP 回应请求&lt;/strong&gt;&lt;code&gt;Nmap&lt;/code&gt;。由于没有收到响应，它会将这些主机标记为非活动状态&lt;/p&gt;
+&lt;p&gt;对预定义列表使用相同的扫描技术&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d&amp;#34; &amp;#34; -f5
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sn&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用端口扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-oA tnet&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;以名称“tnet”开头的所有格式存储结果。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-iL&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;对提供的“hosts.lst”列表中的目标执行定义的扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;为了确保发送了 ICMP 回显请求，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ICMP 回显请求 ( &lt;code&gt;-Pn&lt;/code&gt;)、DNS 解析 ( &lt;code&gt;-n&lt;/code&gt;) 和 ARP ping 扫描 ( &lt;code&gt;--disable-arp-ping&lt;/code&gt;)。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d&amp;#34; &amp;#34; -f5
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.18&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;对目标执行定义的扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sn&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用端口扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-oA host&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;以名称“host”开头的所有格式存储结果。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-PE&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;使用“ICMP Echo 请求”对目标执行 ping 扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示所有发送和接收的数据包&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.18 -sn -oA host -PE --reason 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.18&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;对目标执行定义的扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sn&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用端口扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-oA host&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;以名称“host”开头的所有格式存储结果。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-PE&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;使用“ICMP Echo 请求”对目标执行 ping 扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--reason&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示特定结果的原因。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;主机和端口扫描&#34;&gt;主机和端口扫描
+&lt;/h2&gt;&lt;p&gt;在发现目标还活着之后，我们希望更准确地了解系统。我们需要的信息包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;开放端口及其服务&lt;/li&gt;
+&lt;li&gt;服务版本&lt;/li&gt;
+&lt;li&gt;服务提供的信息&lt;/li&gt;
+&lt;li&gt;操作系统&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;扫描端口六种情况：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;状态&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;open&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;这表示已建立与扫描端口的连接。这些连接可以是&lt;strong&gt;TCP 连接&lt;/strong&gt;、&lt;strong&gt;UDP 数据报&lt;/strong&gt;以及&lt;strong&gt;SCTP 关联&lt;/strong&gt;。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;closed&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;当端口显示为关闭时，TCP 协议会指示我们收到的数据包包含一个&lt;code&gt;RST&lt;/code&gt;标志。这种扫描方法还可用于确定我们的目标是否还活着。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;filtered&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;Nmap 无法正确识别扫描的端口是打开还是关闭，因为目标没有返回该端口的响应，或者我们从目标收到错误代码。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;unfiltered&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;端口的这种状态仅在&lt;strong&gt;TCP-ACK&lt;/strong&gt;扫描期间发生，表示该端口可访问，但无法确定它是开放还是关闭。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;`open&lt;/td&gt;
+          &lt;td&gt;filtered`&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;`closed&lt;/td&gt;
+          &lt;td&gt;filtered`&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;扫描前-10-个-tcp-端口&#34;&gt;扫描前 10 个 TCP 端口
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 --top-ports=10 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--top-ports=10&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描已被定义为最频繁的指定顶级端口。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;nmap跟踪数据包&#34;&gt;Nmap——跟踪数据包
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-p 21&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;仅扫描指定端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示所有发送和接收的数据包。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-n&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 DNS 解析。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--disable-arp-ping&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 ARP ping。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;信息&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;SENT (0.0429s)&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;表示Nmap的SENT操作，向目标发送数据包。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;TCP&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示用于与目标端口交互的协议。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.10.14.2:63090 &amp;gt;&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;代表我们的 IPv4 地址和源端口，Nmap 将使用它们来发送数据包。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28:21&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示目标 IPv4 地址和目标端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;S&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;发送的TCP数据包的SYN标志。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;ttl=56 id=57322 iplen=44 seq=1699105818 win=1024 mss 1460&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;附加的 TCP 标头参数。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;连接扫描&#34;&gt;连接扫描
+&lt;/h4&gt;&lt;p&gt;Nmap &lt;a class=&#34;link&#34; href=&#34;https://nmap.org/book/scan-methods-connect-scan.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;TCP 连接扫描&lt;/a&gt;( &lt;code&gt;-sT&lt;/code&gt;) 使用 TCP 三次握手来确定目标主机上的特定端口是打开还是关闭。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt; sudo nmap 10.129.2.28 -p 443 --packet-trace --disable-arp-ping -Pn -n --reason -sT 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;该&lt;code&gt;Connect&lt;/code&gt;扫描（也称为完整 TCP 连接扫描）非常准确，因为它完成了三次 TCP 握手，使我们能够确定端口的确切状态（打开、关闭或过滤）。但是，它并不是最隐蔽的。&lt;/p&gt;
+&lt;h3 id=&#34;过滤端口&#34;&gt;过滤端口
+&lt;/h3&gt;&lt;p&gt;防火墙&lt;code&gt;drops&lt;/code&gt;会扫描我们发送的 TCP 数据包。因此，我们扫描 TCP 端口&lt;strong&gt;139&lt;/strong&gt;，该端口已显示为已过滤。为了能够跟踪我们发送的数据包的处理方式，我们再次停用 ICMP 回显请求 ( &lt;code&gt;-Pn&lt;/code&gt;)、DNS 解析 ( &lt;code&gt;-n&lt;/code&gt;) 和 ARP ping 扫描 ( &lt;code&gt;--disable-arp-ping&lt;/code&gt;)。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;发现开放的-udp-端口&#34;&gt;发现开放的 UDP 端口
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -F -sU
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-F&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描前 100 个端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sU&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;执行 UDP 扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;一些系统管理员有时会忘记过滤除 TCP 端口之外的 UDP 端口，但UDP比TCP慢的多&lt;/p&gt;
+&lt;p&gt;这样做的另一个缺点是，我们经常得不到响应，因为&lt;code&gt;Nmap&lt;/code&gt;向扫描的 UDP 端口发送空数据报，并且我们没有收到任何响应。所以我们无法确定 UDP 数据包是否已经到达。如果 UDP 端口为&lt;code&gt;open&lt;/code&gt;，则只有在应用程序配置为这样做的情况下，我们才会收到响应。&lt;/p&gt;
+&lt;h4 id=&#34;版本扫描&#34;&gt;版本扫描
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason  -sV
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-Pn&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 ICMP Echo 请求。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-n&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 DNS 解析。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--disable-arp-ping&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 ARP ping。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示所有发送和接收的数据包。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-p 445&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;仅扫描指定端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--reason&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示端口处于特定状态的原因。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sV&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;执行服务扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;扫描端口的另一种方便方法是&lt;code&gt;-sV&lt;/code&gt;使用选项从开放端口获取其他可用信息。此方法可以识别版本、服务名称和有关目标的详细信息。&lt;/p&gt;
+&lt;h2 id=&#34;保存结果&#34;&gt;保存结果
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Nmap&lt;/code&gt;可以以 3 种不同的格式保存结果。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;正常输出（&lt;code&gt;-oN&lt;/code&gt;）&lt;code&gt;.nmap&lt;/code&gt;文件扩展名&lt;/li&gt;
+&lt;li&gt;带有文件扩展名的Grepable 输出（&lt;code&gt;-oG&lt;/code&gt;）&lt;code&gt;.gnmap&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;XML 输出 ( &lt;code&gt;-oX&lt;/code&gt;)，&lt;code&gt;.xml&lt;/code&gt;文件扩展名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我们还可以指定选项（&lt;code&gt;-oA&lt;/code&gt;）以所有格式保存结果。命令可能如下所示：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p- -oA target
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-p-&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描所有端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-oA target&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;以所有格式保存结果，每个文件的名称以“目标”开头。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;target.gnmap target.xml  target.nmap
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id=&#34;转换格式&#34;&gt;转换格式
+&lt;/h3&gt;&lt;p&gt;要将存储的结果从 XML 格式转换为 HTML，我们可以使用该工具&lt;code&gt;xsltproc&lt;/code&gt;。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;xsltproc target.xml -o target.html
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;服务枚举&#34;&gt;服务枚举
+&lt;/h2&gt;&lt;h3 id=&#34;服务版本检测&#34;&gt;服务版本检测
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p- -sV
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-p-&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描所有端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sV&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;对指定端口执行服务版本检测。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;增加&lt;code&gt;verbosity level&lt;/code&gt;（&lt;code&gt;-v&lt;/code&gt;/ &lt;code&gt;-vv&lt;/code&gt;），当检测到开放端口时，它将直接显示给我们&lt;code&gt;Nmap&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p- -sV -v 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-p-&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描所有端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sV&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;对指定端口执行服务版本检测。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-v&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;增加扫描的详细程度，以显示更详细的信息。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;横幅抓取&#34;&gt;横幅抓取
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;Nmap&lt;/code&gt;则尝试通过基于签名的匹配系统识别它们，但这会大大增加扫描的持续时间。&lt;code&gt;Nmap&lt;/code&gt;所呈现结果的一个缺点是自动扫描可能会遗漏一些信息，因为有时&lt;code&gt;Nmap&lt;/code&gt;不知道如何处理它。&lt;/p&gt;
+&lt;p&gt;某些服务可能不会立即提供此类信息。也可以从相应的服务中删除或操纵横幅。如果我们&lt;code&gt;manually&lt;/code&gt;使用 连接到 SMTP 服务器&lt;code&gt;nc&lt;/code&gt;，抓取横幅，并使用 拦截网络流量&lt;code&gt;tcpdump&lt;/code&gt;，我们就可以看到&lt;code&gt;Nmap&lt;/code&gt;未显示的内容。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;传输控制包Tcpdump&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo tcpdump -i eth0 host 10.10.14.2 and 10.129.2.28
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;nc&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;nc -nv 10.129.2.28 25
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h2 id=&#34;nmap脚本引擎&#34;&gt;Nmap脚本引擎
+&lt;/h2&gt;&lt;p&gt;它为我们提供了在 Lua 中创建脚本以与某些服务进行交互的可能性。这些脚本总共可分为 14 个类别：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;类别&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;auth&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;确定身份验证凭证。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;broadcast&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;通过广播来发现主机的脚本以及发现的主机可以自动添加到剩余的扫描中。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;brute&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;执行脚本，尝试通过使用凭证进行暴力破解来登录相应的服务。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;default&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;使用该&lt;code&gt;-sC&lt;/code&gt;选项执行的默认脚本。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;discovery&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;无障碍服务的评估。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;dos&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;这些脚本用于检查服务是否存在拒绝服务漏洞，由于它会损害服务，因此使用较少。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;exploit&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;此类脚本尝试利用扫描端口的已知漏洞。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;external&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;使用外部服务进行进一步处理的脚本。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;fuzzer&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;这使用脚本通过发送不同的字段来识别漏洞和意外的数据包处理，这可能需要很长时间。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;intrusive&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;可能对目标系统产生负面影响的侵入性脚本。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;malware&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;检查某些恶意软件是否感染了目标系统。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;safe&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;不执行侵入性和破坏性访问的防御脚本。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;version&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;服务检测的扩展。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;vuln&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;识别特定的漏洞。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;默认脚本 -sC&lt;/p&gt;
+&lt;p&gt;特定脚本类型&amp;ndash;script &lt;category&gt;&lt;/p&gt;
+&lt;p&gt;定义脚本 &amp;ndash;script &lt;script-name&gt;,&lt;script-name&gt;&lt;/p&gt;
+&lt;h4 id=&#34;nmap---aggressive-scan--a&#34;&gt;Nmap - Aggressive Scan -A
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p 80 -A
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;code&gt;-A&lt;/code&gt;&lt;/th&gt;
+          &lt;th&gt;执行服务检测、操作系统检测、跟踪路由并使用默认脚本扫描目标。&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;/td&gt;
+          &lt;td&gt;发现了系统上运行着哪种 Web 服务器,使用了哪种 Web 应用程序，以及网页的标题 。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;漏洞评估&#34;&gt;漏洞评估
+&lt;/h2&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;code&gt;--script vuln&lt;/code&gt;&lt;/th&gt;
+          &lt;th&gt;使用指定类别的所有相关脚本。&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;/td&gt;
+          &lt;td&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;防火墙和idsips规避&#34;&gt;防火墙和IDS/IPS规避
+&lt;/h2&gt;&lt;h4 id=&#34;heading&#34;&gt;
+&lt;/h4&gt;&lt;p&gt;TCP SYN扫描又称“半开扫描”。回顾TCP连接的三次握手，申请方首先发送的是一个SYN数据包，服务方在接到这个SYN数据包后，如果该端口处于侦听状态，则会回复一个SYN|ACK的数据包；如果该端口没有处于侦听状态，则会回复一个RST的数据包。而此时如果对方处于侦听状态，申请方还需要再向对方回复一个ACK数据包以示建立连接。此时对方就认为连接建立，并记入日志。&lt;/p&gt;
+&lt;p&gt;无论服务方回复SYN|ACK的数据包，还是回复RST的数据包，申请方其实已经能够判断对方端口是否为“开”的状态。之后的ACK数据包发送则被对方监视，如果此时不发送ACK数据包，而是发一个RST数据包，则不仅关闭了这个未完成的连接过程，并且也会因为连接未建立而不会被对方记录。这种扫描方式因为使用了SYN标志位，所以被称为TCP SYN扫描。这种扫描技术的优点在于一般不会在目标计算机上留下记录，有时即使在用netstat命令也显示不出来；但这种方法的一个缺点是必须要有管理员权限才能建立自己的SYN数据包。&lt;/p&gt;
+&lt;h4 id=&#34;使用诱饵扫描&#34;&gt;使用诱饵扫描
+&lt;/h4&gt;&lt;p&gt;Nmap 会生成插入到 IP 标头中的各种随机 IP 地址，以掩盖发送的数据包的来源。使用此方法，我们可以随机生成 ( &lt;code&gt;RND&lt;/code&gt;) 个特定数量（例如：&lt;code&gt;5&lt;/code&gt;）的 IP 地址，并以冒号 ( &lt;code&gt;:&lt;/code&gt;) 分隔。然后，我们的真实 IP 地址会随机放置在生成的 IP 地址之间&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-p 80&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;仅扫描指定端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sS&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;对指定端口执行 SYN 扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-Pn&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 ICMP Echo 请求。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-n&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 DNS 解析。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--disable-arp-ping&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 ARP ping。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示所有发送和接收的数据包。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-D RND:5&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;生成五个随机 IP 地址，指示连接来自的源 IP。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;dns-代理&#34;&gt;DNS 代理
+&lt;/h2&gt;&lt;h4 id=&#34;过滤端口的-syn-扫描&#34;&gt;过滤端口的 SYN 扫描
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;从-dns-端口进行-syn-扫描&#34;&gt;从 DNS 端口进行 SYN 扫描
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;现在我们已经发现防火墙接受了&lt;code&gt;TCP port 53&lt;/code&gt;，因此很可能 IDS/IPS 过滤器的配置也比其他过滤器弱得多。我们可以通过使用 尝试连接到此端口来测试这一点&lt;code&gt;Netcat&lt;/code&gt;。&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;扫描指定目标。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-p 50000&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;仅扫描指定端口。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-sS&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;对指定端口执行 SYN 扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-Pn&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 ICMP Echo 请求。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;-n&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 DNS 解析。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--disable-arp-ping&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;禁用 ARP ping。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;显示所有发送和接收的数据包。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;code&gt;--source-port 53&lt;/code&gt;&lt;/td&gt;
+          &lt;td&gt;从指定的源端口执行扫描。&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h4 id=&#34;连接到过滤端口&#34;&gt;连接到过滤端口
+&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;ncat -nv --source-port 53 10.129.2.28 50000
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
         </item>
         <item>
         <title>sqli-labs通关</title>
@@ -1755,823 +2572,6 @@ $$f_Y(y)=\frac{1}{\sqrt{2\pi}\sigma y}\mathrm{exp}\{-(\ln(y)-\mu)^2/2\sigma^2\}\
 &lt;h2 id=&#34;数学分析3概率论&#34;&gt;数学分析3，概率论
 &lt;/h2&gt;&lt;p&gt;前者太难听不懂，后者太简单不想听&lt;/p&gt;
 </description>
-        </item>
-        <item>
-        <title>nmap基础</title>
-        <link>https://Frederick2313072.github.io/p/nmap%E5%9F%BA%E7%A1%80/</link>
-        <pubDate>Fri, 12 Jan 2024 00:00:00 +0000</pubDate>
-        
-        <guid>https://Frederick2313072.github.io/p/nmap%E5%9F%BA%E7%A1%80/</guid>
-        <description>&lt;ul&gt;
-&lt;li&gt;TCP扫描，默认常用&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt; sudo nmap -sS localhost
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;发现主机&#34;&gt;发现主机
-&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d&amp;#34; &amp;#34; -f5
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.0/24&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;目标网络范围。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sn&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用端口扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-oA tnet&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;以名称“tnet”开头的所有格式存储结果。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;&lt;code&gt;Firewall and IDS Evasion&lt;/code&gt;此扫描方法仅在主机的防火墙允许的情况下才有效&lt;/p&gt;
-&lt;p&gt;禁用端口扫描，则会启用ICMP扫描&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;扫描IP列表&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;cat hosts.lst
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;这可能意味着其他主机由于其防火墙配置而忽略了默认的&lt;strong&gt;ICMP 回应请求&lt;/strong&gt;&lt;code&gt;Nmap&lt;/code&gt;。由于没有收到响应，它会将这些主机标记为非活动状态&lt;/p&gt;
-&lt;p&gt;对预定义列表使用相同的扫描技术&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d&amp;#34; &amp;#34; -f5
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sn&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用端口扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-oA tnet&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;以名称“tnet”开头的所有格式存储结果。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-iL&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;对提供的“hosts.lst”列表中的目标执行定义的扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;为了确保发送了 ICMP 回显请求，&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;ICMP 回显请求 ( &lt;code&gt;-Pn&lt;/code&gt;)、DNS 解析 ( &lt;code&gt;-n&lt;/code&gt;) 和 ARP ping 扫描 ( &lt;code&gt;--disable-arp-ping&lt;/code&gt;)。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d&amp;#34; &amp;#34; -f5
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.18&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;对目标执行定义的扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sn&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用端口扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-oA host&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;以名称“host”开头的所有格式存储结果。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-PE&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;使用“ICMP Echo 请求”对目标执行 ping 扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示所有发送和接收的数据包&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.18 -sn -oA host -PE --reason 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.18&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;对目标执行定义的扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sn&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用端口扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-oA host&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;以名称“host”开头的所有格式存储结果。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-PE&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;使用“ICMP Echo 请求”对目标执行 ping 扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--reason&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示特定结果的原因。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;主机和端口扫描&#34;&gt;主机和端口扫描
-&lt;/h2&gt;&lt;p&gt;在发现目标还活着之后，我们希望更准确地了解系统。我们需要的信息包括：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;开放端口及其服务&lt;/li&gt;
-&lt;li&gt;服务版本&lt;/li&gt;
-&lt;li&gt;服务提供的信息&lt;/li&gt;
-&lt;li&gt;操作系统&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;扫描端口六种情况：&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;状态&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;open&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;这表示已建立与扫描端口的连接。这些连接可以是&lt;strong&gt;TCP 连接&lt;/strong&gt;、&lt;strong&gt;UDP 数据报&lt;/strong&gt;以及&lt;strong&gt;SCTP 关联&lt;/strong&gt;。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;closed&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;当端口显示为关闭时，TCP 协议会指示我们收到的数据包包含一个&lt;code&gt;RST&lt;/code&gt;标志。这种扫描方法还可用于确定我们的目标是否还活着。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;filtered&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;Nmap 无法正确识别扫描的端口是打开还是关闭，因为目标没有返回该端口的响应，或者我们从目标收到错误代码。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;unfiltered&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;端口的这种状态仅在&lt;strong&gt;TCP-ACK&lt;/strong&gt;扫描期间发生，表示该端口可访问，但无法确定它是开放还是关闭。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;`open&lt;/td&gt;
-          &lt;td&gt;filtered`&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;`closed&lt;/td&gt;
-          &lt;td&gt;filtered`&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h4 id=&#34;扫描前-10-个-tcp-端口&#34;&gt;扫描前 10 个 TCP 端口
-&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 --top-ports=10 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--top-ports=10&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描已被定义为最频繁的指定顶级端口。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h4 id=&#34;nmap跟踪数据包&#34;&gt;Nmap——跟踪数据包
-&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-p 21&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;仅扫描指定端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示所有发送和接收的数据包。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-n&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 DNS 解析。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--disable-arp-ping&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 ARP ping。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;信息&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;SENT (0.0429s)&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;表示Nmap的SENT操作，向目标发送数据包。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;TCP&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示用于与目标端口交互的协议。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.10.14.2:63090 &amp;gt;&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;代表我们的 IPv4 地址和源端口，Nmap 将使用它们来发送数据包。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28:21&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示目标 IPv4 地址和目标端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;S&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;发送的TCP数据包的SYN标志。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;ttl=56 id=57322 iplen=44 seq=1699105818 win=1024 mss 1460&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;附加的 TCP 标头参数。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h4 id=&#34;连接扫描&#34;&gt;连接扫描
-&lt;/h4&gt;&lt;p&gt;Nmap &lt;a class=&#34;link&#34; href=&#34;https://nmap.org/book/scan-methods-connect-scan.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;TCP 连接扫描&lt;/a&gt;( &lt;code&gt;-sT&lt;/code&gt;) 使用 TCP 三次握手来确定目标主机上的特定端口是打开还是关闭。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt; sudo nmap 10.129.2.28 -p 443 --packet-trace --disable-arp-ping -Pn -n --reason -sT 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;该&lt;code&gt;Connect&lt;/code&gt;扫描（也称为完整 TCP 连接扫描）非常准确，因为它完成了三次 TCP 握手，使我们能够确定端口的确切状态（打开、关闭或过滤）。但是，它并不是最隐蔽的。&lt;/p&gt;
-&lt;h3 id=&#34;过滤端口&#34;&gt;过滤端口
-&lt;/h3&gt;&lt;p&gt;防火墙&lt;code&gt;drops&lt;/code&gt;会扫描我们发送的 TCP 数据包。因此，我们扫描 TCP 端口&lt;strong&gt;139&lt;/strong&gt;，该端口已显示为已过滤。为了能够跟踪我们发送的数据包的处理方式，我们再次停用 ICMP 回显请求 ( &lt;code&gt;-Pn&lt;/code&gt;)、DNS 解析 ( &lt;code&gt;-n&lt;/code&gt;) 和 ARP ping 扫描 ( &lt;code&gt;--disable-arp-ping&lt;/code&gt;)。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;发现开放的-udp-端口&#34;&gt;发现开放的 UDP 端口
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -F -sU
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-F&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描前 100 个端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sU&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;执行 UDP 扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;一些系统管理员有时会忘记过滤除 TCP 端口之外的 UDP 端口，但UDP比TCP慢的多&lt;/p&gt;
-&lt;p&gt;这样做的另一个缺点是，我们经常得不到响应，因为&lt;code&gt;Nmap&lt;/code&gt;向扫描的 UDP 端口发送空数据报，并且我们没有收到任何响应。所以我们无法确定 UDP 数据包是否已经到达。如果 UDP 端口为&lt;code&gt;open&lt;/code&gt;，则只有在应用程序配置为这样做的情况下，我们才会收到响应。&lt;/p&gt;
-&lt;h4 id=&#34;版本扫描&#34;&gt;版本扫描
-&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason  -sV
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-Pn&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 ICMP Echo 请求。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-n&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 DNS 解析。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--disable-arp-ping&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 ARP ping。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示所有发送和接收的数据包。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-p 445&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;仅扫描指定端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--reason&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示端口处于特定状态的原因。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sV&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;执行服务扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;扫描端口的另一种方便方法是&lt;code&gt;-sV&lt;/code&gt;使用选项从开放端口获取其他可用信息。此方法可以识别版本、服务名称和有关目标的详细信息。&lt;/p&gt;
-&lt;h2 id=&#34;保存结果&#34;&gt;保存结果
-&lt;/h2&gt;&lt;p&gt;&lt;code&gt;Nmap&lt;/code&gt;可以以 3 种不同的格式保存结果。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;正常输出（&lt;code&gt;-oN&lt;/code&gt;）&lt;code&gt;.nmap&lt;/code&gt;文件扩展名&lt;/li&gt;
-&lt;li&gt;带有文件扩展名的Grepable 输出（&lt;code&gt;-oG&lt;/code&gt;）&lt;code&gt;.gnmap&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;XML 输出 ( &lt;code&gt;-oX&lt;/code&gt;)，&lt;code&gt;.xml&lt;/code&gt;文件扩展名&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我们还可以指定选项（&lt;code&gt;-oA&lt;/code&gt;）以所有格式保存结果。命令可能如下所示：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p- -oA target
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-p-&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描所有端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-oA target&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;以所有格式保存结果，每个文件的名称以“目标”开头。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;target.gnmap target.xml  target.nmap
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h3 id=&#34;转换格式&#34;&gt;转换格式
-&lt;/h3&gt;&lt;p&gt;要将存储的结果从 XML 格式转换为 HTML，我们可以使用该工具&lt;code&gt;xsltproc&lt;/code&gt;。&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;xsltproc target.xml -o target.html
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;服务枚举&#34;&gt;服务枚举
-&lt;/h2&gt;&lt;h3 id=&#34;服务版本检测&#34;&gt;服务版本检测
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p- -sV
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-p-&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描所有端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sV&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;对指定端口执行服务版本检测。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;增加&lt;code&gt;verbosity level&lt;/code&gt;（&lt;code&gt;-v&lt;/code&gt;/ &lt;code&gt;-vv&lt;/code&gt;），当检测到开放端口时，它将直接显示给我们&lt;code&gt;Nmap&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p- -sV -v 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-p-&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描所有端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sV&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;对指定端口执行服务版本检测。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-v&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;增加扫描的详细程度，以显示更详细的信息。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&#34;横幅抓取&#34;&gt;横幅抓取
-&lt;/h3&gt;&lt;p&gt;&lt;code&gt;Nmap&lt;/code&gt;则尝试通过基于签名的匹配系统识别它们，但这会大大增加扫描的持续时间。&lt;code&gt;Nmap&lt;/code&gt;所呈现结果的一个缺点是自动扫描可能会遗漏一些信息，因为有时&lt;code&gt;Nmap&lt;/code&gt;不知道如何处理它。&lt;/p&gt;
-&lt;p&gt;某些服务可能不会立即提供此类信息。也可以从相应的服务中删除或操纵横幅。如果我们&lt;code&gt;manually&lt;/code&gt;使用 连接到 SMTP 服务器&lt;code&gt;nc&lt;/code&gt;，抓取横幅，并使用 拦截网络流量&lt;code&gt;tcpdump&lt;/code&gt;，我们就可以看到&lt;code&gt;Nmap&lt;/code&gt;未显示的内容。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;传输控制包Tcpdump&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo tcpdump -i eth0 host 10.10.14.2 and 10.129.2.28
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;nc&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;nc -nv 10.129.2.28 25
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;nmap脚本引擎&#34;&gt;Nmap脚本引擎
-&lt;/h2&gt;&lt;p&gt;它为我们提供了在 Lua 中创建脚本以与某些服务进行交互的可能性。这些脚本总共可分为 14 个类别：&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;类别&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;auth&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;确定身份验证凭证。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;broadcast&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;通过广播来发现主机的脚本以及发现的主机可以自动添加到剩余的扫描中。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;brute&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;执行脚本，尝试通过使用凭证进行暴力破解来登录相应的服务。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;default&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;使用该&lt;code&gt;-sC&lt;/code&gt;选项执行的默认脚本。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;discovery&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;无障碍服务的评估。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;dos&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;这些脚本用于检查服务是否存在拒绝服务漏洞，由于它会损害服务，因此使用较少。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;exploit&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;此类脚本尝试利用扫描端口的已知漏洞。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;external&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;使用外部服务进行进一步处理的脚本。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;fuzzer&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;这使用脚本通过发送不同的字段来识别漏洞和意外的数据包处理，这可能需要很长时间。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;intrusive&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;可能对目标系统产生负面影响的侵入性脚本。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;malware&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;检查某些恶意软件是否感染了目标系统。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;safe&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;不执行侵入性和破坏性访问的防御脚本。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;version&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;服务检测的扩展。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;vuln&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;识别特定的漏洞。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;默认脚本 -sC&lt;/p&gt;
-&lt;p&gt;特定脚本类型&amp;ndash;script &lt;category&gt;&lt;/p&gt;
-&lt;p&gt;定义脚本 &amp;ndash;script &lt;script-name&gt;,&lt;script-name&gt;&lt;/p&gt;
-&lt;h4 id=&#34;nmap---aggressive-scan--a&#34;&gt;Nmap - Aggressive Scan -A
-&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p 80 -A
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;code&gt;-A&lt;/code&gt;&lt;/th&gt;
-          &lt;th&gt;执行服务检测、操作系统检测、跟踪路由并使用默认脚本扫描目标。&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;发现了系统上运行着哪种 Web 服务器,使用了哪种 Web 应用程序，以及网页的标题 。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;漏洞评估&#34;&gt;漏洞评估
-&lt;/h2&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;code&gt;--script vuln&lt;/code&gt;&lt;/th&gt;
-          &lt;th&gt;使用指定类别的所有相关脚本。&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;/td&gt;
-          &lt;td&gt;&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;防火墙和idsips规避&#34;&gt;防火墙和IDS/IPS规避
-&lt;/h2&gt;&lt;h4 id=&#34;heading&#34;&gt;
-&lt;/h4&gt;&lt;p&gt;TCP SYN扫描又称“半开扫描”。回顾TCP连接的三次握手，申请方首先发送的是一个SYN数据包，服务方在接到这个SYN数据包后，如果该端口处于侦听状态，则会回复一个SYN|ACK的数据包；如果该端口没有处于侦听状态，则会回复一个RST的数据包。而此时如果对方处于侦听状态，申请方还需要再向对方回复一个ACK数据包以示建立连接。此时对方就认为连接建立，并记入日志。&lt;/p&gt;
-&lt;p&gt;无论服务方回复SYN|ACK的数据包，还是回复RST的数据包，申请方其实已经能够判断对方端口是否为“开”的状态。之后的ACK数据包发送则被对方监视，如果此时不发送ACK数据包，而是发一个RST数据包，则不仅关闭了这个未完成的连接过程，并且也会因为连接未建立而不会被对方记录。这种扫描方式因为使用了SYN标志位，所以被称为TCP SYN扫描。这种扫描技术的优点在于一般不会在目标计算机上留下记录，有时即使在用netstat命令也显示不出来；但这种方法的一个缺点是必须要有管理员权限才能建立自己的SYN数据包。&lt;/p&gt;
-&lt;h4 id=&#34;使用诱饵扫描&#34;&gt;使用诱饵扫描
-&lt;/h4&gt;&lt;p&gt;Nmap 会生成插入到 IP 标头中的各种随机 IP 地址，以掩盖发送的数据包的来源。使用此方法，我们可以随机生成 ( &lt;code&gt;RND&lt;/code&gt;) 个特定数量（例如：&lt;code&gt;5&lt;/code&gt;）的 IP 地址，并以冒号 ( &lt;code&gt;:&lt;/code&gt;) 分隔。然后，我们的真实 IP 地址会随机放置在生成的 IP 地址之间&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-p 80&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;仅扫描指定端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sS&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;对指定端口执行 SYN 扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-Pn&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 ICMP Echo 请求。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-n&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 DNS 解析。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--disable-arp-ping&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 ARP ping。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示所有发送和接收的数据包。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-D RND:5&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;生成五个随机 IP 地址，指示连接来自的源 IP。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h2 id=&#34;dns-代理&#34;&gt;DNS 代理
-&lt;/h2&gt;&lt;h4 id=&#34;过滤端口的-syn-扫描&#34;&gt;过滤端口的 SYN 扫描
-&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;h4 id=&#34;从-dns-端口进行-syn-扫描&#34;&gt;从 DNS 端口进行 SYN 扫描
-&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;现在我们已经发现防火墙接受了&lt;code&gt;TCP port 53&lt;/code&gt;，因此很可能 IDS/IPS 过滤器的配置也比其他过滤器弱得多。我们可以通过使用 尝试连接到此端口来测试这一点&lt;code&gt;Netcat&lt;/code&gt;。&lt;/p&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-      &lt;tr&gt;
-          &lt;th&gt;&lt;strong&gt;扫描选项&lt;/strong&gt;&lt;/th&gt;
-          &lt;th&gt;&lt;strong&gt;描述&lt;/strong&gt;&lt;/th&gt;
-      &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;10.129.2.28&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;扫描指定目标。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-p 50000&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;仅扫描指定端口。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-sS&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;对指定端口执行 SYN 扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-Pn&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 ICMP Echo 请求。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;-n&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 DNS 解析。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--disable-arp-ping&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;禁用 ARP ping。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--packet-trace&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;显示所有发送和接收的数据包。&lt;/td&gt;
-      &lt;/tr&gt;
-      &lt;tr&gt;
-          &lt;td&gt;&lt;code&gt;--source-port 53&lt;/code&gt;&lt;/td&gt;
-          &lt;td&gt;从指定的源端口执行扫描。&lt;/td&gt;
-      &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h4 id=&#34;连接到过滤端口&#34;&gt;连接到过滤端口
-&lt;/h4&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell-session&#34; data-lang=&#34;shell-session&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;go&#34;&gt;ncat -nv --source-port 53 10.129.2.28 50000
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
         </item>
         <item>
         <title></title>
