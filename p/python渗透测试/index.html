@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="HTTP请求：抓包，把GET换成CTFHUB\n302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求\n">
-<title></title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="UDP TCP 客户端 服务器\nsocket实例化 socket(family,type,[protocal])协议族（默认AF_INET),,SOCK_STREAM(TCP)/SOCK_DGRAM(UDP)\n">
+<title>Python渗透测试</title>
 
-<link rel='canonical' href='https://Frederick2313072.github.io/p/'>
+<link rel='canonical' href='https://Frederick2313072.github.io/p/python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="">
-<meta property='og:description' content="HTTP请求：抓包，把GET换成CTFHUB\n302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求\n">
-<meta property='og:url' content='https://Frederick2313072.github.io/p/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Python渗透测试">
+<meta property='og:description' content="UDP TCP 客户端 服务器\nsocket实例化 socket(family,type,[protocal])协议族（默认AF_INET),,SOCK_STREAM(TCP)/SOCK_DGRAM(UDP)\n">
+<meta property='og:url' content='https://Frederick2313072.github.io/p/python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/'>
 <meta property='og:site_name' content='Frederick'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:modified_time' content='2025-02-11T17:30:05&#43;00:00'/>
-<meta name="twitter:title" content="">
-<meta name="twitter:description" content="HTTP请求：抓包，把GET换成CTFHUB\n302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-11T17:30:05&#43;00:00'/>
+<meta name="twitter:title" content="Python渗透测试">
+<meta name="twitter:description" content="UDP TCP 客户端 服务器\nsocket实例化 socket(family,type,[protocal])协议族（默认AF_INET),,SOCK_STREAM(TCP)/SOCK_DGRAM(UDP)\n">
     </head>
     <body class="
     article-page
@@ -201,7 +201,47 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#socket实例化">socket实例化</a></li>
+    <li><a href="#socket常用函数">socket常用函数</a>
+      <ol>
+        <li><a href="#服务器">服务器</a></li>
+        <li><a href="#客户端">客户端</a></li>
+        <li><a href="#通用">通用</a></li>
+      </ol>
+    </li>
+    <li><a href="#nmap实例化">nmap实例化</a></li>
+    <li><a href="#常见函数">常见函数</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -212,7 +252,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/"></a>
+            <a href="/p/python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">Python渗透测试</a>
         </h2>
     
         
@@ -221,6 +261,25 @@
     
     
     
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-02-08</time>
+            </div>
+        
+
+        
+    </footer>
     
 
     
@@ -231,10 +290,42 @@
     <section class="article-content">
     
     
-    <h1 id="第三章-sql">第三章 SQL
-</h1><p>1.试述SQL的特点</p>
-<p>综合统一，高度非过程化，面向集合的操作方式，以同一种语法结构提供多种使用方式</p>
-<p>2.说明在DROP TABLE时，RESTRICT和CASCADE的区别</p>
+    <p>UDP TCP 客户端 服务器</p>
+<h2 id="socket实例化">socket实例化
+</h2><p>socket(family,type,[protocal])协议族（默认AF_INET),,SOCK_STREAM(TCP)/SOCK_DGRAM(UDP)</p>
+<p>s=socket.socket()</p>
+<p>初始化TCP:s=socket.socket()</p>
+<p>初始化UDP:s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</p>
+<h2 id="socket常用函数">socket常用函数
+</h2><h3 id="服务器">服务器
+</h3><p>s.bind((&lsquo;127.0.0.1&rsquo;,2345))绑定IP和端口</p>
+<p>s.listen(5)最大监听5个端口</p>
+<p>conn,address=s.accept()套字对象，客户端地址（本机）</p>
+<h3 id="客户端">客户端
+</h3><p>s.connect((&ldquo;127.0.0.1&rdquo;,2345))</p>
+<h3 id="通用">通用
+</h3><p>send()</p>
+<p>sendall()区别在于可以完整发送TCP数据</p>
+<p>s.snedall(bytes(&ldquo;Hello&rdquo;,encoding=&ldquo;utf-8&rdquo;))</p>
+<p>recv(bufsize)最多可以接受的数量</p>
+<p>sendto(string[,flag],address)使用UDP时发送数据</p>
+<p>recovfrom(data,address) UDP专用，接受数据</p>
+<p>close()关闭socket</p>
+<h2 id="nmap实例化">nmap实例化
+</h2><p>nm = nmap.PortScannerAsycn()</p>
+<h2 id="常见函数">常见函数
+</h2><p>scan(self,hosts=&ldquo;127.0.0.1&rdquo;,ports=None,arguments=&quot;-sV&quot;,sudo=False)</p>
+<p>nm.scan(&ldquo;127.0.0.1&rdquo;,&ldquo;1-500&rdquo;,&quot;-sS&quot;)1-500端口</p>
+<p>nm.all_hosts()返回被扫描的所有主机列表</p>
+<p>nm.command_line()返回再当前扫描中使用的命令行</p>
+<p>nm.csv()返回被扫描主机的csv格式的文件</p>
+<p>print（nm.csv())希望看得更清楚</p>
+<p>nm.has_hsot检查是否有host扫描结果，返回值为false/true</p>
+<p>nm.scaninfo()列出扫描信息的结构</p>
+<p>nmp[&ldquo;192.168.1.101&rdquo;].hostname()获取192.168.1.1.1的主机名</p>
+<p>still_scanning()是否正在扫描</p>
+<p>wait（2）等待时间</p>
+<p>stop（）停止当前扫描</p>
 
 </section>
 

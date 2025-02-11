@@ -7,7 +7,51 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Frederick</copyright>
-        <lastBuildDate>Fri, 24 Jan 2025 14:06:35 +0000</lastBuildDate><atom:link href="https://Frederick2313072.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 11 Feb 2025 17:30:05 +0000</lastBuildDate><atom:link href="https://Frederick2313072.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Python渗透测试</title>
+        <link>https://Frederick2313072.github.io/p/python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</link>
+        <pubDate>Sat, 08 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Frederick2313072.github.io/p/python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</guid>
+        <description>&lt;p&gt;UDP TCP 客户端 服务器&lt;/p&gt;
+&lt;h2 id=&#34;socket实例化&#34;&gt;socket实例化
+&lt;/h2&gt;&lt;p&gt;socket(family,type,[protocal])协议族（默认AF_INET),,SOCK_STREAM(TCP)/SOCK_DGRAM(UDP)&lt;/p&gt;
+&lt;p&gt;s=socket.socket()&lt;/p&gt;
+&lt;p&gt;初始化TCP:s=socket.socket()&lt;/p&gt;
+&lt;p&gt;初始化UDP:s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)&lt;/p&gt;
+&lt;h2 id=&#34;socket常用函数&#34;&gt;socket常用函数
+&lt;/h2&gt;&lt;h3 id=&#34;服务器&#34;&gt;服务器
+&lt;/h3&gt;&lt;p&gt;s.bind((&amp;lsquo;127.0.0.1&amp;rsquo;,2345))绑定IP和端口&lt;/p&gt;
+&lt;p&gt;s.listen(5)最大监听5个端口&lt;/p&gt;
+&lt;p&gt;conn,address=s.accept()套字对象，客户端地址（本机）&lt;/p&gt;
+&lt;h3 id=&#34;客户端&#34;&gt;客户端
+&lt;/h3&gt;&lt;p&gt;s.connect((&amp;ldquo;127.0.0.1&amp;rdquo;,2345))&lt;/p&gt;
+&lt;h3 id=&#34;通用&#34;&gt;通用
+&lt;/h3&gt;&lt;p&gt;send()&lt;/p&gt;
+&lt;p&gt;sendall()区别在于可以完整发送TCP数据&lt;/p&gt;
+&lt;p&gt;s.snedall(bytes(&amp;ldquo;Hello&amp;rdquo;,encoding=&amp;ldquo;utf-8&amp;rdquo;))&lt;/p&gt;
+&lt;p&gt;recv(bufsize)最多可以接受的数量&lt;/p&gt;
+&lt;p&gt;sendto(string[,flag],address)使用UDP时发送数据&lt;/p&gt;
+&lt;p&gt;recovfrom(data,address) UDP专用，接受数据&lt;/p&gt;
+&lt;p&gt;close()关闭socket&lt;/p&gt;
+&lt;h2 id=&#34;nmap实例化&#34;&gt;nmap实例化
+&lt;/h2&gt;&lt;p&gt;nm = nmap.PortScannerAsycn()&lt;/p&gt;
+&lt;h2 id=&#34;常见函数&#34;&gt;常见函数
+&lt;/h2&gt;&lt;p&gt;scan(self,hosts=&amp;ldquo;127.0.0.1&amp;rdquo;,ports=None,arguments=&amp;quot;-sV&amp;quot;,sudo=False)&lt;/p&gt;
+&lt;p&gt;nm.scan(&amp;ldquo;127.0.0.1&amp;rdquo;,&amp;ldquo;1-500&amp;rdquo;,&amp;quot;-sS&amp;quot;)1-500端口&lt;/p&gt;
+&lt;p&gt;nm.all_hosts()返回被扫描的所有主机列表&lt;/p&gt;
+&lt;p&gt;nm.command_line()返回再当前扫描中使用的命令行&lt;/p&gt;
+&lt;p&gt;nm.csv()返回被扫描主机的csv格式的文件&lt;/p&gt;
+&lt;p&gt;print（nm.csv())希望看得更清楚&lt;/p&gt;
+&lt;p&gt;nm.has_hsot检查是否有host扫描结果，返回值为false/true&lt;/p&gt;
+&lt;p&gt;nm.scaninfo()列出扫描信息的结构&lt;/p&gt;
+&lt;p&gt;nmp[&amp;ldquo;192.168.1.101&amp;rdquo;].hostname()获取192.168.1.1.1的主机名&lt;/p&gt;
+&lt;p&gt;still_scanning()是否正在扫描&lt;/p&gt;
+&lt;p&gt;wait（2）等待时间&lt;/p&gt;
+&lt;p&gt;stop（）停止当前扫描&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>脚本小子</title>
         <link>https://Frederick2313072.github.io/p/%E8%84%9A%E6%9C%AC%E5%B0%8F%E5%AD%90/</link>
         <pubDate>Mon, 20 Jan 2025 00:00:00 +0000</pubDate>
@@ -2571,6 +2615,167 @@ $$f_Y(y)=\frac{1}{\sqrt{2\pi}\sigma y}\mathrm{exp}\{-(\ln(y)-\mu)^2/2\sigma^2\}\
 &lt;/h2&gt;&lt;p&gt;之前自己做了个CSS模板，结果在运行cmd时被tailwind覆盖完了，没有git到远程仓库&amp;hellip;&amp;hellip;&lt;/p&gt;
 &lt;h2 id=&#34;数学分析3概率论&#34;&gt;数学分析3，概率论
 &lt;/h2&gt;&lt;p&gt;前者太难听不懂，后者太简单不想听&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://Frederick2313072.github.io/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://Frederick2313072.github.io/p/</guid>
+        <description>&lt;p&gt;HTTP请求：抓包，把GET换成CTFHUB&lt;/p&gt;
+&lt;p&gt;302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求&lt;/p&gt;
+&lt;p&gt;cookie:验证身份 抓包repeater模块改成admin=1发送请求&lt;/p&gt;
+&lt;p&gt;基础认证：burpsuite字典爆破，加密&lt;/p&gt;
+&lt;p&gt;sql注入：结合burpsuite（前端没有回显），hackbar&lt;/p&gt;
+&lt;h2 id=&#34;xss攻击&#34;&gt;XSS攻击
+&lt;/h2&gt;&lt;p&gt;找一个xss网站，我找的是xssaq.com&lt;/p&gt;
+&lt;h3 id=&#34;反射型xss&#34;&gt;反射型XSS
+&lt;/h3&gt;&lt;p&gt;恶意 &lt;code&gt;JavaScript&lt;/code&gt; 脚本属于用户发送给网站请求中的一部分，随后网站又将这部分返回给用户，恶意脚本在页面中被执行。一般发生在前后端一体的应用中，服务端逻辑会改变最终的网页代码。&lt;/p&gt;
+&lt;p&gt;攻击步骤&lt;/p&gt;
+&lt;p&gt;1.攻击者构造出特殊的 URL，其中包含恶意代码。
+2.用户打开带有恶意代码的 URL 时，网站服务端将恶意代码从 URL 中取出，拼接在 HTML 中返回给浏览器。
+3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
+4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。&lt;/p&gt;
+&lt;p&gt;由于HTML文档具有扁平的、串行的结构，混合了控制语句、格式和实际内容，因此在结果页面中包含任何未经验证的用户提供的数据而没有进行正确的HTML编码，可能导致标记注入。一个经典的潜在攻击向量例子是站点搜索引擎：如果用户搜索一个字符串，搜索字符串通常会在结果页面上逐字显示，以表明搜索内容。如果该响应没有正确转义或拒绝HTML控制字符，就会导致跨站脚本漏洞。&lt;/p&gt;
+&lt;p&gt;反射型攻击通常通过电子邮件或一个中立的网站传递。诱饵是一个看似无害的URL，指向一个可信赖的网站，但包含XSS攻击向量。如果该可信赖的网站对该向量存在漏洞，点击链接可能会导致受害者的浏览器执行注入的脚本。&lt;/p&gt;
+&lt;p&gt;这里用最经典的paylaod来进行判断是否存在xss&lt;/p&gt;
+&lt;script&gt;alert(1)&lt;/script&gt;//这是语句是让浏览器弹框
+&lt;p&gt;题目中第二个输入框模拟受害者访问，这里的payload需要从xss平台中复制&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210002218405.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250210002218405&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在XSS网站上&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210002314603.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250210002314603&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;存储型xss&#34;&gt;存储型XSS
+&lt;/h2&gt;&lt;p&gt;黑客将恶意 JavaScript 脚本长期保存在服务端数据库中，用户一旦访问相关页面数据，恶意脚本就会被执行。常见于搜索、微博、社区贴吧评论等。
+存储型 XSS 的攻击步骤：&lt;/p&gt;
+&lt;p&gt;1.攻击者将恶意代码提交到目标网站的数据库中。
+2.用户打开目标网站时，网站服务端将恶意代码从数据库取出，拼接在 HTML 中返回给浏览器。
+3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
+4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。&lt;/p&gt;
+&lt;p&gt;和上面的是一样的，存储型就是把恶意代码存储进了数据库，每次查库就会触发恶意代码。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210002745851.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250210002745851&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;dom型xss攻击&#34;&gt;DOM型XSS攻击
+&lt;/h2&gt;&lt;p&gt;DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。&lt;/p&gt;
+&lt;p&gt;在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等&lt;/p&gt;
+&lt;p&gt;DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。&lt;/p&gt;
+&lt;p&gt;在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等
+DOM型XSS的攻击步骤&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;攻击者构造出特殊的 URL，其中包含恶意代码。
+用户打开带有恶意代码的 URL。
+用户浏览器接收到响应后解析执行，前端 JavaScript 取出 URL 中的恶意代码并执行。
+恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;简单来说就是在前端页面上寻找注入点&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210005338187.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250210005338187&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;通过构造html语法的闭合，将脚本输入进去，同前面一样&lt;/p&gt;
+&lt;h2 id=&#34;dom跳转&#34;&gt;DOM跳转
+&lt;/h2&gt;&lt;p&gt;审查源代码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210011106889.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250210011106889&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;注意！当你将类似于 location.href = &amp;ldquo;javascript:alert(&amp;lsquo;xss&amp;rsquo;)&amp;rdquo; 这样的代码赋值给 location.href 时，浏览器会将其解释为一种特殊的URL方案，即 “javascript:”。在这种情况下，浏览器会将后面的 JavaScript 代码作为URL的一部分进行解析，然后执行它。&lt;/p&gt;
+&lt;p&gt;直接在网页url后面跟上代码测试反弹&lt;/p&gt;
+&lt;p&gt;?jumpto=javascript:alert(1);
+跟前面老步骤&lt;/p&gt;
+&lt;h2 id=&#34;文件上传&#34;&gt;文件上传
+&lt;/h2&gt;&lt;p&gt;文件上传漏洞服务端代码未对客户端上传的文件进行严格的验证，导致漏洞。非法用户可以利用上传的恶意文件控制整个网站，这个恶意文件被称为 WebShell ，也可以称为一种网页后门。
+1.1常见的WebShell有哪些？&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;拥有较完整功能的webshell，我们一般称为大马。
+功能简易的webshell称为小马。
+除此之外还存在一句话木马、菜刀马、脱库马等等的名词，是对于webShell功能或者特性的简称。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;1.2 一句话木马演示&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://Frederick2313072.github.io/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://Frederick2313072.github.io/p/</guid>
+        <description>&lt;p&gt;web2：view-source是一种协议，早期基本上每个浏览器都支持这个协议。后来Microsoft考虑安全性，对于WindowsXP pack2以及更高版本以后IE就不再支持此协议。但是这个方法在FireFox和Chrome浏览器都还可以使用。 如果要在IE下查看源代码,只能使用查看中的&amp;quot;查看源代码&amp;quot;命令.以前的使用方法：在浏览器地址栏中输入 view-source: URL&lt;/p&gt;
+&lt;p&gt;web3:打开burp suite然后在仪表盘选择新扫描输入url（网址）后点击确定，然后点击目标，选择相应&amp;ndash;raw就可以看见flag了or F12 &amp;mdash;&amp;gt;选择网络&amp;mdash;&amp;gt;F5刷新页面，查看响应头。&lt;/p&gt;
+&lt;p&gt;web4：robots.txt（爬虫协议）&lt;/p&gt;
+&lt;p&gt;web5：目录扫描：index.phps(php文件)&lt;/p&gt;
+&lt;p&gt;phps文件泄露，phps存放着php源码,可通过尝试访问/index.phps读取,或者尝试扫描工具扫描读取.&lt;/p&gt;
+&lt;p&gt;web6：url/www.zip网站备份压缩文件 漏洞成因&lt;/p&gt;
+&lt;p&gt;在网站的升级和维护过程中，通常需要对网站中的文件进行修改。此时就需要对网站整站或者其中某一页面进行备份。&lt;/p&gt;
+&lt;p&gt;当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站 web 目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。&lt;/p&gt;
+&lt;p&gt;该漏洞的成因主要有是管理员将备份文件放在到 web 服务器可以访问的目录下。&lt;/p&gt;
+&lt;p&gt;该漏洞往往会导致服务器整站源代码或者部分页面的源代码被下载，利用。源代码中所包含的各类敏感信息，如服务器数据库连接信息，服务器配置信息等会因此而泄露，造成巨大的损失。&lt;/p&gt;
+&lt;p&gt;被泄露的源代码还可能会被用于代码审计，进一步利用而对整个系统的安全埋下隐患。&lt;/p&gt;
+&lt;p&gt;.rar .zip .7z .tar.gz .bak .swp .txt&lt;/p&gt;
+&lt;p&gt;源码泄露 url/www.zip 得知隐藏目录/fl000g.txt&lt;/p&gt;
+&lt;p&gt;web7: dirsearch -u url 发现目录 /.git&lt;/p&gt;
+&lt;p&gt;web8 /.svn 代码版本管理工具&lt;/p&gt;
+&lt;p&gt;web9: 本题目的是让答题者了解到vim编辑器使用时会有一个缓存文件，这个缓存文件在保存时进行删除，但是在vim意外退出时这个缓存文件，会以源文件加一个.swp后缀进行保存，我们可以尝试访问这些文件来尝试获取一些文件。&lt;/p&gt;
+&lt;p&gt;/index.php.swp&lt;/p&gt;
+&lt;p&gt;web10:network cookie&lt;/p&gt;
+&lt;p&gt;本题目是让答题者了解到cookie，cookie一般用于在身份认证的过程中保存一些信息，用于服务器来验证身份,在测试中可以尝试注入等方式。可以使用burp/F12中的网络来查看&lt;/p&gt;
+&lt;p&gt;web11:dns查找域名&lt;/p&gt;
+&lt;p&gt;web12:查看robots.txt文件，用户名admin。密码：在页面的最下方 管理员界面：/admin&lt;/p&gt;
+&lt;p&gt;web13:/document.pdf，底部信息&lt;/p&gt;
+&lt;p&gt;本题目的是答题者了解到很多的文章有许多的文档，可以在这些文档中发现很多信息，例如文件中有许多的信息泄露的地方，本题在底部的document这个这个文本中记录到有地址和密码。&lt;/p&gt;
+&lt;p&gt;web14:根据提示 泄露重要(editor)的信息 直接在url后面添加/editor 然后查看flag路径并且访问&lt;/p&gt;
+&lt;p&gt;web15:/admin 忘记密码，密保问题。首先，在网页最下方发现一个邮箱，于是就去QQ上搜索了一下QQ号，只是发现了一个账号，地点是陕西西安，社工搜索，telegram暗精灵&lt;/p&gt;
+&lt;p&gt;web16:考察PHP探针php探针是用来探测空间、服务器运行状况和PHP信息用的，探针可以实时查看服务器硬盘资源、内存占用、网卡 流量、系统负载、服务器时间等信息。 url后缀名添加/tz.php 版本是雅黑PHP探针，然后查看phpinfo搜索flag&lt;/p&gt;
+&lt;p&gt;web17:/backup.sql 备份的sql文件&lt;/p&gt;
+&lt;p&gt;web18:这是一个javascript 的游戏，游戏的目的就是让要赢，从js代码中可知，当score&amp;gt;120时，且game_over这个参数为false时，即可赢，于是打开开发者模式中的console，直接赋值score=130 game_over=false 然后，执行游戏 的run() 即可得到 &amp;ldquo;你赢了，去幺幺零点皮爱吃皮看看&amp;rdquo;， 即，110.php 打开它，即得flag&lt;/p&gt;
+&lt;p&gt;web19:js查看源码，得知post提交账户密码，用hackbar&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250207213641400.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;image-20250207213641400&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;web20：mdb文件是早期asp+access构架的数据库文件 直接查看url路径添加/db/db.mdb 下载文件通过txt打开或者通过EasyAccess.exe打开搜索flag flag{ctfshow_old_database}&lt;/p&gt;
 </description>
         </item>
         <item>
