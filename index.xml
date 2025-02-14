@@ -204,8 +204,15 @@
 &lt;p&gt;由于HTML文档具有扁平的、串行的结构，混合了控制语句、格式和实际内容，因此在结果页面中包含任何未经验证的用户提供的数据而没有进行正确的HTML编码，可能导致标记注入。一个经典的潜在攻击向量例子是站点搜索引擎：如果用户搜索一个字符串，搜索字符串通常会在结果页面上逐字显示，以表明搜索内容。如果该响应没有正确转义或拒绝HTML控制字符，就会导致跨站脚本漏洞。&lt;/p&gt;
 &lt;p&gt;反射型攻击通常通过电子邮件或一个中立的网站传递。诱饵是一个看似无害的URL，指向一个可信赖的网站，但包含XSS攻击向量。如果该可信赖的网站对该向量存在漏洞，点击链接可能会导致受害者的浏览器执行注入的脚本。&lt;/p&gt;
 &lt;p&gt;这里用最经典的paylaod来进行判断是否存在xss&lt;/p&gt;
-&lt;script&gt;alert(1)&lt;/script&gt;//这是语句是让浏览器弹框
-&lt;p&gt;题目中第二个输入框模拟受害者访问，这里的payload需要从xss平台中复制&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#34;&amp;#34;&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&amp;#34;&amp;#34;//这是语句是让浏览器弹框
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;题目中第二个输入框模拟受害者访问，这里的payload需要从xss平台中复制&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002218405.png&#34;
 	width=&#34;2160&#34;
 	height=&#34;745&#34;
@@ -290,10 +297,17 @@ DOM型XSS的攻击步骤&lt;/p&gt;
 		data-flex-basis=&#34;423px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;p&gt;注意！当你将类似于 location.href = &amp;ldquo;javascript:alert(&amp;lsquo;xss&amp;rsquo;)&amp;rdquo; 这样的代码赋值给 location.href 时，浏览器会将其解释为一种特殊的URL方案，即 “javascript:”。在这种情况下，浏览器会将后面的 JavaScript 代码作为URL的一部分进行解析，然后执行它。&lt;/p&gt;
+&lt;p&gt;注意！当你将类似于 &amp;lsquo;&amp;lsquo;&amp;rsquo;location.href = &amp;ldquo;javascript:alert(&amp;lsquo;xss&amp;rsquo;)&amp;rdquo;&amp;rsquo;&amp;rsquo;&amp;rsquo; 这样的代码赋值给 location.href 时，浏览器会将其解释为一种特殊的URL方案，即 “javascript:”。在这种情况下，浏览器会将后面的 JavaScript 代码作为URL的一部分进行解析，然后执行它。&lt;/p&gt;
 &lt;p&gt;直接在网页url后面跟上代码测试反弹&lt;/p&gt;
-&lt;p&gt;?jumpto=javascript:alert(1);
-跟前面老步骤&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;#39;&amp;#39;&amp;#39;javascript:alert(1)&amp;#39;&amp;#39;&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;跟前面老步骤&lt;/p&gt;
 &lt;h2 id=&#34;文件上传&#34;&gt;文件上传
 &lt;/h2&gt;&lt;p&gt;文件上传漏洞服务端代码未对客户端上传的文件进行严格的验证，导致漏洞。非法用户可以利用上传的恶意文件控制整个网站，这个恶意文件被称为 WebShell ，也可以称为一种网页后门。
 1.1常见的WebShell有哪些？&lt;/p&gt;
