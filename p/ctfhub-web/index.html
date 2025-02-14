@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="第三章 SQL 1.试述SQL的特点\n综合统一，高度非过程化，面向集合的操作方式，以同一种语法结构提供多种使用方式\n2.说明在DROP TABLE时，RESTRICT和CASCADE的区别\n">
-<title></title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="HTTP请求：抓包，把GET换成CTFHUB\n302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求\n">
+<title>ctfhub-web</title>
 
-<link rel='canonical' href='https://Frederick2313072.github.io/p/'>
+<link rel='canonical' href='https://Frederick2313072.github.io/p/ctfhub-web/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="">
-<meta property='og:description' content="第三章 SQL 1.试述SQL的特点\n综合统一，高度非过程化，面向集合的操作方式，以同一种语法结构提供多种使用方式\n2.说明在DROP TABLE时，RESTRICT和CASCADE的区别\n">
-<meta property='og:url' content='https://Frederick2313072.github.io/p/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="ctfhub-web">
+<meta property='og:description' content="HTTP请求：抓包，把GET换成CTFHUB\n302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求\n">
+<meta property='og:url' content='https://Frederick2313072.github.io/p/ctfhub-web/'>
 <meta property='og:site_name' content='Frederick'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:modified_time' content='2025-02-14T11:31:56&#43;00:00'/>
-<meta name="twitter:title" content="">
-<meta name="twitter:description" content="第三章 SQL 1.试述SQL的特点\n综合统一，高度非过程化，面向集合的操作方式，以同一种语法结构提供多种使用方式\n2.说明在DROP TABLE时，RESTRICT和CASCADE的区别\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-08T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-14T19:31:32&#43;08:00'/>
+<meta name="twitter:title" content="ctfhub-web">
+<meta name="twitter:description" content="HTTP请求：抓包，把GET换成CTFHUB\n302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求\n">
     </head>
     <body class="
     article-page
@@ -201,7 +201,46 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#xss攻击">XSS攻击</a>
+      <ol>
+        <li><a href="#反射型xss">反射型XSS</a></li>
+      </ol>
+    </li>
+    <li><a href="#存储型xss">存储型XSS</a></li>
+    <li><a href="#dom型xss攻击">DOM型XSS攻击</a></li>
+    <li><a href="#dom跳转">DOM跳转</a></li>
+    <li><a href="#文件上传">文件上传</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -212,7 +251,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/"></a>
+            <a href="/p/ctfhub-web/">ctfhub-web</a>
         </h2>
     
         
@@ -221,6 +260,25 @@
     
     
     
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-02-08</time>
+            </div>
+        
+
+        
+    </footer>
     
 
     
@@ -231,10 +289,121 @@
     <section class="article-content">
     
     
-    <h1 id="第三章-sql">第三章 SQL
-</h1><p>1.试述SQL的特点</p>
-<p>综合统一，高度非过程化，面向集合的操作方式，以同一种语法结构提供多种使用方式</p>
-<p>2.说明在DROP TABLE时，RESTRICT和CASCADE的区别</p>
+    <p>HTTP请求：抓包，把GET换成CTFHUB</p>
+<p>302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求</p>
+<p>cookie:验证身份 抓包repeater模块改成admin=1发送请求</p>
+<p>基础认证：burpsuite字典爆破，加密</p>
+<p>sql注入：结合burpsuite（前端没有回显），hackbar</p>
+<h2 id="xss攻击">XSS攻击
+</h2><p>找一个xss网站，我找的是xssaq.com</p>
+<h3 id="反射型xss">反射型XSS
+</h3><p>恶意JavaScript脚本属于用户发送给网站请求中的一部分，随后网站又将这部分返回给用户，恶意脚本在页面中被执行。一般发生在前后端一体的应用中，服务端逻辑会改变最终的网页代码。</p>
+<p>攻击步骤</p>
+<p>1.攻击者构造出特殊的 URL，其中包含恶意代码。
+2.用户打开带有恶意代码的 URL 时，网站服务端将恶意代码从 URL 中取出，拼接在 HTML 中返回给浏览器。
+3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
+4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</p>
+<p>由于HTML文档具有扁平的、串行的结构，混合了控制语句、格式和实际内容，因此在结果页面中包含任何未经验证的用户提供的数据而没有进行正确的HTML编码，可能导致标记注入。一个经典的潜在攻击向量例子是站点搜索引擎：如果用户搜索一个字符串，搜索字符串通常会在结果页面上逐字显示，以表明搜索内容。如果该响应没有正确转义或拒绝HTML控制字符，就会导致跨站脚本漏洞。</p>
+<p>反射型攻击通常通过电子邮件或一个中立的网站传递。诱饵是一个看似无害的URL，指向一个可信赖的网站，但包含XSS攻击向量。如果该可信赖的网站对该向量存在漏洞，点击链接可能会导致受害者的浏览器执行注入的脚本。</p>
+<p>这里用最经典的paylaod来进行判断是否存在xss</p>
+<script>alert(1)</script>//这是语句是让浏览器弹框
+<p>题目中第二个输入框模拟受害者访问，这里的payload需要从xss平台中复制</p>
+<p><img src="/p/ctfhub-web/image-20250210002218405.png"
+	width="2160"
+	height="745"
+	srcset="/p/ctfhub-web/image-20250210002218405_hu_cb12ff6580782970.png 480w, /p/ctfhub-web/image-20250210002218405_hu_320034864e4c6f84.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="289"
+		data-flex-basis="695px"
+	
+></p>
+<p>在XSS网站上</p>
+<p><img src="/p/ctfhub-web/image-20250210002314603.png"
+	width="2798"
+	height="1490"
+	srcset="/p/ctfhub-web/image-20250210002314603_hu_5ee597879623d070.png 480w, /p/ctfhub-web/image-20250210002314603_hu_bbd09783123db7c4.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="187"
+		data-flex-basis="450px"
+	
+></p>
+<h2 id="存储型xss">存储型XSS
+</h2><p>黑客将恶意 JavaScript 脚本长期保存在服务端数据库中，用户一旦访问相关页面数据，恶意脚本就会被执行。常见于搜索、微博、社区贴吧评论等。
+存储型 XSS 的攻击步骤：</p>
+<p>1.攻击者将恶意代码提交到目标网站的数据库中。
+2.用户打开目标网站时，网站服务端将恶意代码从数据库取出，拼接在 HTML 中返回给浏览器。
+3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
+4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</p>
+<p>和上面的是一样的，存储型就是把恶意代码存储进了数据库，每次查库就会触发恶意代码。</p>
+<p><img src="/p/ctfhub-web/image-20250210002745851.png"
+	width="2273"
+	height="909"
+	srcset="/p/ctfhub-web/image-20250210002745851_hu_9f63b06bcc08231d.png 480w, /p/ctfhub-web/image-20250210002745851_hu_3ad1080b52924576.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="250"
+		data-flex-basis="600px"
+	
+></p>
+<h2 id="dom型xss攻击">DOM型XSS攻击
+</h2><p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
+<p>在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等</p>
+<p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
+<p>在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等
+DOM型XSS的攻击步骤</p>
+<pre><code>攻击者构造出特殊的 URL，其中包含恶意代码。
+用户打开带有恶意代码的 URL。
+用户浏览器接收到响应后解析执行，前端 JavaScript 取出 URL 中的恶意代码并执行。
+恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。
+</code></pre>
+<p>简单来说就是在前端页面上寻找注入点</p>
+<p><img src="/p/ctfhub-web/image-20250210005338187.png"
+	width="493"
+	height="183"
+	srcset="/p/ctfhub-web/image-20250210005338187_hu_b489dc8a8f7bc9c7.png 480w, /p/ctfhub-web/image-20250210005338187_hu_f591e68f378cf687.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="269"
+		data-flex-basis="646px"
+	
+></p>
+<p>通过构造html语法的闭合，将脚本输入进去，同前面一样</p>
+<h2 id="dom跳转">DOM跳转
+</h2><p>审查源代码</p>
+<p><img src="/p/ctfhub-web/image-20250210011106889.png"
+	width="1266"
+	height="717"
+	srcset="/p/ctfhub-web/image-20250210011106889_hu_53002c1e63f0ba58.png 480w, /p/ctfhub-web/image-20250210011106889_hu_98aa4fcd4b2ddc64.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="423px"
+	
+></p>
+<p>注意！当你将类似于 location.href = &ldquo;javascript:alert(&lsquo;xss&rsquo;)&rdquo; 这样的代码赋值给 location.href 时，浏览器会将其解释为一种特殊的URL方案，即 “javascript:”。在这种情况下，浏览器会将后面的 JavaScript 代码作为URL的一部分进行解析，然后执行它。</p>
+<p>直接在网页url后面跟上代码测试反弹</p>
+<p>?jumpto=javascript:alert(1);
+跟前面老步骤</p>
+<h2 id="文件上传">文件上传
+</h2><p>文件上传漏洞服务端代码未对客户端上传的文件进行严格的验证，导致漏洞。非法用户可以利用上传的恶意文件控制整个网站，这个恶意文件被称为 WebShell ，也可以称为一种网页后门。
+1.1常见的WebShell有哪些？</p>
+<pre><code>拥有较完整功能的webshell，我们一般称为大马。
+功能简易的webshell称为小马。
+除此之外还存在一句话木马、菜刀马、脱库马等等的名词，是对于webShell功能或者特性的简称。
+</code></pre>
+<p>1.2 一句话木马演示</p>
 
 </section>
 
@@ -264,7 +433,7 @@
 
 
         <span>
-            最后更新于 Feb 14, 2025 11:31 UTC
+            最后更新于 Feb 14, 2025 19:31 &#43;0800
         </span>
     </section></footer>
 

