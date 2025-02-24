@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="好想成为和他一样优秀的人">
+<title>逆向核心原理</title>
+
+<link rel='canonical' href='https://Frederick2313072.github.io/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="逆向核心原理">
+<meta property='og:description' content="好想成为和他一样优秀的人">
+<meta property='og:url' content='https://Frederick2313072.github.io/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/'>
+<meta property='og:site_name' content='Frederick'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-24T00:15:44&#43;00:00'/>
+<meta name="twitter:title" content="逆向核心原理">
+<meta name="twitter:description" content="好想成为和他一样优秀的人">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "dark");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_db8ca5b2d3391751.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐋</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Frederick</a></h1>
+            <h2 class="site-description">Welcome to my alter ego&#39;s site!</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Frederick2313072'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/resources/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Resources</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#快速查找指定代码">快速查找指定代码</a></li>
+    <li><a href="#一些对于栈filofile-in-last-out的理解">一些对于栈FILO（file in last out）的理解</a></li>
+    <li><a href="#crakeme2">crakeme2</a></li>
+    <li><a href="#栈帧">栈帧</a></li>
+    <li><a href="#pe头">PE头</a></li>
+    <li><a href="#upx">UPX</a></li>
+    <li><a href="#调试notepad程序">调试notepad程序</a></li>
+    <li><a href="#pe重定向原理">PE重定向原理</a></li>
+    <li><a href="#从可执行文件中删除reloc节区">从可执行文件中删除.reloc节区</a></li>
+    <li><a href="#upack压缩后的文件">upack压缩后的文件</a></li>
+    <li><a href="#windows消息钩取">Windows消息钩取</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/">逆向核心原理</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            好想成为和他一样优秀的人
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-02-24</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>入口E8 00 CALL ~ Add ~</p>
+<ul>
+<li>
+<p>F7 步入</p>
+</li>
+<li>
+<p>F8 步出</p>
+</li>
+<li>
+<p>ctrl+F9 execute till return 跳出函数</p>
+</li>
+<li>
+<p>ctrl+G 移动到指定位置</p>
+</li>
+<li>
+<p>ctrl+F2 重新调试</p>
+</li>
+<li>
+<p>F9 运行至断点处</p>
+</li>
+<li>
+<p>Alt + B  打开Breakpoints，列出断点</p>
+</li>
+<li>
+<p>；添加注释</p>
+</li>
+<li>
+<p>alt+M 内存模块</p>
+</li>
+<li>
+<p>ctrl+E打开编辑窗口</p>
+</li>
+<li>
+<p>运行直接到断点处，步进步出逐行进行</p>
+</li>
+</ul>
+<h2 id="快速查找指定代码">快速查找指定代码
+</h2><ul>
+<li>从入口处不断F8直到某个函数被执行，弹窗</li>
+<li>查找字符串检索（有个思路，可以再IDA中看函数模块的地址，再在xdbg中ctrl+G跳转到地址）</li>
+<li>查找调用模块</li>
+</ul>
+<p>在main()处打断点，记作返回点</p>
+<p>修改字符串</p>
+<ul>
+<li>跳转至字符串溢出区buffer（就是地址，可以用IDA先找一下），ctrl+E打开编辑窗<img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250218164208127.png"
+	width="1481"
+	height="1061"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250218164208127_hu_475754827ea591d.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250218164208127_hu_75bb53828cfe2ce4.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="139"
+		data-flex-basis="335px"
+	
+></li>
+</ul>
+<p>缺点：新字符串不能比原字符串长</p>
+<ul>
+<li>方法二：<img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250218165527203.png"
+	width="1158"
+	height="361"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250218165527203_hu_ee71bb893c951bfb.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250218165527203_hu_51c3ddb263891e4c.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="320"
+		data-flex-basis="769px"
+	
+></li>
+</ul>
+<p>把字符串存到缓冲区，修改PUSH处指令ctrl+E</p>
+<p>在原字符汇编指令处，空格键打开assemble窗口，改成”PUSH 504FF0“</p>
+<p>栈顶指针ESP：向栈压入数据，栈顶指针减小，向低地址移动，从栈中弹出数据时，栈顶指针增加（理解成一个无盖容器底部装了一弹簧）</p>
+<h2 id="一些对于栈filofile-in-last-out的理解">一些对于栈FILO（file in last out）的理解
+</h2><p>在调试时，从一个函数入口处开始ESP地址减少，说明函数调用参数，把数据压入栈</p>
+<h2 id="crakeme2">crakeme2
+</h2><p>F9运行后，首先调用的就是主函数</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219163019036.png"
+	width="2129"
+	height="139"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219163019036_hu_4426f819ab2b2ce1.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219163019036_hu_b0596923b16af3f2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1531"
+		data-flex-basis="3675px"
+	
+></p>
+<p>401248处的push401E14命令来把401E14压入栈，然后40123D处CALL&lt;&gt;调用401232处的JMP ThunRTMain函数，会跳转到主函数ThunRTMain，前面的401E14的值作为ThunRTMain()的参数，这是一个间接调用，利用错误消息框和字符串，字符查找，往上找条件分支</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219165105395.png"
+	width="1296"
+	height="886"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219165105395_hu_37d3bdf399c7e2dd.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219165105395_hu_4f77eefb15ccc2e2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="146"
+		data-flex-basis="351px"
+	
+></p>
+<p>调用403329处的函数，比较函数值，再决定跳转</p>
+<h2 id="栈帧">栈帧
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PUSH EBP   ;函数开始
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">MOV EBP,ESP;保存当前ESP到EBP中
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">.......    ;无论ESP值如何变，EBP都保持不变
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">MOV ESP,EBP;将函数的起始地址返回到ESP中
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">POP EBP    ;函数返回前弹出保存在栈中的EBP值
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">RETN       ;函数终止
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>函数返回前要先从栈中删除与其对应的栈帧</p>
+<p><img src="G:%5chugo_extended_withdeploy_0.139.3_windows-amd64%5cmyBlog%5ccontent%5cpost%5c%e9%80%86%e5%90%91%5cimage-20250219000425862.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>按照传递给rctMsgBox()参数的大小14清理栈</p>
+<p>RETN XX:根据传参的大小调整栈</p>
+<h2 id="pe头">PE头
+</h2><p>DOS头：typedef struct_IMAGE_DOS_HEADER,e_magic:DOS签名,e_ifanew:NT头偏移</p>
+<p>NT头：IMAGE_NT_HEADERS</p>
+<h2 id="upx">UPX
+</h2><p>upx -o 目标文件 源文件</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219132842571.png"
+	width="1327"
+	height="202"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219132842571_hu_54b2b2ac06d77676.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219132842571_hu_5e0f0d47e99846f9.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="656"
+		data-flex-basis="1576px"
+	
+></p>
+<p>可以看到文件大小由67584变为48640，比ZIP压缩后大，是因为压缩后得到PE文件，需要添加PE头，并且还要放入解压缩代码</p>
+<h2 id="调试notepad程序">调试notepad程序
+</h2><p>先找到EP代码（偶然发现一个好办法，只要在开头ctrl+F8，结束后xdbg会自动暂停到入口点）EP开始时0101开头，前面都是0701开头</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219144956141.png"
+	width="2143"
+	height="106"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219144956141_hu_9a133e2dbf22036b.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219144956141_hu_7f5fbc9888b58ff5.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2021"
+		data-flex-basis="4852px"
+	
+></p>
+<p>在EP处ctrl+F8开始代码追踪，发现有一个短循环，在循环末尾设置断点，F9跳出循环</p>
+<p>UPX特征之一是,EP代码被包含在PUSHAD/POPAD指令之间，跳转到OEP代码的JMP指令紧接着出现在POPAD之后，只要在JMP指令处设置好断点，运行后就能直接找到OEP</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219151542967.png"
+	width="2043"
+	height="191"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219151542967_hu_f1afbeb730ec6cb7.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219151542967_hu_835ed29ff5d0a4cd.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1069"
+		data-flex-basis="2567px"
+	
+></p>
+<h2 id="pe重定向原理">PE重定向原理
+</h2><p>PE重定向就是PE文件无法加载到ImageBase所指位置，而是被加载到其他地址时发生的一系列的处理行为</p>
+<p>基本原理：在应用程序中查找硬编码的地址位置，读取值后，减去ImageBase(VA-RVA),加上实际加载地址（RVA-VA)</p>
+<p>先查找IMAGE_BASE_RELOCATION</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219193551347.png"
+	width="1592"
+	height="69"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219193551347_hu_2e19ef23719af55b.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219193551347_hu_5d31995ed6ef43a3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2307"
+		data-flex-basis="5537px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">typedef struct _IMAGE_BASE_RELOCATION {
+</span></span><span class="line"><span class="cl">    DWORD    VirtualAddress;  // 重定位页的 RVA
+</span></span><span class="line"><span class="cl">    DWORD    SizeOfBlock;     // 重定位块的大小
+</span></span><span class="line"><span class="cl">     WORD    TypeOffset;      // 重定位条目的类型于偏移
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">} _IMAGE_BASE_RELOCATION;
+</span></span><span class="line"><span class="cl">typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>irtualAddress 重定位页 RVA。以映像装载基址加上页 RVA 的和作为被加数，再加上重定位项对应的 offset 就能得到其在内存中实际的 VA。最后一个重定位块的尾部也会添加一个 virtualaddress 字段作为结束标志。</strong></p>
+<p><strong>SizeOfBlock 基址重定位块的大小。包括 VirtualAddress，SizeOfBlock，以及后面 TypeOffset 的大小。</strong></p>
+<p><strong>TypeOffset</strong> 一个数组。数组中每个元素大小为 2 个字节，即 16 位。</p>
+<p><strong>type 高 4 位用于表示重定位的类型。</strong></p>
+<p><strong>offset 低 12 位用于表示重定位数据位置相对于页 RVA 的偏移量。与 VirtualAddress 相加就是要修改的重定位数据的指针，再加上映像装载基址就是修改后的指针。</strong></p>
+<p>硬编码地址偏移：VirtualSize+Offset=1420(RVA)</p>
+<p>减去ImageBase值</p>
+<p>加上实际加载地址值</p>
+<h2 id="从可执行文件中删除reloc节区">从可执行文件中删除.reloc节区
+</h2><p>前提：删除基础重定位表对运行没什么影响</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214027135.png"
+	width="1241"
+	height="724"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214027135_hu_789e2592682b485e.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214027135_hu_5d6e1d48d6652116.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="171"
+		data-flex-basis="411px"
+	
+></p>
+<p>从文件偏移270开始，到297</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214243210.png"
+	width="1235"
+	height="196"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214243210_hu_b10d7d9bbdfe3e37.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214243210_hu_a9979f05080eab60.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="630"
+		data-flex-basis="1512px"
+	
+></p>
+<p>打开010Editor直接删除，至此,.reloc被物理删除，之后开始修改相关PE头信息（就像改配置一样）</p>
+<p>修改IMAGE_FILE_HEADER-NUMBER of SECTIONS，5改成4</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214744189.png"
+	width="1146"
+	height="77"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214744189_hu_6fa4d90485c42bc4.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219214744189_hu_4a3d7bb754deb9b0.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="1488"
+		data-flex-basis="3571px"
+	
+></p>
+<p>之后修改IMAGE_OPTIONAL_HEADER-size of image</p>
+<p>VirualSize时E40，Section Alignment值为1000，故要减去1000</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219220032888.png"
+	width="1162"
+	height="57"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219220032888_hu_978ab30528b2ae5b.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219220032888_hu_462fd3f8ea4313b1.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="2038"
+		data-flex-basis="4892px"
+	
+></p>
+<h2 id="upack压缩后的文件">upack压缩后的文件
+</h2><p>把PE文件头变形，这部分有点不太明白，大概就是增大SizeOfOptionalHeader的值，在IMAGE_OPTIONAL_HEADER和IMAGE_SECTION_HEADER之间添加额外空间，添加解码代码，如下</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219224827392.png"
+	width="682"
+	height="294"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219224827392_hu_743358f2012cbf61.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219224827392_hu_66360d16f4c9441c.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="231"
+		data-flex-basis="556px"
+	
+></p>
+<p>从170开始是IMAGE_SECTION_HEADER</p>
+<p>打开section选项，观察到第一个节区和第三个节区rawoffset起始偏移都是10，由此可知Upack会对PE文件头，第一个节区，第三个节区进行重叠</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219230414308.png"
+	width="1256"
+	height="202"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219230414308_hu_6a74240fd72a7241.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250219230414308_hu_be9eeaad9cee92b4.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="621"
+		data-flex-basis="1492px"
+	
+></p>
+<p>进行调试，先要找出EP入口，EP的RVA为1018，ImageBase为0100000，故EP的VA值为01001018，xdbg已经打好断点了</p>
+<p>（忘记保存了）</p>
+<h2 id="windows消息钩取">Windows消息钩取
+</h2><p>HookMain.exe最先加载Keyhook.dll安装键盘钩子，使用SetWindowsHookEX()安装键盘钩子，OS强制键盘输入事件，调用KeyHook.dll注入到相应进程的内存，调用KeuboardProc()函数，在ProcessExplorer中检索Keyhook.dll发现如下</p>
+<p><img src="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250220144801782.png"
+	width="986"
+	height="471"
+	srcset="/p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250220144801782_hu_1a5f641ca85de745.png 480w, /p/%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/image-20250220144801782_hu_5de552303994bfc0.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="209"
+		data-flex-basis="502px"
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">HHOOK SetWindowsHookEx(
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​    int idHook,//hook type
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​    HOOKPROC lpfn,//hook procedure
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​    HINSTANCE hMod,//hook procedure所属的DLL句柄
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​    DWORD dwThreadId,//想要钩载的线程
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">)
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Feb 24, 2025 00:15 UTC
+        </span>
+    </section></footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Frederick2313072/utterances-comments"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Frederick
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+  body {
+    background: url(https://Frederick2313072.github.io/background/background.jpg) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+    </body>
+</html>
