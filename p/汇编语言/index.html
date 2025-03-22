@@ -10,7 +10,7 @@
 <meta property='og:description' content="编辑：vim/edit\n编译：masm\n链接：link\n将内存2000:0，2000:1,2000:2,2000:3单元中的数据送入al,bl,cl,dl中\n">
 <meta property='og:url' content='https://Frederick2313072.github.io/p/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/'>
 <meta property='og:site_name' content='Frederick'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-24T00:15:44&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-24T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-22T17:19:23&#43;00:00'/>
 <meta name="twitter:title" content="汇编语言">
 <meta name="twitter:description" content="编辑：vim/edit\n编译：masm\n链接：link\n将内存2000:0，2000:1,2000:2,2000:3单元中的数据送入al,bl,cl,dl中\n">
     </head>
@@ -728,6 +728,34 @@
 <p>loop相当于（cx)&ndash;;if((cx)!=0)jump short 标号；</p>
 <p>jump short s的转移范围是-128~127</p>
 <p><u>offset</u></p>
+<p>CPU执行ret指令，修改IP，pop IP</p>
+<p>(IP)=((ss)*16+(sp))</p>
+<p>(sp)=(sp)+2</p>
+<p>CPU执行retf指令,修改CS和IP,POP IP,POP CS</p>
+<p>(IP)=((ss)*16+(sp))</p>
+<p>(sp)=(sp)+2</p>
+<p>(IP)=((ss)*16+(sp))</p>
+<p>(sp)=(sp)+2</p>
+<p>CPU执行call指令，将CS和IP压入栈，转移,pump IP ;jmp near ptr标号</p>
+<p>(sp)-=2</p>
+<p>((ss)*16+(sp))=(IP)</p>
+<p>IP+=16位位移</p>
+<p>call far ptr 相当于push CS; push IP; jmp far ptr</p>
+<p>mov ax,6;call ax将6存入ax，调用地址6处的函数</p>
+<p>mul做乘法，要么都是16位要么都是8位</p>
+<p>mul byte ptr ds:[0]</p>
+<p>(ax)=(al)*((ds)*16+0)</p>
+<p>ZF标志：零标志位。结果为0，ZF=1（逻辑为真）,结果为1，ZF=0</p>
+<p>PF标志:奇偶标志位，bit位个数是否为偶数</p>
+<p>SF标志：符号标志位，非负，sf=1</p>
+<p>CF标志：进位标志符，</p>
+<p>cmp ax，bx即比较ax-bx</p>
+<p>je等于则转移</p>
+<p>jne</p>
+<p>jb低于则转移below</p>
+<p>jnb不低于则转移</p>
+<p>ja高于则转移above</p>
+<p>jna不高于则转移</p>
 
 </section>
 
@@ -757,7 +785,7 @@
 
 
         <span>
-            最后更新于 Feb 24, 2025 00:15 UTC
+            最后更新于 Mar 22, 2025 17:19 UTC
         </span>
     </section></footer>
 

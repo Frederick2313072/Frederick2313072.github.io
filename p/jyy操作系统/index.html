@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="由于引导区空间有限，只有512个字节，故打算把程序编译成com文件，然后让DOS执行\n1 nasm pmtest1.asm -o pmtest1.com 一些挂载问题：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 1、写入空白内容： dd if=/dev/null of=pm.img bs=512 count=1 conv=notrunc 2、使用 losetup 命令，将 data.img 作为 loop device 使用： sudo losetup /dev/loop0 pm.img 3、然后，格式化这个 loop device： sudo mkfs.msdos /dev/loop0 4、检查文件系统： sudo fsck.msdos /dev/loop0 5、删除 loop device： sudo losetup -d /dev/loop0 这时候，pm.img 已经格式化完成，可以作为一个软盘镜像使用。用file查看，结果为： pm.img: DOS floppy 1440k, x86 hard disk boot sector 再次输入 sudo mount -o loop pm.img /mnt/floppy 6、挂载成功！！！ 之后正常挂在就行\n">
+<title>jyy操作系统</title>
+
+<link rel='canonical' href='https://Frederick2313072.github.io/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="jyy操作系统">
+<meta property='og:description' content="由于引导区空间有限，只有512个字节，故打算把程序编译成com文件，然后让DOS执行\n1 nasm pmtest1.asm -o pmtest1.com 一些挂载问题：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 1、写入空白内容： dd if=/dev/null of=pm.img bs=512 count=1 conv=notrunc 2、使用 losetup 命令，将 data.img 作为 loop device 使用： sudo losetup /dev/loop0 pm.img 3、然后，格式化这个 loop device： sudo mkfs.msdos /dev/loop0 4、检查文件系统： sudo fsck.msdos /dev/loop0 5、删除 loop device： sudo losetup -d /dev/loop0 这时候，pm.img 已经格式化完成，可以作为一个软盘镜像使用。用file查看，结果为： pm.img: DOS floppy 1440k, x86 hard disk boot sector 再次输入 sudo mount -o loop pm.img /mnt/floppy 6、挂载成功！！！ 之后正常挂在就行\n">
+<meta property='og:url' content='https://Frederick2313072.github.io/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/'>
+<meta property='og:site_name' content='Frederick'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-22T17:19:23&#43;00:00'/>
+<meta name="twitter:title" content="jyy操作系统">
+<meta name="twitter:description" content="由于引导区空间有限，只有512个字节，故打算把程序编译成com文件，然后让DOS执行\n1 nasm pmtest1.asm -o pmtest1.com 一些挂载问题：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 1、写入空白内容： dd if=/dev/null of=pm.img bs=512 count=1 conv=notrunc 2、使用 losetup 命令，将 data.img 作为 loop device 使用： sudo losetup /dev/loop0 pm.img 3、然后，格式化这个 loop device： sudo mkfs.msdos /dev/loop0 4、检查文件系统： sudo fsck.msdos /dev/loop0 5、删除 loop device： sudo losetup -d /dev/loop0 这时候，pm.img 已经格式化完成，可以作为一个软盘镜像使用。用file查看，结果为： pm.img: DOS floppy 1440k, x86 hard disk boot sector 再次输入 sudo mount -o loop pm.img /mnt/floppy 6、挂载成功！！！ 之后正常挂在就行\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "dark");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_db8ca5b2d3391751.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐋</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Frederick</a></h1>
+            <h2 class="site-description">Welcome to my alter ego&#39;s site!</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Frederick2313072'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/resources/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Resources</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#保护模式">保护模式</a></li>
+    <li><a href="#c程序的状态机模型">C程序的状态机模型</a></li>
+    <li><a href="#编译器">编译器</a></li>
+    <li><a href="#常见应用程序">常见应用程序</a></li>
+    <li><a href="#并发">并发</a></li>
+    <li><a href="#原子性的丧失">原子性的丧失</a></li>
+    <li><a href="#现代处理器">现代处理器</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#peterson算法">Peterson算法</a></li>
+    <li><a href="#在共享内存上实现互斥">在共享内存上实现互斥</a></li>
+    <li><a href="#原子指令的模型">原子指令的模型</a></li>
+    <li><a href="#load-reservedstore-conditional">LOAD-Reserved/Store-Conditional</a>
+      <ol>
+        <li><a href="#自旋锁的缺陷">自旋锁的缺陷</a></li>
+        <li><a href="#自旋锁的好处">自旋锁的好处</a></li>
+      </ol>
+    </li>
+    <li><a href="#futex">Futex</a></li>
+    <li><a href="#总结-1">总结</a></li>
+    <li><a href="#并发控制">并发控制</a></li>
+    <li><a href="#生产者-消费者问题">生产者-消费者问题</a></li>
+    <li><a href="#conditional-variables">Conditional Variables</a></li>
+    <li><a href="#哲学家吃饭问题">哲学家吃饭问题</a></li>
+    <li><a href="#防御性编程">防御性编程</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">jyy操作系统</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-03-16</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>由于引导区空间有限，只有512个字节，故打算把程序编译成com文件，然后让DOS执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nasm pmtest1.asm -o pmtest1.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>一些挂载问题：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1、写入空白内容：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   dd if=/dev/null of=pm.img bs=512 count=1 conv=notrunc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2、使用 losetup 命令，将 data.img 作为 loop device 使用：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   sudo losetup /dev/loop0 pm.img
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">3、然后，格式化这个 loop device：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   sudo mkfs.msdos /dev/loop0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">4、检查文件系统：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   sudo fsck.msdos /dev/loop0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">5、删除 loop device：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   sudo losetup -d /dev/loop0
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    这时候，pm.img 已经格式化完成，可以作为一个软盘镜像使用。用file查看，结果为：
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   pm.img: DOS floppy 1440k, x86 hard disk boot sector
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    再次输入
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   sudo mount -o loop pm.img /mnt/floppy
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">6、挂载成功！！！
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>之后正常挂在就行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">sudo cp pmtest1.com /mnt/floppy(先要在创建挂载文件夹，Ubuntu好像没有软盘驱动，中途换kali去了，也是基于Debian)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">sudo umount /mnt/floppy
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="保护模式">保护模式
+</h2><p>从实模式跳转到保护模式</p>
+<p>1.准备GDT（全局描述符表）</p>
+<p>2.用lgdt加载gdtr</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">lgdt [GdtPtr]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>3.打开A20,，试图访问到1MB上的内存</p>
+<p>4.设置cr0的PE位，0变1</p>
+<p>5.跳转，进入保护模式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">jmp dword SelectorCode32:0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>跳转目标是描述符DESC——CODE32对应段的首地址，即标号LABEL_SEG_CODE32处</p>
+<p>P位，p=1表示段在内存中存在，p=0表示段在内存中不存在</p>
+<p>DPL描述符特权级，特权级可以是0，1，2，3，数字越小特权级越大</p>
+<p>S位，数据段/代码段描述符，系统段/门描述符</p>
+<p>在保护模式下执行汇编代码mov ds:[si], ax的大致步骤如下：</p>
+<p>首先CPU需要查找GDT在内存中位置，GDT的位置从GDTR寄存器中直接获取
+然后根据DS寄存器得到目标段描述符的物理地址
+计算出描述符中的段基址的值加上SI寄存器存储的偏移量的结果，该结果为目标物理地址
+将AX寄存器中的数据写入到目标物理地址</p>
+<h2 id="c程序的状态机模型">C程序的状态机模型
+</h2><p>状态=堆+栈</p>
+<p>初始状态=main()的第一条语句</p>
+<p>迁移=执行一条简单语句</p>
+<p>状态机，取指令，执行</p>
+<p>复习下gdb调试，大多数都快忘光了</p>
+<p>pwngdb调试：start;b &lt;断点&gt;；r;layout asm(二进制调试);si执行一条指令；x $rbp;si;rbp寄存器值改变；wa $rax监控断点</p>
+<p>程序？</p>
+<p>程序是一个状态机，初始状态：如果没有指定，从PC开始执行，线性，分叉（如rand），程序执行的结果不是唯一的</p>
+<p>一条特殊的指令syscall(),进入内核模式，把&hellip;.交给操作熊，任其修改，程序=计算+syscall()</p>
+<p>如何写一个最小的hello，world程序?</p>
+<p><img src="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311131332572.png"
+	width="1679"
+	height="379"
+	srcset="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311131332572_hu_d4437834f22d526d.png 480w, /p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311131332572_hu_a9ce73da415cd07b.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="443"
+		data-flex-basis="1063px"
+	
+></p>
+<p>强行编译+链接</p>
+<p>ld失败，把main改成_start</p>
+<p>但是Segmentation Fault，retq就是把rsp加8，调试发现是初始状态无法返回</p>
+<p>解决办法：syscall</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/syscall.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">syscall</span><span class="p">(</span><span class="n">SYS_exit</span><span class="p">,</span> <span class="mi">42</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>man syscall</p>
+<p><img src="C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250311134348396.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20250311134348396"
+	
+	
+></p>
+<p>系统调用参数，如在x86-64，syscall放在rax,rax,rdx，终于明白pwn的payload如何构造了</p>
+<p>一些有趣的终端命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">telnet towel.blinkenlights.nl 放电影
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">dialog --msgbox &#39;Hello&#39; 8 32
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ssh sshtron.zachlatta.com(贪吃蛇)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="编译器">编译器
+</h2><p>c代码状态机（有些地方不可优化，如系统调用是不可优化的），汇编代码状态机，如何切换?</p>
+<p>C=compile(S)</p>
+<p>正确的编译？把C代码中不可优化的部分都被正确的翻译到汇编上</p>
+<p>xxd:Linux查看二进制代码</p>
+<h2 id="常见应用程序">常见应用程序
+</h2><p>程序是状态机视角</p>
+<p>GNU Coreutils/busybox -&gt;系统/工具程序(apt,ssh,vim) ——&gt;应用程序</p>
+<p>QA：Hello World C程序执行的第一条指令在哪里?</p>
+<p>/lib64/ld-linux-x86-64.so</p>
+<p><img src="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311153250055.png"
+	width="1493"
+	height="348"
+	srcset="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311153250055_hu_a18da4cf34b9d4af.png 480w, /p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311153250055_hu_e9b936ac4ad4bd69.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="429"
+		data-flex-basis="1029px"
+	
+></p>
+<p>可以自行修改哈</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">strace追踪
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">strace f.out
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">strace -f gcc -c f.c
+</span></span><span class="line"><span class="cl">gcc --verbose
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="并发">并发
+</h2><p>Human beings are sequential agents</p>
+<p>单线程每一步都是确定的</p>
+<p>多线程：全局变量和堆区共享，有几个独立的栈帧链，线程：每个栈帧里都有PC和其他局部变量，并发系统每一步都不确定，switch选择线程1/2/3&hellip;&hellip;?</p>
+<p>Human beings are sequential creature.</p>
+<p>top显示CPU使用情况</p>
+<p>是不是线程共存内存？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#include &#34;thread.h&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">int x = 0;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void Thello(int id) {
+</span></span><span class="line"><span class="cl">  usleep(id * 100000);
+</span></span><span class="line"><span class="cl">  printf(&#34;Hello from thread #%c\n&#34;, &#34;123456789ABCDEF&#34;[x++]);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">int main() {
+</span></span><span class="line"><span class="cl">  for (int i = 0; i &lt; 10; i++) {
+</span></span><span class="line"><span class="cl">    create(Thello);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>改变int x=0局部or全局，可以看到不一样的输出</p>
+<p>如何证明线程具有独立堆栈？</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">#include &#34;thread.h&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">__thread</span> <span class="n">char</span> <span class="o">*</span><span class="n">base</span><span class="p">,</span> <span class="o">*</span><span class="n">cur</span><span class="p">;</span> <span class="o">//</span> <span class="n">thread</span><span class="o">-</span><span class="n">local</span> <span class="n">variables</span>
+</span></span><span class="line"><span class="cl"><span class="n">__thread</span> <span class="ne">int</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">objdump</span> <span class="n">to</span> <span class="n">see</span> <span class="n">how</span> <span class="n">thread</span><span class="o">-</span><span class="n">local</span> <span class="n">variables</span> <span class="n">are</span> <span class="n">implemented</span>
+</span></span><span class="line"><span class="cl"><span class="n">__attribute__</span><span class="p">((</span><span class="n">noinline</span><span class="p">))</span> <span class="n">void</span> <span class="n">set_cur</span><span class="p">(</span><span class="n">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">__attribute__</span><span class="p">((</span><span class="n">noinline</span><span class="p">))</span> <span class="n">char</span> <span class="o">*</span><span class="n">get_cur</span><span class="p">()</span>         <span class="p">{</span> <span class="k">return</span> <span class="n">cur</span><span class="p">;</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">stackoverflow</span><span class="p">(</span><span class="ne">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">set_cur</span><span class="p">(</span><span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="mi">1024</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="ne">int</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">base</span> <span class="o">-</span> <span class="n">get_cur</span><span class="p">();</span><span class="o">//</span><span class="err">栈底和栈顶区别</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s2">&#34;Stack size of T</span><span class="si">%d</span><span class="s2"> &gt;= </span><span class="si">%d</span><span class="s2"> KB</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">,</span> <span class="n">id</span><span class="p">,</span> <span class="n">sz</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">stackoverflow</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span><span class="o">//</span><span class="err">无限制的创建栈</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">Tprobe</span><span class="p">(</span><span class="ne">int</span> <span class="n">tid</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">id</span> <span class="o">=</span> <span class="n">tid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">base</span> <span class="o">=</span> <span class="p">(</span><span class="n">void</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">tid</span><span class="p">;</span> <span class="o">//</span><span class="err">指向</span><span class="n">tid地址</span>
+</span></span><span class="line"><span class="cl">  <span class="n">stackoverflow</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">create</span><span class="p">(</span><span class="n">Tprobe</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>多线程执行，同时访问相同的共享变量，会出问题</p>
+<h2 id="原子性的丧失">原子性的丧失
+</h2><p>如何把程序限制到单处理器上？</p>
+<p>单处理器多线程</p>
+<ul>
+<li>线程在运行时可能被中断，切换到另一个线程执行</li>
+</ul>
+<p>多处理器多线程</p>
+<ul>
+<li>线程根本就是并行执行的</li>
+</ul>
+<p>printf还能在多线程调用吗？</p>
+<p>printf不会在多线程中出现问题，比如一个字符插入另一个字符，因为有缓冲区，不是puts</p>
+<p>asm volatile(&quot;&quot;:::&ldquo;memory&rdquo;)插入汇编指令，告诉汇编器不要优化，别的线程可能读写内存</p>
+<p>并发程序最大的麻烦？</p>
+<p>mem-ordering.c</p>
+<p>flag=0或1，通过异或算法，来决定执行哪个</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> ./mem-ordering |head -n 10000 |sort |uniq -c
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="现代处理器">现代处理器
+</h2><p>动态编译器</p>
+<p>单个处理器把汇编代码编译成更小的uops</p>
+<p>fetch-&gt;issue（可以同时）-&gt;execuite-&gt;commit</p>
+<p>在任何时刻，处理器都维护一个uop的池子，每一周期向池子补充尽可能多的uop，执行尽可能多的uop，这也是乱序执行的原因</p>
+<p>多处理器间即使可见性的丧失</p>
+<p>如果写x发生cache miss，延迟写入，执行下一条指令</p>
+<p>“mfence”保证多处理器之间的一致性，只有写入内存，才能执行下一条语句</p>
+<h2 id="总结">总结
+</h2><p>并发程序=多个执行流，共享内存的状态机，c语言执行流</p>
+<p>thread.h=create+join</p>
+<p>并发执行不原子，能乱序。不立即可见</p>
+<p>现代处理器就是动态数据分析器，指令流，数据流，只要做出相应的应对，就能跑的快</p>
+<p>互斥：保证两个线程不能同时执行一段代码</p>
+<p>利用锁，互斥锁，同一时间只有一个线程持有锁，线程在进入临界区前必须先获取锁，线程在离开临界区后必须释放锁，必须确保同一时间只有一个线程能狗执行临界区代码</p>
+<h2 id="peterson算法">Peterson算法
+</h2><p>store()改变状态，赋值</p>
+<p>load()看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int x = 0, y = 0, turn = A;
+</span></span><span class="line"><span class="cl">void TA() {
+</span></span><span class="line"><span class="cl">    while (1) {
+</span></span><span class="line"><span class="cl">/* PC=1 */  x = 1;
+</span></span><span class="line"><span class="cl">/* PC=2 */  turn = B;
+</span></span><span class="line"><span class="cl">/* PC=3 */  while (y &amp;&amp; turn == B) ;
+</span></span><span class="line"><span class="cl">            critical_section();
+</span></span><span class="line"><span class="cl">/* PC=4 */  x = 0; } }
+</span></span><span class="line"><span class="cl">void TB() {
+</span></span><span class="line"><span class="cl">  while (1) {
+</span></span><span class="line"><span class="cl">/* PC=1 */  y = 1;
+</span></span><span class="line"><span class="cl">/* PC=2 */  turn = A;
+</span></span><span class="line"><span class="cl">/* PC=3 */  while (x &amp;&amp; turn == A) ;
+</span></span><span class="line"><span class="cl">            critical_section();
+</span></span><span class="line"><span class="cl">/* PC=4 */  y = 0; } }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>QA：如何保证两个人能安全的上厕所，只有store（）和load()两个动作？</p>
+<p><img src="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311224557999.png"
+	width="1771"
+	height="869"
+	srcset="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311224557999_hu_a0fea25e13f699ed.png 480w, /p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250311224557999_hu_6ada56634a4eba0e.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="203"
+		data-flex-basis="489px"
+	
+></p>
+<p>模拟算法（PC1,PC2,X,Y,turn）</p>
+<p>modef-checker.py</p>
+<p>不断试图进入临界区，只要变量是锁着的，就执行死循环，如果不是，就锁上，进入临界区，出临界区，把锁删掉</p>
+<h2 id="在共享内存上实现互斥">在共享内存上实现互斥
+</h2><p>实现互斥的根本困难：公理系统不允许同时读/写共享内存，即load()和store()不能同时执行</p>
+<p>解决：假设硬件能为我们提供一条“瞬间完成”的读写指令</p>
+<p>实现互斥的协议？</p>
+<p>一条exchange协议，0/1状态转变</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int table =yes;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void lock(){
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">retry:
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​    int got = xchg(&amp;table,NOPE);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​    if (got == NOPE)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​        goto retry;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​    assert(got == YES);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void unlock(){
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">​    xchg(&amp;table,YES)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">int locked =0;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void lock(){while (echg(&amp;locked,1));}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void unlock(){xchg(&amp;locked,0);}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意model-checker工作的检验</p>
+<h2 id="原子指令的模型">原子指令的模型
+</h2><p>保证lock指令有顺序并能按顺序执行，后面的线程能看见前面的线程，保证之前的store都写入内存，保证load/store不与原子指令乱序</p>
+<p>atomic test-and-set</p>
+<p>lock xchg</p>
+<p>reg=load(x);if (reg==XX){store(x,XX)}</p>
+<p>lock add</p>
+<p>t=load(x);t++;store(x,t)</p>
+<p>一读一写</p>
+<p>load,exec,store</p>
+<h2 id="load-reservedstore-conditional">LOAD-Reserved/Store-Conditional
+</h2><p>打标记</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int cas(int *addr, int cmp_val, int new_val) {
+</span></span><span class="line"><span class="cl">  int old_val = *addr;
+</span></span><span class="line"><span class="cl">  if (old_val == cmp_val) {
+</span></span><span class="line"><span class="cl">    *addr = new_val; return 0;
+</span></span><span class="line"><span class="cl">  } else { return 1; }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="自旋锁的缺陷">自旋锁的缺陷
+</h3><p>每个CPU上不同线程，可以切换，除了进入临界区的线程，其他处理器上的线程都在空转，获得自旋锁的线程可能被操作系统切换出去</p>
+<p>自旋 (共享变量) 会触发处理器间的缓存同步，延迟增加</p>
+<p>同一份计算任务，时间 (CPU cycles) 和空间 (mapped memory) 会随处理器数量的增长而变化。</p>
+<p><img src="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250312235140968.png"
+	width="1024"
+	height="822"
+	srcset="/p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250312235140968_hu_fafde7f4a828a55f.png 480w, /p/jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/image-20250312235140968_hu_b430a7b46af1c0af.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="124"
+		data-flex-basis="298px"
+	
+></p>
+<h3 id="自旋锁的好处">自旋锁的好处
+</h3><ul>
+<li>更快的 fast path
+<ul>
+<li>xchg 成功 → 立即进入临界区，开销很小</li>
+</ul>
+</li>
+<li>更慢的 slow path
+<ul>
+<li>xchg 失败 → 浪费 CPU 自旋等待</li>
+</ul>
+</li>
+</ul>
+<p>自旋锁的使用场景</p>
+<p>no：</p>
+<ul>
+<li>持有自旋锁时禁止执行流切换(很危险的操作)？</li>
+<li>临界区几乎不拥堵？</li>
+</ul>
+<p>操作系统可以操纵关中断和抢占，保证锁的持有者在很短的时间呢你可以释放锁</p>
+<p>如何实现一个很长的临界期？</p>
+<p>把锁的实现放到操作系统里就好啦！</p>
+<ul>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">syscall(SYSCALL_lock, &amp;lk);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>试图获得 <code>lk</code>，但如果失败，就切换到其他线程</li>
+</ul>
+</li>
+<li>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">syscall(SYSCALL_unlock, &amp;lk);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>释放 <code>lk</code>，如果有等待锁的线程就唤醒</li>
+</ul>
+</li>
+</ul>
+<p>融合自旋锁和互斥锁的好处？</p>
+<h2 id="futex">Futex
+</h2><p>Fast path: 一条原子指令，上锁成功立即返回</p>
+<p>Slow path: 上锁失败，执行系统调用睡眠</p>
+<p>线程库里的锁绝大情况下不会启动系统调用，而是原子调用</p>
+<h2 id="总结-1">总结
+</h2><p>QA：如何在多处理器上实现互斥？</p>
+<p>在多处理器系统上实现互斥是确保多个处理器或核心在访问共享资源时不会发生冲突的关键，利用锁</p>
+<h2 id="并发控制">并发控制
+</h2><p>QA:如何在多处理器上协同多个线程完成任务？</p>
+<p>同步：两个或两个以上随时间变化的量在变化过程中保持一定的相对关系</p>
+<p>并发程序中的同步：在某个时间点共同达到互相已知的状态</p>
+<h2 id="生产者-消费者问题">生产者-消费者问题
+</h2><p>括号匹配</p>
+<p>左括号：生产资源，放入队列</p>
+<p>右括号：从队列取出资源执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#include &#34;thread.h&#34;
+</span></span><span class="line"><span class="cl">#include &#34;thread-sync.h&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">int n, count = 0;
+</span></span><span class="line"><span class="cl">mutex_t lk = MUTEX_INIT();
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void Tproduce() {
+</span></span><span class="line"><span class="cl">  while (1) {
+</span></span><span class="line"><span class="cl">retry:
+</span></span><span class="line"><span class="cl">    mutex_lock(&amp;lk);
+</span></span><span class="line"><span class="cl">    if (count == n) {
+</span></span><span class="line"><span class="cl">      mutex_unlock(&amp;lk);
+</span></span><span class="line"><span class="cl">      goto retry;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    count++;
+</span></span><span class="line"><span class="cl">    printf(&#34;(&#34;);
+</span></span><span class="line"><span class="cl">    mutex_unlock(&amp;lk);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void Tconsume() {
+</span></span><span class="line"><span class="cl">  while (1) {
+</span></span><span class="line"><span class="cl">retry:
+</span></span><span class="line"><span class="cl">    mutex_lock(&amp;lk);
+</span></span><span class="line"><span class="cl">    if (count == 0) {
+</span></span><span class="line"><span class="cl">      mutex_unlock(&amp;lk);
+</span></span><span class="line"><span class="cl">      goto retry;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    count--;
+</span></span><span class="line"><span class="cl">    printf(&#34;)&#34;);
+</span></span><span class="line"><span class="cl">    mutex_unlock(&amp;lk);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">int main(int argc, char *argv[]) {
+</span></span><span class="line"><span class="cl">  assert(argc == 2);
+</span></span><span class="line"><span class="cl">  n = atoi(argv[1]);
+</span></span><span class="line"><span class="cl">  setbuf(stdout, NULL);
+</span></span><span class="line"><span class="cl">  for (int i = 0; i &lt; 8; i++) {
+</span></span><span class="line"><span class="cl">    create(Tproduce);
+</span></span><span class="line"><span class="cl">    create(Tconsume);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果不为空，就取出右括号执行，如果不满，就放左括号</p>
+<p>改进，join()阻塞进程直至线程完成</p>
+<h2 id="conditional-variables">Conditional Variables
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">#include &#34;thread.h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;thread-sync.h&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">mutex_t</span> <span class="n">lk</span> <span class="o">=</span> <span class="n">MUTEX_INIT</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">cond_t</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">COND_INIT</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">Tproduce</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s2">&#34;(&#34;</span><span class="p">);</span> <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">void</span> <span class="n">Tconsume</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">pthread_cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s2">&#34;)&#34;</span><span class="p">);</span> <span class="n">count</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lk</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">main</span><span class="p">(</span><span class="ne">int</span> <span class="n">argc</span><span class="p">,</span> <span class="n">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">assert</span><span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">n</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="n">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">create</span><span class="p">(</span><span class="n">Tproduce</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">create</span><span class="p">(</span><span class="n">Tconsume</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>两个消费者，一个生产者，什么时候会出现问题，应该是一个consumer在不该wakeup的时候？())同类唤醒</p>
+<p>assert()检查</p>
+<p>获取互斥锁，如果不满足条件，则调用cond_wait进入等待状态，并释放互斥锁，满足条件执行后，释放锁，cond_signal()唤醒另一个进程</p>
+<h2 id="哲学家吃饭问题">哲学家吃饭问题
+</h2><ul>
+<li>吃饭需要同时得到左手和右手的叉子</li>
+<li>当叉子被其他人占有时，必须等待，如何完成同步？
+<ul>
+<li>如何用互斥锁/信号量实现？</li>
+</ul>
+</li>
+</ul>
+<p>失败的尝试</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#include &#34;thread.h&#34;
+</span></span><span class="line"><span class="cl">#include &#34;thread-sync.h&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#define N 3
+</span></span><span class="line"><span class="cl">sem_t locks[N];
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void Tphilosopher(int id) {
+</span></span><span class="line"><span class="cl">  int lhs = (N + id - 1) % N;
+</span></span><span class="line"><span class="cl">  int rhs = id % N;
+</span></span><span class="line"><span class="cl">  while (1) {
+</span></span><span class="line"><span class="cl">    P(&amp;locks[lhs]); //上锁，得到叉子
+</span></span><span class="line"><span class="cl">    printf(&#34;T%d Got %d\n&#34;, id, lhs + 1); 
+</span></span><span class="line"><span class="cl">    P(&amp;locks[rhs]);
+</span></span><span class="line"><span class="cl">    printf(&#34;T%d Got %d\n&#34;, id, rhs + 1);
+</span></span><span class="line"><span class="cl">    V(&amp;locks[lhs]);
+</span></span><span class="line"><span class="cl">    V(&amp;locks[rhs]);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">int main(int argc, char *argv[]) {
+</span></span><span class="line"><span class="cl">  for (int i = 0; i &lt; N; i++) {
+</span></span><span class="line"><span class="cl">      SEM_INIT(&amp;locks[i], 1);//初始化为1
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">  for (int i = 0; i &lt; N; i++) {
+</span></span><span class="line"><span class="cl">    create(Tphilosopher);
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>问题：死锁？</p>
+<p>分布式算法：如果所有人叉子都在右手上，没有人叫醒程序，线程不会进展</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mutex_lock(&amp;mutex);
+</span></span><span class="line"><span class="cl">while (!(avail[lhs] &amp;&amp; avail[rhs])) {
+</span></span><span class="line"><span class="cl">  wait(&amp;cv, &amp;mutex);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">avail[lhs] = avail[rhs] = false; //放下两个叉子
+</span></span><span class="line"><span class="cl">mutex_unlock(&amp;mutex);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">mutex_lock(&amp;mutex);
+</span></span><span class="line"><span class="cl">avail[lhs] = avail[rhs] = true;
+</span></span><span class="line"><span class="cl">broadcast(&amp;cv);
+</span></span><span class="line"><span class="cl">mutex_unlock(&amp;mutex);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Master-slave：让一个人管理叉子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void Tphilosopher(int id) {
+</span></span><span class="line"><span class="cl">  send_request(id, EAT);
+</span></span><span class="line"><span class="cl">  P(allowed[id]); // waiter 会把叉子递给哲学家
+</span></span><span class="line"><span class="cl">  philosopher_eat();
+</span></span><span class="line"><span class="cl">  send_request(id, DONE);
+</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">void Twaiter() {
+</span></span><span class="line"><span class="cl">  while (1) {
+</span></span><span class="line"><span class="cl">    (id, status) = receive_request();
+</span></span><span class="line"><span class="cl">    if (status == EAT) { ... }
+</span></span><span class="line"><span class="cl">    if (status == DONE) { ... }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>延伸思考，如果觉得单线程管理太慢，可以分批给多个线程管理，但这些现成的管理资源要独立</p>
+<h2 id="防御性编程">防御性编程
+</h2><p>利用assert()</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">CHECK_INT(waitlist-&gt;count, &gt;= 0);
+</span></span><span class="line"><span class="cl">CHECK_INT(pid, &lt; MAX_PROCS);
+</span></span><span class="line"><span class="cl">CHECK_HEAP(ctx-&gt;rip); CHECK_HEAP(ctx-&gt;cr3);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>检查PID，是否在堆区</p>
+<p>死锁：线程互相等待</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Mar 22, 2025 17:19 UTC
+        </span>
+    </section></footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Frederick2313072/utterances-comments"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Frederick
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+  body {
+    background: url(https://Frederick2313072.github.io/background/background.jpg) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+    </body>
+</html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=".most_common()\n第一个是出现最频繁的数字，第二个是次数\n散点图\n用SymPy包解代数和符号数学问题\n自定义运算符号\n这里补充一下：学到后面发现自己理解错了，symbol()是要定义为变量\n">
+<title>数学编程</title>
+
+<link rel='canonical' href='https://Frederick2313072.github.io/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/'>
+
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="数学编程">
+<meta property='og:description' content=".most_common()\n第一个是出现最频繁的数字，第二个是次数\n散点图\n用SymPy包解代数和符号数学问题\n自定义运算符号\n这里补充一下：学到后面发现自己理解错了，symbol()是要定义为变量\n">
+<meta property='og:url' content='https://Frederick2313072.github.io/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/'>
+<meta property='og:site_name' content='Frederick'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-22T17:19:23&#43;00:00'/>
+<meta name="twitter:title" content="数学编程">
+<meta name="twitter:description" content=".most_common()\n第一个是出现最频繁的数字，第二个是次数\n散点图\n用SymPy包解代数和符号数学问题\n自定义运算符号\n这里补充一下：学到后面发现自己理解错了，symbol()是要定义为变量\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "dark");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_db8ca5b2d3391751.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐋</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Frederick</a></h1>
+            <h2 class="site-description">Welcome to my alter ego&#39;s site!</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Frederick2313072'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/resources/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Resources</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#事件a或b发生的概率">事件A或B发生的概率</a></li>
+    <li><a href="#事件a和b同时发生的概率">事件A和B同时发生的概率</a></li>
+    <li><a href="#笛卡尔积">笛卡尔积</a></li>
+    <li><a href="#计算极限">计算极限</a></li>
+    <li><a href="#计算导数">计算导数</a></li>
+    <li><a href="#计算极值点">计算极值点</a></li>
+    <li><a href="#求函数积分">求函数积分</a></li>
+    <li><a href="#上升梯度算法">上升梯度算法</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/">数学编程</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">2025-03-14</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>.most_common()</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224164522983.png"
+	width="659"
+	height="219"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224164522983_hu_6cdc24cc5d238c31.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224164522983_hu_25b8a867fa049877.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="300"
+		data-flex-basis="722px"
+	
+></p>
+<p>第一个是出现最频繁的数字，第二个是次数</p>
+<p>散点图</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224182326631.png"
+	width="1228"
+	height="251"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224182326631_hu_b49c311f3b0d8a85.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224182326631_hu_1690e42aa27c5ec2.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="489"
+		data-flex-basis="1174px"
+	
+></p>
+<p>用SymPy包解代数和符号数学问题</p>
+<p>自定义运算符号</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224183046087.png"
+	width="587"
+	height="129"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224183046087_hu_57b0acb899647b8.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224183046087_hu_891ce02d4d571cbf.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="455"
+		data-flex-basis="1092px"
+	
+></p>
+<p>这里补充一下：学到后面发现自己理解错了，symbol()是要定义为变量</p>
+<p>from sympy import *</p>
+<p>factor(a)分解</p>
+<p>expand(a)展开</p>
+<p>pprint(a)整齐输出</p>
+<p>用值替代符号</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224184632948.png"
+	width="609"
+	height="132"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224184632948_hu_934238448a38b7d7.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224184632948_hu_217c086480a7abc0.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="461"
+		data-flex-basis="1107px"
+	
+></p>
+<p>求解方程并验证</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224194336829.png"
+	width="1090"
+	height="752"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224194336829_hu_d407fa4c389451ae.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224194336829_hu_5d128febf6a0a39d.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="144"
+		data-flex-basis="347px"
+	
+></p>
+<p>绘图</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224195121841.png"
+	width="1344"
+	height="193"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224195121841_hu_152759185cf75051.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224195121841_hu_2bff765a2fe7e339.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="696"
+		data-flex-basis="1671px"
+	
+></p>
+<p><img src="C:%5cUsers%5c%e6%b0%b4%e8%8d%89%e5%a7%90%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20250224195137445.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20250224195137445"
+	
+	
+></p>
+<p>保存</p>
+<p>p.save(&rsquo;line.png')</p>
+<p>绘制用户输入的表达式</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224200331627.png"
+	width="946"
+	height="679"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224200331627_hu_197a6c3a62359b98.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224200331627_hu_d1b73ee2d9d60b6b.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="139"
+		data-flex-basis="334px"
+	
+></p>
+<p>创建一个symbol对象y，为哪个变量解方程，将y作为第二个参数调用solve()函数</p>
+<p>绘图先要提取</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224200807706.png"
+	width="1008"
+	height="377"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224200807706_hu_6870a2202bed5004.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224200807706_hu_a6ae5eef6d29cc22.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="641px"
+	
+></p>
+<p>多函数图形绘制</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224201413400.png"
+	width="2327"
+	height="422"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224201413400_hu_f3140e305da45cd6.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224201413400_hu_bcb7a9f9a39c0694.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="551"
+		data-flex-basis="1323px"
+	
+></p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224201458084.png"
+	width="1255"
+	height="933"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224201458084_hu_4992accaaaefd6d5.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250224201458084_hu_fbcaec1a7b4cc3de.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="134"
+		data-flex-basis="322px"
+	
+></p>
+<h2 id="事件a或b发生的概率">事件A或B发生的概率
+</h2><p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135631663.png"
+	width="1003"
+	height="451"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135631663_hu_81730ab2ffc1224b.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135631663_hu_7494ddfe9b19b20e.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="222"
+		data-flex-basis="533px"
+	
+></p>
+<h2 id="事件a和b同时发生的概率">事件A和B同时发生的概率
+</h2><p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135812847.png"
+	width="698"
+	height="159"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135812847_hu_ac9e0c162ce7bc2a.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135812847_hu_a52672efefc048f6.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="438"
+		data-flex-basis="1053px"
+	
+></p>
+<h2 id="笛卡尔积">笛卡尔积
+</h2><p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135930383.png"
+	width="682"
+	height="266"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135930383_hu_fae172f44105595.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250225135930383_hu_cf9aacd1b94008fc.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="256"
+		data-flex-basis="615px"
+	
+></p>
+<p>打乱顺序：random.shuffle(x)</p>
+<h2 id="计算极限">计算极限
+</h2><p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226163300472.png"
+	width="736"
+	height="258"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226163300472_hu_75df78808ac88a19.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226163300472_hu_c11829118f1ade3e.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="285"
+		data-flex-basis="684px"
+	
+></p>
+<p>三个参数，函数表达式，变量，计算函数极限的值，dir=&rsquo;-1&rsquo;表示从负方向趋于极限</p>
+<h2 id="计算导数">计算导数
+</h2><p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226164934320.png"
+	width="1180"
+	height="394"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226164934320_hu_93213c7399946173.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226164934320_hu_3076c9b5341b7a38.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="299"
+		data-flex-basis="718px"
+	
+></p>
+<p>定义写，delta_t就是变化率</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226165950756.png"
+	width="518"
+	height="103"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226165950756_hu_5183d6720c55cd2e.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226165950756_hu_e753a48cdb7aef1d.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="502"
+		data-flex-basis="1206px"
+	
+></p>
+<p>先建立Derivative类，再调用两个函数，传递实参1，调用doit()计算导数</p>
+<p>求偏导数，把一个量看作变量就行</p>
+<p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226172320906.png"
+	width="978"
+	height="231"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226172320906_hu_d20eb72ebdfc24b3.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226172320906_hu_4b0ce18a1da34426.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="423"
+		data-flex-basis="1016px"
+	
+></p>
+<h2 id="计算极值点">计算极值点
+</h2><p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226174023367.png"
+	width="1600"
+	height="771"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226174023367_hu_9cdcdd1b6b3bb9dc.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226174023367_hu_a38ec7898baef31a.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="498px"
+	
+></p>
+<p>.eval()是把符号具体转换成数值</p>
+<h2 id="求函数积分">求函数积分
+</h2><p><img src="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226180113715.png"
+	width="592"
+	height="155"
+	srcset="/p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226180113715_hu_f10c42f594066cb1.png 480w, /p/%E6%95%B0%E5%AD%A6%E7%BC%96%E7%A8%8B/image-20250226180113715_hu_b9ce616a710793c3.png 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="381"
+		data-flex-basis="916px"
+	
+></p>
+<p>变量，下限，上限</p>
+<h2 id="上升梯度算法">上升梯度算法
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">from</span> <span class="n">sympy</span> <span class="n">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">grad_ascent</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">f1x</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">1e-6</span>
+</span></span><span class="line"><span class="cl">    <span class="n">step_size</span> <span class="o">=</span><span class="mf">1e-4</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x_old</span> <span class="o">=</span> <span class="n">x0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x_new</span> <span class="o">=</span> <span class="n">x_old</span> <span class="o">+</span> <span class="n">step_size</span><span class="o">*</span><span class="n">f1x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x_old</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x_old</span> <span class="o">-</span> <span class="n">x_new</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">epsilon</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x_old</span> <span class="o">=</span> <span class="n">x_new</span>
+</span></span><span class="line"><span class="cl">        <span class="n">x_new</span> <span class="o">=</span> <span class="n">x_old</span> <span class="o">+</span> <span class="n">step_size</span><span class="o">*</span><span class="n">f1x</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x_old</span><span class="p">)</span><span class="o">.</span><span class="n">evalf</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">x_new</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">__name__</span><span class="o">==</span><span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="n">input</span><span class="p">(</span><span class="s1">&#39;Enter a function in one variable:&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="o">=</span> <span class="n">input</span><span class="p">(</span><span class="s1">&#39;Enter the variable to differentiate with respect to:&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">var0</span> <span class="o">=</span> <span class="ne">float</span><span class="p">(</span><span class="n">input</span><span class="p">(</span><span class="s1">&#39;Enter the initial value of the variable:&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="o">=</span> <span class="n">sympify</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">except</span> <span class="n">SympifyError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Invalid function entered&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">var</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="k">var</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d</span><span class="o">=</span><span class="n">Derivative</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="k">var</span><span class="p">)</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">var_max</span> <span class="o">=</span> <span class="n">grad_ascent</span><span class="p">(</span><span class="n">var0</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="k">var</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;{0}:{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="k">var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">var_max</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Maixum value:{0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="k">var</span><span class="p">,</span><span class="n">var_max</span><span class="p">)))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    <section class="article-lastmod">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+            最后更新于 Mar 22, 2025 17:19 UTC
+        </span>
+    </section></footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="Frederick2313072/utterances-comments"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 Frederick
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.29.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+  body {
+    background: url(https://Frederick2313072.github.io/background/background.jpg) no-repeat center top;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+</style>
+
+    </body>
+</html>
