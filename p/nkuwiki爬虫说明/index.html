@@ -10,7 +10,7 @@
 <meta property='og:description' content="小红书爬虫 1 python main.py --paltform xhs --lt qrcode --type search 修改了config下的配置文件，最好不要开并发，会发现爬了一段时间爬不了，修改keywords为实体清单，db_config为nkuwiki数据库配置，使用GET_IMAGES和GET_COMMENT，分两次爬取，一次导入数据库，一次导入本地以json格式，改START_DAY和END_DAY\n">
 <meta property='og:url' content='https://Frederick2313072.github.io/p/nkuwiki%E7%88%AC%E8%99%AB%E8%AF%B4%E6%98%8E/'>
 <meta property='og:site_name' content='Frederick'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-23T10:09:24&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-23T10:48:53&#43;08:00'/>
 <meta name="twitter:title" content="NKUwiki爬虫说明">
 <meta name="twitter:description" content="小红书爬虫 1 python main.py --paltform xhs --lt qrcode --type search 修改了config下的配置文件，最好不要开并发，会发现爬了一段时间爬不了，修改keywords为实体清单，db_config为nkuwiki数据库配置，使用GET_IMAGES和GET_COMMENT，分两次爬取，一次导入数据库，一次导入本地以json格式，改START_DAY和END_DAY\n">
     </head>
@@ -312,7 +312,17 @@
 <pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">utools</span><span class="o">/</span><span class="n">xhs_to_md</span><span class="o">.</span><span class="n">py</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><p>输出在docs/xhs下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">python scripts/zhihu_json_to_md.py
+</span></span></code></pre></td></tr></table>
 </div>
+</div><p>输出在data/zhihu/markdown下</p>
+
 </section>
 
 
@@ -341,7 +351,7 @@
 
 
         <span>
-            最后更新于 Mar 23, 2025 10:09 &#43;0800
+            最后更新于 Mar 23, 2025 10:48 &#43;0800
         </span>
     </section></footer>
 
