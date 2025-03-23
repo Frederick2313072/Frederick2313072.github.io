@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Python 爬虫 建模 数据挖掘（统计方向的待定） JS 做个代办事项列表（我所能想到JS对我的唯一用处就是网页加个响应什么的）\n重新巩固C语言 Unity 学习C#语言，可能大创写个游戏，或者跟之前联系好的设计系朋友写着玩玩\n">
-<title>Plan after this semester</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="小红书爬虫 1 python main.py --paltform xhs --lt qrcode --type search 修改了config下的配置文件，最好不要开并发，会发现爬了一段时间爬不了，修改keywords为实体清单，db_config为nkuwiki数据库配置，使用GET_IMAGES和GET_COMMENT，分两次爬取，一次导入数据库，一次导入本地以json格式，改START_DAY和END_DAY\n">
+<title>NKUwiki爬虫说明</title>
 
-<link rel='canonical' href='https://Frederick2313072.github.io/p/plan-after-this-semester/'>
+<link rel='canonical' href='https://Frederick2313072.github.io/p/nkuwiki%E7%88%AC%E8%99%AB%E8%AF%B4%E6%98%8E/'>
 
-<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="Plan after this semester">
-<meta property='og:description' content="Python 爬虫 建模 数据挖掘（统计方向的待定） JS 做个代办事项列表（我所能想到JS对我的唯一用处就是网页加个响应什么的）\n重新巩固C语言 Unity 学习C#语言，可能大创写个游戏，或者跟之前联系好的设计系朋友写着玩玩\n">
-<meta property='og:url' content='https://Frederick2313072.github.io/p/plan-after-this-semester/'>
+<link rel="stylesheet" href="/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css"><meta property='og:title' content="NKUwiki爬虫说明">
+<meta property='og:description' content="小红书爬虫 1 python main.py --paltform xhs --lt qrcode --type search 修改了config下的配置文件，最好不要开并发，会发现爬了一段时间爬不了，修改keywords为实体清单，db_config为nkuwiki数据库配置，使用GET_IMAGES和GET_COMMENT，分两次爬取，一次导入数据库，一次导入本地以json格式，改START_DAY和END_DAY\n">
+<meta property='og:url' content='https://Frederick2313072.github.io/p/nkuwiki%E7%88%AC%E8%99%AB%E8%AF%B4%E6%98%8E/'>
 <meta property='og:site_name' content='Frederick'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-12-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-23T02:09:44&#43;00:00'/><meta property='og:image' content='https://Frederick2313072.github.io/p/plan-after-this-semester/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241202170215.jpg' />
-<meta name="twitter:title" content="Plan after this semester">
-<meta name="twitter:description" content="Python 爬虫 建模 数据挖掘（统计方向的待定） JS 做个代办事项列表（我所能想到JS对我的唯一用处就是网页加个响应什么的）\n重新巩固C语言 Unity 学习C#语言，可能大创写个游戏，或者跟之前联系好的设计系朋友写着玩玩\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://Frederick2313072.github.io/p/plan-after-this-semester/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241202170215.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-03-23T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-03-23T10:09:24&#43;08:00'/>
+<meta name="twitter:title" content="NKUwiki爬虫说明">
+<meta name="twitter:description" content="小红书爬虫 1 python main.py --paltform xhs --lt qrcode --type search 修改了config下的配置文件，最好不要开并发，会发现爬了一段时间爬不了，修改keywords为实体清单，db_config为nkuwiki数据库配置，使用GET_IMAGES和GET_COMMENT，分两次爬取，一次导入数据库，一次导入本地以json格式，改START_DAY和END_DAY\n">
     </head>
     <body class="
     article-page
@@ -224,12 +223,8 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#python">Python</a></li>
-    <li><a href="#js">JS</a></li>
-    <li><a href="#重新巩固c语言">重新巩固C语言</a></li>
-    <li><a href="#unity">Unity</a></li>
-    <li><a href="#leetcode-刷题周赛">Leetcode 刷题周赛</a></li>
-    <li><a href="#算法与数据结构">算法与数据结构</a></li>
+    <li><a href="#小红书爬虫">小红书爬虫</a></li>
+    <li><a href="#知乎爬虫">知乎爬虫</a></li>
   </ol>
 </nav>
         </div>
@@ -241,27 +236,15 @@
 
 
             <main class="main full-width">
-    <article class="has-image main-article">
+    <article class="main-article">
     <header class="article-header">
-        <div class="article-image">
-            <a href="/p/plan-after-this-semester/">
-                <img src="/p/plan-after-this-semester/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241202170215_hu_81506e0bef8bccf2.jpg"
-                        srcset="/p/plan-after-this-semester/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241202170215_hu_81506e0bef8bccf2.jpg 800w, /p/plan-after-this-semester/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241202170215_hu_894536caf75e4e96.jpg 1600w"
-                        width="800" 
-                        height="450" 
-                        loading="lazy"
-                        alt="Featured image of post Plan after this semester" />
-                
-            </a>
-        </div>
-    
 
     <div class="article-details">
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/plan-after-this-semester/">Plan after this semester</a>
+            <a href="/p/nkuwiki%E7%88%AC%E8%99%AB%E8%AF%B4%E6%98%8E/">NKUwiki爬虫说明</a>
         </h2>
     
         
@@ -283,7 +266,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">2024-12-02</time>
+                <time class="article-time--published">2025-03-23</time>
             </div>
         
 
@@ -299,21 +282,37 @@
     <section class="article-content">
     
     
-    <h2 id="python">Python
-</h2><ul>
-<li>爬虫</li>
-<li>建模</li>
-<li>数据挖掘（统计方向的待定）</li>
-</ul>
-<h2 id="js">JS
-</h2><p>做个代办事项列表（我所能想到JS对我的唯一用处就是网页加个响应什么的）</p>
-<h2 id="重新巩固c语言">重新巩固C语言
-</h2><h2 id="unity">Unity
-</h2><p>学习C#语言，可能大创写个游戏，或者跟之前联系好的设计系朋友写着玩玩</p>
-<h2 id="leetcode-刷题周赛">Leetcode 刷题周赛
-</h2><h2 id="算法与数据结构">算法与数据结构
-</h2><p>算是提前预习大三内容，以及体验下朋友所说的算法addiction</p>
-
+    <h2 id="小红书爬虫">小红书爬虫
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">python main.py --paltform xhs --lt qrcode --type search
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改了config下的配置文件，最好不要开并发，会发现爬了一段时间爬不了，修改keywords为实体清单，db_config为nkuwiki数据库配置，使用GET_IMAGES和GET_COMMENT，分两次爬取，一次导入数据库，一次导入本地以json格式，改START_DAY和END_DAY</p>
+<h2 id="知乎爬虫">知乎爬虫
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">python main.py --platform zhihu --lt qrcode --type search
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>同上，图片和评论不开,可以并发爬取，最多爬取页数1000</p>
+<p>QA：如何处理数据，渲染s？</p>
+<p>泪了，utools下自己加了个脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">utools</span><span class="o">/</span><span class="n">xhs_to_md</span><span class="o">.</span><span class="n">py</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
@@ -342,7 +341,7 @@
 
 
         <span>
-            最后更新于 Mar 23, 2025 02:09 UTC
+            最后更新于 Mar 23, 2025 10:09 &#43;0800
         </span>
     </section></footer>
 
