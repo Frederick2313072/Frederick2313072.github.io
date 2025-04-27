@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
@@ -16,7 +14,7 @@
   
 
   
-  <title>404 Page not found</title>
+  <title>NKUwiki爬虫说明</title>
 
   
   
@@ -118,19 +116,91 @@
 <div id="main">
   <div id="content">
     <div>
-      <article role="article">
-        <header>
-          <h1 class="entry-title">
-            
-              There&rsquo;s nothing here
-            
-          </h1>
-        </header>
-        <div id="blog-archives" class="category">
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Mar 23, 2025
+     - 1 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-03-23-nkuwiki%E7%88%AC%E8%99%AB%E8%AF%B4%E6%98%8E/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     NKUwiki爬虫说明 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
           
-            Please either go back or use the navigation/sidebar menus.
           
+          
+          <h2 id="小红书爬虫">小红书爬虫</h2>
+<pre tabindex="0"><code>python main.py --paltform xhs --lt qrcode --type search
+</code></pre><p>修改了config下的配置文件，最好不要开并发，会发现爬了一段时间爬不了，修改keywords为实体清单，db_config为nkuwiki数据库配置，使用GET_IMAGES和GET_COMMENT，分两次爬取，一次导入数据库，一次导入本地以json格式，改START_DAY和END_DAY</p>
+<h2 id="知乎爬虫">知乎爬虫</h2>
+<pre tabindex="0"><code>python main.py --platform zhihu --lt qrcode --type search
+</code></pre><p>同上，图片和评论不开,可以并发爬取，最多爬取页数1000</p>
+<p>QA：如何处理数据，渲染s？</p>
+<p>泪了，utools下自己加了个脚本</p>
+<pre tabindex="0"><code>python utools/xhs_to_md.py
+</code></pre><p>输出在docs/xhs下</p>
+<pre tabindex="0"><code>python scripts/zhihu_json_to_md.py
+</code></pre><p>输出在data/zhihu/markdown下</p>
+
         </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Mar 23, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-03-21-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="数据结构与算法">数据结构与算法</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-03-25-%E5%B8%B8%E7%94%A8%E6%9D%BF%E5%AD%90/" title="常用板子">常用板子</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
       </article>
     </div>
     
@@ -240,6 +310,7 @@ Click on
 
   </div>
 </div>
+
     <footer role="contentinfo">
       <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
         <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
@@ -258,3 +329,4 @@ Click on
     
   </body>
 </html>
+

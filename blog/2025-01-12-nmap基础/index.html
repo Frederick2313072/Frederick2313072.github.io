@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>nmap基础</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Jan 12, 2025
+     - 8 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-01-12-nmap%E5%9F%BA%E7%A1%80/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     nmap基础 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <ul>
+<li>TCP扫描，默认常用</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> sudo nmap -sS localhost
+</span></span></code></pre></div><h2 id="发现主机">发现主机</h2>
+<pre tabindex="0"><code>sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d&#34; &#34; -f5
+</code></pre><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.0/24</code></td>
+          <td>目标网络范围。</td>
+      </tr>
+      <tr>
+          <td><code>-sn</code></td>
+          <td>禁用端口扫描。</td>
+      </tr>
+      <tr>
+          <td><code>-oA tnet</code></td>
+          <td>以名称“tnet”开头的所有格式存储结果。</td>
+      </tr>
+  </tbody>
+</table>
+<p><code>Firewall and IDS Evasion</code>此扫描方法仅在主机的防火墙允许的情况下才有效</p>
+<p>禁用端口扫描，则会启用ICMP扫描</p>
+<ul>
+<li>扫描IP列表</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>cat hosts.lst
+</span></span></code></pre></div><p>这可能意味着其他主机由于其防火墙配置而忽略了默认的<strong>ICMP 回应请求</strong><code>Nmap</code>。由于没有收到响应，它会将这些主机标记为非活动状态</p>
+<p>对预定义列表使用相同的扫描技术</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap -sn -oA tnet -iL hosts.lst | grep for | cut -d&#34; &#34; -f5
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>-sn</code></td>
+          <td>禁用端口扫描。</td>
+      </tr>
+      <tr>
+          <td><code>-oA tnet</code></td>
+          <td>以名称“tnet”开头的所有格式存储结果。</td>
+      </tr>
+      <tr>
+          <td><code>-iL</code></td>
+          <td>对提供的“hosts.lst”列表中的目标执行定义的扫描。</td>
+      </tr>
+  </tbody>
+</table>
+<p>为了确保发送了 ICMP 回显请求，</p>
+<ul>
+<li>ICMP 回显请求 ( <code>-Pn</code>)、DNS 解析 ( <code>-n</code>) 和 ARP ping 扫描 ( <code>--disable-arp-ping</code>)。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.0/24 -sn -oA tnet | grep for | cut -d&#34; &#34; -f5
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.18 -sn -oA host -PE --packet-trace 
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.18</code></td>
+          <td>对目标执行定义的扫描。</td>
+      </tr>
+      <tr>
+          <td><code>-sn</code></td>
+          <td>禁用端口扫描。</td>
+      </tr>
+      <tr>
+          <td><code>-oA host</code></td>
+          <td>以名称“host”开头的所有格式存储结果。</td>
+      </tr>
+      <tr>
+          <td><code>-PE</code></td>
+          <td>使用“ICMP Echo 请求”对目标执行 ping 扫描。</td>
+      </tr>
+      <tr>
+          <td><code>--packet-trace</code></td>
+          <td>显示所有发送和接收的数据包</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.18 -sn -oA host -PE --reason 
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.18</code></td>
+          <td>对目标执行定义的扫描。</td>
+      </tr>
+      <tr>
+          <td><code>-sn</code></td>
+          <td>禁用端口扫描。</td>
+      </tr>
+      <tr>
+          <td><code>-oA host</code></td>
+          <td>以名称“host”开头的所有格式存储结果。</td>
+      </tr>
+      <tr>
+          <td><code>-PE</code></td>
+          <td>使用“ICMP Echo 请求”对目标执行 ping 扫描。</td>
+      </tr>
+      <tr>
+          <td><code>--reason</code></td>
+          <td>显示特定结果的原因。</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="主机和端口扫描">主机和端口扫描</h2>
+<p>在发现目标还活着之后，我们希望更准确地了解系统。我们需要的信息包括：</p>
+<ul>
+<li>开放端口及其服务</li>
+<li>服务版本</li>
+<li>服务提供的信息</li>
+<li>操作系统</li>
+</ul>
+<p>扫描端口六种情况：</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>状态</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>open</code></td>
+          <td>这表示已建立与扫描端口的连接。这些连接可以是<strong>TCP 连接</strong>、<strong>UDP 数据报</strong>以及<strong>SCTP 关联</strong>。</td>
+      </tr>
+      <tr>
+          <td><code>closed</code></td>
+          <td>当端口显示为关闭时，TCP 协议会指示我们收到的数据包包含一个<code>RST</code>标志。这种扫描方法还可用于确定我们的目标是否还活着。</td>
+      </tr>
+      <tr>
+          <td><code>filtered</code></td>
+          <td>Nmap 无法正确识别扫描的端口是打开还是关闭，因为目标没有返回该端口的响应，或者我们从目标收到错误代码。</td>
+      </tr>
+      <tr>
+          <td><code>unfiltered</code></td>
+          <td>端口的这种状态仅在<strong>TCP-ACK</strong>扫描期间发生，表示该端口可访问，但无法确定它是开放还是关闭。</td>
+      </tr>
+      <tr>
+          <td>`open</td>
+          <td>filtered`</td>
+      </tr>
+      <tr>
+          <td>`closed</td>
+          <td>filtered`</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="扫描前-10-个-tcp-端口">扫描前 10 个 TCP 端口</h4>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 --top-ports=10 
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>--top-ports=10</code></td>
+          <td>扫描已被定义为最频繁的指定顶级端口。</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="nmap跟踪数据包">Nmap——跟踪数据包</h4>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p 21 --packet-trace -Pn -n --disable-arp-ping
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>-p 21</code></td>
+          <td>仅扫描指定端口。</td>
+      </tr>
+      <tr>
+          <td><code>--packet-trace</code></td>
+          <td>显示所有发送和接收的数据包。</td>
+      </tr>
+      <tr>
+          <td><code>-n</code></td>
+          <td>禁用 DNS 解析。</td>
+      </tr>
+      <tr>
+          <td><code>--disable-arp-ping</code></td>
+          <td>禁用 ARP ping。</td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th><strong>信息</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>SENT (0.0429s)</code></td>
+          <td>表示Nmap的SENT操作，向目标发送数据包。</td>
+      </tr>
+      <tr>
+          <td><code>TCP</code></td>
+          <td>显示用于与目标端口交互的协议。</td>
+      </tr>
+      <tr>
+          <td><code>10.10.14.2:63090 &gt;</code></td>
+          <td>代表我们的 IPv4 地址和源端口，Nmap 将使用它们来发送数据包。</td>
+      </tr>
+      <tr>
+          <td><code>10.129.2.28:21</code></td>
+          <td>显示目标 IPv4 地址和目标端口。</td>
+      </tr>
+      <tr>
+          <td><code>S</code></td>
+          <td>发送的TCP数据包的SYN标志。</td>
+      </tr>
+      <tr>
+          <td><code>ttl=56 id=57322 iplen=44 seq=1699105818 win=1024 mss 1460</code></td>
+          <td>附加的 TCP 标头参数。</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="连接扫描">连接扫描</h4>
+<p>Nmap 
+<a href="https://nmap.org/book/scan-methods-connect-scan.html" target="_blank" rel="noopener">TCP 连接扫描</a>( <code>-sT</code>) 使用 TCP 三次握手来确定目标主机上的特定端口是打开还是关闭。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> sudo nmap 10.129.2.28 -p 443 --packet-trace --disable-arp-ping -Pn -n --reason -sT 
+</span></span></code></pre></div><p>该<code>Connect</code>扫描（也称为完整 TCP 连接扫描）非常准确，因为它完成了三次 TCP 握手，使我们能够确定端口的确切状态（打开、关闭或过滤）。但是，它并不是最隐蔽的。</p>
+<h3 id="过滤端口">过滤端口</h3>
+<p>防火墙<code>drops</code>会扫描我们发送的 TCP 数据包。因此，我们扫描 TCP 端口<strong>139</strong>，该端口已显示为已过滤。为了能够跟踪我们发送的数据包的处理方式，我们再次停用 ICMP 回显请求 ( <code>-Pn</code>)、DNS 解析 ( <code>-n</code>) 和 ARP ping 扫描 ( <code>--disable-arp-ping</code>)。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p 139 --packet-trace -n --disable-arp-ping -Pn
+</span></span></code></pre></div><h3 id="发现开放的-udp-端口">发现开放的 UDP 端口</h3>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -F -sU
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>-F</code></td>
+          <td>扫描前 100 个端口。</td>
+      </tr>
+      <tr>
+          <td><code>-sU</code></td>
+          <td>执行 UDP 扫描。</td>
+      </tr>
+  </tbody>
+</table>
+<p>一些系统管理员有时会忘记过滤除 TCP 端口之外的 UDP 端口，但UDP比TCP慢的多</p>
+<p>这样做的另一个缺点是，我们经常得不到响应，因为<code>Nmap</code>向扫描的 UDP 端口发送空数据报，并且我们没有收到任何响应。所以我们无法确定 UDP 数据包是否已经到达。如果 UDP 端口为<code>open</code>，则只有在应用程序配置为这样做的情况下，我们才会收到响应。</p>
+<h4 id="版本扫描">版本扫描</h4>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -Pn -n --disable-arp-ping --packet-trace -p 445 --reason  -sV
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>-Pn</code></td>
+          <td>禁用 ICMP Echo 请求。</td>
+      </tr>
+      <tr>
+          <td><code>-n</code></td>
+          <td>禁用 DNS 解析。</td>
+      </tr>
+      <tr>
+          <td><code>--disable-arp-ping</code></td>
+          <td>禁用 ARP ping。</td>
+      </tr>
+      <tr>
+          <td><code>--packet-trace</code></td>
+          <td>显示所有发送和接收的数据包。</td>
+      </tr>
+      <tr>
+          <td><code>-p 445</code></td>
+          <td>仅扫描指定端口。</td>
+      </tr>
+      <tr>
+          <td><code>--reason</code></td>
+          <td>显示端口处于特定状态的原因。</td>
+      </tr>
+      <tr>
+          <td><code>-sV</code></td>
+          <td>执行服务扫描。</td>
+      </tr>
+  </tbody>
+</table>
+<p>扫描端口的另一种方便方法是<code>-sV</code>使用选项从开放端口获取其他可用信息。此方法可以识别版本、服务名称和有关目标的详细信息。</p>
+<h2 id="保存结果">保存结果</h2>
+<p><code>Nmap</code>可以以 3 种不同的格式保存结果。</p>
+<ul>
+<li>正常输出（<code>-oN</code>）<code>.nmap</code>文件扩展名</li>
+<li>带有文件扩展名的Grepable 输出（<code>-oG</code>）<code>.gnmap</code></li>
+<li>XML 输出 ( <code>-oX</code>)，<code>.xml</code>文件扩展名</li>
+</ul>
+<p>我们还可以指定选项（<code>-oA</code>）以所有格式保存结果。命令可能如下所示：</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p- -oA target
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>-p-</code></td>
+          <td>扫描所有端口。</td>
+      </tr>
+      <tr>
+          <td><code>-oA target</code></td>
+          <td>以所有格式保存结果，每个文件的名称以“目标”开头。</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>target.gnmap target.xml  target.nmap
+</span></span></code></pre></div><h3 id="转换格式">转换格式</h3>
+<p>要将存储的结果从 XML 格式转换为 HTML，我们可以使用该工具<code>xsltproc</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>xsltproc target.xml -o target.html
+</span></span></code></pre></div><h2 id="服务枚举">服务枚举</h2>
+<h3 id="服务版本检测">服务版本检测</h3>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p- -sV
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>-p-</code></td>
+          <td>扫描所有端口。</td>
+      </tr>
+      <tr>
+          <td><code>-sV</code></td>
+          <td>对指定端口执行服务版本检测。</td>
+      </tr>
+  </tbody>
+</table>
+<p>增加<code>verbosity level</code>（<code>-v</code>/ <code>-vv</code>），当检测到开放端口时，它将直接显示给我们<code>Nmap</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p- -sV -v 
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>-p-</code></td>
+          <td>扫描所有端口。</td>
+      </tr>
+      <tr>
+          <td><code>-sV</code></td>
+          <td>对指定端口执行服务版本检测。</td>
+      </tr>
+      <tr>
+          <td><code>-v</code></td>
+          <td>增加扫描的详细程度，以显示更详细的信息。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="横幅抓取">横幅抓取</h3>
+<p><code>Nmap</code>则尝试通过基于签名的匹配系统识别它们，但这会大大增加扫描的持续时间。<code>Nmap</code>所呈现结果的一个缺点是自动扫描可能会遗漏一些信息，因为有时<code>Nmap</code>不知道如何处理它。</p>
+<p>某些服务可能不会立即提供此类信息。也可以从相应的服务中删除或操纵横幅。如果我们<code>manually</code>使用 连接到 SMTP 服务器<code>nc</code>，抓取横幅，并使用 拦截网络流量<code>tcpdump</code>，我们就可以看到<code>Nmap</code>未显示的内容。</p>
+<ul>
+<li>传输控制包Tcpdump</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo tcpdump -i eth0 host 10.10.14.2 and 10.129.2.28
+</span></span></code></pre></div><ul>
+<li>nc</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>nc -nv 10.129.2.28 25
+</span></span></code></pre></div><h2 id="nmap脚本引擎">Nmap脚本引擎</h2>
+<p>它为我们提供了在 Lua 中创建脚本以与某些服务进行交互的可能性。这些脚本总共可分为 14 个类别：</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>类别</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>auth</code></td>
+          <td>确定身份验证凭证。</td>
+      </tr>
+      <tr>
+          <td><code>broadcast</code></td>
+          <td>通过广播来发现主机的脚本以及发现的主机可以自动添加到剩余的扫描中。</td>
+      </tr>
+      <tr>
+          <td><code>brute</code></td>
+          <td>执行脚本，尝试通过使用凭证进行暴力破解来登录相应的服务。</td>
+      </tr>
+      <tr>
+          <td><code>default</code></td>
+          <td>使用该<code>-sC</code>选项执行的默认脚本。</td>
+      </tr>
+      <tr>
+          <td><code>discovery</code></td>
+          <td>无障碍服务的评估。</td>
+      </tr>
+      <tr>
+          <td><code>dos</code></td>
+          <td>这些脚本用于检查服务是否存在拒绝服务漏洞，由于它会损害服务，因此使用较少。</td>
+      </tr>
+      <tr>
+          <td><code>exploit</code></td>
+          <td>此类脚本尝试利用扫描端口的已知漏洞。</td>
+      </tr>
+      <tr>
+          <td><code>external</code></td>
+          <td>使用外部服务进行进一步处理的脚本。</td>
+      </tr>
+      <tr>
+          <td><code>fuzzer</code></td>
+          <td>这使用脚本通过发送不同的字段来识别漏洞和意外的数据包处理，这可能需要很长时间。</td>
+      </tr>
+      <tr>
+          <td><code>intrusive</code></td>
+          <td>可能对目标系统产生负面影响的侵入性脚本。</td>
+      </tr>
+      <tr>
+          <td><code>malware</code></td>
+          <td>检查某些恶意软件是否感染了目标系统。</td>
+      </tr>
+      <tr>
+          <td><code>safe</code></td>
+          <td>不执行侵入性和破坏性访问的防御脚本。</td>
+      </tr>
+      <tr>
+          <td><code>version</code></td>
+          <td>服务检测的扩展。</td>
+      </tr>
+      <tr>
+          <td><code>vuln</code></td>
+          <td>识别特定的漏洞。</td>
+      </tr>
+  </tbody>
+</table>
+<p>默认脚本 -sC</p>
+<p>特定脚本类型&ndash;script <category></p>
+<p>定义脚本 &ndash;script <script-name>,<script-name></p>
+<h4 id="nmap---aggressive-scan--a">Nmap - Aggressive Scan -A</h4>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p 80 -A
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><code>-A</code></th>
+          <th>执行服务检测、操作系统检测、跟踪路由并使用默认脚本扫描目标。</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+          <td>发现了系统上运行着哪种 Web 服务器,使用了哪种 Web 应用程序，以及网页的标题 。</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="漏洞评估">漏洞评估</h2>
+<table>
+  <thead>
+      <tr>
+          <th><code>--script vuln</code></th>
+          <th>使用指定类别的所有相关脚本。</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="防火墙和idsips规避">防火墙和IDS/IPS规避</h2>
+<h4></h4>
+<p>TCP SYN扫描又称“半开扫描”。回顾TCP连接的三次握手，申请方首先发送的是一个SYN数据包，服务方在接到这个SYN数据包后，如果该端口处于侦听状态，则会回复一个SYN|ACK的数据包；如果该端口没有处于侦听状态，则会回复一个RST的数据包。而此时如果对方处于侦听状态，申请方还需要再向对方回复一个ACK数据包以示建立连接。此时对方就认为连接建立，并记入日志。</p>
+<p>无论服务方回复SYN|ACK的数据包，还是回复RST的数据包，申请方其实已经能够判断对方端口是否为“开”的状态。之后的ACK数据包发送则被对方监视，如果此时不发送ACK数据包，而是发一个RST数据包，则不仅关闭了这个未完成的连接过程，并且也会因为连接未建立而不会被对方记录。这种扫描方式因为使用了SYN标志位，所以被称为TCP SYN扫描。这种扫描技术的优点在于一般不会在目标计算机上留下记录，有时即使在用netstat命令也显示不出来；但这种方法的一个缺点是必须要有管理员权限才能建立自己的SYN数据包。</p>
+<h4 id="使用诱饵扫描">使用诱饵扫描</h4>
+<p>Nmap 会生成插入到 IP 标头中的各种随机 IP 地址，以掩盖发送的数据包的来源。使用此方法，我们可以随机生成 ( <code>RND</code>) 个特定数量（例如：<code>5</code>）的 IP 地址，并以冒号 ( <code>:</code>) 分隔。然后，我们的真实 IP 地址会随机放置在生成的 IP 地址之间</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p 80 -sS -Pn -n --disable-arp-ping --packet-trace -D RND:5
+</span></span></code></pre></div><table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>-p 80</code></td>
+          <td>仅扫描指定端口。</td>
+      </tr>
+      <tr>
+          <td><code>-sS</code></td>
+          <td>对指定端口执行 SYN 扫描。</td>
+      </tr>
+      <tr>
+          <td><code>-Pn</code></td>
+          <td>禁用 ICMP Echo 请求。</td>
+      </tr>
+      <tr>
+          <td><code>-n</code></td>
+          <td>禁用 DNS 解析。</td>
+      </tr>
+      <tr>
+          <td><code>--disable-arp-ping</code></td>
+          <td>禁用 ARP ping。</td>
+      </tr>
+      <tr>
+          <td><code>--packet-trace</code></td>
+          <td>显示所有发送和接收的数据包。</td>
+      </tr>
+      <tr>
+          <td><code>-D RND:5</code></td>
+          <td>生成五个随机 IP 地址，指示连接来自的源 IP。</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="dns-代理">DNS 代理</h2>
+<h4 id="过滤端口的-syn-扫描">过滤端口的 SYN 扫描</h4>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace
+</span></span></code></pre></div><h4 id="从-dns-端口进行-syn-扫描">从 DNS 端口进行 SYN 扫描</h4>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo nmap 10.129.2.28 -p50000 -sS -Pn -n --disable-arp-ping --packet-trace --source-port 53
+</span></span></code></pre></div><p>现在我们已经发现防火墙接受了<code>TCP port 53</code>，因此很可能 IDS/IPS 过滤器的配置也比其他过滤器弱得多。我们可以通过使用 尝试连接到此端口来测试这一点<code>Netcat</code>。</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>扫描选项</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>10.129.2.28</code></td>
+          <td>扫描指定目标。</td>
+      </tr>
+      <tr>
+          <td><code>-p 50000</code></td>
+          <td>仅扫描指定端口。</td>
+      </tr>
+      <tr>
+          <td><code>-sS</code></td>
+          <td>对指定端口执行 SYN 扫描。</td>
+      </tr>
+      <tr>
+          <td><code>-Pn</code></td>
+          <td>禁用 ICMP Echo 请求。</td>
+      </tr>
+      <tr>
+          <td><code>-n</code></td>
+          <td>禁用 DNS 解析。</td>
+      </tr>
+      <tr>
+          <td><code>--disable-arp-ping</code></td>
+          <td>禁用 ARP ping。</td>
+      </tr>
+      <tr>
+          <td><code>--packet-trace</code></td>
+          <td>显示所有发送和接收的数据包。</td>
+      </tr>
+      <tr>
+          <td><code>--source-port 53</code></td>
+          <td>从指定的源端口执行扫描。</td>
+      </tr>
+  </tbody>
+</table>
+<h4 id="连接到过滤端口">连接到过滤端口</h4>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>ncat -nv --source-port 53 10.129.2.28 50000
+</span></span></code></pre></div>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Jan 12, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-01-05-sqli-labs%E9%80%9A%E5%85%B3/" title="sqli-labs通关">sqli-labs通关</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-01-14-web%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/" title="Web应用程序">Web应用程序</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

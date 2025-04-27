@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>jyy操作系统</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Mar 16, 2025
+     - 9 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-03-16-jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     jyy操作系统 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>由于引导区空间有限，只有512个字节，故打算把程序编译成com文件，然后让DOS执行</p>
+<pre tabindex="0"><code>nasm pmtest1.asm -o pmtest1.com
+</code></pre><p>一些挂载问题：</p>
+<pre tabindex="0"><code>1、写入空白内容：
+
+   dd if=/dev/null of=pm.img bs=512 count=1 conv=notrunc
+
+2、使用 losetup 命令，将 data.img 作为 loop device 使用：
+
+   sudo losetup /dev/loop0 pm.img
+
+3、然后，格式化这个 loop device：
+
+   sudo mkfs.msdos /dev/loop0
+
+4、检查文件系统：
+
+   sudo fsck.msdos /dev/loop0
+
+5、删除 loop device：
+
+   sudo losetup -d /dev/loop0
+
+    这时候，pm.img 已经格式化完成，可以作为一个软盘镜像使用。用file查看，结果为：
+
+   pm.img: DOS floppy 1440k, x86 hard disk boot sector
+
+    再次输入
+
+   sudo mount -o loop pm.img /mnt/floppy
+
+6、挂载成功！！！
+</code></pre><p>之后正常挂在就行</p>
+<pre tabindex="0"><code>sudo cp pmtest1.com /mnt/floppy(先要在创建挂载文件夹，Ubuntu好像没有软盘驱动，中途换kali去了，也是基于Debian)
+
+sudo umount /mnt/floppy
+</code></pre><h2 id="保护模式">保护模式</h2>
+<p>从实模式跳转到保护模式</p>
+<p>1.准备GDT（全局描述符表）</p>
+<p>2.用lgdt加载gdtr</p>
+<pre tabindex="0"><code>lgdt [GdtPtr]
+</code></pre><p>3.打开A20,，试图访问到1MB上的内存</p>
+<p>4.设置cr0的PE位，0变1</p>
+<p>5.跳转，进入保护模式</p>
+<pre tabindex="0"><code>jmp dword SelectorCode32:0
+</code></pre><p>跳转目标是描述符DESC——CODE32对应段的首地址，即标号LABEL_SEG_CODE32处</p>
+<p>P位，p=1表示段在内存中存在，p=0表示段在内存中不存在</p>
+<p>DPL描述符特权级，特权级可以是0，1，2，3，数字越小特权级越大</p>
+<p>S位，数据段/代码段描述符，系统段/门描述符</p>
+<p>在保护模式下执行汇编代码mov ds:[si], ax的大致步骤如下：</p>
+<p>首先CPU需要查找GDT在内存中位置，GDT的位置从GDTR寄存器中直接获取
+然后根据DS寄存器得到目标段描述符的物理地址
+计算出描述符中的段基址的值加上SI寄存器存储的偏移量的结果，该结果为目标物理地址
+将AX寄存器中的数据写入到目标物理地址</p>
+<h2 id="c程序的状态机模型">C程序的状态机模型</h2>
+<p>状态=堆+栈</p>
+<p>初始状态=main()的第一条语句</p>
+<p>迁移=执行一条简单语句</p>
+<p>状态机，取指令，执行</p>
+<p>复习下gdb调试，大多数都快忘光了</p>
+<p>pwngdb调试：start;b &lt;断点&gt;；r;layout asm(二进制调试);si执行一条指令；x $rbp;si;rbp寄存器值改变；wa $rax监控断点</p>
+<p>程序？</p>
+<p>程序是一个状态机，初始状态：如果没有指定，从PC开始执行，线性，分叉（如rand），程序执行的结果不是唯一的</p>
+<p>一条特殊的指令syscall(),进入内核模式，把&hellip;.交给操作熊，任其修改，程序=计算+syscall()</p>
+<p>如何写一个最小的hello，world程序?</p>
+<p><img src="image-20250311131332572.png" alt=""></p>
+<p>强行编译+链接</p>
+<p>ld失败，把main改成_start</p>
+<p>但是Segmentation Fault，retq就是把rsp加8，调试发现是初始状态无法返回</p>
+<p>解决办法：syscall</p>
+<pre tabindex="0"><code>#include &lt;sys/syscall.h&gt;
+
+int main() {
+  syscall(SYS_exit, 42);
+}
+</code></pre><p>man syscall</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250311134348396.png" alt="image-20250311134348396"></p>
+<p>系统调用参数，如在x86-64，syscall放在rax,rax,rdx，终于明白pwn的payload如何构造了</p>
+<p>一些有趣的终端命令</p>
+<pre tabindex="0"><code>telnet towel.blinkenlights.nl 放电影
+
+dialog --msgbox &#39;Hello&#39; 8 32
+
+ssh sshtron.zachlatta.com(贪吃蛇)
+</code></pre><h2 id="编译器">编译器</h2>
+<p>c代码状态机（有些地方不可优化，如系统调用是不可优化的），汇编代码状态机，如何切换?</p>
+<p>C=compile(S)</p>
+<p>正确的编译？把C代码中不可优化的部分都被正确的翻译到汇编上</p>
+<p>xxd:Linux查看二进制代码</p>
+<h2 id="常见应用程序">常见应用程序</h2>
+<p>程序是状态机视角</p>
+<p>GNU Coreutils/busybox -&gt;系统/工具程序(apt,ssh,vim) ——&gt;应用程序</p>
+<p>QA：Hello World C程序执行的第一条指令在哪里?</p>
+<p>/lib64/ld-linux-x86-64.so</p>
+<p><img src="image-20250311153250055.png" alt=""></p>
+<p>可以自行修改哈</p>
+<pre tabindex="0"><code>strace追踪
+
+strace f.out
+
+strace -f gcc -c f.c
+gcc --verbose
+</code></pre><h2 id="并发">并发</h2>
+<p>Human beings are sequential agents</p>
+<p>单线程每一步都是确定的</p>
+<p>多线程：全局变量和堆区共享，有几个独立的栈帧链，线程：每个栈帧里都有PC和其他局部变量，并发系统每一步都不确定，switch选择线程1/2/3&hellip;&hellip;?</p>
+<p>Human beings are sequential creature.</p>
+<p>top显示CPU使用情况</p>
+<p>是不是线程共存内存？</p>
+<pre tabindex="0"><code>#include &#34;thread.h&#34;
+
+int x = 0;
+
+void Thello(int id) {
+  usleep(id * 100000);
+  printf(&#34;Hello from thread #%c\n&#34;, &#34;123456789ABCDEF&#34;[x++]);
+}
+
+int main() {
+  for (int i = 0; i &lt; 10; i++) {
+    create(Thello);
+  }
+}
+</code></pre><p>改变int x=0局部or全局，可以看到不一样的输出</p>
+<p>如何证明线程具有独立堆栈？</p>
+<pre tabindex="0"><code>#include &#34;thread.h&#34;
+
+__thread char *base, *cur; // thread-local variables
+__thread int id;
+
+// objdump to see how thread-local variables are implemented
+__attribute__((noinline)) void set_cur(void *ptr) { cur = ptr; }
+__attribute__((noinline)) char *get_cur()         { return cur; }
+
+void stackoverflow(int n) {
+  set_cur(&amp;n);
+  if (n % 1024 == 0) {
+    int sz = base - get_cur();//栈底和栈顶区别
+    printf(&#34;Stack size of T%d &gt;= %d KB\n&#34;, id, sz / 1024);
+  }
+  stackoverflow(n + 1);//无限制的创建栈
+}
+
+void Tprobe(int tid) {
+  id = tid;
+  base = (void *)&amp;tid; //指向tid地址
+  stackoverflow(0);  
+}
+
+int main() {
+  setbuf(stdout, NULL);
+  for (int i = 0; i &lt; 4; i++) {
+    create(Tprobe);
+  }
+}
+</code></pre><p>多线程执行，同时访问相同的共享变量，会出问题</p>
+<h2 id="原子性的丧失">原子性的丧失</h2>
+<p>如何把程序限制到单处理器上？</p>
+<p>单处理器多线程</p>
+<ul>
+<li>线程在运行时可能被中断，切换到另一个线程执行</li>
+</ul>
+<p>多处理器多线程</p>
+<ul>
+<li>线程根本就是并行执行的</li>
+</ul>
+<p>printf还能在多线程调用吗？</p>
+<p>printf不会在多线程中出现问题，比如一个字符插入另一个字符，因为有缓冲区，不是puts</p>
+<p>asm volatile(&quot;&quot;:::&ldquo;memory&rdquo;)插入汇编指令，告诉汇编器不要优化，别的线程可能读写内存</p>
+<p>并发程序最大的麻烦？</p>
+<p>mem-ordering.c</p>
+<p>flag=0或1，通过异或算法，来决定执行哪个</p>
+<pre tabindex="0"><code> ./mem-ordering |head -n 10000 |sort |uniq -c
+</code></pre><h2 id="现代处理器">现代处理器</h2>
+<p>动态编译器</p>
+<p>单个处理器把汇编代码编译成更小的uops</p>
+<p>fetch-&gt;issue（可以同时）-&gt;execuite-&gt;commit</p>
+<p>在任何时刻，处理器都维护一个uop的池子，每一周期向池子补充尽可能多的uop，执行尽可能多的uop，这也是乱序执行的原因</p>
+<p>多处理器间即使可见性的丧失</p>
+<p>如果写x发生cache miss，延迟写入，执行下一条指令</p>
+<p>“mfence”保证多处理器之间的一致性，只有写入内存，才能执行下一条语句</p>
+<h2 id="总结">总结</h2>
+<p>并发程序=多个执行流，共享内存的状态机，c语言执行流</p>
+<p>thread.h=create+join</p>
+<p>并发执行不原子，能乱序。不立即可见</p>
+<p>现代处理器就是动态数据分析器，指令流，数据流，只要做出相应的应对，就能跑的快</p>
+<p>互斥：保证两个线程不能同时执行一段代码</p>
+<p>利用锁，互斥锁，同一时间只有一个线程持有锁，线程在进入临界区前必须先获取锁，线程在离开临界区后必须释放锁，必须确保同一时间只有一个线程能狗执行临界区代码</p>
+<h2 id="peterson算法">Peterson算法</h2>
+<p>store()改变状态，赋值</p>
+<p>load()看</p>
+<pre tabindex="0"><code>int x = 0, y = 0, turn = A;
+void TA() {
+    while (1) {
+/* PC=1 */  x = 1;
+/* PC=2 */  turn = B;
+/* PC=3 */  while (y &amp;&amp; turn == B) ;
+            critical_section();
+/* PC=4 */  x = 0; } }
+void TB() {
+  while (1) {
+/* PC=1 */  y = 1;
+/* PC=2 */  turn = A;
+/* PC=3 */  while (x &amp;&amp; turn == A) ;
+            critical_section();
+/* PC=4 */  y = 0; } }
+</code></pre><p>QA：如何保证两个人能安全的上厕所，只有store（）和load()两个动作？</p>
+<p><img src="image-20250311224557999.png" alt=""></p>
+<p>模拟算法（PC1,PC2,X,Y,turn）</p>
+<p>modef-checker.py</p>
+<p>不断试图进入临界区，只要变量是锁着的，就执行死循环，如果不是，就锁上，进入临界区，出临界区，把锁删掉</p>
+<h2 id="在共享内存上实现互斥">在共享内存上实现互斥</h2>
+<p>实现互斥的根本困难：公理系统不允许同时读/写共享内存，即load()和store()不能同时执行</p>
+<p>解决：假设硬件能为我们提供一条“瞬间完成”的读写指令</p>
+<p>实现互斥的协议？</p>
+<p>一条exchange协议，0/1状态转变</p>
+<pre tabindex="0"><code>int table =yes;
+
+void lock(){
+
+retry:
+
+​    int got = xchg(&amp;table,NOPE);
+
+​    if (got == NOPE)
+
+​        goto retry;
+
+​    assert(got == YES);
+
+}
+
+
+
+void unlock(){
+
+​    xchg(&amp;table,YES)
+
+}
+
+
+
+int locked =0;
+
+void lock(){while (echg(&amp;locked,1));}
+
+void unlock(){xchg(&amp;locked,0);}
+</code></pre><p>注意model-checker工作的检验</p>
+<h2 id="原子指令的模型">原子指令的模型</h2>
+<p>保证lock指令有顺序并能按顺序执行，后面的线程能看见前面的线程，保证之前的store都写入内存，保证load/store不与原子指令乱序</p>
+<p>atomic test-and-set</p>
+<p>lock xchg</p>
+<p>reg=load(x);if (reg==XX){store(x,XX)}</p>
+<p>lock add</p>
+<p>t=load(x);t++;store(x,t)</p>
+<p>一读一写</p>
+<p>load,exec,store</p>
+<h2 id="load-reservedstore-conditional">LOAD-Reserved/Store-Conditional</h2>
+<p>打标记</p>
+<pre tabindex="0"><code>int cas(int *addr, int cmp_val, int new_val) {
+  int old_val = *addr;
+  if (old_val == cmp_val) {
+    *addr = new_val; return 0;
+  } else { return 1; }
+}
+</code></pre><h3 id="自旋锁的缺陷">自旋锁的缺陷</h3>
+<p>每个CPU上不同线程，可以切换，除了进入临界区的线程，其他处理器上的线程都在空转，获得自旋锁的线程可能被操作系统切换出去</p>
+<p>自旋 (共享变量) 会触发处理器间的缓存同步，延迟增加</p>
+<p>同一份计算任务，时间 (CPU cycles) 和空间 (mapped memory) 会随处理器数量的增长而变化。</p>
+<p><img src="image-20250312235140968.png" alt=""></p>
+<h3 id="自旋锁的好处">自旋锁的好处</h3>
+<ul>
+<li>更快的 fast path
+<ul>
+<li>xchg 成功 → 立即进入临界区，开销很小</li>
+</ul>
+</li>
+<li>更慢的 slow path
+<ul>
+<li>xchg 失败 → 浪费 CPU 自旋等待</li>
+</ul>
+</li>
+</ul>
+<p>自旋锁的使用场景</p>
+<p>no：</p>
+<ul>
+<li>持有自旋锁时禁止执行流切换(很危险的操作)？</li>
+<li>临界区几乎不拥堵？</li>
+</ul>
+<p>操作系统可以操纵关中断和抢占，保证锁的持有者在很短的时间呢你可以释放锁</p>
+<p>如何实现一个很长的临界期？</p>
+<p>把锁的实现放到操作系统里就好啦！</p>
+<ul>
+<li>
+<pre tabindex="0"><code>syscall(SYSCALL_lock, &amp;lk);
+</code></pre><ul>
+<li>试图获得 <code>lk</code>，但如果失败，就切换到其他线程</li>
+</ul>
+</li>
+<li>
+<pre tabindex="0"><code>syscall(SYSCALL_unlock, &amp;lk);
+</code></pre><ul>
+<li>释放 <code>lk</code>，如果有等待锁的线程就唤醒</li>
+</ul>
+</li>
+</ul>
+<p>融合自旋锁和互斥锁的好处？</p>
+<h2 id="futex">Futex</h2>
+<p>Fast path: 一条原子指令，上锁成功立即返回</p>
+<p>Slow path: 上锁失败，执行系统调用睡眠</p>
+<p>线程库里的锁绝大情况下不会启动系统调用，而是原子调用</p>
+<h2 id="总结-1">总结</h2>
+<p>QA：如何在多处理器上实现互斥？</p>
+<p>在多处理器系统上实现互斥是确保多个处理器或核心在访问共享资源时不会发生冲突的关键，利用锁</p>
+<h2 id="并发控制">并发控制</h2>
+<p>QA:如何在多处理器上协同多个线程完成任务？</p>
+<p>同步：两个或两个以上随时间变化的量在变化过程中保持一定的相对关系</p>
+<p>并发程序中的同步：在某个时间点共同达到互相已知的状态</p>
+<h2 id="生产者-消费者问题">生产者-消费者问题</h2>
+<p>括号匹配</p>
+<p>左括号：生产资源，放入队列</p>
+<p>右括号：从队列取出资源执行</p>
+<pre tabindex="0"><code>#include &#34;thread.h&#34;
+#include &#34;thread-sync.h&#34;
+
+int n, count = 0;
+mutex_t lk = MUTEX_INIT();
+
+void Tproduce() {
+  while (1) {
+retry:
+    mutex_lock(&amp;lk);
+    if (count == n) {
+      mutex_unlock(&amp;lk);
+      goto retry;
+    }
+    count++;
+    printf(&#34;(&#34;);
+    mutex_unlock(&amp;lk);
+  }
+}
+
+void Tconsume() {
+  while (1) {
+retry:
+    mutex_lock(&amp;lk);
+    if (count == 0) {
+      mutex_unlock(&amp;lk);
+      goto retry;
+    }
+    count--;
+    printf(&#34;)&#34;);
+    mutex_unlock(&amp;lk);
+  }
+}
+
+int main(int argc, char *argv[]) {
+  assert(argc == 2);
+  n = atoi(argv[1]);
+  setbuf(stdout, NULL);
+  for (int i = 0; i &lt; 8; i++) {
+    create(Tproduce);
+    create(Tconsume);
+  }
+}
+</code></pre><p>如果不为空，就取出右括号执行，如果不满，就放左括号</p>
+<p>改进，join()阻塞进程直至线程完成</p>
+<h2 id="conditional-variables">Conditional Variables</h2>
+<pre tabindex="0"><code>#include &#34;thread.h&#34;
+#include &#34;thread-sync.h&#34;
+
+int n, count = 0;
+mutex_t lk = MUTEX_INIT();
+cond_t cv = COND_INIT();
+
+void Tproduce() {
+  while (1) {
+    mutex_lock(&amp;lk);
+    if (count == n) {
+      cond_wait(&amp;cv, &amp;lk);
+    }
+    printf(&#34;(&#34;); count++;
+    cond_signal(&amp;cv);
+    mutex_unlock(&amp;lk);
+  }
+}
+
+void Tconsume() {
+  while (1) {
+    mutex_lock(&amp;lk);
+    if (count == 0) {
+      pthread_cond_wait(&amp;cv, &amp;lk);
+    }
+    printf(&#34;)&#34;); count--;
+    cond_signal(&amp;cv);
+    mutex_unlock(&amp;lk);
+  }
+}
+
+int main(int argc, char *argv[]) {
+  assert(argc == 2);
+  n = atoi(argv[1]);
+  setbuf(stdout, NULL);
+  for (int i = 0; i &lt; 8; i++) {
+    create(Tproduce);
+    create(Tconsume);
+  }
+}
+</code></pre><p>两个消费者，一个生产者，什么时候会出现问题，应该是一个consumer在不该wakeup的时候？())同类唤醒</p>
+<p>assert()检查</p>
+<p>获取互斥锁，如果不满足条件，则调用cond_wait进入等待状态，并释放互斥锁，满足条件执行后，释放锁，cond_signal()唤醒另一个进程</p>
+<h2 id="哲学家吃饭问题">哲学家吃饭问题</h2>
+<ul>
+<li>吃饭需要同时得到左手和右手的叉子</li>
+<li>当叉子被其他人占有时，必须等待，如何完成同步？
+<ul>
+<li>如何用互斥锁/信号量实现？</li>
+</ul>
+</li>
+</ul>
+<p>失败的尝试</p>
+<pre tabindex="0"><code>#include &#34;thread.h&#34;
+#include &#34;thread-sync.h&#34;
+
+#define N 3
+sem_t locks[N];
+
+void Tphilosopher(int id) {
+  int lhs = (N + id - 1) % N;
+  int rhs = id % N;
+  while (1) {
+    P(&amp;locks[lhs]); //上锁，得到叉子
+    printf(&#34;T%d Got %d\n&#34;, id, lhs + 1); 
+    P(&amp;locks[rhs]);
+    printf(&#34;T%d Got %d\n&#34;, id, rhs + 1);
+    V(&amp;locks[lhs]);
+    V(&amp;locks[rhs]);
+  }
+}
+
+int main(int argc, char *argv[]) {
+  for (int i = 0; i &lt; N; i++) {
+      SEM_INIT(&amp;locks[i], 1);//初始化为1
+  }
+  for (int i = 0; i &lt; N; i++) {
+    create(Tphilosopher);
+  }
+}
+</code></pre><p>问题：死锁？</p>
+<p>分布式算法：如果所有人叉子都在右手上，没有人叫醒程序，线程不会进展</p>
+<pre tabindex="0"><code>mutex_lock(&amp;mutex);
+while (!(avail[lhs] &amp;&amp; avail[rhs])) {
+  wait(&amp;cv, &amp;mutex);
+}
+avail[lhs] = avail[rhs] = false; //放下两个叉子
+mutex_unlock(&amp;mutex);
+
+mutex_lock(&amp;mutex);
+avail[lhs] = avail[rhs] = true;
+broadcast(&amp;cv);
+mutex_unlock(&amp;mutex);
+</code></pre><p>Master-slave：让一个人管理叉子</p>
+<pre tabindex="0"><code>void Tphilosopher(int id) {
+  send_request(id, EAT);
+  P(allowed[id]); // waiter 会把叉子递给哲学家
+  philosopher_eat();
+  send_request(id, DONE);
+}
+
+void Twaiter() {
+  while (1) {
+    (id, status) = receive_request();
+    if (status == EAT) { ... }
+    if (status == DONE) { ... }
+  }
+}
+</code></pre><p>延伸思考，如果觉得单线程管理太慢，可以分批给多个线程管理，但这些现成的管理资源要独立</p>
+<h2 id="防御性编程">防御性编程</h2>
+<p>利用assert()</p>
+<pre tabindex="0"><code>CHECK_INT(waitlist-&gt;count, &gt;= 0);
+CHECK_INT(pid, &lt; MAX_PROCS);
+CHECK_HEAP(ctx-&gt;rip); CHECK_HEAP(ctx-&gt;cr3);
+</code></pre><p>检查PID，是否在堆区</p>
+<p>死锁：线程互相等待</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Mar 16, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-03-15-ctfshow-pwn/" title="ctfshow-pwn">ctfshow-pwn</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-03-17-ics-pa%E7%AC%94%E8%AE%B0/" title="ICS-PA笔记">ICS-PA笔记</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

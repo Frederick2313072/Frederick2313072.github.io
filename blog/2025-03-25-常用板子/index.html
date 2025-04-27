@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>常用板子</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Mar 25, 2025
+     - 9 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-03-25-%E5%B8%B8%E7%94%A8%E6%9D%BF%E5%AD%90/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     常用板子 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h2 id="栈">栈</h2>
+<p>LIFO</p>
+<h3 id="用数组模拟栈">用数组模拟栈</h3>
+<pre tabindex="0"><code>int st[N];//元素数量，栈顶下标
+//压栈
+st[++*st]=var1;
+//取栈顶
+int u =st[*st];
+//弹栈，*st==0时不能继续弹出
+if(*st) --*st;
+//清空栈
+*st =0 ;
+</code></pre><h3 id="stl中的栈">STL中的栈</h3>
+<pre tabindex="0"><code>//引入stack头文件，container默认使用stf::deque
+template&lt;
+     class T,class Container = std:deque&lt;T&gt;
+&gt;class stack;
+</code></pre><p>容器必须提供以下函数，如std::vector,std::deque和std::list</p>
+<ul>
+<li>back()</li>
+<li>push_back()</li>
+<li>pop_back()</li>
+</ul>
+<p>stack容器常用函数</p>
+<ul>
+<li>st.top()</li>
+<li>st.push()</li>
+<li>st.pop()</li>
+<li>st.empty()</li>
+<li>st.size()</li>
+</ul>
+<pre tabindex="0"><code>//新建两个栈st1和st2
+std:stack&lt;int&gt; st11,st2;
+//为st1装入1
+st1.push(1);
+//赋值
+st2=st1
+//输出栈顶
+cout &lt;&lt; st2.top() &lt;&lt; endl;
+</code></pre><h3 id="队列">队列</h3>
+<p>FIFO</p>
+<h3 id="用数组模拟一个队列用两个变量标记队列的首尾">用数组模拟一个队列，用两个变量标记队列的首尾</h3>
+<pre tabindex="0"><code>int q[size],ql=1,qr;
+</code></pre><pre tabindex="0"><code>插入元素：q[++qr]=x;
+
+删除元素：ql++;
+
+访问队首：q[ql];
+
+访问队尾：q[qr];
+
+清空队列：ql=1，qr=0；
+</code></pre><h3 id="双端队列">双端队列</h3>
+<pre tabindex="0"><code>//引入&lt;deque&gt;头文件
+template&lt;
+    class T,//数据类型
+    class Allocator = std:allocator&lt;T&gt;//适配器
+&gt;class deque;
+</code></pre><p>std::deque容器常用函数</p>
+<ul>
+<li>元素访问</li>
+</ul>
+<pre tabindex="0"><code>q.front();
+q.back();
+</code></pre><ul>
+<li>修改</li>
+</ul>
+<pre tabindex="0"><code>q.push_back()
+q.pop_back()
+q.push_front()
+q.pop_front()
+q.insert()
+q.erase()
+</code></pre><ul>
+<li>容器</li>
+</ul>
+<pre tabindex="0"><code>q.empty()
+q.size()
+</code></pre><h3 id="循环队列">循环队列</h3>
+<p>采用循环的方式组织存放队列元素的数组，将下标为0的位置看作最后一个位置后继，如(n+1)%size</p>
+<p>例题</p>
+<p>一个双端队列（deque），m 个事件：</p>
+<ol>
+<li>在前端插入 (w,v)</li>
+<li>在后端插入 (w,v)</li>
+<li>删除前端的二元组</li>
+<li>删除后端的二元组</li>
+</ol>
+<h2 id="链表">链表</h2>
+<h3 id="构建链表">构建链表</h3>
+<p>单向链表</p>
+<pre tabindex="0"><code>struct Node{
+    int value;
+    Node *next;
+};
+</code></pre><p>双向链表</p>
+<pre tabindex="0"><code>struct Node{
+int value;
+Node *next;
+Node *right;
+}
+</code></pre><h3 id="向链表插入数据">向链表插入数据</h3>
+<p>单向链表</p>
+<pre tabindex="0"><code>void insertNode(int i,Node *p){
+    Node *node = new Node;
+    node-&gt;value = i;
+    node-&gt;next = p-&gt;next;
+    p-&gt;next = node;
+}
+</code></pre><p>单向循环链表</p>
+<p>先判断原链表是否为空，为空则自身循环，不为空则插入数据</p>
+<pre tabindex="0"><code>void insertNode(int i,Node *p){
+//初始化
+    Node *node = new Node;
+    node-&gt;value =i;
+    node-&gt;next = NULL;
+//判断是否为空
+    if(p == NULL){
+        p = node;
+        node-&gt;next = node;//指向自己
+    }else{
+       node-&gt;next = p-&gt;next;
+       p-&gt;next=node;
+    }   
+}
+</code></pre><h3 id="双向循环链表">双向循环链表</h3>
+<p>除了要判断给定链表是否为空外，还要修改左右指针</p>
+<pre tabindex="0"><code>void insertNode(int i,Node *p){
+    Node *node =new node;
+    node-&gt;value=i;
+    if(p == NULL){
+        p = node;
+        node-&gt;left=node;
+        node-&gt;right=node;
+    }else{
+     node-&gt;right = node-&gt;right;
+     node-&gt;left=node;
+     p-&gt;right-&gt;left=node;
+     p-&gt;right=node;
+    }
+}
+</code></pre><h3 id="从链表中删除数据">从链表中删除数据</h3>
+<h3 id="单向链表">单向链表</h3>
+<p>利用虚拟节点</p>
+<p>删除 <code>t</code>。此时虽然原结点 <code>p</code> 的地址还在使用，删除的是原结点 <code>p-&gt;next</code> 的地址，但 <code>p</code> 的数据被 <code>p-&gt;next</code> 覆盖，<code>p</code> 名存实亡。</p>
+<pre tabindex="0"><code>void deleteNode(Node *p){
+   p-&gt;value = p-&gt;next-&gt;value;//保存p下一个结点的值
+   Node *t = p-&gt;next;//利用虚拟结点保存p-&gt;next
+   p-&gt;next = p-&gt;next-&gt;next;
+   delete t;
+}
+</code></pre><p>双向循环链表</p>
+<pre tabindex="0"><code>void deleteNode(Node *p){
+    p-&gt;left-&gt;right=p-&gt;right;
+    p-&gt;right-&gt;left=p-&gt;left;
+    Node *t =p;
+    p=p-&gt;right;//将 p 的右节点地址赋给 p，以避免 p 变成悬垂指针；
+    delete t;
+}
+</code></pre><h2 id="树">树</h2>
+<h3 id="存储">存储</h3>
+<p>父节点parent[N]</p>
+<p>左右兄弟</p>
+<pre tabindex="0"><code>int v=child[u];
+
+while(v!=EMPTY_NODE){
+//...
+  v=sib[v];
+
+}
+</code></pre><p>二叉树，记录每个节点的左右子节点</p>
+<pre tabindex="0"><code>int parent[N];
+int lch[N],rch[N];
+//
+int child[N][2];
+</code></pre><p>先序遍历（根，左，右）</p>
+<pre tabindex="0"><code>void preorder(BiTree* root){
+  if(root){
+    cout &lt;&lt; root-&gt;key&lt;&lt; &#34;&#34;;
+    preorder(root-&gt;left);
+    preorder(root-&gt;right);
+  }
+}
+</code></pre><p>中序遍历(左，根，右)</p>
+<pre tabindex="0"><code>void inorder(BiTree* root){
+  if(root){
+    inorder(root-&gt;left);
+    cout&lt;&lt;root-&gt;key&lt;&lt;&#34;&#34;;
+    inorder(root-&gt;right);
+  }
+}
+</code></pre><p>后序遍历（左，右，根）</p>
+<pre tabindex="0"><code>void postorder(BiTree* root){
+  if(root){
+  postorder(root-&gt;left);
+  postorder(root-&gt;right);
+  count&lt;&lt;root-&gt;key&lt;&lt;&#34;&#34;;
+  }
+}
+</code></pre><p>BFS遍历</p>
+<pre tabindex="0"><code>vector&lt;vector&lt;int&gt;&gt; levelOrder(Node* root){
+  if(!root){
+    return {};
+  }
+  vector&lt;vector&lt;int&gt;&gt; res;
+  queue&lt;Node*&gt; q;//队列
+  q.push(root);//将根节点加入队列
+  while(!q.empty()){
+    int currentLevelSize = q.size();//获取当前层节点数
+    res.push_back(vector&lt;int&gt;()); //为当前层创建新的向量
+    //处理当前层的所有节点
+    for(int i =0;i&lt;currentLevelSize;++i){
+      Node* cur = q.front(); //获取队首节点
+      q.pop(); //弹出队首节点
+      res.back().push_back(cur-&gt;val);//将节点值加入当前层
+      //将子节点加入队列
+      for(Node* child:cur-&gt;children){
+        q.push(child);
+      }
+    }
+  }
+}
+</code></pre><p>Morris遍历</p>
+<p>Morris 遍历的实质是避免使用栈，利用底层节点空闲的 <code>right</code> 指针指回上层的某个节点，从而完成下层到上层的移动。</p>
+<pre tabindex="0"><code>void mooris(TreeNode* root){
+  TreeNode* cur = root;
+  while(cur){
+    if(!cur-&gt;left){
+    std::cout&lt;&lt;cur-&gt;val&lt;&lt;&#34; &#34;;
+    cur=cur-&gt;right;
+    continue;
+    }
+    //找到当前节点的左子树的最右节点
+    TreeNode* mostRight = cur-&gt;left;
+    while (mostRight-&gt;right &amp;&amp; mostRight -&gt;right !=cur){
+      mostRight = mostRight-&gt;right;
+    }
+    if(!mostRight-&gt;right){
+    //如果最右节点的right指针为空，将其指向当前节点，并进入左子树
+      mostRight -&gt; right =cur;
+      cur = cur -&gt;left;
+    }else{
+    //如果最右节点的right指针指向当前节点，说明左子树已经遍历完毕，输出当前节点的值并进入右子树
+    mostRight-&gt;right =nullptr;
+    std::cout &lt;&lt; cur-&gt;val &lt;&lt; &#34; &#34;;
+    cur = cur-&gt;right;
+    }
+  }
+}
+</code></pre><h2 id="排序">排序</h2>
+<p>稳定性？指相等的元素经过排序之后相对顺序是否发生了改变</p>
+<h3 id="选择排序">选择排序</h3>
+<p>用数组实现不稳定</p>
+<p>每次找出第i小的元素，然后将这个元素与数组第i个位置上的元素交换</p>
+<pre tabindex="0"><code>#include &lt;utility&gt;
+void selection_sort(int* a,int n){
+    for(int i=1;i&lt;n;++i){
+      int ith = i;
+      for(int j=i+1;j&lt;=n;++j){
+        if(a[j]&lt;a[ith]){
+          ith =j;
+        }
+      }
+      std::swap(a[i],a[ith]);
+    }
+}
+</code></pre><p>每次遍历i=1-n，固定i，遍历后面所有数(j)，如果后面数比前面数小，记住这个数的位置，结束后将他们交换</p>
+<h3 id="冒泡排序">冒泡排序</h3>
+<p>稳定</p>
+<p>每次检查相邻两个元素，如果前面的元素与后面的元素满足给定的排序条件，就将相邻两个元素交换。当没有相邻的元素需要交换时，排序就完成了。</p>
+<p>最坏情况，要会执行n-1+n-2+&hellip;&hellip;+1次交换操作</p>
+<pre tabindex="0"><code>void bubble_sort(int *a,int n){
+    bool flag =true;
+    while(flag){
+    flag= false;
+    for(int i=1;i&lt;n;++i){
+      if(a[i]&gt;a[i+1]){
+        flag=true;
+        int t=a[i];
+        a[i]=a[i+1];
+        a[i+1]=t;//交换
+      }
+    }
+   }
+}
+</code></pre><p>QA：为什么flag放在循环里面？</p>
+<p>只要找到不满足条件的立即停止</p>
+<h3 id="插入排序">插入排序</h3>
+<p>稳定，最优n，最坏n^2</p>
+<p>插入排序（英语：Insertion sort）是一种简单直观的排序算法。它的工作原理为将待排列元素划分为「已排序」和「未排序」两部分，每次从「未排序的」元素中选择一个插入到「已排序的」元素中的正确位置。</p>
+<p>一个与插入排序相同的操作是打扑克牌时，从牌桌上抓一张牌，按牌面大小插到手牌后，再抓下一张牌。</p>
+<pre tabindex="0"><code>void insertion_sort(int arr[],int len){
+    for(int i =1;i&lt;len;++i){
+        int key = arr[i];
+        int j =i-1;
+        while(j &gt;=0 &amp;&amp; arr[j]&gt;key){
+            arr[j+1]=arr[j];
+            j--;
+        }
+        arr[j+1]=key;
+    }
+}
+</code></pre><p>从第1个元素开始排序，再取第二个元素，和第一个元素比较，排序，再取第三个元素，和刚跟排序好的最后一个元素比较&hellip;&hellip;</p>
+<h3 id="计数排序">计数排序</h3>
+<p>线性时间，稳定</p>
+<p>计数排序的工作原理是使用一个额外的数组C，其中第i个元素是待排序数组A中值等于i的元素的个数，然后根据数组C来讲A中的元素排到正确的位置</p>
+<ul>
+<li>
+<p>计算每个数出现了几次；</p>
+<p>求出每个数出现次数的前缀和；</p>
+<p>利用出现次数的前缀和，从右至左计算每个数的排名。</p>
+</li>
+</ul>
+<p>n是数组长度，w是元素值域范围/最大值</p>
+<pre tabindex="0"><code>#include &lt;cstring&gt;
+constexpr int MAXN =1010;//数组最大长度
+constexpr int MAXW = 100010;//元素至于范围
+int cnt[MAXW];//计数数组，用于统计每个元素出现的次数
+int b[MAXN];//输出数组，存储排序后的结果
+int* counting_sort(int* a,int n,int w){
+    memset(cnt,0,sizeof(cnt));//初始化计数数组
+    for(int i=0;i&lt;=n;++i) ++cnt[a[i]];//统计每个元素出现的次数
+    for(int i=1;i&lt;=w;++i) cnt[i]+=cnt[i-1];//计算前缀和，确定每个元素最后出现的的位置
+    for(int i=n;i&gt;=1;--i) b[cnt[a[i]]--]=a[i];//从后向前遍历，将元素放到正确位置
+}
+</code></pre><p>输入数组 a: [0, 2, 1, 3, 2, 1]
+n = 5, w = 3</p>
+<p>步骤1：统计次数
+cnt[0] = 1
+cnt[1] = 2
+cnt[2] = 2
+cnt[3] = 1</p>
+<p>步骤2：计算前缀和
+cnt[0] = 1
+cnt[1] = 3
+cnt[2] = 5
+cnt[3] = 6</p>
+<p>步骤3：从后向前放置元素
+i = 5: a[5] = 1
+cnt[1] = 3
+b[3] = 1
+cnt[1] = 2</p>
+<p>i = 4: a[4] = 2
+cnt[2] = 5
+b[5] = 2
+cnt[2] = 4</p>
+<p>&hellip;以此类推</p>
+<p>最终结果：b = [1, 1, 2, 2, 3]</p>
+<h3 id="msd基数排序">MSD基数排序</h3>
+<p>基于 k - 关键字元素的比较方法，可以想到：先比较所有元素的第 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="1"> 关键字，就可以确定出各元素大致的大小关系；然后对 <strong>具有相同第 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="1"> 关键字的元素</strong>，再比较它们的第 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="2"> 关键字……以此类推。</p>
+<pre tabindex="0"><code>void MSD_radix_sort(u32ptr first,u32ptr last){
+
+}
+</code></pre><p>通常而言，基数排序比基于比较的排序算法（比如快速排序）要快。但由于需要额外的内存空间，因此当内存空间稀缺时，原地置换算法（比如快速排序）或许是个更好的选择。</p>
+<h3 id="快速排序">快速排序</h3>
+<p>不稳定，平均 O(nlogn)，最坏 O(n²)</p>
+<p>分治思想</p>
+<ul>
+<li>
+<p>将数列划分为两部分</p>
+</li>
+<li>
+<p>递归到两个子序列中分别进行快速排序</p>
+</li>
+<li>
+<p>不用合并，此时数列已经有序</p>
+</li>
+</ul>
+<pre tabindex="0"><code>struct Range{
+    int start,end;
+    Range(int s=0,int e=0){
+    start =s,end =e;
+    }
+};
+template &lt;typename T&gt;
+void quick_sort(T arr[],const int len){
+   if(len&lt;=0) return;
+   Range r[len];//使用数组模拟栈
+   int p=0;     //栈顶指针
+   r[p++]=Range(0,len-1);//压入整个数组范围
+   while(p){//当栈不为空
+   Range range = r[--p];//弹出栈顶范围
+   if (range.start &gt;= range.end) continue;//范围无效跳过
+   T mid = arr[range.end];//选择最右边的元素作为基准值
+   int left = range.start,right=range.end-1;
+   //分区过程
+   while(left&lt;right){
+   while(arr[left]&lt;mid &amp;&amp; left&lt;right) left++;
+   while(arr[left])&gt;=mid&amp;&amp;left&lt;right) right--;
+   std:swap(arr[left],arr[right]);//左边小就不交换，比较下一个，右边同理
+   }
+   //处理基准值
+   if(arr[left]&gt;=arr[range.end])
+       std::swap(arr[left],arr[range.end]);
+   else
+       left++;
+   }
+   r[p++]=Range(range.start,left-1);
+   r[p++]=Range(left+1,range.end);
+}
+</code></pre><p>选一个基值，一个左指针，一个右指针，左指针指到的数字比基准小就不处理，左指针右移动，否则交换后，左指针右移动，然后右指针，数字大不处理，小的话交换，左移，当左右指针相遇，取这个数和最右边的元素比较，再次重复</p>
+<h3 id="归并排序">归并排序</h3>
+<p>最优，平均，最坏情况下均为nlogn，空间复杂度为n</p>
+<p>比较两个数组每个元素（有序），把小的放入新数组，如果还有剩下没比较的全部放入（因为有序）</p>
+<pre tabindex="0"><code>void merge(const int *a,size_t aLen,const int *b,size_t bLen,int *c){
+  size_t i=0,j=0,k=0;
+  while(i&lt;aLen &amp;&amp; bLen){
+       if(b[j]&lt;a[i]){
+       c[k]=b[j];
+       ++j;
+       }else{
+       c[k]=a[i];
+       ++i
+       }
+       ++k;
+  }
+  for(;i&lt;aLen;++i,++k) c[k]=a[i];
+  for(;j&lt;bLen;++j,++k) c[k]=b[j];
+}
+</code></pre><h3 id="分治法实现归并排序">分治法实现归并排序</h3>
+<p>mid=（l+r）/2</p>
+<pre tabindex="0"><code>void merge_sort(int *a,int l,int r){
+  if(r-l&lt;=1)  return;
+  int mid = l+((r-l)&gt;&gt;1);//每次都加总长度的1/2
+  merge_sort(a,l,mid),merge_sort(a,mid,r);
+  //合并
+  int tmp[1024]={};
+  merge(a+l,a+mid,a+r,a+mid,tmp+l);
+  for(int i=l;i&lt;r;++i) a[i]=tmp[i];
+}
+</code></pre><h2 id="堆排序">堆排序</h2>
+<p>不稳定，时间复杂度nlogn</p>
+<p>1.建堆</p>
+<pre tabindex="0"><code>iParent(i)=(i-1)/2
+iLeftChild(i)=2*i+1
+iRightChild(i)=2*i+2
+</code></pre><p>2.排序</p>
+<pre tabindex="0"><code>void sift_dowmn(int arr[],int start,int end){
+   int parent = start;
+   int child =parent*2+1;
+   while(child&lt;=end){
+   //先比较两个子节点大小，选择最大的
+   if(child+1&lt;=end&amp;&amp;arr[child]&lt;arr[child+1]) child++;
+   //如果父节点比子节点大，代表调整完毕，直接跳出函数
+   if(arr[parent]&gt;=arr[child])
+       return;
+   else{//否则交换父子内容，子节点在和孙节点比较
+       swap(arr[parrent],arr[child]);
+       parent = child;
+       child = parent*2+1;
+   }
+   }
+}
+void heap_sort(int arr[],int len){
+  //从最后一个节点的父节点开始
+  for(int i=(len-1-1)/2;i&gt;=0;i++) sift_down(arr,i,len-1);
+  for(int i = len-1;i&gt;0;i--){
+  swap(arr[0],arr[i]);
+  sift_down(arr,0,i-1);
+  }
+}
+</code></pre><h3 id="桶排序">桶排序</h3>
+<p>稳定，时间平均复杂度n+n*n/k+k,最坏n^2</p>
+<p>1.设定一个定量的数组当作空桶</p>
+<p>2.遍历，放入相应桶</p>
+<p>3.对非空桶内部排序</p>
+<p>4.把非空桶中的元素拿出</p>
+<pre tabindex="0"><code>constexpr int N=100010;
+int n,w,a[N];//n是元素个数，w是值域范围，a是待排序数组
+vector&lt;int&gt; bucket[N];
+//排序函数
+void insertion_sort(vector&lt;int&gt;&amp;A){
+  for(int i=1;i&lt;A.size();++i){
+      int key=A[i];
+      int j=i-1;
+      //将比key大的元素后移
+      while(j&gt;=0&amp;&amp;A[j]&gt;key){
+      A[j+1]=A[j];
+      --j;
+      }
+      A[j+1]=key;//插入key
+  }
+}
+void bucket_sort(){
+    //计算每个桶的大小
+    int bucket_size=w/n+1;
+    //清空所有桶
+    for(int i=0;i&lt;n;++i){
+        bucket[i].clear();
+    }
+    //将元素分配到桶中
+    for(int i=1;i&lt;=n;++i){
+       bucket[a[i]/bucket_size].push_back(a[i]);
+    }
+    //对每个桶排序合并结果
+    int p=0;
+    for(int i=0;i&lt;n;++i){
+        insertion_sort(bucket[i]);
+        for(int j=0;j&lt;bucket[i].size();++j){
+           a[++p]=bucket[i][j];
+        }
+    }
+}
+</code></pre><h3 id="二分法">二分法</h3>
+<pre tabindex="0"><code>int binary_search(int start,int end,int key){
+  int ret =-1;//未搜索到数据返回-1下标
+  int mid;
+  while(start&lt;=end){
+    mid = start+((end-start)&gt;&gt;1);//直接取平均可能会溢出
+    if(arr[mid]&lt;key)
+      start = mid + 1;
+    else if(arr[mid]&gt;key)
+      end = mid-1;
+    else{
+        ret = mid;
+        break;
+    }
+  }
+  return ret;
+}
+</code></pre><h3 id="三分法">三分法</h3>
+<p>如果需要求出单峰函数的极值点</p>
+<pre tabindex="0"><code>while(r-l&gt;eps){
+  mid = l+((r-l)&gt;&gt;1);
+  lmid = mid-eps;
+  rmid = mid+eps;
+  if(f(lmid)&lt;f(rmid))
+    r = mid;
+  else
+    l = mid;
+}
+</code></pre><h2 id="dfs图论">DFS(图论)</h2>
+<p>用栈来实现</p>
+<p>时间复杂度位n+m,空间复杂度为n，n表示点数，m表示边数</p>
+<pre tabindex="0"><code>DFS(v) // v 可以是图中的一个顶点，也可以是抽象的概念，如 dp 状态等。
+  在 v 上打访问标记
+  for u in v 的相邻节点
+    if u 没有打过访问标记 then
+      DFS(u)
+    end
+  end
+end
+</code></pre><p>非递归版本</p>
+<pre tabindex="0"><code>vector&lt;vector&lt;int&gt;&gt; adj;//邻接表
+vector&lt;bool&gt; vis;//记录节点是否已经遍历
+
+void dfs(int s){
+    stack&lt;int&gt; st;
+    st.push(s);
+    vis[s]=true;
+    
+    while(!st.empty()){
+        int u=st.top();
+        st.pop();
+        
+        for(int v:adg[u]){
+        if(!vis[v]){
+            vis[v]=true;
+            st.push(v);
+        }
+        }
+    }
+}
+</code></pre><p>递归实现</p>
+<pre tabindex="0"><code>vector&lt;vector&lt;int&gt;&gt; adj;//邻接表
+vector&lt;bool&gt; vis;//记录节点是否已经遍历
+
+void dfs(const int u){
+     vis[u]=true;
+     for(int v:adj[u])
+     if(!vis[v]) dfs(v)
+}
+</code></pre><p>例题：把正整数n分解成3个不同的正整数，排在后面的数必须大于等于前面的数</p>
+<pre tabindex="0"><code>int m,arr[103];//m是划分的最大个数，arr[103]存储当前划分方案
+void dfs(int n,int i,int a){//n是待划分的数，a是可以取到的最小值
+  if(n == 0){//划分完了，找到以恶搞完整的划分方案，遍历打印
+     for(int j=1;j&lt;=i-1;++j){
+         printf(&#34;%d&#34;,arr[j]);
+     printf(&#34;\n&#34;);
+     }
+  if(i&lt;=m){
+    for(int j=a;j&lt;=n;++j){//从a开始尝试每个可能的数
+    arr[i]=j;//记录当前选择
+    dfs(n-j,i+1,j);//递归处理剩余部分
+    }
+  }
+  }
+}
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Mar 25, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-03-23-nkuwiki%E7%88%AC%E8%99%AB%E8%AF%B4%E6%98%8E/" title="NKUwiki爬虫说明">NKUwiki爬虫说明</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-03-30-%E4%B8%80%E4%BA%9B%E5%AF%B9%E4%BA%8Ec-%E7%9A%84%E6%80%9D%E8%80%83/" title="一些对于C&#43;&#43;的思考">一些对于C&#43;&#43;的思考</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

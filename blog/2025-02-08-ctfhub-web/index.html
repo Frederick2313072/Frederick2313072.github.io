@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>ctfhub-web</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Feb 8, 2025
+     - 4 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-02-08-ctfhub-web/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     ctfhub-web 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>HTTP请求：抓包，把GET换成CTFHUB</p>
+<p>302跳转：网页临时移动到新的位置，而浏览器的缓存没有更新，flag在index.php下而跳转到index.html打开burp suite抓包，发送请求</p>
+<p>cookie:验证身份 抓包repeater模块改成admin=1发送请求</p>
+<p>基础认证：burpsuite字典爆破，加密</p>
+<p>sql注入：结合burpsuite（前端没有回显），hackbar</p>
+<h2 id="xss攻击">XSS攻击</h2>
+<p>找一个xss网站，我找的是xssaq.com</p>
+<h3 id="反射型xss">反射型XSS</h3>
+<p>恶意JavaScript脚本属于用户发送给网站请求中的一部分，随后网站又将这部分返回给用户，恶意脚本在页面中被执行。一般发生在前后端一体的应用中，服务端逻辑会改变最终的网页代码。</p>
+<p>攻击步骤</p>
+<p>1.攻击者构造出特殊的 URL，其中包含恶意代码。
+2.用户打开带有恶意代码的 URL 时，网站服务端将恶意代码从 URL 中取出，拼接在 HTML 中返回给浏览器。
+3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
+4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</p>
+<p>由于HTML文档具有扁平的、串行的结构，混合了控制语句、格式和实际内容，因此在结果页面中包含任何未经验证的用户提供的数据而没有进行正确的HTML编码，可能导致标记注入。一个经典的潜在攻击向量例子是站点搜索引擎：如果用户搜索一个字符串，搜索字符串通常会在结果页面上逐字显示，以表明搜索内容。如果该响应没有正确转义或拒绝HTML控制字符，就会导致跨站脚本漏洞。</p>
+<p>反射型攻击通常通过电子邮件或一个中立的网站传递。诱饵是一个看似无害的URL，指向一个可信赖的网站，但包含XSS攻击向量。如果该可信赖的网站对该向量存在漏洞，点击链接可能会导致受害者的浏览器执行注入的脚本。</p>
+<p>这里用最经典的paylaod来进行判断是否存在xss</p>
+<pre tabindex="0"><code>&#34;&#34;&lt;script&gt;alert(1)&lt;/script&gt;&#34;&#34;//这是语句是让浏览器弹框
+</code></pre><p>题目中第二个输入框模拟受害者访问，这里的payload需要从xss平台中复制</p>
+<p><img src="image-20250210002218405.png" alt=""></p>
+<p>在XSS网站上</p>
+<p><img src="image-20250210002314603.png" alt=""></p>
+<h2 id="存储型xss">存储型XSS</h2>
+<p>黑客将恶意 JavaScript 脚本长期保存在服务端数据库中，用户一旦访问相关页面数据，恶意脚本就会被执行。常见于搜索、微博、社区贴吧评论等。
+存储型 XSS 的攻击步骤：</p>
+<p>1.攻击者将恶意代码提交到目标网站的数据库中。
+2.用户打开目标网站时，网站服务端将恶意代码从数据库取出，拼接在 HTML 中返回给浏览器。
+3.用户浏览器接收到响应后解析执行，混在其中的恶意代码也被执行。
+4.恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。</p>
+<p>和上面的是一样的，存储型就是把恶意代码存储进了数据库，每次查库就会触发恶意代码。</p>
+<p><img src="image-20250210002745851.png" alt=""></p>
+<h2 id="dom型xss攻击">DOM型XSS攻击</h2>
+<p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
+<p>在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等</p>
+<p>DOM 型 XSS 攻击，实际上就是网站前端 JavaScript 代码本身不够严谨，把不可信的数据当作代码执行了。</p>
+<p>在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等
+DOM型XSS的攻击步骤</p>
+<pre><code>攻击者构造出特殊的 URL，其中包含恶意代码。
+用户打开带有恶意代码的 URL。
+用户浏览器接收到响应后解析执行，前端 JavaScript 取出 URL 中的恶意代码并执行。
+恶意代码窃取用户数据并发送到攻击者的网站，或者冒充用户的行为，调用目标网站接口执行攻击者指定的操作。
+</code></pre>
+<p>简单来说就是在前端页面上寻找注入点</p>
+<p><img src="image-20250210005338187.png" alt=""></p>
+<p>通过构造html语法的闭合，将脚本输入进去，同前面一样</p>
+<h2 id="dom跳转">DOM跳转</h2>
+<p>审查源代码</p>
+<p><img src="image-20250210011106889.png" alt=""></p>
+<p>注意！当你将类似于 &lsquo;&lsquo;&rsquo;location.href = &ldquo;javascript:alert(&lsquo;xss&rsquo;)&rdquo;&rsquo;&rsquo;&rsquo; 这样的代码赋值给 location.href 时，浏览器会将其解释为一种特殊的URL方案，即 “javascript:”。在这种情况下，浏览器会将后面的 JavaScript 代码作为URL的一部分进行解析，然后执行它。</p>
+<p>直接在网页url后面跟上代码测试反弹</p>
+<pre tabindex="0"><code>&#39;&#39;&#39;javascript:alert(1)&#39;&#39;&#39;
+</code></pre><p>跟前面老步骤</p>
+<h2 id="文件上传">文件上传</h2>
+<p>文件上传漏洞服务端代码未对客户端上传的文件进行严格的验证，导致漏洞。非法用户可以利用上传的恶意文件控制整个网站，这个恶意文件被称为 WebShell ，也可以称为一种网页后门。
+1.1常见的WebShell有哪些？</p>
+<pre><code>拥有较完整功能的webshell，我们一般称为大马。
+功能简易的webshell称为小马。
+除此之外还存在一句话木马、菜刀马、脱库马等等的名词，是对于webShell功能或者特性的简称。
+</code></pre>
+<p>1.2 一句话木马演示</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Feb 8, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-02-08-python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" title="Python渗透测试">Python渗透测试</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-02-14-ctfshow%E9%80%9A%E5%85%B3/" title="ctfshow通关">ctfshow通关</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

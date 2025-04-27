@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
@@ -16,7 +14,7 @@
   
 
   
-  <title>404 Page not found</title>
+  <title>Python渗透测试</title>
 
   
   
@@ -118,19 +116,115 @@
 <div id="main">
   <div id="content">
     <div>
-      <article role="article">
-        <header>
-          <h1 class="entry-title">
-            
-              There&rsquo;s nothing here
-            
-          </h1>
-        </header>
-        <div id="blog-archives" class="category">
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Feb 8, 2025
+     - 2 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-02-08-python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     Python渗透测试 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
           
-            Please either go back or use the navigation/sidebar menus.
           
+          
+          <p>UDP TCP 客户端 服务器</p>
+<h2 id="socket实例化">socket实例化</h2>
+<p>socket(family,type,[protocal])协议族（默认AF_INET),,SOCK_STREAM(TCP)/SOCK_DGRAM(UDP)</p>
+<p>s=socket.socket()</p>
+<p>初始化TCP:s=socket.socket()</p>
+<p>初始化UDP:s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</p>
+<h2 id="socket常用函数">socket常用函数</h2>
+<h3 id="服务器">服务器</h3>
+<p>s.bind((&lsquo;127.0.0.1&rsquo;,2345))绑定IP和端口</p>
+<p>s.listen(5)最大监听5个端口</p>
+<p>conn,address=s.accept()套字对象，客户端地址（本机）</p>
+<h3 id="客户端">客户端</h3>
+<p>s.connect((&ldquo;127.0.0.1&rdquo;,2345))</p>
+<h3 id="通用">通用</h3>
+<p>send()</p>
+<p>sendall()区别在于可以完整发送TCP数据</p>
+<p>s.snedall(bytes(&ldquo;Hello&rdquo;,encoding=&ldquo;utf-8&rdquo;))</p>
+<p>recv(bufsize)最多可以接受的数量</p>
+<p>sendto(string[,flag],address)使用UDP时发送数据</p>
+<p>recovfrom(data,address) UDP专用，接受数据</p>
+<p>close()关闭socket</p>
+<h2 id="nmap实例化">nmap实例化</h2>
+<p>nm = nmap.PortScannerAsycn()</p>
+<h2 id="常见函数">常见函数</h2>
+<p>scan(self,hosts=&ldquo;127.0.0.1&rdquo;,ports=None,arguments=&quot;-sV&quot;,sudo=False)</p>
+<p>nm.scan(&ldquo;127.0.0.1&rdquo;,&ldquo;1-500&rdquo;,&quot;-sS&quot;)1-500端口</p>
+<p>nm.all_hosts()返回被扫描的所有主机列表</p>
+<p>nm.command_line()返回再当前扫描中使用的命令行</p>
+<p>nm.csv()返回被扫描主机的csv格式的文件</p>
+<p>print（nm.csv())希望看得更清楚</p>
+<p>nm.has_hsot检查是否有host扫描结果，返回值为false/true</p>
+<p>nm.scaninfo()列出扫描信息的结构</p>
+<p>nmp[&ldquo;192.168.1.101&rdquo;].hostname()获取192.168.1.1.1的主机名</p>
+<p>still_scanning()是否正在扫描</p>
+<p>wait（2）等待时间</p>
+<p>stop（）停止当前扫描</p>
+
         </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Feb 8, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-01-20-%E8%84%9A%E6%9C%AC%E5%B0%8F%E5%AD%90/" title="脚本小子">脚本小子</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-02-08-ctfhub-web/" title="ctfhub-web">ctfhub-web</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
       </article>
     </div>
     
@@ -240,6 +334,7 @@ Click on
 
   </div>
 </div>
+
     <footer role="contentinfo">
       <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
         <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
@@ -258,3 +353,4 @@ Click on
     
   </body>
 </html>
+

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 <head>
@@ -16,7 +14,7 @@
   
 
   
-  <title>Archives</title>
+  <title>数据库系统概论第二章习题答案</title>
 
   
   
@@ -119,21 +117,70 @@
   <div id="content">
     <div>
       <article class="hentry" role="article">
-        <header>
-          <h1 class="entry-title">
-            Archives 
-          </h1>
-          <p class="meta">May 28, 2019 - 0 minute read - 
 
-          
+        
+        
 
-          </p>
-        </header>
+<header>
+  <p class="meta">Dec 9, 2024
+     - 3 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2024-12-09-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA%E7%AC%AC%E4%BA%8C%E7%AB%A0%E4%B9%A0%E9%A2%98%E7%AD%94%E6%A1%88/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     数据库系统概论第二章习题答案 
+  </h1>
+</header>
+
+
         <div class="entry-content">
           
           
           
-          
+          <h1 id="第二章-关系数据库">第二章 关系数据库</h1>
+<p>1.试述关系模型的三个组成部分</p>
+<p>关系数据结构：只包含单一的数据结构——关系，由三种类型：基本关系（基本表），查询表和视图表</p>
+<p>关系操作集合：查询（选择，投影，并，差，笛卡尔积），插入，删除，修改</p>
+<p>关系完整性约束</p>
+<p>2.关系数据语言的特点和分类</p>
+<p>(1)
+<a href="https://so.csdn.net/so/search?q=%e5%85%b3%e7%b3%bb%e4%bb%a3%e6%95%b0&amp;spm=1001.2101.3001.7020" target="_blank" rel="noopener">关系代数</a>语言
+(2)关系演算语言：元组关系演算语言和域关系演算语言
+(3)SQL：具有关系代数和关系演算双重特点的语言</p>
+<p>3.解释术语，说明关系与联系</p>
+<ul>
+<li>
+<p>（1）域：一组具有相同数据类型的值的集合</p>
+<p>（2）笛卡尔积：给定一组域D1,D2,&hellip;,Dn,D1×D2×&hellip;×Dn={(d1,d2,&hellip;,dn),di∈Di}</p>
+<p>（3）关系：D1×D2×&hellip;×Dn（笛卡尔积）的有限子集，表示为R（D1,D2,D3,&hellip;,Dn），n=1，一元关系，n=2，二元关系，也是一张二维表</p>
+<p>（4）元组：笛卡尔积中每一个元素{(d1,d2,&hellip;,dn),di∈Di}，一个n元组</p>
+<p>（5）属性：在二维表中，是一列，n目关系有n个属性（列）</p>
+</li>
+<li>
+<p>（1）主码：从多个候选码中选定一个作为主码</p>
+<p>（2）候选码：某一属性组的值额能唯一的标识一个元组，而其子集不能</p>
+<p>（3）外码：关系R中的一个属性F并不是R的码，但对应另一个关系S中的主码Ks，F称为R和S的外码，定义在同一个域上</p>
+</li>
+<li>
+<p>（1）关系模式（型）：关系的描述，R（U,D,DOM,F)，R为关系名，U为属性名集合，D为属性来自的域，DOM为属性向域的映像集合（如属性的类型，长度</p>
+<p>（2）关系（值）：包括基本关系（基本表），查询表，视图表</p>
+<p>（3）关系数据库：所有关系的集合</p>
+</li>
+</ul>
+<p>4.举例说明关系模式和关系的联系</p>
+<p>关系是关系模型在某一时刻的状态或内容，关系模式是静态的，稳定的，关系是动态的，随时间不断变化的。</p>
+<p>5.试述关系模型的完整性规则。在参照完整性中，说明情况下外码属性的值可以为空值</p>
+<p>实体完整性：主属性不能去空值（null）</p>
+<p>参照完整性：两个关系之间存在着属性的引用，如学生的学号取值需要参照专业关系中的专业号</p>
+<p>用户定义的完整性：应用领域需要遵循的约束条件，语义约束</p>
+<p>在参照完整性规则中，外码属性的值可以取空值只有当外码的每个属性值取空值（二维表中每一列都是NULL）</p>
+<p>6.试述等值连接与自然连接的区别和联系</p>
+<p>自然连接是一种特殊的等值连接，，自然连接取消重复列</p>
+<p>7.关系代数的基本运算</p>
+<p>传统的集合运算：二目运算，包括并，差，交，笛卡尔积</p>
+<p>专门的关系运算：选择，投影，连接（查询就是一个关系在属性上的投影，取消某些列和重复元组），除运算</p>
+
         </div>
         
 
@@ -141,7 +188,7 @@
   <p class="meta">
     <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
     
-    <time>May 28, 2019</time>
+    <time>Dec 9, 2024</time>
     
     </span>
   </p>
@@ -150,9 +197,11 @@
 
   <p class="meta">
     
-        <a class="basic-alignment left" href="https://Frederick2313072.github.io/about/" title="About">About</a>
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2024-12-09-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%B9%A0%E9%A2%98%E7%AD%94%E6%A1%88/" title="数据库系统概论第一章习题答案">数据库系统概论第一章习题答案</a>
     
 
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2024-12-27-%E6%A6%82%E7%8E%87%E8%AE%BA%E6%A8%A1%E5%9E%8B%E5%8F%8A%E5%B0%8F%E7%BB%93/" title="概率论模型及小结">概率论模型及小结</a>
     
   </p>
   

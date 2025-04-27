@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>nssctf逆向题</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Feb 24, 2025
+     - 8 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-02-24-nssctf%E9%80%86%E5%90%91%E9%A2%98/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     nssctf逆向题 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h2 id="一些常见的逆向函数">一些常见的逆向函数</h2>
+<p>index() find()找索引值</p>
+<p>.append(ord()) +=chr()字母数字转换</p>
+<h2 id="简简单单的逻辑题">简简单单的逻辑题</h2>
+<pre tabindex="0"><code>ord 字符串转ascii码
+chr ascii码转字符串
+hex 十进制转十六进制
+int(a，16) 十六进制转十进制
+[起点,终点,步长] python切片
+zfill(2) 为不满2个宽度的字符串前添加0直到宽度为2
+</code></pre><h2 id="easy-c">easy C</h2>
+<p>直接逆完事</p>
+<pre tabindex="0"><code>\#include &lt;stdio.h&gt;
+
+\#include &lt;string.h&gt;
+
+int main()
+
+{
+
+  char b[] = &#34;d`vxbQd&#34;;
+
+  for (int i = 0; i &lt; 7; i++)
+
+  {
+
+​    b[i] = b[i] ^ 2;
+
+​    b[i]--;
+
+  }
+
+  printf(&#34;%s\n&#34;, b);
+
+}
+</code></pre><h2 id="有点小难的逻辑题">有点小难的逻辑题</h2>
+<pre tabindex="0"><code>flag = &#39;xxxxxxxxxxxxxxxxxxxxx&#39;
+
+s = &#39;wesyvbniazxchjko1973652048@$+-&amp;*&lt;&gt;&#39;
+
+result = &#39;&#39;
+
+for i in range(len(flag)):
+
+  s1 = ord(flag[2*i])
+
+  s2 = ord(flag[2*i+1])
+
+  result += s[(s1+i)%34]+s[-(s2+i+1)%34]
+
+print(result)
+
+\# result = &#39;v0b9n1nkajz@j0c4jjo3oi1h1i937b395i5y5e0e$i&#39;
+</code></pre><pre tabindex="0"><code>#爆破脚本，菜狗不会逆向
+
+result = &#39;v0b9n1nkajz@j0c4jjo3oi1h1i937b395i5y5e0e$i&#39;
+
+s = &#39;wesyvbniazxchjko1973652048@$+-&amp;*&lt;&gt;&#39;
+
+flag = &#39;&#39;
+
+l=range(len(result)//2)
+
+#先找到s中的索引值
+
+for i in l:
+
+  indx1 = s.index(result[2*i])
+
+  indx2 = s.index(result[2*i+1])
+
+  for num in range(32,127):
+
+​    s1 = num //17
+
+​    s2 = num % 17
+
+​    ds1 = (s1+i)%34
+
+​    ds2 = -(s2+i+1)%34
+
+​    if indx1 == ds1 and indx2 == ds2:
+
+​      flag += chr(num)
+
+​      break
+
+print(flag)
+</code></pre><p>思路：其实从s到result从分析学来看，就是一个数列重排，flag被用作一个对应的函数关系式，只要一一验证result和s的值在哪个地方相等，就可以求出flag，index()就是找result中的值在s的哪个位置，这个index再经过逆向/爆破，可以得到flag</p>
+<h2 id="fakerandom">fakerandom</h2>
+<p>random.seed()：通过设置相同的随机种子，可以确保每次运行时获得相同的随机数序列</p>
+<pre tabindex="0"><code>import random
+
+flag = &#39;xxxxxxxxxxxxxxxxxxxx&#39;
+
+random.seed(1)
+
+l = []
+
+for i in range(4):
+
+  l.append(random.getrandbits(8))
+
+result=[]
+
+for i in range(len(l)):
+
+  random.seed(l[i])
+
+  for n in range(5):
+
+​    result.append(ord(flag[i*5+n])^random.getrandbits(8))
+
+print(result)
+
+\# result = [201, 8, 198, 68, 131, 152, 186, 136, 13, 130, 190, 112, 251, 93, 212, 1, 31, 214, 116, 244]
+</code></pre><pre tabindex="0"><code>
+
+import random
+
+result = [201, 8, 198, 68, 131, 152, 186, 136, 13, 130, 190, 112, 251, 93, 212, 1, 31, 214, 116, 244]
+
+flag = []
+
+random.seed(1)
+
+l = []
+
+for i in range(4):
+
+  l.append(random.getrandbits(8))
+
+print(l)
+
+for i in range(len(l)):
+
+  random.seed(l[i])
+
+  for n in range(5):
+
+​    flag.append((chr((result[i*5+n])^random.getrandbits(8))))
+
+flag = &#39;&#39;.join(flag)
+
+print(flag)
+</code></pre><h2 id="卡在签到题了">卡在签到题了&hellip;</h2>
+<pre><code>if ( Str2[j] == 111 )
+  Str2[j] = 48;
+</code></pre>
+<p>看到有个很像flag的{hello_world},提交结果发现错了，一看伪代码，发现把0改成了o，ASCII表o对应111，0对应48</p>
+<h2 id="花指令">花指令</h2>
+<ul>
+<li>
+<p>jump</p>
+<pre tabindex="0"><code>start://花指令开始
+    jmp label1
+    DB junkcode
+label1:
+     jmp label2
+     DB junkcode
+label2：
+    jmp label3
+    DB junkcode
+label3   
+</code></pre></li>
+<li>
+<p>jnz和jz跳转</p>
+</li>
+</ul>
+<pre tabindex="0"><code>_asm{
+    jz label1
+    jnz label1
+    db junkcode
+label1:    
+}
+</code></pre><ul>
+<li>永真条件跳转</li>
+</ul>
+<pre tabindex="0"><code>__asm{
+    push ebx
+    xor ebx,ebx
+    test ebx,ebx
+    jnz label1
+    jz label2
+label1:
+    _emit junkcode
+label2:
+   pop ebx//需要恢复ebx寄存器    
+}
+
+__asm{
+	clc
+	jnz label1:
+	_emit junkcode
+label1:
+}
+</code></pre><ul>
+<li>call&amp;ret构造花指令</li>
+</ul>
+<pre tabindex="0"><code>__asm{
+    call label1
+    _emit junkcode
+label1:
+    add dword ptr ss:[esp],8//具体增加多少根据调试来
+    ret
+    _emit junkcode
+}
+
+call指令：将下一条指令地址压入栈，再跳转执行
+ret指令：将保存的地址取出，跳转执行
+</code></pre><p>例题</p>
+<p><img src="image-20250219180723186.png" alt=""></p>
+<p>按D转换成数据形式</p>
+<p>右键change bytes E8换成90 就是nop</p>
+<p>后面变黄的地址c修复即可</p>
+<p>转到函数开头p生成函数</p>
+<h2 id="hubuctf-2022-新生赛ezpython">[HUBUCTF 2022 新生赛]ezPython</h2>
+<p>拿到题目，发现文件时.pyz结尾，先转换成py格式</p>
+<p>uncompyle 6 -o ezPython.py ezPython.pyz</p>
+<pre tabindex="0"><code>from Crypto.Util.number import *
+import base64, base58
+password = open(&#34;password.txt&#34;, &#34;r&#34;).read()
+tmp = bytes_to_long(password.encode(&#34;utf-8&#34;))
+ans = base64.b64encode(base58.b58encode(str(tmp))).decode()
+print(&#34;I&#39;ve forgot my password,could you please help me find the password?&#34;)
+if ans == &#34;M0hBajFITHVLcWV6R1BOcEM5MTR0R0J3eGZVODV6MTJjZUhGZFNHQw==&#34;:
+    print(&#34;You get the password!&#34;)
+else:
+    print(&#34;Wrong! try again&#34;)
+</code></pre><p>解释下，bytes_to_long()把字节转换成长整型，加密成utf-8形式，再转为字符串，转为base58，转为base64，逆过来写就行</p>
+<pre tabindex="0"><code>from Crypto.Util.number import *
+import base64
+import base58
+import hashlib
+flag1=&#34;M0hBajFITHVLcWV6R1BOcEM5MTR0R0J3eGZVODV6MTJjZUhGZFNHQw==&#34;
+flag= int(base58.b58decode(base64.b64decode(flag1)))
+print(flag)
+
+flag = long_to_bytes(flag)
+flag.decode(&#34;utf-8&#34;)
+flag = hashlib.md5(flag).hexdigest()
+print(flag)
+</code></pre><p>一些习惯：打开IDAshift f12查看字符串</p>
+<p>ctrl+x 交叉引用</p>
+<h2 id="z3-slover">Z3-slover</h2>
+<p>Solver()</p>
+<p>创建一个求解器，在里面添加约束条件进行下一步的求解</p>
+<p>add()</p>
+<p>通常在solver()命令之后，用来添加约束条件，通常添加的约束条件是一个等式</p>
+<p>check()</p>
+<p>判断是否添加的约束条件是否有解，有解返回sat，无解返回unsat</p>
+<p>model()</p>
+<p>在有解的情况下，求解的交集再输出创建求解约束器</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cobol" data-lang="cobol"><span style="display:flex;"><span><span style="color:#586e75">solver</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">Solver</span>
+</span></span></code></pre></div><p>添加约束条件</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>solver.<span style="color:#719e07">add</span>()
+</span></span></code></pre></div><p>判断解是否存在</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cobol" data-lang="cobol"><span style="display:flex;"><span><span style="color:#586e75"> if so</span><span style="color:#268bd2">lver</span>.<span style="color:#268bd2">check</span>()<span style="color:#719e07">==</span><span style="color:#268bd2">sat</span>
+</span></span></code></pre></div><p>求解</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#719e07">print</span> solver<span style="color:#719e07">.</span>model()
+</span></span></code></pre></div><p>题目</p>
+<pre tabindex="0"><code>#include &lt;iostream&gt;
+using namespace std;
+
+void flag_checker(int v, int w,int x,int y,int z); 
+
+int main(){
+	int v,w,x,y,z;
+	cout &lt;&lt; &#34;Input 5 random number and check your luck ;)&#34; &lt;&lt; endl;
+	cout &lt;&lt; &#34;Num1: &#34;;
+	cin &gt;&gt; v;
+	cout &lt;&lt; &#34;Num2: &#34;;
+	cin &gt;&gt; w;
+	cout &lt;&lt; &#34;Num3: &#34;;
+	cin &gt;&gt; x;
+	cout &lt;&lt; &#34;Num4: &#34;;
+	cin &gt;&gt; y;
+	cout &lt;&lt; &#34;Num5: &#34;;
+	cin &gt;&gt; z;
+	cout &lt;&lt; endl;
+	flag_checker(v,w,x,y,z);
+}
+
+
+void flag_checker(int v,int w, int x, int y, int z){
+	if ((v * 23 + w * -32 + x * 98 + y * 55 + z * 90 == 333322) &amp;&amp;
+		(v * 123 + w * -322 + x * 68 + y * 67 + z * 32 == 707724) &amp;&amp;
+		(v * 266 + w * -34 + x * 43 + y * 8 + z * 32 == 1272529) &amp;&amp;
+		(v * 343 + w * -352 + x * 58 + y * 65 + z * 5 == 1672457) &amp;&amp;
+		(v * 231 + w * -321 + x * 938 + y * 555 + z * 970 == 3372367)){
+			cout &lt;&lt; &#34;Congratulations, Here is your flag:\n&#34;;
+			cout &lt;&lt; &#34;flag{&#34; &lt;&lt; v &lt;&lt; &#34;_&#34; &lt;&lt; w &lt;&lt; &#34;_&#34; &lt;&lt; x &lt;&lt; &#34;_&#34; &lt;&lt; y &lt;&lt; &#34;_&#34; &lt;&lt; z &lt;&lt; &#34;}&#34; &lt;&lt; endl;
+		}
+		else{
+			cout &lt;&lt; &#34;\nSeems your luck is not in favor right now!\nBetter luck next time!&#34; &lt;&lt; endl;
+		}
+
+}
+</code></pre><pre tabindex="0"><code>from z3 import *
+s=Solver()
+v,w,x,y,z=Ints(&#39;v w x y z&#39;) #定义整数变量
+s.add(v * 23 + w * -32 + x * 98 + y * 55 + z * 90 == 333322)
+s.add(v * 123 + w * -322 + x * 68 + y * 67 + z * 32 == 707724)
+s.add(v * 266 + w * -34 + x * 43 + y * 8 + z * 32 == 1272529)
+s.add(v * 343 + w * -352 + x * 58 + y * 65 + z * 5 == 1672457)
+s.add(v * 231 + w * -321 + x * 938 + y * 555 + z * 970 == 3372367)
+s.check()
+print(s.model())
+</code></pre><h2 id="swpuctf-2022-新生赛xor">[SWPUCTF 2022 新生赛]xor</h2>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250225120439959.png" alt="image-20250225120439959"></p>
+<pre tabindex="0"><code>\#include &lt;stdio.h&gt;
+
+\#include &lt;stdlib.h&gt;
+
+\#include &lt;string.h&gt;
+
+int main()
+
+{
+
+  char str[] = &#34;LQQAVDyZMP]3q]emmf]uc{]vm]glap{rv]dnce&#34;;
+
+  char flag[39];
+
+  for (int i = 0; i &lt;= 38; i++)
+
+  {
+
+​    flag[i] = str[i] ^ 2;
+
+  }
+
+  printf(&#34;%s&#34;, flag);
+
+}
+</code></pre><h2 id="easyasm">easyasm</h2>
+<p>cmp     [ebp+i], eax</p>
+<p>jge     short loc_40119D （大于等于）</p>
+<p>最主要是这两行，以及[ebp+i]一开始赋值为0</p>
+<p>eax没有初始化，我想第一次循环是不会直接跳，所以继续执行后面的内容，看到xor     eax, 33h，知道和55作异或运算，逆过来就是把明文每个作XOR运算</p>
+<pre tabindex="0"><code>; void __cdecl enc(char *p)
+.text:00401160 _enc            proc near               ; CODE XREF: _main+1B↑p
+.text:00401160
+.text:00401160 i               = dword ptr -4
+.text:00401160 Str             = dword ptr  8
+.text:00401160
+.text:00401160                 push    ebb
+.text:00401161                 mov     ebp, esp
+.text:00401163                 push    ecx
+.text:00401164                 mov     [ebp+i], 0
+.text:0040116B                 jmp     short loc_401176
+.text:0040116D ; ---------------------------------------------------------------------------
+.text:0040116D
+.text:0040116D loc_40116D:                             ; CODE XREF: _enc+3B↓j
+.text:0040116D                 mov     eax, [ebp+i]
+.text:00401170                 add     eax, 1
+.text:00401173                 mov     [ebp+i], eax
+.text:00401176
+.text:00401176 loc_401176:                             ; CODE XREF: _enc+B↑j
+.text:00401176                 mov     ecx, [ebp+Str]
+.text:00401179                 push    ecx             ; Str
+.text:0040117A                 call    _strlen
+.text:0040117F                 add     esp, 4
+.text:00401182                 cmp     [ebp+i], eax
+.text:00401185                 jge     short loc_40119D
+.text:00401187                 mov     edx, [ebp+Str]
+.text:0040118A                 add     edx, [ebp+i]
+.text:0040118D                 movsx   eax, byte ptr [edx]
+.text:00401190                 xor     eax, 33h
+.text:00401193                 mov     ecx, [ebp+Str]
+.text:00401196                 add     ecx, [ebp+i]
+.text:00401199                 mov     [ecx], al
+.text:0040119B                 jmp     short loc_40116D
+.text:0040119D ; ---------------------------------------------------------------------------
+.text:0040119D
+.text:0040119D loc_40119D:                             ; CODE XREF: _enc+25↑j
+.text:0040119D                 mov     esp, ebp
+.text:0040119F                 pop     ebp
+.text:004011A0                 retn
+.text:004011A0 _enc            endp
+Input: your flag
+Encrypted result: 0x5b,0x54,0x52,0x5e,0x56,0x48,0x44,0x56,0x5f,0x50,0x3,0x5e,0x56,0x6c,0x47,0x3,0x6c,0x41,0x56,0x6c,0x44,0x5c,0x41,0x2,0x57,0x12,0x4e
+</code></pre><pre tabindex="0"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+int main()
+{
+    char flag1[] = {0x5b, 0x54, 0x52, 0x5e, 0x56, 0x48, 0x44, 0x56, 0x5f, 0x50, 0x3, 0x5e, 0x56, 0x6c, 0x47, 0x3, 0x6c, 0x41, 0x56, 0x6c, 0x44, 0x5c, 0x41, 0x2, 0x57, 0x12, 0x4e};
+    char flag[100] = {0};
+    for (int i = 0; i &lt; strlen(flag1); i++)
+    {
+        flag[i] = flag1[i] ^ 51;
+    }
+    printf(&#34;%s\n&#34;, flag);
+}
+</code></pre><h2 id="你知道什么事python吗">你知道什么事python吗</h2>
+<pre tabindex="0"><code>s = str(input(&#34;please input your flag:&#34;))
+
+
+arr=[29, 0, 16, 23, 18, 61, 43, 41, 13, 28, 88, 94, 49, 110, 66, 44, 43, 28, 91, 108, 61, 7, 22, 7, 43, 51, 44, 46, 9, 18, 20, 6, 2, 24]
+
+if(len(s)!=35  or s[0]!=&#39;N&#39;):
+    print(&#34;error&#34;)
+    exit(0)
+
+for i in range(1,len(s)):
+    if(ord(s[i-1])^ord(s[i])!=arr[i-1]):
+        print(&#34;error!&#34;)
+        exit(0)
+print(&#34;right!&#34;)
+</code></pre><pre tabindex="0"><code>arr=[29, 0, 16, 23, 18, 61, 43, 41, 13, 28, 88, 94, 49, 110, 66, 44, 43, 28, 91, 108, 61, 7, 22, 7, 43, 51, 44, 46, 9, 18, 20, 6, 2, 24]
+s = [&#39;&#39;] * 35
+s[0]=&#39;N&#39;
+for i in range(1,len(arr)+1):
+    s[i]=chr(ord(s[i-1])^arr[i-1])
+print(&#34;&#34;.join(s))
+</code></pre><p>s=[&rsquo;&rsquo;]*35 分配初始空间</p>
+<p>ord()转换成ascii码</p>
+<p>chr()转换成字符</p>
+<p>print(&quot;&quot;.join(s))拼接</p>
+<h2 id="安卓逆向">安卓逆向</h2>
+<p>java -jar jadx-1.5.1-all.jar</p>
+<p>文件拖进来</p>
+<p>搜索字符串‘NO’</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250225192535250.png" alt="image-20250225192535250"></p>
+<pre tabindex="0"><code>text = &#39;棿棢棢棲棥棷棊棐棁棚棨棨棵棢棌&#39;
+
+key = 987654321
+
+flag = &#39;&#39;
+
+for i in text:
+
+  \# 将结果限制在有效的 Unicode 范围内，限制在0-255范围内
+
+  flag += chr((ord(i) ^ key) % 256)
+
+print(flag)
+</code></pre><p>注意限制字符长度！</p>
+<h2 id="chicken_soup">chicken_soup</h2>
+<p>花指令 E8改成90 p生成函数</p>
+<p>%c直接转为ASCII码，c语言这点比python好</p>
+<pre tabindex="0"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+int main()
+{
+    unsigned char a1[] = {0xCD, 0x4D, 0x8C, 0x7D, 0xAD, 0x1E, 0xBE, 0x4A, 0x8A, 0x7D,
+                          0xBC, 0x7C, 0xFC, 0x2E, 0x2A, 0x79, 0x9D, 0x6A, 0x1A, 0xCC,
+                          0x3D, 0x4A, 0xF8, 0x3C, 0x79, 0x69, 0x39, 0xD9, 0xDD, 0x9D,
+                          0xA9, 0x69, 0x4C, 0x8C, 0xDD, 0x59, 0xE9, 0xD7};
+    for (int i = 0; i &lt; 38; i++)
+    {
+        a1[i] = (16 * a1[i]) | (a1[i] &gt;&gt; 4);
+    }
+    for (int j = 36; j &gt; 0; j--)
+    {
+        a1[j] -= a1[j + 1];
+    }
+    for (int i = 0; i &lt; 38; i++)
+    {
+        printf(&#34;%c&#34;, a1[i]);
+    }
+    return 0;
+}
+</code></pre><p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250225212046924.png" alt="image-20250225212046924"></p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250225212059037.png" alt="image-20250225212059037"></p>
+<p>关了IDA忘记截图，索性拿别人wp</p>
+<h2 id="老鼠走迷宫">老鼠走迷宫</h2>
+<p>难崩，Windows环境有点难配</p>
+<p>conda activate 2-27进入python3.6版本的conda环境，进入D盘目录pyinstxtractor</p>
+<p>python pyinstxtractor.py 附件.exe</p>
+<p>用struct.pyc修复5.pyc头文件</p>
+<p>进入D盘pydcd的build</p>
+<p>pycdc.exe 5.pyc</p>
+<p>脚本</p>
+<pre tabindex="0"><code>from collections import deque
+ 
+#设置二维四向迷宫, 如果题目是多个小迷宫问题, 拆分多次调用脚本获取路径即可
+(row, col) = (12, 12)
+(i, j) = (0, 0)
+maze =  [
+ [
+  1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+ [
+  1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+ [
+  1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1],
+ [
+  1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+ [
+  1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+ [
+  1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+ [
+  1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1],
+ [
+  1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1],
+ [
+  1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+ [
+  1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1],
+ [
+  1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+ [
+  1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+ [
+  1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1],
+ [
+  1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
+ [
+  1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+ [
+  1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1],
+ [
+  1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+ [
+  1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1],
+ [
+  1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1],
+ [
+  1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1],
+ [
+  1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1],
+ [
+  1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+ [
+  1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+ [
+  1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+ [
+  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1]]
+path_len = 0x7fffffff#如果题目未给出终点坐标，则一定会指定路径的长度，在此处修改路径长度，否则请保留path_len的极大值
+ 
+#进行BFS寻找路径
+def bfs(start, end, barrier):
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)] # 定义四个方向的移动
+    for i in range(len(maze)):#获取起点和终点在列表中的索引
+        for j in range(len(maze[i])):
+            if(maze[i][j] == start):
+                start = (i, j)
+            if(maze[i][j] == end):
+                end = (i, j)
+    #以下均是bfs算法套路
+    queue = deque()
+    queue.append((start, [start]))  # (当前位置, 路径)
+    visited = set()
+    visited.add(start)
+    while queue:
+        position, path = queue.popleft()
+        if position == end:
+            return path
+        elif len(path)==path_len:
+            return path
+        for d in directions:
+            next_position = (position[0] + d[0], position[1] + d[1])
+            if 0 &lt;= next_position[0] &lt; len(maze) and 0 &lt;= next_position[1] &lt; len(maze[0]) and \
+               maze[next_position[0]][next_position[1]] != barrier and next_position not in visited:
+                queue.append((next_position, path + [next_position]))
+                visited.add(next_position)
+    return None
+ 
+#执行BFS搜索并打印结果
+if __name__ == &#39;__main__&#39;:
+    maze[0][1] = &#39;S&#39; #如果题目给了起点终点的坐标，在这里直接给起点和终点添加特征
+    maze[24][23] = &#39;E&#39; 
+    
+    path = bfs(&#39;S&#39;, &#39;E&#39;, 1) #bfs函数传入参数代表起点、终点、障碍的特征(若题目给出的数据无特征, 手动添加特征即可, 通常障碍是1也有可能是0或其它字符如&#39;#&#39;)
+    print(&#34;移动路径坐标：&#34;, path)
+    print(&#34;移动路径方位：{&#34;, end=&#39;&#39;)
+    for i in range(1 ,len(path)):
+        x1, y1, x2, y2 = path[i - 1][0], path[i - 1][1], path[i][0], path[i][1]
+        if(x1 &gt; x2):#上
+            print(&#34;w&#34;, end=&#39;&#39;)
+        elif(x1 &lt; x2):#下
+            print(&#34;s&#34;, end=&#39;&#39;)
+        elif(y1 &gt; y2):#左
+            print(&#34;a&#34;, end=&#39;&#39;)
+        elif(y1 &lt; y2):#右
+            print(&#34;d&#34;, end=&#39;&#39;)
+    print(&#39;}&#39;)
+</code></pre><p>随后md5加密</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Feb 24, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-02-24-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" title="汇编语言">汇编语言</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-03-15-ctfshow-pwn/" title="ctfshow-pwn">ctfshow-pwn</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

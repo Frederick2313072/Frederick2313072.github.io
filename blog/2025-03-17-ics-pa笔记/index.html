@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>ICS-PA笔记</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Mar 17, 2025
+     - 7 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-03-17-ics-pa%E7%AC%94%E8%AE%B0/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     ICS-PA笔记 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>Unix is a user-friendly. It&rsquo;s just selective about who its friends are.</p>
+<h2 id="unix哲学">Unix哲学</h2>
+<p>KISS：Keep it simple,stupid.</p>
+<p>Everything is a file and pipeline programs to work together.</p>
+<p>每个工具只做一件事情，但做到极致</p>
+<p>小工具统一文本输入输出，易于使用</p>
+<p>使用管道进行组合</p>
+<p><img src="image-20250313120233047.png" alt=""></p>
+<p>man -k xxx 检索关键字XXX的命令</p>
+<p>echo $?查看上一条指令的退出状态</p>
+<p>gcc -E -S -c -o</p>
+<p>.c -&gt; .i -&gt; .s -&gt; .o -&gt; .out</p>
+<p>元编程：定义自己的语言，但是不破坏可读性</p>
+<p>函数的调用就是栈的生长</p>
+<p>.o -&gt; .out就是重定向的过程，.o不知道所调用函数位置，链接后填入函数地址会有偏移</p>
+<p>C程序执行的两个视角</p>
+<ul>
+<li>静态：C 代码的连续一段总能对应到一段连续的机器指令</li>
+<li>动态：C 代码执行的状态总能对应到机器的状态</li>
+</ul>
+<p>Segmentation fault报错：已超过这块内存允许的权限来操作</p>
+<p>大多数机器采用小端，容易对齐</p>
+<p>long在32位上是4个字节，在64位是8个字节</p>
+<p>只要是个指针，32位机就是4个字节，64位就是8个字节，指针在内存中的存储是个地址</p>
+<pre tabindex="0"><code>void (*signal (int sig, void (*func)(int)))(int);
+</code></pre><p>参数为(int sig, void (*func)(int)),*函数返回值，为int型</p>
+<h2 id="拿到项目后">拿到项目后</h2>
+<p>make构建</p>
+<p>make run跑一下</p>
+<p>看看Makefile怎么构建的</p>
+<p>大致了解下项目总体结构</p>
+<ul>
+<li>tree</li>
+<li>find &hellip; | xargs cat | wc –l</li>
+</ul>
+<p>将find找到的文件列表传给cat，cat依次读取文件内容，wc -l统计所有文件的总行数</p>
+<pre tabindex="0"><code>find . -name &#34;*.c&#34; -o -name &#34;*.h&#34; | xargs cat | wc -l
+</code></pre><p>266807</p>
+<p>找到入口点main</p>
+<pre tabindex="0"><code>grep -n main $(find . -name &#34;*.c&#34;)
+</code></pre><p><img src="image-20250313201913865.png" alt=""></p>
+<pre tabindex="0"><code> grep -nr &#34;\bmain\b&#34; nemu/src
+</code></pre><p><img src="image-20250314111506176.png" alt=""></p>
+<p>正则表达式，main以单词形式出现</p>
+<p>vim $(fzf)可以以树的方式直接跳转某个文件</p>
+<p>(gdb)layout src :打开源码</p>
+<p>两种运行方式</p>
+<ul>
+<li>make run</li>
+<li>./build/riscv32-nemu-interpreter</li>
+</ul>
+<p>怎么给nemu传指令</p>
+<ul>
+<li>echo &lsquo;help&rsquo; | ./build/riscv32-nemu-interpreter</li>
+<li>cat in.txt | ./build/riscv32-nemu-interpreter</li>
+<li>./build/riscv32-nemu-interpreter &lt; in.txt</li>
+</ul>
+<p><img src="image-20250314133250320.png" alt=""></p>
+<p>回归测试的脚本？</p>
+<p>parse_args()函数，解析命令行参数</p>
+<pre tabindex="0"><code>static int parse_args(int argc, char *argv[]) {
+  const struct option table[] = {
+    {&#34;batch&#34;    , no_argument      , NULL, &#39;b&#39;},
+    {&#34;log&#34;      , required_argument, NULL, &#39;l&#39;},
+    {&#34;diff&#34;     , required_argument, NULL, &#39;d&#39;},
+    {&#34;port&#34;     , required_argument, NULL, &#39;p&#39;},
+    {&#34;help&#34;     , no_argument      , NULL, &#39;h&#39;},
+    {0          , 0                , NULL,  0 },
+  };
+  int o;
+</code></pre><p>static</p>
+<p>如果在两个文件里定义了重名的函数，能够分别百衲衣，但链接会出错，加了一个static，约束可见的范围，使不会触发函数得重名，nemu框架得逻辑：只要是函数就加static</p>
+<p>/riscv32/**/reg.h</p>
+<pre tabindex="0"><code>#ifndef __RISCV_REG_H__
+#define __RISCV_REG_H__
+
+#include &lt;common.h&gt;
+
+static inline int check_reg_idx(int idx) {
+  IFDEF(CONFIG_RT_CHECK, assert(idx &gt;= 0 &amp;&amp; idx &lt; MUXDEF(CONFIG_RVE, 16, 32)));
+  return idx;
+}
+
+#define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
+
+static inline const char* reg_name(int idx) {
+  extern const char* regs[];
+  return regs[check_reg_idx(idx)];
+}
+
+#endif
+        
+</code></pre><p>​</p>
+<p>运行时间短，但是调用频繁，static inline int建议编译器用内联函数的方式展开，不调用函数，而是在调用点直接展开，以空间换时间</p>
+<p>monitor.c</p>
+<pre tabindex="0"><code>
+void init_monitor(int argc, char *argv[]) {
+  /* Perform some global initialization. */
+
+  /* Parse arguments. */
+  parse_args(argc, argv);
+
+  /* Set random seed. */
+  init_rand();
+
+  /* Open the log file. */
+  init_log(log_file);
+
+  /* Initialize memory. */
+  init_mem();
+
+  /* Initialize devices. */
+  IFDEF(CONFIG_DEVICE, init_device());
+
+  /* Perform ISA dependent initialization. */
+  init_isa();
+
+  /* Load the image to memory. This will overwrite the built-in image. */
+  long img_size = load_img();
+
+  /* Initialize differential testing. */
+  init_difftest(diff_so_file, img_size, difftest_port);
+
+  /* Initialize the simple debugger. */
+  init_sdb();
+
+  IFDEF(CONFIG_ITRACE, init_disasm());
+
+  /* Display welcome message. */
+  welcome();
+}
+</code></pre><p>人机交互，以默认行缓冲的方式交互，没有换行符是不会进行I/O交互，每读到一个换行符\n，就会释放缓冲区</p>
+<p>**/debug.h</p>
+<pre tabindex="0"><code>#include &lt;common.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;utils.h&gt;
+
+#define Log(format, ...) \
+    _Log(ANSI_FMT(&#34;[%s:%d %s] &#34; format, ANSI_FG_BLUE) &#34;\n&#34;, \
+        __FILE__, __LINE__, __func__, ## __VA_ARGS__)
+
+#define Assert(cond, format, ...) \
+  do { \
+    if (!(cond)) { \
+      MUXDEF(CONFIG_TARGET_AM, printf(ANSI_FMT(format, ANSI_FG_RED) &#34;\n&#34;, ## __VA_ARGS__), \
+        (fflush(stdout), fprintf(stderr, ANSI_FMT(format, ANSI_FG_RED) &#34;\n&#34;, ##  __VA_ARGS__))); \
+      IFNDEF(CONFIG_TARGET_AM, extern FILE* log_fp; fflush(log_fp)); \
+      extern void assert_fail_msg(); \
+      assert_fail_msg(); \
+      assert(cond); \
+    } \
+  } while (0)
+
+#define panic(format, ...) Assert(0, format, ## __VA_ARGS__)
+
+#define TODO() panic(&#34;please implement me&#34;)
+
+#endif
+</code></pre><p>#define assert(cond) if(!(cond)) panic(&hellip;.);</p>
+<p>宏的展开可能会打乱计算的优先级顺序，使用do{}while(0)是为了防止宏展开打破。</p>
+<p>Kconfig管理配置宏</p>
+<h2 id="数据的机器级表述">数据的机器级表述</h2>
+<p>如何取字节？</p>
+<p>如x=0101，要把右边第二位取出来，(x&raquo;1)&amp;1</p>
+<p>再如</p>
+<p><img src="image-20250314193757661.png" alt=""></p>
+<p>(x&raquo;16)&amp;11111111</p>
+<p>就是丢掉不用的位</p>
+<p>交换高/低16位((x &amp; 0xFFFF)&laquo;16)，((x&raquo;16)&amp;0xFFFF)</p>
+<p>测试𝑥 ∈ 𝑆，(S &raquo; x) &amp; 1</p>
+<p>求 𝑆! = 𝑆 ∪ {𝑥}，S | (1 &laquo; x)</p>
+<p>求|S|，S二进制表示有多少个1</p>
+<h2 id="单指令多数据">单指令多数据</h2>
+<p>&amp;，|，~对于整数里的每一个bit来说是独立（并行）的</p>
+<p>Bit Set</p>
+<p>任意位，位运算是对所有bit同时完成的，省空间，程序执行中，内存优先级不同，速度不同，对cache的占用比较小</p>
+<p>补码：各位取反末尾加一</p>
+<h2 id="undefined-behaviour">Undefined Behaviour</h2>
+<p>警惕整数溢出</p>
+<p>移位操作不能超出数据长度</p>
+<p>如果有UB行为，用不同gcc优化行为，输出是不确定的</p>
+<p><img src="image-20250314205940749.png" alt=""></p>
+<p>如果在试图访问一块内存时，访问到这块内存之外的一块内存，比如数组越界，但是还是在栈上，可能是页的边界读到了值</p>
+<p>编译器优化 -fsanitize</p>
+<p>如何实现在每一次指针访问时，都增加一个断言assert(obj-&gt;low &lt;= ptr &amp;&amp; ptr &lt; obj-&gt;high);</p>
+<pre tabindex="0"><code>gcc –fsanitize=undefined a.c &amp;&amp; ./a.out
+</code></pre><h2 id="abi和内联汇编">ABI和内联汇编</h2>
+<p>机器字长式处理器能够直接进行整数或者位运算大小，代表一个指针最多多少位</p>
+<p>现在处理器一般实现48bit物理地址</p>
+<p>晶体管是以数字逻辑电路形式，logic units组成计算单元，&hellip;.，包含在ALU中，汇编器如何翻译，硬件如何解读01串，要遵循ISA协议</p>
+<p>QA：只要有ISA协议真的足够了吗？</p>
+<p>需要ABI</p>
+<p><img src="image-20250314222038292.png" alt=""></p>
+<p>约定binary的行为</p>
+<ul>
+<li>二进制文件的格式</li>
+<li>函数调用，系统调用，如printf需要借助外部的库函数，如libc</li>
+<li>链接，加载</li>
+</ul>
+<h2 id="cdecl函数调用">cdecl函数调用</h2>
+<p>caller stack frame</p>
+<ul>
+<li>所有参数都以数组的形式保存在堆栈上，例子，反序压栈，f(x,y)，y,x,f从高地址到低地址</li>
+<li>返回地址</li>
+<li>跳转到callee</li>
+</ul>
+<p>调用方寄存器%eax,%ebx,%ecd,被调用方寄存器%edi，先存下来，函数退出时要恢复调用前的值，调用方负责反序压栈，被调用方负责执行就行</p>
+<p><img src="image-20250314231647133.png" alt=""></p>
+<p>OS，栈，&hellip;&hellip;，堆，data，代码，</p>
+<p>PC指向代码块</p>
+<p>在X86上，寄存器数量有限，基于栈传参</p>
+<p><img src="image-20250315094933212.png" alt=""></p>
+<p>使用寄存器传递参数：rdi,rsi,rdx,rcx,r8,r9</p>
+<ul>
+<li>callee可以随意修改这6个寄存器的值</li>
+<li>编译器有了更大的调度空间</li>
+</ul>
+<p>交换两个指针指向的数字</p>
+<p><img src="image-20250315101104356.png" alt=""></p>
+<h2 id="io设备">I/O设备</h2>
+<p>设备=一组寄存器，每次可以交换一定数量的数据</p>
+<p>设备-处理器接口</p>
+<p>CPU通过PMIO.PIO访问</p>
+<p>Port-mapped I/O (PMIO) //很老的做法</p>
+<p>CPU和内存地址分离？</p>
+<p>• I/O地址空间（port）
+• CPU直连I/O总线</p>
+<p><img src="image-20250315114438017.png" alt=""></p>
+<p>Memory-mapped I/O(MMIO)</p>
+<ul>
+<li>直观:使用普通内存读写指令</li>
+<li>带来一些设计和实现的麻烦，编译器优化，乱序执行</li>
+<li><img src="image-20250315114750121.png" alt=""></li>
+</ul>
+<p>80s如何打印？</p>
+<p>不是发送数据，而是执行指令</p>
+<h2 id="两个特殊的io设备">两个特殊的I/O设备</h2>
+<p>总线</p>
+<ul>
+<li>PCI总线协议</li>
+<li>CPU连接总线</li>
+<li>总线连接其他总线</li>
+</ul>
+<p>中断控制器</p>
+<ul>
+<li>
+<p>中断设计是为了弥补I/O设备的速度缺陷</p>
+</li>
+<li>
+<p>管理多个产生中断的设备</p>
+</li>
+<li>
+<p>汇总成一个中断信号给CPU</p>
+</li>
+<li>
+<p>支持中断的屏蔽，优先级管理等</p>
+</li>
+<li>
+<p>中断=硬件驱动的函数调用，相当于在每条语句后都插入intterrupt_handler();</p>
+<p>栈和堆之间的空闲区域做文件映射，l.bc.so,map系统调用映射同步</p>
+</li>
+</ul>
+<p><img src="image-20250315124507710.png" alt=""></p>
+<p>中断，从用户态切换到内核态，同一个CPU上可以做不同任务，多线程</p>
+<p><img src="image-20250315125258677.png" alt=""></p>
+<p>进程=分时多线程+虚拟存储</p>
+<h2 id="链接与加载">链接与加载</h2>
+<p>0001 0100 jmp 0100 ;如果发生偏移怎么办？</p>
+<p>0001 0000 jmp foo;借助符号表跳转，模块化好</p>
+<h2 id="复习一下elf文件">复习一下ELF文件？</h2>
+<p>可重定位目标文件
+• ELF 头
+定义了ELF魔数、版本、小端/大端、操作系统平台、目标文件的类型、机器结构类型、节头表的起始位置和长度等
+• .text 节
+编译汇编后的代码部分
+• .rodata 节
+只读数据，如 printf 格式串、switch 跳转表等
+• .data 节
+已初始化且初值不为0的全局/静态变量
+• .bss 节
+未初始化或初值为0的全局/静态变量，仅是占位符，不占任何实际磁盘空间。区分bss节是为了空间效率</p>
+<p>QA:为什么bss节不占任何实际磁盘空间？</p>
+<p>只有在运行的时候才会在栈上分配空间去用，不被其他外部文件所访问</p>
+<p>QA：为什么要把程序和指令分开放？</p>
+<ul>
+<li>指令cache可执行不可读不可写，数据cache可读/可写</li>
+<li>数据会很多次覆盖，但是指令不会被反复覆盖，下次再次缓存命中，不会因为数据覆盖而指令cache清空</li>
+</ul>
+<p>符号解析和重定位
+• 确定标号引用关系
+• 如何填空？</p>
+<p><img src="image-20250315145211978.png" alt=""></p>
+<p>因为小端法，y的地址0x2ea5+116f</p>
+<p>static链接</p>
+<ul>
+<li>按照相同文件把三个locatable文件组合，外部符号</li>
+</ul>
+<p>QA：能否直接用ld链接，如ld a.o b.o?</p>
+<p>不行，没有链接标准库，找不到_start,main等函数</p>
+<p>跑一个.out文件？</p>
+<p>分配一个进程内存，可执行文件与虚拟地址空间间的存储器映像由ABI规范定义</p>
+<p><img src="image-20250315153229274.png" alt=""></p>
+<p>为什么要动态链接？去掉-fno-pic和static</p>
+<p>占用空间更小</p>
+<p>只用维护表就行</p>
+<ul>
+<li>GOT表</li>
+</ul>
+<p>call *table[PRINTF]</p>
+<ul>
+<li>延迟绑定使用PLT表有什么好处？</li>
+</ul>
+<p>只有调用到的函数，才去回填跳转</p>
+<pre tabindex="0"><code>printf@plt:
+jmp *table[PRINTF]
+push $PRINTF
+call resolve
+</code></pre><h2 id="中断与分时多任务">中断与分时多任务</h2>
+<p>QA：while(1);是否会把电脑卡死？</p>
+<p>类似于call指令？发生中断处理，再返回ret</p>
+<p>中断处理</p>
+<ul>
+<li>自动保存RIP,CS,RFLAGS,RSP,SS,Error Code</li>
+<li>根据中断/异常好跳转到处理程序，特权级切换回触发堆栈切换</li>
+</ul>
+<p>int $0x80可以产生128号异常，主动唤起中断</p>
+<p>时钟，键盘32号中断（IDT）</p>
+<p>CLI:Clear Interrupt Flag 关中断，不是给低权限用的，</p>
+<p>系统调用，打断点，int指令都是程序内部引发异常</p>
+<p>一类是可处理，最终还得回到中断发生处next PC，保存现场，恢复现场（分时多任务，时钟中断都是这种）</p>
+<p>而不可恢复的，程序出错，触发ERROR CODE0</p>
+<p>QA:保存现场，恢复现场 什么值？</p>
+<p><img src="image-20250316135048155.png" alt=""></p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Mar 17, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-03-16-jyy%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="jyy操作系统">jyy操作系统</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-03-21-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" title="数据结构与算法">数据结构与算法</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

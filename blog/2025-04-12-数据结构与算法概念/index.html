@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>数据结构与算法概念</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Apr 12, 2025
+     - 17 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     数据结构与算法概念 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>逻辑结构：线性结构，树形结构，图形结构</p>
+<p>线性数据结构：线性数据结构是指数据元素之间存在一对一的线性关系的数据结构。常见的线性数据结构包括数组、广义表，链表、栈和队列</p>
+<p>存储结构：顺序结构（开辟连续空间，通过地址），链式存储（指针域存放下一个地址，不连续），散列存储，索引存储</p>
+<h2 id="顺序表">顺序表</h2>
+<p>连续顺序存储，可以快速定位，但是插入和删除需要移动大量元素</p>
+<p>创建，取值，插入，删除（暂存）</p>
+<p>（略）</p>
+<h2 id="链式">链式</h2>
+<ul>
+<li>单链表：数据域，指针域</li>
+</ul>
+<p>创建：头插法，尾插法</p>
+<pre tabindex="0"><code>L-&gt;next =s-&gt;next;
+
+L-&gt;next = s;
+</code></pre><p>查找：定义一个指针p，比较p-&gt;data =e</p>
+<p>删除：实际上就是把这个节点(i)跳过去，找到第i-1个节点</p>
+<pre tabindex="0"><code>while((p-&gt;next)&amp;&amp;(j&lt;i-1)){
+
+p=p-&gt;next;
+
+j++;
+
+}
+q=p-&gt;next;//暂时保存节点
+p-&gt;next=q-&gt;next;
+delete q;
+</code></pre><ul>
+<li>双向链表：两个指针域</li>
+</ul>
+<p>插入：前后两个方向操作</p>
+<pre tabindex="0"><code>//p的前驱
+p-&gt;prior
+p-&gt;prior-&gt;next =s;
+s-&gt;prior=p-&gt;prior;
+s-&gt;next=p;
+p-&gt;prior=s;
+</code></pre><p>先处理p-&gt;prior和s的链接，再处理p和s的链接</p>
+<h2 id="线性表的应用">线性表的应用</h2>
+<ul>
+<li>合并有序顺序表，将两个有序顺序表La和Lb合并为一个新的有序顺序表</li>
+</ul>
+<p>创建Lc，从两个顺序表中选择较小的数据放入Lc</p>
+<pre tabindex="0"><code>void mergelist(sqlist la,sqlist lb,sqlist &amp;lc){
+    int i,j,k;
+    i=j=k=0;
+    lc.length=la.length+lb.length;
+    lc.element = new int[lc.length];
+}
+while(i&lt;la.length&amp;&amp;j&lt;lb.length){
+    if(la.elem[i]&lt;lb.elem[j]){
+    lc.elem[k++]=la.elem[i++];
+    }else{
+    lc.elem[k++]=lb.elem[j++];
+    }
+}
+while(i&lt;la.length){
+lc.elem[k++]=la.elem[i++];
+}
+while(j&lt;lb.length){
+lc.elem[k++]=lb.elem[j++];
+}
+</code></pre><ul>
+<li>合并有序链表：不需要开辟新空间，穿针引线,p,q指向链表的第一个节点,r指向尾部</li>
+</ul>
+<pre tabindex="0"><code>void mergelinklist(linklist la,linklist,lb,linklist&amp; lc){
+    linklist p,q,r;
+    p=la-&gt;next;
+    q=lb-&gt;next;
+    lc=la;
+    r=lc;//r指向lc的尾部
+    while(p&amp;&amp;q){
+    if(p-&gt;data &lt;= q-&gt;data){
+    r-&gt;next =p;
+    r=p;
+    p=p-&gt;next;
+    }else{
+    r-&gt;next=q;
+    r=q;
+    q=q-&gt;next;
+    }
+    }
+    r-&gt;next = p?p:q;
+}
+</code></pre><ul>
+<li>就地逆置单链表</li>
+</ul>
+<p>断开指针，记录断点，插入</p>
+<pre tabindex="0"><code>void reverselinklist(linklist&amp; l){
+   linklist p,q;
+   p=l-&gt;next;
+   l-&gt;next=null;
+   while(p){
+       q=p-&gt;next;
+       p-&gt;next=l-&gt;next;
+       l-&gt;next=p;
+       p=q;
+   }
+}
+</code></pre><ul>
+<li>查找链表的中间节点</li>
+</ul>
+<p>快指针走两步，慢指针走一步，这样，快指针走到空时，慢指针正好走到中间</p>
+<pre tabindex="0"><code>Linklist findmiddle(Linklist L){
+    Linklist p,q;
+    p=l;//p为快指针，指向L
+    q=l;//q为慢指针
+    while(p !=nullptr &amp;&amp; p-&gt;next!=next){
+    p=p-&gt;next-&gt;next;
+    q=q-&gt;next;
+    }
+    return q;
+}
+</code></pre><ul>
+<li>删除链表中的重复元素</li>
+</ul>
+<p>设置一个辅助数组，用1或0标注数据是否出现</p>
+<pre tabindex="0"><code>void delerep(linklist&amp; l){
+    linklist p,q;
+    int x;
+    int* flag = new int[n+1];
+    for(int i=0;i&lt;=n;i++) flag[i]=0;
+    p=l;//指向头结点
+    while(p-&gt;next!=null){
+    x=abs(p-&gt;next-&gt;data);
+    flag[x]++;
+    }
+    
+    if(flag[x]=0){
+    p=p-&gt;next;
+    }else{//删除操作
+    q=p-&gt;next;
+    p-&gt;next=q-&gt;next;
+    delete q;
+    }
+}
+</code></pre><h2 id="栈">栈</h2>
+<h3 id="顺序栈">顺序栈</h3>
+<ul>
+<li>初始化</li>
+</ul>
+<p>base指向栈底，top指向栈顶</p>
+<p>动态分配</p>
+<pre tabindex="0"><code>typedef struct stack{
+    elemtype *base;
+    elemtype *top;
+}stack
+#define maxsize
+</code></pre><p>静态分配</p>
+<pre tabindex="0"><code>typedef struct stack{
+     elemtype data[maxsize];
+     int top;
+}stack
+</code></pre><ul>
+<li>入栈</li>
+</ul>
+<p>判断栈是否满，如果栈满，入栈是啊比，否则放入栈顶，栈顶指针向上移动一个位置</p>
+<ul>
+<li>出栈</li>
+</ul>
+<p>判断栈是否空，如果空，出栈失败，否则将栈顶元素暂存给一个变量，栈顶指针向下移动</p>
+<ul>
+<li>取栈顶元素</li>
+</ul>
+<p>不动栈顶指针，只是把栈顶元素复制一份</p>
+<h3 id="链栈">链栈</h3>
+<p>把链栈看作一个不带头节点的单链表，只能在头部操作，只需要一个栈顶指针</p>
+<ul>
+<li>入栈</li>
+</ul>
+<p>生成新的节点，修改栈顶指针指向新节点</p>
+<pre tabindex="0"><code>P=new Snode;
+p-&gt;data =e;//将e存入新节点数据域
+p-&gt;next=S;//S指向的是旧的头节点地址域
+S=p;//修改新栈顶指针为p
+</code></pre><ul>
+<li>出栈</li>
+</ul>
+<p>删除栈顶元素，让栈顶指针指向下一个节点</p>
+<pre tabindex="0"><code>e=S-&gt;data;//保存栈顶元素
+p=S;//保存栈顶元素地址
+S=S-&gt;next;修改栈顶指针
+Delete p;
+</code></pre><ul>
+<li>取栈顶元素</li>
+</ul>
+<p>把栈顶元素复制一遍</p>
+<pre tabindex="0"><code>return S-&gt;data;
+</code></pre><h2 id="队列">队列</h2>
+<p>进的一端称为队尾，出的一段称为队头</p>
+<h3 id="顺序队列">顺序队列</h3>
+<pre tabindex="0"><code>typedef struct sqQueue{
+    Elemtype *base;
+    int front,rear;
+}sqQueue
+#define maxsize 100
+</code></pre><ul>
+<li>入队列</li>
+</ul>
+<pre tabindex="0"><code>Q.base[Q.rear]=x;
+Q.rear++;
+</code></pre><ul>
+<li>出队列</li>
+</ul>
+<pre tabindex="0"><code>e=Q.base[Q.front];
+Q.rear++;
+</code></pre><h3 id="循环队列">循环队列</h3>
+<p>判断队空？只要Q.rear和Q.front指向同一个位置</p>
+<p>判断队满？当Q.rea的下一个位置是Q.front，（Q.rear+1）%Maxsize = Q.front</p>
+<ul>
+<li>入队</li>
+</ul>
+<p>将元素放入Q.rear所指空间，然后Q.rear后移一位</p>
+<pre tabindex="0"><code>Q.base[Q.rear]=x;
+Q.rear=(Q.rear+1)%MaxSize;
+</code></pre><ul>
+<li>出队</li>
+</ul>
+<p>先用变量保存队头元素，然后队头Q.front后移一位</p>
+<pre tabindex="0"><code>e=Q.base[Q.front];
+Q.front=(Q.front+1)%MaxSize;
+</code></pre><h3 id="链队列">链队列</h3>
+<ul>
+<li>入队</li>
+</ul>
+<p>先创建新结点并且将数据插入到data域</p>
+<pre tabindex="0"><code>p=new Node;
+p-&gt;data=e
+Q.rear-&gt;next = S;
+Q.raer=S;//移动
+</code></pre><ul>
+<li>出队</li>
+</ul>
+<p>相当于删除第一个数据元素，将第一个数据元素结点跳过去，p指针指向第一个数据节点</p>
+<pre tabindex="0"><code>Q.front-&gt;next=p-&gt;next;
+</code></pre><h2 id="栈的应用">栈的应用</h2>
+<ul>
+<li>数制的转换，将一个十进制数转换成一个二进制数</li>
+</ul>
+<p>思路：辗转相除法</p>
+<pre tabindex="0"><code>Initstack(s);//初始化一个栈
+while(n){
+    s.push(n%2);//余数入栈
+    n=n/2;
+}
+while(n!=empty){
+    s.pop();
+}
+</code></pre><ul>
+<li>判断回文字符串</li>
+</ul>
+<p>初始化栈S，求字符串长度，把前一半字符放入到栈中，再取出来与后半部分比较是否相同，注意奇书偶数的处理，如果是奇数，先要把中间的字符取出来</p>
+<pre tabindex="0"><code>bool palimarome(char* str){
+    sqstack s;
+    int len,i;
+    char e;
+    len=strlen(str);
+    Initstack(s);//初始化栈
+    for(i=0;i&lt;len/2;i++){
+    s.push(str[i]);
+    if(len%2 == 1) i=i+1;
+    while(!empty(s)){
+        pop(s,e);
+    }
+    if(e!=str[i]) {return False;}
+    else {i=i+1;}
+    return True;
+    }
+   
+}
+</code></pre><h2 id="串">串</h2>
+<h3 id="存储方式">存储方式</h3>
+<ul>
+<li>顺序存储</li>
+</ul>
+<p>1.以‘\0’表示字符串长度，不算字符串长度，但是占空间</p>
+<p>2.在0空间存储字符串长度，下标为0的空间存储字符串长度</p>
+<p>3.结构体变量存储字符串长度</p>
+<p>静态</p>
+<pre tabindex="0"><code>Typedef struct{
+    char ch[Maxsize];
+    int length;
+}String
+</code></pre><p>动态</p>
+<pre tabindex="0"><code>Typedef struct{
+    char *ch;
+    int length;
+}String
+</code></pre><ul>
+<li>链式存储</li>
+</ul>
+<p>改进，一个节点存储多个字符</p>
+<h3 id="串的模式匹配算法">串的模式匹配算法</h3>
+<p>求字串在主串的位置(BF)，T在S中的位置</p>
+<p>从S的第一个字符开始，T的第一个字符开始，i=1，j=1,i++,j++，如果遇到不匹配，i回退到i-j+2，j回退到1，重新开始匹配，如果匹配成功，则返回字串T在主串S中第一个字符出现的位置</p>
+<pre tabindex="0"><code>int Index_BF(String S,String T,int pos){
+    int i=pos,j=1,sum=0;
+    while(i&lt;=s[0]&amp;&amp;j&lt;=T[0]){
+    sum+=1;
+    if(s[i]=s[j]){
+    j+=1;
+    i+=1;
+    }else{
+    i=i-j+2;
+    j=1;
+    }
+    if(j&gt;T[0]) return i-T[0];
+    else return 0;
+    }
+}
+</code></pre><h2 id="树">树</h2>
+<p>注意定义，体现递归的思想：有且仅有一个称为根的节点，除根节点以外，其余节点可分为m个互不相交的有限集T1,T2,T3,T4&hellip;&hellip;，其中每一个集合本身又是一棵树，称为根的子树</p>
+<p>度与节点的关系：结点的个数=总度数+1</p>
+<h3 id="存储方式-1">存储方式</h3>
+<ul>
+<li>顺序存储</li>
+</ul>
+<p>双亲表示法：每个节点有两个域，数据域data和双亲域parent</p>
+<p>孩子表示法：除了存储数据元素之外，还存储所有孩子的存储位置下标</p>
+<p>双亲孩子表示法：存储双亲和所有孩子的存储位置下标</p>
+<ul>
+<li>链式存储</li>
+</ul>
+<p>孩子表示法：</p>
+<p>孩子兄弟表示法：二叉链表，节点除了存储数据元素之外，还有两个指针域lchild和rchild，lchild存储第一个孩子地址，rchild存储右兄弟地址</p>
+<h2 id="二叉树">二叉树</h2>
+<p>有且仅有一个称为根的节点，除根节点以外，其余节点分为两个互不相交的子集T1,T2</p>
+<p>最多有两个子树</p>
+<p>满二叉树</p>
+<p>完全二叉树</p>
+<p>二叉树的性质</p>
+<p>QA1：第i层最多有几个节点？</p>
+<p>QA2：深度为k的二叉树最多有多少个节点？2^k-1</p>
+<p>QA3：叶子数（2^n）和度为2的节点数(2^0+2^1+2^2+2^3&hellip;&hellip;+2^n-1)的关系？</p>
+<h3 id="二叉树的遍历">二叉树的遍历</h3>
+<ul>
+<li>先序遍历DLR</li>
+</ul>
+<pre tabindex="0"><code>void preorder(Btree){
+if(T){
+cout&lt;&lt;T-&gt;data&lt;&lt;&#34; &#34;;
+preorder(T-&gt;lchild);
+preorder(T-&gt;rchild);
+}
+}
+</code></pre><ul>
+<li>
+<p>中序遍历LDR</p>
+</li>
+<li>
+<p>后序遍历LRD</p>
+</li>
+<li>
+<p>层次遍历</p>
+</li>
+</ul>
+<h3 id="树和森林及其应用">树和森林及其应用</h3>
+<p>树转二叉树：长子作为左孩子，兄弟关系向右倾斜</p>
+<p>森林转树：把每棵树跟看作兄弟</p>
+<p>哈夫曼树</p>
+<p>构造一棵二叉树，若该树的带权路径长度达到最小，成这样的二叉树为最优二叉树，即哈夫曼树，权值较大的节点离根很近</p>
+<p>树的带权路径长度：树中所有叶节点的带权路径长度之和</p>
+<p>哈夫曼编码：左边标0，右边标1</p>
+<p>二叉排序树：左&lt;中&lt;右</p>
+<h3 id="图的概念和存储结构">图的概念和存储结构</h3>
+<p>G=&lt;V,E&gt;顶点，边集</p>
+<p>无向图</p>
+<p>有向图：每条胡都是有序对，&lt;V1,V3&gt;从顶点v1指向顶点v3，v1弧尾，v3弧头</p>
+<p>简单图：既不含平行边也不含环的图</p>
+<p>完全图：任意两个点都有一条边；若任意两个点都有两条方向相反的弧，则该图为有向完全图</p>
+<p>顶点的度：指与该顶点相关联的边的数目</p>
+<p>握手定理：度数之和等于边数的两倍</p>
+<p>子图：1=&lt;V1,E1&gt;，V1包含于V，E1包含于E</p>
+<p>生成子图：从图中选择所有顶点，若干条边构成的图</p>
+<p>邻接矩阵：表示顶点之间关系。先要用一个一维数组把所有顶点保存下来。如果vi到vj有边，则邻接矩阵M[i] [j]=M[j] [i]=1，否则为0。so，无向图的邻接矩阵应该是对称的。有向图中，第i行元素之和就是顶点i的出度，第i列元素之和就是顶点i的入度（散度）</p>
+<p>邻接表：链式存储方式</p>
+<p>邻接表和邻接矩阵的区别和优缺点</p>
+<h2 id="图的遍历和应用">图的遍历和应用</h2>
+<p>BFS:先被访问的顶点，其邻接点先被访问</p>
+<p>DFS：无法行进时，回退到刚刚访问的节点。后被访问的节点，其邻接点先被访问</p>
+<p>Dijkstra最短路径</p>
+<p>最小生成树——prim：需要n-1条边保证图连通不含回路，且要权值最小</p>
+<p>最小生成树——kruskal：按权值从小到大排序连接，其中不能生成回路</p>
+<p>拓扑排序：先选一个入度为零的节点，开始排序，删除，在删除后再找入度为零的，排序，删除&hellip;&hellip;</p>
+<p>AOE网：弧上的权值表示活动持续的时间，从源点到汇点的带权路径长度最大的路径称为关键路径，关键路径上的活动称为关键活动</p>
+<h2 id="查找">查找</h2>
+<ul>
+<li>顺序查找</li>
+</ul>
+<pre tabindex="0"><code>int sqsearch(int r[],int n,int x){
+for(int i=0;i&lt;=n;i++){
+    if(r[i]==x){
+    return i;
+    }else{return -1;}
+}
+}
+</code></pre><ul>
+<li>二分/折半查找</li>
+</ul>
+<p>非递归算法</p>
+<pre tabindex="0"><code>int BinarySearch(int s[],int n,int x){
+int low=0,high=n-1;
+while(low&lt;=high){
+int middle=(high+low)/2;
+if(x==s[middle]) return middle;
+else if(x&gt;s[middle]) low=middle+1;
+else high=middle1;
+}
+return 0;
+}
+</code></pre><p>递归算法</p>
+<pre tabindex="0"><code>int recursion(int s[],int x,int low,high){
+if(low&gt;high) return -1;
+int middle=(low+high)/2;
+if(x=s[middle]) return middle;
+else if(x&lt;s[middle]) return recursion(s,x,low,middle-1);
+else return recursion(s,c,middle+1,high);
+}
+</code></pre><ul>
+<li>二叉查找树</li>
+</ul>
+<p>前提：线性表必须是有序的</p>
+<pre tabindex="0"><code>BsTree searchBST(BsTree T,ElemType key){
+if((!T)||key=T-&gt;data) return T;
+else if(key&lt;T-&gt;data ) return searchBST(T-&gt;lchild,key);
+else return searchBST(T-&gt;rchild,key);
+}
+</code></pre><p>二叉查找树的插入：小的放左边，大的放右边</p>
+<p>二叉查找树的删除</p>
+<ul>
+<li>平衡二叉树（AVL树）：1.左右子树高度差（平衡因子）的绝对值不超过1，2.左右子树也是平衡二叉树</li>
+</ul>
+<p>插入操作，调整平衡四种（结合图）</p>
+<p>1.LL型：最近不平衡节点到新节点的路径前两个都是左子树L。LL旋转</p>
+<p>2.RR型</p>
+<p>3.LR型：两次旋转。从下往上第一个不平衡节点逆时针旋转，调整成LL型，第二个节点LL旋转</p>
+<p>4.RR型：先顺时针后RR旋转</p>
+<p>创建操作：按序调整，再调整平衡</p>
+<h3 id="哈希表">哈希表</h3>
+<p>哈希函数：散列函数，将关键字一ing射到存储地址的函数，hash(key)=Addr</p>
+<p>设计散列函数原则:1.尽可能简单，能快速找到 2.均匀分布整个地址，避免聚集，减少冲突</p>
+<p>设计哈希函数</p>
+<p>1.直接定址法 hash(key)=a*key+b</p>
+<p>2.除留余数法 hash(key)=key%p</p>
+<p>处理冲突：1.开放地址法：再线性存储空间上探测其他地址（通常往后移）2.链地址法</p>
+<h3 id="排序">排序</h3>
+<p>有序性</p>
+<p>稳定性：关键字相同时（比如出现两个2），在排序前后，这两个关键字相对位置在排序后是否发生变化</p>
+<p>内部排序：</p>
+<ul>
+<li>插入排序</li>
+</ul>
+<p>1.直接插入，把第一个元素看作有序序列，将之后的元素插入已经排好序的序列中，保持有序性</p>
+<p>例：非递减排序</p>
+<p>时间复杂度</p>
+<p>最好：O(n)</p>
+<p>最坏：O(n^2)</p>
+<pre tabindex="0"><code>void straightInsert(int r[],int n){
+int i,j;
+for(int i=2;i&lt;=n;i++){
+if(r[i]&lt;r[i-1]){r[o]=r[i];//放到第一个位置
+r[i]=r[i-1]；//往后移动一位
+for(j=i-2;;j--) {if(r[j]&gt;r[0]) {r[j+1]=r[j];}
+else{r[j+1]=r[0];}}
+}
+}
+</code></pre><p>2.希尔排序（缩小增量排序）</p>
+<p>不稳定</p>
+<p>将待排序记录按下标一定增量分组，对每组记录使用直接插入排序</p>
+<ul>
+<li>交换排序：比较，不满足次序要求是交换位置</li>
+</ul>
+<p>冒泡排序：两两比较，逆序则交换位置</p>
+<p>稳定</p>
+<pre tabindex="0"><code>void Bubblesort(int r[],int n){
+    int i=n-1,temp;
+    bool flag=true;
+    while(i&gt;=&amp;&amp;flag){
+    flag= false;
+    for(int j=0;j&lt;i;i++){
+    if(r[j]&gt;r[j+1]){
+    flag=true;
+    temp=r[j];
+    r[j]=r[j+1];
+    r[j+1]=temp;
+    }i--;
+    }
+    }
+}
+</code></pre><p>快速排序：目前最快的排序算法</p>
+<pre tabindex="0"><code>int partition(int r[],int low,int high){
+    int i=low.j=high,point=r[low];
+    while(i&lt;j){
+    while(r[j]&gt;point){
+    j--;
+    }
+    if(i&lt;j) swap(r[i++],r[j]);
+    while(r[i]&lt;point) i++;
+    if(i&lt;j) swap(r[i],r[j--];)
+    }
+    return i;
+}
+</code></pre><ul>
+<li>选择排序</li>
+</ul>
+<p>简单选择排序：每次选一个最小的放在最前面</p>
+<pre tabindex="0"><code>void simpleselect(int r[],int n){
+     int i,j,temp;
+     for(i=0;i&lt;n-1;i++){
+     k=i;
+     for(j=i+1;j&lt;n;j++){
+     if(r[j]&lt;r[k]){ k=j;//记录最小节点}
+     if(k!=i){temp=r[i];//交换
+     r[i]=r[k];
+     r[k]=temp;}
+     }
+     }
+}
+</code></pre><ul>
+<li>堆排序</li>
+</ul>
+<p>最大堆：如果每个节点大于等于左右子树</p>
+<p>最小堆：如果每个节点小于等于左右子树</p>
+<p>步骤：1.构建初始堆 2.堆顶和最后一个记录r[n]交换，把r[1,&hellip;.,n]调整为堆 3.堆顶和最后一个交换，即r[n-1]，将r[1,&hellip;..,n-2]重新调整为堆 4.循环n-1次，得到一个有序序列</p>
+<pre tabindex="0"><code>/*k是当前节点，j是左子树*/
+void smk(int k,int n){
+while(x*k&lt;=n){//最后一层不用比较
+    int j=2*k;
+    if(j&lt;n) j++；
+    if(r[k]&gt;r[j]) break;
+    else swap(r[k],r[j])；k=j;//下一个节点是左子树
+}
+}
+</code></pre><ul>
+<li>归并排序</li>
+</ul>
+<p>桶排序</p>
+<p>将待排序序列划分为若干个区间，每个区间可形象的看作一个桶，如果桶中的记录多余一个则使用较快的排序方法（可以选择），最后合并</p>
+<p>注意：桶排序划分应该按照数据分布</p>
+<p>基数排序</p>
+<p>求出最大关键字的位数d，从低位开始，按个位分配，桶内排序，合并，按十位分配，桶内排序，合并&hellip;&hellip;.直到最高位</p>
+<p>分配</p>
+<p>外部排序：数据很大，内存不能一次容纳全部的排序记录，需要访问外存。排序前后数据在外存，排序时将数据调入内存</p>
+<ul>
+<li>如何判断一个算法的优劣性？</li>
+</ul>
+<p>时间，空间</p>
+<p>特点：有穷性，确定性，可行性，输入，输出</p>
+<p>影响时间复杂性的因素：问题规模，输入序列，算法本身</p>
+<p>渐进上界O：T(n)=O(f(n))</p>
+<p>渐进下界<strong>Ω</strong>：T(n)=<strong>Ω</strong>(f(n))</p>
+<p>渐进精确界记号Θ：c1f(n)&lt;=T(n)&lt;=c2f(n),T(n)=Θf(n)</p>
+<h3 id="分治算法">分治算法</h3>
+<p>将一个规模为n的问题分解成k个规模较小的子问题</p>
+<p>分解，递归，合并</p>
+<ul>
+<li>
+<p>主方法：T(n)=aT(n/b)+f(n) 时间复杂度：O(n^logb(a))</p>
+</li>
+<li>
+<p>大整数乘法</p>
+</li>
+</ul>
+<p>给定两个都是2^k的大整数A，B，求A与B的乘积</p>
+<p>推广：用分治法求两个十进制都是n位的A与B的乘积</p>
+<p>优化前：T(n)=4*T(n/2)+O(n)    O(n^2)</p>
+<p>优化后：T(n)=3*T(n/2)+O(N)    O(n^log2(3))</p>
+<ul>
+<li>Stassen矩阵乘法</li>
+</ul>
+<p>给定矩阵A和B，均为n阶矩阵，n=2^k，求A*B</p>
+<p>已知矩阵A和B，均为4阶矩阵，求A*B</p>
+<p>划分矩阵:进行8次乘法，8个子问题</p>
+<p>分解：将n阶矩阵，分成n/2矩阵</p>
+<p>合并：赋值</p>
+<p>优化前：T(n)=8T(n/2)+O(n^2) 时间复杂度：O（n^3）</p>
+<p>优化后：T(n)=7T(n/2)+O(n^2)</p>
+<ul>
+<li>二分法</li>
+</ul>
+<p>log(n)</p>
+<p>代码思路：1.中间值2.查找失败条件，low&gt;high，返回0 3.查找成功key = 元素，返回mid+1 4.不然key&lt;当前关键字，递归函数到low至mid-1中查找k 5.key&gt;当前元素，递归函数到mid+1到high中查找</p>
+<ul>
+<li>归并排序</li>
+</ul>
+<p>T(n)=2T(n/2)+O(n)</p>
+<p>时间复杂度：O(nlog(n))</p>
+<p>分解：分为两个大小尽量相同的子序列（前提保证这两个子序列有序）</p>
+<p>递归：用归并排序法对两个子序列递归地排序</p>
+<p>合并：将排好序地有序子序列合并</p>
+<p>代码思路：创建临时序列，双指针，依次比较前后子序列中关键字，将较小值依次复制到临时序列中，比较循环阶数后将前后子序列中剩余关键字（如果有剩余说明两个子序列长度不同）依次复制到临时序列中，再将临时序列是复制到原序列中，并释放原序列</p>
+<pre tabindex="0"><code>//伪代码
+int i=low,j=mid+1,k=0;//k是临时序列指针
+while(i&lt;=mid&amp;&amp;j&lt;=high)//归并循环
+if(R[i].key&lt;=R[j].key){
+   R1[k]=R[i];
+   i++;
+   j++
+}else{
+   R1[k]=R[j];
+   i++;
+   k++;
+}
+while(i&lt;=mid){//复制剩余
+    R1[k]=R[i];
+    i++;
+    k++;
+}
+while(j&lt;=high){
+    R1[k]=R1[j];
+    j++;
+    k++;
+}
+for(k=0,i=low;i&lt;=high;k++,i++){//重置i
+    R[i]=R1[k];
+    }
+</code></pre><ul>
+<li>快速排序</li>
+</ul>
+<p>最好时间复杂度O(nlog(n))</p>
+<p>最坏时间复杂度O(n^2)</p>
+<p>平均时间复杂度O(nlog(n))</p>
+<p>开始时将序列首元素定位基准，通过快速排序将表一分为二，关键字小于基准值放左边，大于基准值放右边(双指针)</p>
+<p>最好的情况：每次循环基准值最终都能落在队中间的位置</p>
+<p>代码思路：先用j从后往前找小于基准值的元素，将该元素前置，再用i从前往后找大于基准值的元素，将该元素后置，重复上述循环直到i=j位置，每次循环线移动j再移动i</p>
+<pre tabindex="0"><code>int i=s,j=t,RecType tmp=R[i];//i从队首向后遍历，j从队尾向前遍历，将首元素设置位基准值
+while(i&lt;j){
+    while(i&lt;j&amp;&amp;R[j].key&gt;=tmp.key) j--;
+    R[i]=R[j];
+    while(i&lt;j&amp;&amp;R[i].key&lt;=tmp.key) i++;
+    R[j]=R[i];
+}
+R[i]=tmp;//i=j,循环结束，重置基准值的位置
+return i;
+</code></pre><ul>
+<li>循环赛日程表</li>
+</ul>
+<p>分解前：1个n阶表格，分解后，4个n/2阶表格</p>
+<p>T(n)=2T(n/2)+f(n)</p>
+<pre tabindex="0"><code>int GameTable(int n,int k){
+    if(n==2){
+        a[k][0]=k+1;
+        a[k][1]=k+2;
+        a[k+1][0]=k+2;
+        a[k+1][1]=k+1;
+    }
+}
+</code></pre><h2 id="动态规划">动态规划</h2>
+<p>求解以时间划分阶段地动态规划的优化问题，经分解得到各个子问题不是相互独立的</p>
+<p>三要素：最优子结构性质（有总体最优才有局部最优），子问题重叠性质，自底向上的求解方式</p>
+<h3 id="矩阵连乘">矩阵连乘</h3>
+<p>静态：穷举法/动态规划</p>
+<p>A1A2矩阵相乘次数=A1行数*A1列数 *A2行数</p>
+<p>1个矩阵连乘0种划分方式</p>
+<p>2个矩阵连乘1种划分方式</p>
+<p>3个矩阵连乘2种划分方式</p>
+<p>最优质递归关系是:m[i] [j]=min{m[i] [k]+m[k+1] [j]+p(i-1)pkpj},i&lt;j</p>
+<p>自底向上求解</p>
+<p>1.写出连乘矩阵</p>
+<p>2.按顺序切割矩阵</p>
+<p>3.算左右最少次数，合并最少次数，一共最少刺少</p>
+<p>4.选择最少连乘次数</p>
+<p>MatrixChain</p>
+<pre tabindex="0"><code>/*一维数组p记录了矩阵的行列，n是总问题规模，二维数组m记录子问题的最少连乘次数，二维数组s激素子问题的最佳分割位置*/
+void MatrixChain(int *p,int n,int **m,int *S){
+    for(int i=1;i&lt;=n;i++){
+    m[i][j]=0;
+    for(int r=2;r&lt;=n;r++){
+    for(int i=1;i&lt;=n-r+1;i++){
+    int j=i+r-1;
+    m[i][j]=m[i+1][j]+p[i-1]*p[i]*p[j];
+    s[i][j]=i;
+    for(int k=i+1;k&lt;j;k++){
+    int t =m[i][k]+m[k+1][j]+p[i-1]*p[k]*p[j];
+    if(t&lt;m[i][j]){
+    m[i][j]=t;
+    s[i][j]=k;
+    }
+    }
+    }
+    }
+    }
+}
+</code></pre><h3 id="最长公共子序列">最长公共子序列</h3>
+<p>假设序列A长度为m，序列B长度为n，则时间消耗为O(mn)</p>
+<p>定理：LCS最优子结构性质</p>
+<p>两个序列的最长个公共子序列包含了这两个序列的前缀的最长公共子序列，因此具有最优子结构性质</p>
+<p>递归方程</p>
+<p>c[i] [j]={0 ,当i=0或j=0时；</p>
+<p>c[i-1] [j-1]+1，当xi=yi时；</p>
+<p>max(c[i] [j-1],c[i-1] [j],当xi!=yi时；)</p>
+<p>}</p>
+<p>分解子问题（填表）</p>
+<p>自底向上计算LCS长度</p>
+<pre tabindex="0"><code>void LCSlength(int m,int n,char *x,char *y,int **c,Type **b){
+    int i,j;
+    for(i=0;i&lt;=m;i++) c[i][0]=0;
+    for(j=0;j&lt;=n;j++) c[0][j]=0;//第一行，第一列都填0
+    for(i=0，i&lt;=m;i++)
+        for(j=1;j&lt;=n;j++){
+            if(x[i]=y[j]){
+                c[i][j]=c[i-1][j-1]+1;
+                b[i][j]=&#34;左上&#34;;
+            }
+            else if(c[i-1][j]&gt;=c[i][j-1]){
+                c[i][j]=c[i-1][j];
+                b[i][j]=&#34;上&#34;;
+            }else{
+                c[i][j]=c[i][j-1];
+                b[i][j]=&#34;左&#34;;
+            }
+        }
+}
+</code></pre><p>构造最长公共子序列</p>
+<pre tabindex="0"><code>void LCS(int i,int j,char* x,Type **b){
+    if((i==0)||(j==0)) return ;
+    if(b[i][j]==&#34;左上&#34;){
+        LCS(i-1,j-1,x,b);
+        cout&lt;&lt;x[i];
+    }else if(b[i][j]=&#34;上&#34;) LCS(i-1,j,x,b);
+    else LCS(i,j-1,x,b);
+}
+</code></pre><h2 id="贪心算法">贪心算法</h2>
+<p>初始解-&gt;当前最优-&gt;不能前进，终止</p>
+<p>特点：不允许回溯，逐步，不稳定（有时无法求得最优解）</p>
+<p>步骤：分解，局部最优，合并，证明</p>
+<p>以局部最优解达到全局最优解</p>
+<h3 id="背包问题">背包问题</h3>
+<p>描述：&hellip;&hellip;.物品可以分割</p>
+<p>按价值/重量最大的先装，降序排序</p>
+<p>物品完全装入背包条件：背包剩余重量&gt;某个物品重量</p>
+<p>当甚于物品都无法完全装入背包时，考虑堆价值/重量较大的物品进行分割，尽量装满背包为止</p>
+<ul>
+<li>时间复杂度</li>
+</ul>
+<p>对物品放入背包操作，时间消耗O(n)</p>
+<p>对价值/重量降序排序，默认使用堆排序，O(nlogn)</p>
+<p>总时间消耗O(nlogn)</p>
+<pre tabindex="0"><code>//假设已将各种物品依其单位重量的价值vi/wi从大到小排序了
+void Knapsack(int n,float v[],float w[],float x[],float &amp;value){
+    float value =0;
+    for(int i=1;i&lt;=n;i++) x[i]=0;
+    for(int i1;i&lt;=n&amp;&amp;w[i]&lt;=c;i++){
+        x[i]==1;
+        c-=w[i];//减少背包能装下的余下重量
+        value+=v[i];//累计总价值
+    }
+    if(i&lt;=n){
+         x[i]=c/w[i];//将剩下的一部分装入
+         value+=x[i]*v[i];
+    }
+}
+</code></pre><h3 id="会场安排问题">会场安排问题</h3>
+<p>同一时间只能有一个活动使用资源，要求尽可能选择更多的活动来使用资源</p>
+<p>用什么标准去安排？</p>
+<ul>
+<li>
+<p>开始时间最早</p>
+</li>
+<li>
+<p>持续时间最短</p>
+</li>
+<li>
+<p>结束时间最早</p>
+</li>
+</ul>
+<p>步骤</p>
+<p>分解：按结束时间升序排序</p>
+<p>解决：活动被安排，安排条件：下一个活动的开始时间晚于或等于前一个活动结束时间</p>
+<p>时间复杂度：选择活动O(n)，对活动结束升序，堆排序，O(nlogn)</p>
+<pre tabindex="0"><code>void GreedySelector(int n,Type s[],Type f[],bool A[]){
+    A[1]=true;//活动1
+    int j=1;//记录最近一次加入A[]的活动
+    for(int i=2;i&lt;=n;i++){
+        if(s[i]&gt;=f[j]){//找到一个相容活动，开始时间大于上一个结束时间
+        A[i]=true;
+        j=i;
+        }else{A[i]=false;}
+    }
+}
+</code></pre><p>最终结果A[]中true记录要加入的活动</p>
+<h3 id="最优装载问题">最优装载问题</h3>
+<p>将尽可能多的集装箱装上轮船</p>
+<p>分解：重量由小到大排序</p>
+<p>解决：选择称重量较轻的装载。装载条件：轮船甚于重量&gt;其中一个集装箱重量</p>
+<p>合并：将选择装入轮船集装箱的号码列出</p>
+<pre tabindex="0"><code>//假设集装箱已经按重量递增的次序排序
+void Loading(int x[],Type w[],Type c,int n){
+    for(int i=1;i&lt;=n;i++){
+        x[i]=0;//初始化为0
+    for(int i=1;i&lt;=n&amp;&amp;w[i]&lt;=c;i++){
+        x[i]=1;
+        c-=w[i];
+    }
+    }
+}
+</code></pre><h3 id="哈夫曼编码">哈夫曼编码</h3>
+<p>构造哈夫曼树</p>
+<ul>
+<li>为什么会出现重码现象？</li>
+</ul>
+<p>编码位数不确定。通过以哈夫曼树为基础的哈夫曼编码完成需求，左树为0，右树为1.</p>
+<p>时间复杂度：对字符出现频率排序，默认使用堆排序，O(nlogn)，构建哈夫曼树，O(n^2)，遍历字符集，注意给每个字符复制编码，时间O(n)。总时间消耗(n^2)</p>
+<h3 id="生成最小生成树prim算法">生成最小生成树——Prim算法</h3>
+<p>每次循环选择一个合适的顶点</p>
+<p>时间复杂度O(n^2)，只与顶点数n有关</p>
+<p>有n个顶点的图的生成树有n-1条边</p>
+<p>最小生成树：权值之和最小的生成树</p>
+<p>U生成树集合，V-U未生成树集合</p>
+<p>在U和V-U中顶点的边选权值最小的边，将顶点加入U，直到V-U为空</p>
+<h3 id="生成最小树kruskal算法">生成最小树——Kruskal算法</h3>
+<p>每次循环选择一条适合的边</p>
+<p>时间复杂度O(eloge) 只与边数e有关</p>
+<p>有条件加入边，按从小到大的顺序选取，形成回路则舍弃，直到n-1条边</p>
+<h3 id="单源最短路径">单源最短路径</h3>
+<p>Dijkstra算法：从一个顶点到其余各顶点的最短路径</p>
+<p>如何存放最短路径长度：dist存储</p>
+<p>如何存放最短路径长度：path存储</p>
+<p>path[j]=w，表示从源点到j的最短路径中，j的前一个顶点式w</p>
+<h2 id="回溯法">回溯法</h2>
+<p>通用的解题法：可以求出问题的所有解</p>
+<p>深度优先策略</p>
+<p><strong>约束条件</strong>（constraint）：决定是否可以接受当前的部分解。</p>
+<p><strong>限界条件</strong>（bound）：用于剪枝，避免搜索不可能产生解的路径。</p>
+<ul>
+<li>子集树</li>
+</ul>
+<p>当所给的问题是从n个元素的集合S中找出满足某种性质的子集时</p>
+<pre tabindex="0"><code>void Backtrack(int t){
+if(t&gt;n) Output(x);//已搜索至树叶
+else for(int i=0;i&lt;=1;i++){
+x[t]=i;
+if(Constraint(t)&amp;&amp;Bound(t)) Backtrack(t+1);
+}
+}
+</code></pre><ul>
+<li>排列数</li>
+</ul>
+<p>当所给的问题时确定n个元素的满足某种性质的排列时，相应的解空间树称为排列树</p>
+<pre tabindex="0"><code>void BackTrack(int t){
+if (t&gt;n) Output(x);
+else for(int i=t;t&lt;=n;i++){
+swap(x[t],x[i]);
+if(Constraint(t)&amp;&amp;Bound(t)) Backtrack(t+1);
+swap(x[t],x[i]);
+}
+}
+</code></pre><h3 id="n后问题">n后问题</h3>
+<p>任何皇后不在同行同列同斜线上</p>
+<p>约束条件：</p>
+<p>x[i]!=x[k]（不在同一列）</p>
+<p>|i-k|!=|x[i]-x[k]|(斜率不为1)</p>
+<pre tabindex="0"><code>int n,x[N+1],sum=0;
+bool Place(int k){
+    for(int j=1;j&lt;k;j++){
+        if(abs(k-j)==abs(x[k]-x[j])||x[j]==x[k]) return False;
+        else return True
+    }
+}
+void Backtrack(int t){
+if(t&gt;n){//已经搜索到一叶节点，得到一个互不攻击的放置方案
+sum++;
+for(int i=1;i&lt;=n;i++) cout&lt;&lt;x[i]&lt;&lt;&#34; &#34;
+cout&lt;&lt;endl;
+}
+else
+for(int i=1;i&lt;=n;i++){
+x[t]=i;
+if(place(t)) Backtrack(t+1);
+}
+}
+</code></pre><p>时间复杂度</p>
+<p>共有结点
+</p>
+$$
+\sum_{0}^{n-1}  n^i
+$$<p>检查当前扩展结点每一个儿子是否可以放置该列O(n^2)</p>
+<p>相乘，总时间耗费O(n^(n+1))</p>
+<h3 id="m图着色问题">m图着色问题</h3>
+<p>若一个图最少需要m中颜色才能使途中任何一条边连接的2个顶点有不同颜色，则称这个数m为该图的色数。求一个图色数m的问题称为图的m可着色优化问题</p>
+<p>用邻接矩阵表示无向连通图G=(V,E)，x[i]表示顶点i所着颜色，共有m种颜色，完全m叉树</p>
+<pre tabindex="0"><code>void BackTrace(int t){
+    if(t&gt;n){
+    sum++;
+    for(int i=1;i&lt;=n;i++) cout&lt;&lt;x[i]&lt;&lt;&#34; &#34;;
+    cout&lt;&lt;endl;
+    }else{
+    for(int i=1;i&lt;=m;i++){
+        x[t]=i;
+        if(ok(t)) Backtrace(t+1);
+    }
+    }
+}
+bool ok(int k){
+for(int j=1;j&lt;k;j++){
+if(a[k][j]==1&amp;&amp;(x[j]=x[k]))//1代表相邻，0表示不相邻，相邻且颜色相同
+{return Flase;}else{
+return True;
+}
+}
+}
+</code></pre><h2 id="分支限界法">分支限界法</h2>
+<p>找出T种使得某一目标函数达到极小或极大的解</p>
+<p>分支限界法与回溯法的不同：</p>
+<p>1.回溯法一广度优先的方式搜索解空间树T；分支限界法以广度优先或最小耗费优先的方式搜素空间树T</p>
+<p>2.回溯法一般只通过约束条件，分支限界法不仅通过约束条件，还通过目标函数的限界减少无效搜索（在每一活结点处，计算一个函数值）</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Apr 12, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/" title="计算机系统层次结构">计算机系统层次结构</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="吴恩达机器学习">吴恩达机器学习</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

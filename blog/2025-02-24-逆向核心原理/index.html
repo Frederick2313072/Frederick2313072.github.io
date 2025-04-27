@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>逆向核心原理</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="好想成为和他一样优秀的人" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Feb 24, 2025
+     - 5 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-02-24-%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     逆向核心原理 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>入口E8 00 CALL ~ Add ~</p>
+<ul>
+<li>
+<p>F7 步入</p>
+</li>
+<li>
+<p>F8 步出</p>
+</li>
+<li>
+<p>ctrl+F9 execute till return 跳出函数</p>
+</li>
+<li>
+<p>ctrl+G 移动到指定位置</p>
+</li>
+<li>
+<p>ctrl+F2 重新调试</p>
+</li>
+<li>
+<p>F9 运行至断点处</p>
+</li>
+<li>
+<p>Alt + B  打开Breakpoints，列出断点</p>
+</li>
+<li>
+<p>；添加注释</p>
+</li>
+<li>
+<p>alt+M 内存模块</p>
+</li>
+<li>
+<p>ctrl+E打开编辑窗口</p>
+</li>
+<li>
+<p>运行直接到断点处，步进步出逐行进行</p>
+</li>
+</ul>
+<h2 id="快速查找指定代码">快速查找指定代码</h2>
+<ul>
+<li>从入口处不断F8直到某个函数被执行，弹窗</li>
+<li>查找字符串检索（有个思路，可以再IDA中看函数模块的地址，再在xdbg中ctrl+G跳转到地址）</li>
+<li>查找调用模块</li>
+</ul>
+<p>在main()处打断点，记作返回点</p>
+<p>修改字符串</p>
+<ul>
+<li>跳转至字符串溢出区buffer（就是地址，可以用IDA先找一下），ctrl+E打开编辑窗<img src="image-20250218164208127.png" alt=""></li>
+</ul>
+<p>缺点：新字符串不能比原字符串长</p>
+<ul>
+<li>方法二：<img src="image-20250218165527203.png" alt=""></li>
+</ul>
+<p>把字符串存到缓冲区，修改PUSH处指令ctrl+E</p>
+<p>在原字符汇编指令处，空格键打开assemble窗口，改成”PUSH 504FF0“</p>
+<p>栈顶指针ESP：向栈压入数据，栈顶指针减小，向低地址移动，从栈中弹出数据时，栈顶指针增加（理解成一个无盖容器底部装了一弹簧）</p>
+<h2 id="一些对于栈filofile-in-last-out的理解">一些对于栈FILO（file in last out）的理解</h2>
+<p>在调试时，从一个函数入口处开始ESP地址减少，说明函数调用参数，把数据压入栈</p>
+<h2 id="crakeme2">crakeme2</h2>
+<p>F9运行后，首先调用的就是主函数</p>
+<p><img src="image-20250219163019036.png" alt=""></p>
+<p>401248处的push401E14命令来把401E14压入栈，然后40123D处CALL&lt;&gt;调用401232处的JMP ThunRTMain函数，会跳转到主函数ThunRTMain，前面的401E14的值作为ThunRTMain()的参数，这是一个间接调用，利用错误消息框和字符串，字符查找，往上找条件分支</p>
+<p><img src="image-20250219165105395.png" alt=""></p>
+<p>调用403329处的函数，比较函数值，再决定跳转</p>
+<h2 id="栈帧">栈帧</h2>
+<pre tabindex="0"><code>PUSH EBP   ;函数开始
+
+MOV EBP,ESP;保存当前ESP到EBP中
+
+.......    ;无论ESP值如何变，EBP都保持不变
+
+MOV ESP,EBP;将函数的起始地址返回到ESP中
+
+POP EBP    ;函数返回前弹出保存在栈中的EBP值
+
+RETN       ;函数终止
+</code></pre><p>函数返回前要先从栈中删除与其对应的栈帧</p>
+<p><img src="G:%5Chugo_extended_withdeploy_0.139.3_windows-amd64%5CmyBlog%5Ccontent%5Cpost%5C%E9%80%86%E5%90%91%5Cimage-20250219000425862.png" alt=""></p>
+<p>按照传递给rctMsgBox()参数的大小14清理栈</p>
+<p>RETN XX:根据传参的大小调整栈</p>
+<h2 id="pe头">PE头</h2>
+<p>DOS头：typedef struct_IMAGE_DOS_HEADER,e_magic:DOS签名,e_ifanew:NT头偏移</p>
+<p>NT头：IMAGE_NT_HEADERS</p>
+<h2 id="upx">UPX</h2>
+<p>upx -o 目标文件 源文件</p>
+<p><img src="image-20250219132842571.png" alt=""></p>
+<p>可以看到文件大小由67584变为48640，比ZIP压缩后大，是因为压缩后得到PE文件，需要添加PE头，并且还要放入解压缩代码</p>
+<h2 id="调试notepad程序">调试notepad程序</h2>
+<p>先找到EP代码（偶然发现一个好办法，只要在开头ctrl+F8，结束后xdbg会自动暂停到入口点）EP开始时0101开头，前面都是0701开头</p>
+<p><img src="image-20250219144956141.png" alt=""></p>
+<p>在EP处ctrl+F8开始代码追踪，发现有一个短循环，在循环末尾设置断点，F9跳出循环</p>
+<p>UPX特征之一是,EP代码被包含在PUSHAD/POPAD指令之间，跳转到OEP代码的JMP指令紧接着出现在POPAD之后，只要在JMP指令处设置好断点，运行后就能直接找到OEP</p>
+<p><img src="image-20250219151542967.png" alt=""></p>
+<h2 id="pe重定向原理">PE重定向原理</h2>
+<p>PE重定向就是PE文件无法加载到ImageBase所指位置，而是被加载到其他地址时发生的一系列的处理行为</p>
+<p>基本原理：在应用程序中查找硬编码的地址位置，读取值后，减去ImageBase(VA-RVA),加上实际加载地址（RVA-VA)</p>
+<p>先查找IMAGE_BASE_RELOCATION</p>
+<p><img src="image-20250219193551347.png" alt=""></p>
+<pre tabindex="0"><code>typedef struct _IMAGE_BASE_RELOCATION {
+    DWORD    VirtualAddress;  // 重定位页的 RVA
+    DWORD    SizeOfBlock;     // 重定位块的大小
+     WORD    TypeOffset;      // 重定位条目的类型于偏移
+
+} _IMAGE_BASE_RELOCATION;
+typedef IMAGE_BASE_RELOCATION UNALIGNED * PIMAGE_BASE_RELOCATION;
+</code></pre><p><strong>irtualAddress 重定位页 RVA。以映像装载基址加上页 RVA 的和作为被加数，再加上重定位项对应的 offset 就能得到其在内存中实际的 VA。最后一个重定位块的尾部也会添加一个 virtualaddress 字段作为结束标志。</strong></p>
+<p><strong>SizeOfBlock 基址重定位块的大小。包括 VirtualAddress，SizeOfBlock，以及后面 TypeOffset 的大小。</strong></p>
+<p><strong>TypeOffset</strong> 一个数组。数组中每个元素大小为 2 个字节，即 16 位。</p>
+<p><strong>type 高 4 位用于表示重定位的类型。</strong></p>
+<p><strong>offset 低 12 位用于表示重定位数据位置相对于页 RVA 的偏移量。与 VirtualAddress 相加就是要修改的重定位数据的指针，再加上映像装载基址就是修改后的指针。</strong></p>
+<p>硬编码地址偏移：VirtualSize+Offset=1420(RVA)</p>
+<p>减去ImageBase值</p>
+<p>加上实际加载地址值</p>
+<h2 id="从可执行文件中删除reloc节区">从可执行文件中删除.reloc节区</h2>
+<p>前提：删除基础重定位表对运行没什么影响</p>
+<p><img src="image-20250219214027135.png" alt=""></p>
+<p>从文件偏移270开始，到297</p>
+<p><img src="image-20250219214243210.png" alt=""></p>
+<p>打开010Editor直接删除，至此,.reloc被物理删除，之后开始修改相关PE头信息（就像改配置一样）</p>
+<p>修改IMAGE_FILE_HEADER-NUMBER of SECTIONS，5改成4</p>
+<p><img src="image-20250219214744189.png" alt=""></p>
+<p>之后修改IMAGE_OPTIONAL_HEADER-size of image</p>
+<p>VirualSize时E40，Section Alignment值为1000，故要减去1000</p>
+<p><img src="image-20250219220032888.png" alt=""></p>
+<h2 id="upack压缩后的文件">upack压缩后的文件</h2>
+<p>把PE文件头变形，这部分有点不太明白，大概就是增大SizeOfOptionalHeader的值，在IMAGE_OPTIONAL_HEADER和IMAGE_SECTION_HEADER之间添加额外空间，添加解码代码，如下</p>
+<p><img src="image-20250219224827392.png" alt=""></p>
+<p>从170开始是IMAGE_SECTION_HEADER</p>
+<p>打开section选项，观察到第一个节区和第三个节区rawoffset起始偏移都是10，由此可知Upack会对PE文件头，第一个节区，第三个节区进行重叠</p>
+<p><img src="image-20250219230414308.png" alt=""></p>
+<p>进行调试，先要找出EP入口，EP的RVA为1018，ImageBase为0100000，故EP的VA值为01001018，xdbg已经打好断点了</p>
+<p>（忘记保存了）</p>
+<h2 id="windows消息钩取">Windows消息钩取</h2>
+<p>HookMain.exe最先加载Keyhook.dll安装键盘钩子，使用SetWindowsHookEX()安装键盘钩子，OS强制键盘输入事件，调用KeyHook.dll注入到相应进程的内存，调用KeuboardProc()函数，在ProcessExplorer中检索Keyhook.dll发现如下</p>
+<p><img src="image-20250220144801782.png" alt=""></p>
+<pre tabindex="0"><code>HHOOK SetWindowsHookEx(
+
+​    int idHook,//hook type
+
+​    HOOKPROC lpfn,//hook procedure
+
+​    HINSTANCE hMod,//hook procedure所属的DLL句柄
+
+​    DWORD dwThreadId,//想要钩载的线程
+
+)
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Feb 24, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-02-24-%E9%80%86%E5%90%91%E5%B0%8F%E7%99%BD/" title="逆向小白">逆向小白</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-02-24-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" title="汇编语言">汇编语言</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

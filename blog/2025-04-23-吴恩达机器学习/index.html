@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>吴恩达机器学习</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Apr 23, 2025
+     - 5 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     吴恩达机器学习 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h2 id="监督学习">监督学习</h2>
+<p>回归算法：从可能的数字中预测算法，学习算法提供例子，xy映射</p>
+<p>分类算法：拟合边界线，分辨哪个type</p>
+<h2 id="无监督学习">无监督学习</h2>
+<p>聚类算法：获取没有标签的数据并尝试自己将他们分组到集群中，只是分类                 ···</p>
+<p>监督学习和无监督学习的本质在于是否能给出正确答案给机器去参考</p>
+<p>异常检测</p>
+<p>J(x)衡量平方误差多大的成本函数，选择最小化平方误差的w，使尽可能小，求出取最小值时的w和b</p>
+<p>梯度下降算法</p>
+<p><img src="image-20250419175520110.png" alt=""></p>
+<p>α太小收敛慢，太大收敛不了</p>
+<p><img src="image-20250419175652120.png" alt=""></p>
+<p>当接近局部最小梯度下降时，自动采取更小的步长，因为偏导变小</p>
+<p>局部最小值不能保证全体最小值？</p>
+<p>凸函数是碗形函数，只有单个全局最小值，所以在凸函数上实现梯度下降时，只要选择适当的学习率，总能收敛到全局最小值</p>
+<p>Batch gradient descent批量梯度下降，每次更新时查看整个训练集</p>
+<p>向量化：一次性处理，比循环快</p>
+<h3 id="特征值缩放">特征值缩放</h3>
+<p>一个好的模型，特征值越小，参数越大，要尽可能使两者差别不大</p>
+<p><img src="image-20250419215627193.png" alt=""></p>
+<ul>
+<li>除以最大值</li>
+<li>归一化处理，包括mean和z-score</li>
+</ul>
+<p>检验梯度下降是否收敛:图标or小于epsilon</p>
+<p><img src="image-20250419221444898.png" alt=""></p>
+<p>学习率的选择：从小到大调整，先确保能找到最小梯度</p>
+<h3 id="构建分类算法">构建分类算法</h3>
+<p>决策边界，左边预测为0，右边预测为11</p>
+<p><img src="image-20250419224253201.png" alt=""></p>
+<h3 id="逻辑回归模型">逻辑回归模型</h3>
+<p>本质就是sigmoid的变形</p>
+<p><img src="image-20250420002501309.png" alt=""></p>
+<p>代价函数</p>
+<p><img src="image-20250421213247155.png" alt=""></p>
+<p>损失值其实指的是预测和实际之间的偏差，有点不懂loss该怎么翻译</p>
+<p>简化版本</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421214700566.png" alt="image-20250421214700566"></p>
+<p>有个很好的凸性</p>
+<h3 id="梯度下降">梯度下降</h3>
+<p>线性回归和逻辑回归每次更新相同吗？形式上相同，但是每次代入的f不同</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421215053202.png" alt="image-20250421215053202"></p>
+<p>欠拟合</p>
+<p>泛化：能推广，但不精</p>
+<p>过拟合：也许不能推广所有</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421221128351.png" alt="image-20250421221128351"></p>
+<ul>
+<li>解决过拟合</li>
+</ul>
+<p>选择最好的特征值</p>
+<p>正则化：防止特征产生影响，减少参数影响</p>
+<p>lamdba值决定了如何平衡，lamdba过大会欠拟合，过小会过拟合</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421222533649.png" alt="image-20250421222533649"></p>
+<p>正则化线性回归</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421223252365.png" alt="image-20250421223252365"></p>
+<p>正则化就是在每一次迭代中将w诚意一个稍微小于1的数字</p>
+<p>正则化逻辑回归</p>
+<p>过拟合风险很大，加上lambda一项</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421223957720.png" alt="image-20250421223957720"></p>
+<h2 id="神经网络">神经网络</h2>
+<p>activation：一个神经元向下游的其他神经元发送高输出的程度</p>
+<p>layer: affordability,awareness,perceived quality</p>
+<ul>
+<li>全连接神经网络</li>
+</ul>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421232054226.png" alt="image-20250421232054226"></p>
+<p>多隐藏层神经网络</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421232352244.png" alt="image-20250421232352244"></p>
+<ul>
+<li>图像识别</li>
+</ul>
+<p>输入是一个很长的向量，包括二维转换为一维，第一层寻找边缘，第二层层寻找五官，第三层寻找面部形状</p>
+<ul>
+<li>前向传播算法</li>
+</ul>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422103312295.png" alt="image-20250422103312295"></p>
+<ul>
+<li>Tensorflow中的数据推理</li>
+</ul>
+<pre tabindex="0"><code>x=np.array([200,17])
+layer1=Dense(units=3,activations=&#39;sigmond&#39;)
+a1=layer1(x)
+</code></pre><p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422110234701.png" alt="image-20250422110234701"></p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422111208493.png" alt="image-20250422111208493"></p>
+<ul>
+<li>神经网络向量化</li>
+</ul>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422112757144.png" alt="image-20250422112757144"></p>
+<ul>
+<li>矩阵乘法代码</li>
+</ul>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422113348021.png" alt="image-20250422113348021"></p>
+<ul>
+<li>TensorFlow实现</li>
+</ul>
+<p>1.指定模型，告诉TensorFlow如何进行推理计算</p>
+<pre tabindex="0"><code>model=Sequential([Dense(units=25,activation=&#39;sigmoid&#39;)
+Dense(unit=15,activation=&#39;sigmoid&#39;)
+Dense(unit=1,activation=&#39;sigmoid&#39;)
+]
+</code></pre><p>2.使用特定的损失函数编译模型</p>
+<p>使用平方还是绝对值</p>
+<pre tabindex="0"><code>model.compile(loss=BinaryCrossentropy())
+model.compile(loss=MeanSquaredError())
+</code></pre><p>3.训练模型</p>
+<pre tabindex="0"><code>model.fit(X,y,epochs=100)
+</code></pre><p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422151932441.png" alt="image-20250422151932441"></p>
+<ul>
+<li>sigmoid函数的替代品</li>
+</ul>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422153138010.png" alt="image-20250422153138010"></p>
+<p>取决于预测标签Y是什么</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422154108097.png" alt="image-20250422154108097"></p>
+<p>在隐藏层更多使用ReLU因为速度更快</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422154354936.png" alt="image-20250422154354936"></p>
+<pre tabindex="0"><code>Dense(units=25,activation=&#39;relu&#39;)
+</code></pre><ul>
+<li>为什么需要使用激活函数，或者为什么不直接使用线性函数？</li>
+</ul>
+<p>hidden layer使用线性，output layer使用逻辑回归，结果是逻辑回归，如果都用线性函数，最终得到的也只是线性函数，不能得到更复杂的特性</p>
+<h2 id="多类">多类</h2>
+<p>当要识别的不仅仅是0或1</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422155600436.png" alt="image-20250422155600436"></p>
+<ul>
+<li>softmax回归算法</li>
+</ul>
+<p>逻辑回归算法的推广</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422160033349.png" alt="image-20250422160033349"></p>
+<p>当n=2时，就是逻辑回归模型</p>
+<p>损失函数</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422160716116.png" alt="image-20250422160716116"></p>
+<ul>
+<li>多标签分类</li>
+</ul>
+<p>方法一：构建三个独立的神经网络</p>
+<p>方法二：训练一个神经网络同时检测所有三种情况</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422163224515.png" alt="image-20250422163224515"></p>
+<ul>
+<li>优化方法</li>
+</ul>
+<p>Adam算法:自动调整学习率</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422163939817.png" alt="image-20250422163939817"></p>
+<pre tabindex="0"><code>model.compile(optimizer=tf.keras.optimaizers.Adam(learning_rate=le-3),......)
+</code></pre><ul>
+<li>Additional Layer Types</li>
+</ul>
+<p>Dense layer：每个层中的神经元都将前一层的所有激活作为输入</p>
+<p>Convolutional Layer:每个神经元只能看到部分前一层的输入。好处：更快计算，更少训练数据导致更少的过拟合</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422164619818.png" alt="image-20250422164619818"></p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422164811042.png" alt="image-20250422164811042"></p>
+<h3 id="模型评估">模型评估</h3>
+<p>70%训练集：训练模型参数</p>
+<p>30%测试集</p>
+<ul>
+<li>如何解决低于泛化误差的实际估计</li>
+</ul>
+<p>将数据集分为三个子集：60%训练集，20%测试集，20%交叉验证集：使用这个额外的数据集来交叉检查有效性</p>
+<p>查看哪个模型有最低的交叉验证误差</p>
+<h3 id="诊断偏差和方差">诊断偏差和方差</h3>
+<p>High bias</p>
+<p>Just right</p>
+<p>High variance</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422175631072.png" alt="image-20250422175631072"></p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422180042675.png" alt="image-20250422180042675"></p>
+<p>lambda越大，wj越小，拟合效果越不好</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422191911145.png" alt="image-20250422191911145"></p>
+<ul>
+<li>建立表现标准</li>
+</ul>
+<p>人类表现水平</p>
+<p>是否有一些竞争算法</p>
+<p>一要观察标准和训练误差差值（偏差），二要看训练误差和交叉验证误差差别（方差）</p>
+<p>如果一个学习算法有高偏差，增加更多的训练数据本身也无法降低出错率</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422193655347.png" alt="高偏差"></p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422193801140.png" alt="高方差"></p>
+<p>此时增加训练集可能会有帮助</p>
+<ul>
+<li>解决高方差/偏差方法</li>
+</ul>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422194353657.png" alt="image-20250422194353657"></p>
+<p>高方差：获取更多训练数据或者简化模型（使用哦个更小的特征，增加正则化参数lambda）</p>
+<p>高偏差：给模型更多灵活性，适应更复杂情况</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422200018306.png" alt="image-20250422200018306"></p>
+<p>Bigger network是指更多训练单元units</p>
+<ul>
+<li>迁移学习</li>
+</ul>
+<p>detect edges-&gt;corners-&gt;curves/basic shapes</p>
+<ul>
+<li>决策树模型</li>
+</ul>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422235335240.png" alt="image-20250422235335240"></p>
+<p>1.如何选择哪个特征进行分割？</p>
+<p>最大化纯度</p>
+<p>2.什么时候停止划分？</p>
+<p>达到某个阙值，或大于树的深度</p>
+<ul>
+<li>测量纯度</li>
+</ul>
+<p>使用熵函数</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423001136365.png" alt="image-20250423001136365"></p>
+<p>当熵值最小时，纯度最高，最大时，纯度最小</p>
+<p>实际函数</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423001244855.png" alt="image-20250423001244855"></p>
+<ul>
+<li>选择拆分信息增益(熵的减少)</li>
+</ul>
+<p>取左右平均的加权平均</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423002316639.png" alt="image-20250423002316639"></p>
+<p>H(0.5)-加权平均就是信息增益，如果熵的减少太小，低于一个阙值，就不再进行分裂</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423002546675.png" alt="image-20250423002546675"></p>
+<ul>
+<li>为什么使用热编码？</li>
+</ul>
+<p>把特征转换为数值，超过两个离散值的特征值，热编码把这三类之间视作是平等的</p>
+<ul>
+<li>回归树和决策树区别？</li>
+</ul>
+<p>决策树用方差而不是熵函数</p>
+<p>使用单个决策树缺点：对微小的变化高度敏感</p>
+<p>神经网络更像是数学家的思路，决策树就像是程序员的思路</p>
+<h3 id="随机森林算法">随机森林算法</h3>
+<p>每次放回抽样得到不一样的训练集，新的训练集训练出若干的决策树，并且最终的预测结果是基于森林的投票结果进行（每个节点特征随机化）</p>
+<ul>
+<li>如何减少过拟合问题</li>
+</ul>
+<p>从n个特征中选一个包含k个特征的子集</p>
+<h3 id="xgboost算法">XGBoost算法</h3>
+<p>不是有放回的抽样，为不同训练样本分配不同权重</p>
+<ul>
+<li>回归</li>
+</ul>
+<pre tabindex="0"><code>from xgboost import XGBClassifier
+model=XGBClassifier()
+mdoel.fit(X_train,y_train)
+y_pred=model.predict(X_test)
+</code></pre><ul>
+<li>分类</li>
+</ul>
+<pre tabindex="0"><code>from xgboost import XGBRegressor
+model=XGBRegressor()
+model.fit(X_train,y_train)
+y_pred=model.predict(X_test)
+</code></pre><h2 id="无监督学习-1">无监督学习</h2>
+<p>在无监督学习下，得到的数据集只有x没有标签y</p>
+<ul>
+<li>Clustring聚类算法</li>
+<li>K-menas算法</li>
+</ul>
+<p>选择两个簇，初步猜测簇质心的位置，遍历每个点，分配到离簇中心更近的位置</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423093246056.png" alt="image-20250423093246056"></p>
+<p>移动簇中心，到红点的中心位置</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423093344171.png" alt="image-20250423093344171"></p>
+<p>再次检查，重复上述过程，簇中心位置不断变化，直到收敛</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Apr 23, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/" title="数据结构与算法概念">数据结构与算法概念</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>ctfshow通关</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Feb 14, 2025
+     - 7 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-02-14-ctfshow%E9%80%9A%E5%85%B3/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     ctfshow通关 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>web2：view-source是一种协议，早期基本上每个浏览器都支持这个协议。后来Microsoft考虑安全性，对于WindowsXP pack2以及更高版本以后IE就不再支持此协议。但是这个方法在FireFox和Chrome浏览器都还可以使用。 如果要在IE下查看源代码,只能使用查看中的&quot;查看源代码&quot;命令.以前的使用方法：在浏览器地址栏中输入 view-source: URL</p>
+<p>web3:打开burp suite然后在仪表盘选择新扫描输入url（网址）后点击确定，然后点击目标，选择相应&ndash;raw就可以看见flag了or F12 &mdash;&gt;选择网络&mdash;&gt;F5刷新页面，查看响应头。</p>
+<p>web4：robots.txt（爬虫协议）</p>
+<p>web5：目录扫描：index.phps(php文件)</p>
+<p>phps文件泄露，phps存放着php源码,可通过尝试访问/index.phps读取,或者尝试扫描工具扫描读取.</p>
+<p>web6：url/www.zip网站备份压缩文件 漏洞成因</p>
+<p>在网站的升级和维护过程中，通常需要对网站中的文件进行修改。此时就需要对网站整站或者其中某一页面进行备份。</p>
+<p>当备份文件或者修改过程中的缓存文件因为各种原因而被留在网站 web 目录下，而该目录又没有设置访问权限时，便有可能导致备份文件或者编辑器的缓存文件被下载，导致敏感信息泄露，给服务器的安全埋下隐患。</p>
+<p>该漏洞的成因主要有是管理员将备份文件放在到 web 服务器可以访问的目录下。</p>
+<p>该漏洞往往会导致服务器整站源代码或者部分页面的源代码被下载，利用。源代码中所包含的各类敏感信息，如服务器数据库连接信息，服务器配置信息等会因此而泄露，造成巨大的损失。</p>
+<p>被泄露的源代码还可能会被用于代码审计，进一步利用而对整个系统的安全埋下隐患。</p>
+<p>.rar .zip .7z .tar.gz .bak .swp .txt</p>
+<p>源码泄露 url/www.zip 得知隐藏目录/fl000g.txt</p>
+<p>web7: dirsearch -u url 发现目录 /.git</p>
+<p>web8 /.svn 代码版本管理工具</p>
+<p>web9: 本题目的是让答题者了解到vim编辑器使用时会有一个缓存文件，这个缓存文件在保存时进行删除，但是在vim意外退出时这个缓存文件，会以源文件加一个.swp后缀进行保存，我们可以尝试访问这些文件来尝试获取一些文件。</p>
+<p>/index.php.swp</p>
+<p>web10:network cookie</p>
+<p>本题目是让答题者了解到cookie，cookie一般用于在身份认证的过程中保存一些信息，用于服务器来验证身份,在测试中可以尝试注入等方式。可以使用burp/F12中的网络来查看</p>
+<p>web11:dns查找域名</p>
+<p>web12:查看robots.txt文件，用户名admin。密码：在页面的最下方 管理员界面：/admin</p>
+<p>web13:/document.pdf，底部信息</p>
+<p>本题目的是答题者了解到很多的文章有许多的文档，可以在这些文档中发现很多信息，例如文件中有许多的信息泄露的地方，本题在底部的document这个这个文本中记录到有地址和密码。</p>
+<p>web14:根据提示 泄露重要(editor)的信息 直接在url后面添加/editor 然后查看flag路径并且访问</p>
+<p>web15:/admin 忘记密码，密保问题。首先，在网页最下方发现一个邮箱，于是就去QQ上搜索了一下QQ号，只是发现了一个账号，地点是陕西西安，社工搜索，telegram暗精灵</p>
+<p>web16:考察PHP探针php探针是用来探测空间、服务器运行状况和PHP信息用的，探针可以实时查看服务器硬盘资源、内存占用、网卡 流量、系统负载、服务器时间等信息。 url后缀名添加/tz.php 版本是雅黑PHP探针，然后查看phpinfo搜索flag</p>
+<p>web17:/backup.sql 备份的sql文件</p>
+<p>web18:这是一个javascript 的游戏，游戏的目的就是让要赢，从js代码中可知，当score&gt;120时，且game_over这个参数为false时，即可赢，于是打开开发者模式中的console，直接赋值score=130 game_over=false 然后，执行游戏 的run() 即可得到 &ldquo;你赢了，去幺幺零点皮爱吃皮看看&rdquo;， 即，110.php 打开它，即得flag</p>
+<p>web19:js查看源码，得知post提交账户密码，用hackbar</p>
+<p><img src="image-20250207213641400.png" alt=""></p>
+<p>web20：mdb文件是早期asp+access构架的数据库文件 直接查看url路径添加/db/db.mdb 下载文件通过txt打开或者通过EasyAccess.exe打开搜索flag flag{ctfshow_old_database}</p>
+<p>web89</p>
+<ul>
+<li><code>isset()</code> 用于检查 <code>$_GET['num']</code> 是否存在。如果变量存在且值不为 <code>NULL</code>，则返回 <code>true</code>，否则返回 <code>false</code>。</li>
+<li><code>preg_match()</code> 用于检查 <code>$_GET['num']</code> 是否包含数字字符。如果模式匹配到，则返回 <code>1</code>，否则返回 <code>0</code>。</li>
+<li><code>intval()</code> 用于将 <code>$_GET['num']</code> 转换为整数并检查其是否为非零值。返回变量的整数值</li>
+</ul>
+<p>利用数组绕过正则表达式，?num[]=1</p>
+<p>web90</p>
+<p>绕过十进制，我采用转换成16进制方法，?num=0x117c</p>
+<p>web91</p>
+<p>正则表达式修饰符</p>
+<pre tabindex="0"><code>/^php$/im
+</code></pre><ul>
+<li><code>/^php$/</code>：匹配字符串 &ldquo;php&rdquo;。</li>
+<li><code>i</code>：忽略大小写。</li>
+<li><code>m</code>：多行匹配，若存在换行\n且有开始^或结束$，以换行为分隔符，逐行匹配</li>
+</ul>
+<pre tabindex="0"><code>%0A` 表示换行符（`\n
+</code></pre><p>payload：?cmd=%0aphp</p>
+<p>web92</p>
+<p>方法一:intval()函数如果$base为0则$var中存在字母的话遇到字母就停止读取 但是e这个字母比较特殊，可以在PHP中不是科学计数法。所以为了绕过前面的==4476我们就可以构造 4476e123 其实不需要是e其他的字母也可以</p>
+<p>方法二:同web90</p>
+<p>web93</p>
+<p>既然不能有字母，传换成八进制，?num=010574</p>
+<p>web94</p>
+<p>在93的基础上过滤了开头为0的数字 这样的话就不能使用进制转换来进行操作 我们可以使用小数点来进行操作。这样通过intval()函数就可以变为int类型的4476 ?num=4476.0</p>
+<pre tabindex="0"><code>if(!strpos($num, &#34;0&#34;))//0不能放在第一位
+</code></pre><p>web95</p>
+<pre tabindex="0"><code>if(preg_match(&#34;/[a-z]|\./i&#34;, $num))//点匹配没了
+</code></pre><p>可以通过8进制绕过但是前面必须多加一个字节 ?num=+010574或者?num=%2b010574</p>
+<p>web96</p>
+<p>在linux下面表示当前目录是 ./ 所以我们的payload： u=./flag.php</p>
+<p>不能直接?u=flag.php会被过滤</p>
+<p>web97（这题不太懂其实）</p>
+<p>md5绕过原理：md5对数组是不予加密的，但是这个函数是返回值类型的，没有返回对象，便是返回null（null是无对象的意思，可以理解为没有目标）,所以两个都是null，可以绕过里面的比较，但是外面还有一个a!=b,绕过姿势为：?a[]=1&amp;b[]=2</p>
+<p>web98</p>
+<p>三元运算符，if使用</p>
+<p>(expr1)?(expr2)：(expr3)</p>
+<p>如果expr1成立，则执行expr2，否则执行expr3</p>
+<pre tabindex="0"><code>$_GET=&amp;$_POST;//只要有输入的get参数就将get方法改变为post方法
+</code></pre><p>我们只需要 GET一个?HTTP_FLAG=flag 加 POST一个HTTP_FLAG=flag,get直接url？，post用hackbar</p>
+<p>web99</p>
+<p>file_put_contents()写入文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>弱类型中当php字符串和int比较时,字符串会被转换成int，所以 字符串中数字后面的字符串会被忽略。题目中的in_array没有设置type,我们可以输入字符串5<span style="color:#719e07">.</span>php(此处数字随意，只要在rand(<span style="color:#2aa198">1</span>,<span style="color:#2aa198">0x36d</span>)之间即可),转换之后也就是5,明显是在题目中生成的数组中的,满足条件，同时进入下一步后，我们就可将一句话木马写入了5<span style="color:#719e07">.</span>php中
+</span></span></code></pre></div><p>get:?n=5.php post:content=<?php @eval=$_POST=['hack'];?></p>
+<p>查看post:content=<?php system('ls');?> ,查看flag：content=<?php system('tac flag36d.php');?></p>
+<p>web100</p>
+<p>三个参数 v1 ，v2 ，v3，其中v0 实际上只会去判断v1是否为数字 ，因此v1 = 1234 数字即可</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#719e07">if</span>(<span style="color:#268bd2">$v0</span>){
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">if</span>(<span style="color:#719e07">!</span>preg_match(<span style="color:#2aa198">&#34;/\;/&#34;</span>, <span style="color:#268bd2">$v2</span>)){ <span style="color:#586e75"># 表示v2中不能有符号 ；
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#719e07">if</span>(preg_match(<span style="color:#2aa198">&#34;/\;/&#34;</span>, <span style="color:#268bd2">$v3</span>)){ <span style="color:#586e75">#表示v3 中必须要有 ;
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#719e07">eval</span>(<span style="color:#2aa198">&#34;</span><span style="color:#2aa198">$v2</span><span style="color:#2aa198">(&#39;ctfshow&#39;)</span><span style="color:#2aa198">$v3</span><span style="color:#2aa198">&#34;</span>); <span style="color:#586e75"># 这里是eval中 拼接v2 v3 
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>v2<span style="color:#719e07">=</span>var_dump(<span style="color:#268bd2">$ctfshow</span>)<span style="color:#586e75">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75">v3=*/</span>;
+</span></span></code></pre></div><p>拼接起来就是var_dump($ctfshow)/ <em>(&lsquo;ctfshow&rsquo;)</em> / ; 可以执行</p>
+<p>v2 也可以用其他显示输出的函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>v2<span style="color:#719e07">=</span>print_r(<span style="color:#268bd2">$ctfshow</span>)<span style="color:#586e75">/*&amp;v3=*/</span>;
+</span></span></code></pre></div><p>注意拼接之后要把v3注释掉，flag要把02xd换成-</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Feb 14, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-02-08-ctfhub-web/" title="ctfhub-web">ctfhub-web</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-02-24-%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" title="数理统计">数理统计</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>计算机系统层次结构</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Apr 8, 2025
+     - 9 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     计算机系统层次结构 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>核心：计算</p>
+<p>五大功能部件：输入设备，运算器，存储器，控制器，输出设备。运作方式？</p>
+<ul>
+<li>存储器：外存（磁盘存储器），内存优缺点？</li>
+</ul>
+<p>容量大，断电后依然可以保存数据，无法直接从其中取数据用，必须把数据调入内存后才能使用，访问速度慢；</p>
+<p>访问速度快，可以hi结合运算器交换信息，一般只存储正在运行的程序和待处理的数据，但是容量小，断电后无法保存数据</p>
+<ul>
+<li>内存存储单元的访问？</li>
+</ul>
+<p>地址-&gt;MAR（存储器地址寄存器，用于寻址）-&gt;译码电路-&gt;存储单元-&gt;MDR(存储器数据寄存器，位数等于存储字长)</p>
+<ul>
+<li>冯诺依曼计算机</li>
+<li>存储程序工作方式</li>
+</ul>
+<p>将程序所含的指令和数据放入主存储器，一旦程序被启动执行，计算机会取指令和执行。（执行过程：取指，译码，计算下条指令，取操作数并执行，将结果送回寄存器）</p>
+<ul>
+<li>从源程序到可执行文件</li>
+</ul>
+<p>翻译程序三类：汇编程序，解释程序如python（逐条翻译成机器指令并执行），编译程序（将高级语言翻译成汇编or机器语言）</p>
+<p>.c-&gt;.i-&gt;.s-&gt;.o-&gt;.out</p>
+<p>数制与编码</p>
+<ul>
+<li>进制转换</li>
+</ul>
+<p>除基取余法，乘基取整法</p>
+<ul>
+<li>真值vs机器数</li>
+</ul>
+<p>0表示正数，1表示负数</p>
+<ul>
+<li>定点数vs浮点数</li>
+</ul>
+<p>计算机中只能表示0和1，机器内部没有小数点，只是人为约定了小数点，约定小数点在寄存器最右边一位数的后买你。定点数式小数点在固定位置，而浮点数不是；对于一个定点数，形式为 1为符号位加3位数值位（4位寄存器）</p>
+<p>引出的原码概念</p>
+<p>用机器数的最高位表示符号，其余各位表示数的绝对值</p>
+<ul>
+<li>补码</li>
+</ul>
+<p>真值7：0111</p>
+<p>+1</p>
+<p>真值-8：1000</p>
+<p>第一位是-2^k,上面例子就是-2^3</p>
+<ul>
+<li>反码</li>
+</ul>
+<p>符号位不变，数值为按位取反，在数轴上，正数与负数关于原点对称（毕竟本来符号位就是反的）</p>
+<p>但是浪费了0一种状态</p>
+<ul>
+<li>原码到补码转换</li>
+</ul>
+<p>负数：符号位不变数位按位取反，末位加一，补码到原码逆向即可</p>
+<p>正数：都一样</p>
+<ul>
+<li>移码</li>
+</ul>
+<p>x+2^n(对于n+1位机器数)，比如4位机器数</p>
+<p>使用移码好处，单调性与真值一致，适合比大小</p>
+<ul>
+<li>无符号数</li>
+</ul>
+<p>一个编码所有二进制都用来表示数值而没有符号位时，如用无符号int进项地址运算</p>
+<p>思考：机器数本身是没有意义的，取决于编码方式？</p>
+<p>程序执行的过程</p>
+<p>ISA指令集体系结构：抽象视图</p>
+<p>计算机组成（实际硬件实现）是计算机计算机体系结构（ISA）的具体实现</p>
+<p>寄存器：用来存放一个单位的数据的存储单位，位于CPU中，但是访问速度快于访问CPU外的存储器</p>
+<p>时钟：绝大多数数字电路都带有一个时钟，用以生成来内需的间隔固定的电脉冲流。用来计时确定计算机内所有时间的顺序</p>
+<ul>
+<li>RISC和CISC的区别？</li>
+</ul>
+<p>RISC：精简指令集计算机，用少量的指令完成简单操作，提高了程序设计的难度，复杂操作需要哟个多个指令复合，比如ARM处理其</p>
+<p>CISC：复杂指令集计算机，使用大量的指令，减少了程序设计的难度，但是使CPU和控制单元电路更复杂，比如Intel奔腾系列CPU</p>
+<ul>
+<li>乱序执行的好处？</li>
+</ul>
+<p>并发，CPU使用多核，改变指令的执行顺序提高计算机的速度</p>
+<ul>
+<li>最大游程-状态图？</li>
+</ul>
+<p>判断和前一个数字是否相同，如果相同则在同一个序列中，如果不同就不再同一个序列中，默认状态不在同一个序列，遇到相同的改为同一序列，再切回默认</p>
+<p>存储系统</p>
+<p>存储器映射只是概念上的，展示了信息在存储器中的存放位置，存储器中的每个位置要么保存指令，要么保存数据元素</p>
+<p>处理器将一个放在地址总线上的地址以及以以一个，用于选择读操作或写操作的控制信号发送给存储器，写/读周期中，数据总线上的数据写入存储器/供CPU读取</p>
+<p>寄存器传输语言（RTL）：更加容易定义计算机内发生的操作</p>
+<p>存储程序计数器：程序计数器指向指令，CPU从程序计数器所指的存储单元中读出指令，修改程序计数器，只想下一条指令，指令解码，执行指令</p>
+<ul>
+<li>执行一条指令至少需要几次访存？</li>
+</ul>
+<p>两次，一次是读指，一次是读出数据</p>
+<ul>
+<li>指令格式</li>
+</ul>
+<p>ADD,P,Q,R ;100110101110</p>
+<p>ADD取操作数 10取操作数表中取指令，数据从内存中取值，放在加法器中</p>
+<ul>
+<li>两地址取指和单地址取指</li>
+</ul>
+<p>两地址取指会破坏它的一个操作数（替换），如 mov a,b，在实际计算机中，不允许一条指令使用两个存储地址（指内存，这也说明了为什么要使用寄存器），所以规定一个是存储器地址（内存），另一个是寄存器地址；单地址指令，operation address，指令中只提供了一个操作数地址，而指令却需要至少两个地址，处理器使用一个不需要显示地址的第二操作数，第二个操作数来自CPU内一个叫累加器的寄存器，如实现P=Q+R，LOAD (accumaltor),ADD R (),STORE (accumalator) P</p>
+<ul>
+<li>一个对于计算机的分类方式，按指令处理数据的方式</li>
+</ul>
+<p>存储器-存储器型（一般不用，我觉得应该是速度比较慢，寄存器访问最快），寄存器-存储器(要么被写回存储器，要么被写回寄存器)，寄存器-寄存器（LOAD,STORE）</p>
+<ul>
+<li>存储层次</li>
+</ul>
+<p>寄存器（处理器的工作数据）-&gt;cache（缓存常用数据的快速存储器）-&gt;DRAM(动态随机访问存储器，易失性，村昂正在执行的程序的<strong>主存</strong>)-&gt;硬盘，速度由快到慢，容量由小到大</p>
+<p>Cache高速缓存，cache访问时间比主存短，因为cache保存着经常使用的数据，与CPU的地址总线和数据总线相连，优先从cache中发送数据，而不会取主存中取数据</p>
+<p>一级缓存，二级缓存，三级缓存</p>
+<ul>
+<li>总线的好处与缺点？（BUS）</li>
+</ul>
+<p>只有一条高速数据通路，一条就可以将所有单元连接在一起；但是每次只有唯一一个设备能与其他设备通信，不得不去竞争总线的控制权，仲裁——多个设备竞争同一资源。</p>
+<p>宽度：并行数据通路（一次并行能传送多少数据）</p>
+<p>带宽：传输速率</p>
+<p>延迟</p>
+<ul>
+<li>多总线系统</li>
+</ul>
+<p>提高性能，不然若要添加一个新单元，必须在新单元与它所连接的每个单元之间增加一条新连接</p>
+<h3 id="指令集体系结构">指令集体系结构</h3>
+<p>以下基于ARM（处理器）-&gt;RISC结构，相比于Intel-&gt;CISC更加精简</p>
+<p>CPU的寄存器：1.高速暂存寄存器，用于保存地址</p>
+<p>2.PC，程序计数器，记录了要执行的下一条指令的地址；MAR，存储器地址寄存器，保存了读或写操作正在访问的存储单元的地址；MBR，存储器数据寄存器，保存了刚从存储器种读出的数据，或将要写入存储器的数据；IR，指令寄存器，存放最近从存储器种取出的指令，也就是当前正在执行的指令</p>
+<p>3种指令格式：</p>
+<p>LDR r1 1234 把地址为1234的存储单元中的数据读到寄存器r1中</p>
+<p>STR r2 2000 把寄存器r2的值写入地址为2000的存储单元</p>
+<p>Operation :ADD r1,r2,r3</p>
+<ul>
+<li>如何读取并执行LDR r1,1234</li>
+</ul>
+<p>FETCH [MAR]&lt;-[PC]    ；把PC的值复制到存储器地址寄存器，表示正在访问的</p>
+<p>​      [PC]&lt;-+=4      ;PC指向下一条指令</p>
+<p>​      [MBR]&lt;-[[MAR]] ;读出MAR中的指令，保存到MBR中，</p>
+<p>​      [IR]&lt;-[MBR]</p>
+<p>LDR   [MAR]&lt;-[IR(address)] ;读出IR种的操作数地址</p>
+<p>​      [MBR]&lt;-[[MAR]]  ；操作数读到MBR</p>
+<p>​      [r1]&lt;-[MBR]</p>
+<ul>
+<li>为什么每次取指后PC必须加4</li>
+</ul>
+<p>32位微处理器使用32位指令和32位字数据（比如在64位上PC就要加8？）</p>
+<p>扩展处理器：常量处理</p>
+<p>LDR r1,1234 ;这里的1234是指位234的存储单元的内容</p>
+<p>LDR r1,#1234 ;这里的1234是指立即操作数，立即数是一个在运算中可以直接使用的数</p>
+<ul>
+<li>扩展处理器：流控制</li>
+</ul>
+<p>非顺序执行的能力，转移到特定位置的分支和跳转指令，例子：if&hellip;&hellip;else&hellip;&hellip;.</p>
+<pre tabindex="0"><code>SUBS r,r5,#1
+
+BEQ onZero ;如果r5为0则跳到onZero处执行
+
+notZero ADD r1,r2,r3
+</code></pre><ul>
+<li>条件吗寄存器CCR</li>
+</ul>
+<p>保存了ALU中用于测试的条件（如0，正，负），当ALU执行一个操作时，更新CCR的零位，借位位，负位，溢出位</p>
+<p>如果CCR测试位为false，则处理器从[PC]+4处取出下一条指令，CCR的测试位为true，则PC从IR的操作数字段载入新地址并跳转</p>
+<p>Z（结果是否为0），N（二进制形式是否为负），C（产生进位位），V（溢出）</p>
+<ul>
+<li>如何使用条件分支指令BEQ address来实现高级语言结构？</li>
+</ul>
+<p>BEQ指令选出CCR中的一位进行测试（Z,N,C,V）如果被测试位1，则PC载入一个新地址，否则不变</p>
+<ul>
+<li>ISA的组成</li>
+</ul>
+<p>寄存器集，寻址方式，指令格式</p>
+<p>寄存器对于提高计算机性能和实际指令集设计是很有必要的</p>
+<p>Op-code+control bits+destination register+source register1+source register2</p>
+<p>假设某计算机操作码8位，使用3位可以访问r0-r7中一个，就能用8+3+3+3=17位实现指令ADD P=Q+R</p>
+<p>寻址方式：1）立即数寻址：如操作数P=Q+5，5就是立即数，它没有被保存在存储单元或寄存器中，而是指令的组成部分，ARM处理器使用前缀#指定立即从操作数</p>
+<p>2）直接寻址：绝对寻址，把操作数地址用作指令中的一部分，如ADD P,Q,R表示将存储单元Q的内容与存储单元R的内容相加，并保存在存储单元P中</p>
+<p>3）间接寻址：寄存器间接寻址，获得一个操作数需要三次访问，度至零，读含有操作数地址的寄存器，以及最后读出实际的操作数，反右操作数地址的寄存器乘坐指针寄存器，LOAD型计算机（如ARM），使用这种寻址方式访问存储器操作数</p>
+<p>以下是ARM,Intel 32和Freescale的汇编语言</p>
+<p>LDR r1,[r2]</p>
+<p>MOV ax,[bx]</p>
+<p>MOVE (A5),D2 A5-&gt;D2</p>
+<ul>
+<li>为什么计算机不支持存储器-存储器型寻址方式？</li>
+</ul>
+<p>存储单位占用空间大，所需地址位数多，访问速度慢</p>
+<ul>
+<li>操作码与指令</li>
+</ul>
+<p>三地址计算机</p>
+<p>双地址计算机</p>
+<p>单地址计算机</p>
+<p>零地址计算机：栈计算机，单操作数运算作用于栈顶，双操作数首先从栈顶取出两个元素，运算后入栈</p>
+<p>存储器</p>
+<ul>
+<li>分类</li>
+</ul>
+<p>存取方式：RAM,ROM SAM,DAM</p>
+<p>断电后是否保存：易失性（RAM），非易失性（ROM,磁盘，磁带，光盘）</p>
+<p>读出方式：破坏性读出，非~</p>
+<ul>
+<li>性能指标</li>
+</ul>
+<p>存储单元</p>
+<p>编址和寻址。为了区别存储体中的存储单元，必须将它们统一编号，存储单元的编号称为地址</p>
+<p>存取时间，存取周期（访问时间，恢复时间）</p>
+<p>主存储器</p>
+<ul>
+<li>DRAM的工作原理</li>
+</ul>
+<p>打开开关，给电容充电，完成写入；当充满电时打开开关，电流留出，信号放大器检测1还是0，电被释放，所以是破坏性读出，需要恢复电荷，过程叫做再生</p>
+<ul>
+<li>半导体存储芯片</li>
+</ul>
+<p>译码驱动电路，存储矩阵，读/写电路</p>
+<ul>
+<li>译码驱动方式</li>
+</ul>
+<p>单译码法</p>
+<p>线选法：通过n个地址引脚定义一个大小为2^n的地址空间，缺点时译码后输出端的线数量过多，故值适用于容量小的静态存储器</p>
+<p>重合法：适合大容量的动态存储器</p>
+<p>双译码法</p>
+<p>DRAM行列地址复用，行缓冲，位平面</p>
+<ul>
+<li>DRAM的刷新</li>
+</ul>
+<p>为什么会有刷新？</p>
+<p>电容会漏电，所以DRAM的单个存储单元必须市场刷新，否则会因漏电发生数据丢失</p>
+<p>分类：</p>
+<p>集中刷新 后128个读写周期集中用于刷新，读写操作期间不受刷新操作的影响，速度比较快，但是存在死去，即在集中刷新的128个读写周期内，CPU长时间不能访问存储器</p>
+<p>分散刷新 不存在死区，但是因为刷新过于频繁，严重影响了习用的速度，不适合应用于高速存储器</p>
+<p>异步刷新 集中刷新和分散刷新的结合，更加常用，避免CPU连续等待时间过久</p>
+<p>attention：刷新以行为单位，逐行顺序地恢复数据，再生仅恢复被读出地那个单元的数据</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Apr 8, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-04-05-os/" title="OS">OS</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/" title="数据结构与算法概念">数据结构与算法概念</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

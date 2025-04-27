@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Web应用程序</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Jan 14, 2025
+     - 5 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-01-14-web%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     Web应用程序 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h2 id="web应用程序">Web应用程序</h2>
+<table>
+  <thead>
+      <tr>
+          <th>缺陷</th>
+          <th>真实场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>
+<a href="https://owasp.org/www-community/attacks/SQL_Injection" target="_blank" rel="noopener">SQL 注入</a></td>
+          <td>获取 Active Directory 用户名并对 VPN 或电子邮件门户执行密码喷洒攻击。</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.1-Testing_for_Local_File_Inclusion" target="_blank" rel="noopener">文件包含</a></td>
+          <td>阅读源代码以查找隐藏的页面或目录，这些页面或目录公开了可用于获取远程代码执行的附加功能。</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload" target="_blank" rel="noopener">不受限制的文件上传</a></td>
+          <td>允许用户上传个人资料图片的 Web 应用程序，允许上传任何类型的文件（不仅仅是图片）。可以利用此功能通过上传恶意代码来完全控制 Web 应用程序服务器。</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener">不安全的直接对象引用（IDOR）</a></td>
+          <td>当与访问控制失效等缺陷相结合时，这通常可用于访问其他用户的文件或功能。例如，在浏览到 /user/701/edit-profile 等页面时编辑您的用户个人资料。如果我们可以将 更改<code>701</code>为<code>702</code>，我们就可以编辑其他用户的个人资料！</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://owasp.org/www-project-top-ten/2017/A5_2017-Broken_Access_Control" target="_blank" rel="noopener">访问控制失效</a></td>
+          <td>另一个示例是允许用户注册新帐户的应用程序。如果帐户注册功能设计不佳，用户可能会在注册时执行权限提升。考虑<code>POST</code>注册新用户时的请求，该请求提交数据<code>username=bjones&amp;password=Welcome1&amp;email=bjones@inlanefreight.local&amp;roleid=3</code>。如果我们可以操纵<code>roleid</code>参数并将其更改为<code>0</code>或会怎样<code>1</code>？我们已经看到了这种情况的真实应用程序，并且可以快速注册管理员用户并访问 Web 应用程序的许多非预期功能。</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="web程序布局">Web程序布局</h2>
+<p>层：</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>类别</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Web Application Infrastructure</code></td>
+          <td>描述 Web 应用程序按预期运行所需的组件（如数据库）的结构。由于 Web 应用程序可以设置为在单独的服务器上运行，因此了解它需要访问哪个数据库服务器至关重要。</td>
+      </tr>
+      <tr>
+          <td><code>Web Application Components</code></td>
+          <td>组成 Web 应用程序的组件代表与 Web 应用程序交互的所有组件。这些组件分为以下三个区域：<code>UI/UX</code>、<code>Client</code>和<code>Server</code>组件。</td>
+      </tr>
+      <tr>
+          <td><code>Web Application Architecture</code></td>
+          <td>架构包括各个 Web 应用程序组件之间的所有关系。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="web-应用程序基础设施">Web 应用程序基础设施</h3>
+<ul>
+<li><code>Client-Server</code>Web 应用程序通常采用该<code>client-server</code>模型。服务器以客户端-服务器模型托管 Web 应用程序，并将其分发给任何尝试访问它的客户端。在这种模型中，Web 应用程序有两种类型的组件：前端组件，通常在客户端（浏览器）上解释和执行；后端组件，通常由托管服务器编译、解释和执行。</li>
+<li><code>One Server</code>如果任何托管的 Web 应用程序存在漏洞，则整个 Web 服务器都会受到漏洞。</li>
+<li><code>Many Servers - One Database</code>此模型将数据库分离到其自己的数据库服务器上，并允许 Web 应用程序的托管服务器访问数据库服务器以存储和检索数据。只要数据库分离在其自己的数据库服务器上，就可以将其视为多服务器对一个数据库和单服务器对一个数据库。这种模型的主要优势 ( <code>from a security point of view</code>) 是分段，其中 Web 应用程序的每个主要组件都单独放置和托管。如果一个 Web 服务器受到攻击，其他 Web 服务器不会受到直接影响。</li>
+<li><code>Many Servers - Many Databases</code>Web 应用程序只能访问私有数据和跨 Web 应用程序共享的公共数据。也可以将每个 Web 应用程序的数据库托管在其单独的数据库服务器上。这种设计还被广泛用于冗余目的，因此如果任何 Web 服务器或数据库脱机，备份将代替其运行，以尽可能减少停机时间。</li>
+</ul>
+<h2 id="web应用程序组件">Web应用程序组件</h2>
+<ol>
+<li>
+<p>`Client</p>
+</li>
+<li>
+<p>Server</p>
+<ul>
+<li>网络服务器</li>
+<li>Web 应用程序逻辑</li>
+<li>数据库</li>
+</ul>
+</li>
+<li>
+<p>Services</p>
+<p>（微服务）</p>
+<ul>
+<li>第三方集成</li>
+<li>Web 应用程序集成</li>
+</ul>
+</li>
+<li>
+<p>`Functions（无服务器）</p>
+</li>
+</ol>
+<h2 id="敏感数据泄露">敏感数据泄露</h2>
+<p>敏感数据泄露是指最终用户可以以明文形式获取敏感数据ctrl + u`通过 Web 代理（如）键入或查看页面源代码Burp Suite</p>
+<p>有时，我们可能会发现登录名credentials、hashes或其他敏感数据隐藏在网页源代码的注释中或JavaScript正在导入的外部代码中。其他敏感信息可能包括暴露的链接或目录，甚至暴露的用户信息，所有这些都可能被利用来进一步访问 Web 应用程序或 Web 应用程序的支持基础设施</p>
+<h2 id="html注入">HTML注入</h2>
+<p>
+<a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side_Testing/03-Testing_for_HTML_Injection" target="_blank" rel="noopener">HTML 注入</a>是指未经过滤的用户输入显示在页面上。这可以通过检索之前提交的代码（例如从后端数据库检索用户评论）或直接在<code>JavaScript</code>前端显示未经过滤的用户输入来实现。</p>
+<pre tabindex="0"><code>&lt;a href=&#34;http://www.hackthebox.com&#34;&gt;Click Me&lt;/a&gt;
+</code></pre><h2 id="跨站点脚本xss">跨站点脚本XSS</h2>
+<p><code>HTML Injection</code>漏洞通常还可用于通过注入要在客户端执行的代码来执行
+<a href="https://owasp.org/www-community/attacks/xss/" target="_blank" rel="noopener">跨站点脚本 (XSS)</a>攻击。一旦我们可以在受害者的机器上执行代码，我们就有可能访问受害者的帐户甚至他们的机器。在实践中与非常相似。但是，涉及注入代码以在客户端执行更高级的攻击，而不仅仅是注入 HTML 代码。主要有三种类型：</p>
+<table>
+  <thead>
+      <tr>
+          <th>类型</th>
+          <th>描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Reflected XSS</code></td>
+          <td>当用户输入经过处理（例如搜索结果或错误消息）显示在页面上时发生。</td>
+      </tr>
+      <tr>
+          <td><code>Stored XSS</code></td>
+          <td>当用户输入存储在后端数据库并在检索时显示（例如，帖子或评论）时发生。</td>
+      </tr>
+      <tr>
+          <td><code>DOM XSS</code></td>
+          <td>当用户输入直接显示在浏览器中并写入<code>HTML</code>DOM 对象（例如，易受攻击的用户名或页面标题）时发生。</td>
+      </tr>
+  </tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>#&#34;<span style="color:#719e07">&gt;&lt;</span>img src<span style="color:#719e07">=</span>/ onerror=alert(document.cookie)&gt;
+</span></span></code></pre></div><p>显示当前用户的cookie</p>
+<h2 id="后端服务器">后端服务器</h2>
+<p>软件</p>
+<ul>
+<li><code>Web Server</code></li>
+<li><code>Database</code></li>
+<li><code>Development Framework</code></li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>Combinations</th>
+          <th>Components</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29" target="_blank" rel="noopener">LAMP</a></td>
+          <td><code>Linux</code>, <code>Apache</code>, <code>MySQL</code>, and <code>PHP</code>.</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29#WAMP" target="_blank" rel="noopener">WAMP</a></td>
+          <td><code>Windows</code>, <code>Apache</code>, <code>MySQL</code>, and <code>PHP</code>.</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/Solution_stack" target="_blank" rel="noopener">WINS</a></td>
+          <td><code>Windows</code>, <code>IIS</code>, <code>.NET</code>, and <code>SQL Server</code></td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/MAMP" target="_blank" rel="noopener">MAMP</a></td>
+          <td><code>macOS</code>, <code>Apache</code>, <code>MySQL</code>, and <code>PHP</code>.</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/XAMPP" target="_blank" rel="noopener">XAMPP</a></td>
+          <td>Cross-Platform, <code>Apache</code>, <code>MySQL</code>, and <code>PHP/PERL</code>.</td>
+      </tr>
+  </tbody>
+</table>
+<p>组件</p>
+<table>
+  <thead>
+      <tr>
+          <th>Combinations</th>
+          <th>Components</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29" target="_blank" rel="noopener">LAMP</a></td>
+          <td><code>Linux</code>, <code>Apache</code>, <code>MySQL</code>, and <code>PHP</code>.</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29#WAMP" target="_blank" rel="noopener">WAMP</a></td>
+          <td><code>Windows</code>, <code>Apache</code>, <code>MySQL</code>, and <code>PHP</code>.</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/Solution_stack" target="_blank" rel="noopener">WINS</a></td>
+          <td><code>Windows</code>, <code>IIS</code>, <code>.NET</code>, and <code>SQL Server</code></td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/MAMP" target="_blank" rel="noopener">MAMP</a></td>
+          <td><code>macOS</code>, <code>Apache</code>, <code>MySQL</code>, and <code>PHP</code>.</td>
+      </tr>
+      <tr>
+          <td>
+<a href="https://en.wikipedia.org/wiki/XAMPP" target="_blank" rel="noopener">XAMPP</a></td>
+          <td>Cross-Platform, <code>Apache</code>, <code>MySQL</code>, and <code>PHP/PERL</code>.</td>
+      </tr>
+  </tbody>
+</table>
+<p>硬件</p>
+<p>HTTP响应代码：</p>
+<table>
+  <thead>
+      <tr>
+          <th><strong>成功的响应</strong></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>200 OK</code></td>
+          <td>请求已成功</td>
+      </tr>
+      <tr>
+          <td><strong>重定向消息</strong></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>301 Moved Permanently</code></td>
+          <td>请求资源的 URL 已永久更改</td>
+      </tr>
+      <tr>
+          <td><code>302 Found</code></td>
+          <td>请求资源的 URL 已临时更改</td>
+      </tr>
+      <tr>
+          <td><strong>客户端错误响应</strong></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>400 Bad Request</code></td>
+          <td>由于语法无效，服务器无法理解请求</td>
+      </tr>
+      <tr>
+          <td><code>401 Unauthorized</code></td>
+          <td>未经身份验证尝试访问页面</td>
+      </tr>
+      <tr>
+          <td><code>403 Forbidden</code></td>
+          <td>客户端无权访问内容</td>
+      </tr>
+      <tr>
+          <td><code>404 Not Found</code></td>
+          <td>服务器找不到请求的资源</td>
+      </tr>
+      <tr>
+          <td><code>405 Method Not Allowed</code></td>
+          <td>请求方法已被服务器所知，但已被禁用，无法使用</td>
+      </tr>
+      <tr>
+          <td><code>408 Request Timeout</code></td>
+          <td>某些服务器会在空闲连接上发送此响应，即使客户端之前没有任何请求</td>
+      </tr>
+      <tr>
+          <td><strong>服务器错误响应</strong></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td><code>500 Internal Server Error</code></td>
+          <td>服务器遇到了不知道如何处理的情况</td>
+      </tr>
+      <tr>
+          <td><code>502 Bad Gateway</code></td>
+          <td>服务器在作为网关获取处理请求所需的响应时，收到了无效响应</td>
+      </tr>
+      <tr>
+          <td><code>504 Gateway Timeout</code></td>
+          <td>服务器作为网关，无法及时得到响应</td>
+      </tr>
+  </tbody>
+</table>
+<ul>
+<li>端口有两种类型：传输控制协议 (TCP)和用户数据报协议 (UDP)</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th>Port(s)</th>
+          <th>Protocol</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>20</code>/<code>21</code> (TCP)</td>
+          <td><code>FTP</code></td>
+      </tr>
+      <tr>
+          <td><code>22</code> (TCP)</td>
+          <td><code>SSH</code></td>
+      </tr>
+      <tr>
+          <td><code>23</code> (TCP)</td>
+          <td><code>Telnet</code></td>
+      </tr>
+      <tr>
+          <td><code>25</code> (TCP)</td>
+          <td><code>SMTP</code></td>
+      </tr>
+      <tr>
+          <td><code>80</code> (TCP)</td>
+          <td><code>HTTP</code></td>
+      </tr>
+      <tr>
+          <td><code>161</code> (TCP/UDP)</td>
+          <td><code>SNMP</code></td>
+      </tr>
+      <tr>
+          <td><code>389</code> (TCP/UDP)</td>
+          <td><code>LDAP</code></td>
+      </tr>
+      <tr>
+          <td><code>443</code> (TCP)</td>
+          <td><code>SSL</code>/<code>TLS</code> (<code>HTTPS</code>)</td>
+      </tr>
+      <tr>
+          <td><code>445</code> (TCP)</td>
+          <td><code>SMB</code></td>
+      </tr>
+      <tr>
+          <td><code>3389</code> (TCP)</td>
+          <td><code>RDP</code></td>
+      </tr>
+  </tbody>
+</table>
+<ul>
+<li>shell连接</li>
+</ul>
+<table>
+  <thead>
+      <tr>
+          <th><strong>shell类型</strong></th>
+          <th><strong>描述</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Reverse shell</code></td>
+          <td>启动与攻击箱上的“监听器”的连接。</td>
+      </tr>
+      <tr>
+          <td><code>Bind shell</code></td>
+          <td>“绑定”到目标主机上的特定端口并等待来自我们的攻击箱的连接。</td>
+      </tr>
+      <tr>
+          <td><code>Web shell</code></td>
+          <td>通过 Web 浏览器运行操作系统命令，通常不是交互式或半交互式的。它还可用于运行单个命令（即利用文件上传漏洞并上传<code>PHP</code>脚本来运行单个命令）。</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="渗透测试流程">渗透测试流程</h2>
+<ul>
+<li>tmux</li>
+</ul>
+<p>tmux new -s &lt;名称&gt;</p>
+<p>执行命令 ctrl+b+ d</p>
+<p>重新连接tmux attach -t &lt;名称&gt;</p>
+<p>tmux ls展示所有会话</p>
+<ul>
+<li>nmap</li>
+</ul>
+<p>例：nmap 10.129.42.253</p>
+<p>运行 Nmap 脚本的语法是`nmap &ndash;script <script name> -p<port> <host></p>
+<p>例：nmap -sV -sC -p- 10.129.42.253</p>
+<p><code>-sC</code>参数来指定<code>Nmap</code>应使用脚本来尝试获取更详细的信息。<code>-sV</code>参数指示<code>Nmap</code>执行版本扫描。在此扫描中，Nmap 将对目标系统上的服务进行指纹识别，并识别服务协议、应用程序名称和版本。版本扫描以超过 1,000 个服务签名的综合数据库为基础。最后，<code>-p-</code>告诉 Nmap 我们要扫描所有 65,535 个 TCP 端口</p>
+<ul>
+<li>寻找公开漏洞</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo apt install exploitdb -y
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>searchsploit openssh 7.2
+</span></span></code></pre></div><p>Nibbles</p>
+<p>1.扫描端口枚举</p>
+<pre tabindex="0"><code>nmap -sV --open -oA nibbles_initial_scan &lt;ip address&gt; //服务枚举，仅返回开放端口，扫描所有形式
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>nc -nv 10.129.42.190 22 //Using `nc` to do some banner grabbing
+</span></span></code></pre></div><p>当知道哪些端口是特定开放可以选择特定端口扫描节省时间，如</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>nmap -sC -p 22,80 -oA nibbles_script_scan 10.129.42.190
+</span></span></code></pre></div><p>使用
+<a href="https://nmap.org/nsedoc/scripts/http-enum.html" target="_blank" rel="noopener">http-enum 脚本</a>来完成枚举，该脚本可用于枚举常见的 Web 应用程序目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> nmap -sV --script=http-enum -oA nibbles_nmap_http_enum 10.129.42.190
+</span></span></code></pre></div><p>2.网络足迹</p>
+<p>使用<code>whatweb</code>来尝试识别正在使用的 Web 应用程序。</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>whatweb 10.129.42.190
+</span></span></code></pre></div><p>检查源码</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>curl http://10.129.42.190
+</span></span></code></pre></div><p>使用
+<a href="https://github.com/OJ/gobuster" target="_blank" rel="noopener">Gobuster</a>进行彻底检查并检查任何其他可访问的页面/目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>gobuster dir -u http://10.129.42.190/nibbleblog/ --wordlist /usr/share/seclists/Discovery/Web-Content/common.txt
+</span></span></code></pre></div><p>再次使用curl扫描文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> curl http://10.129.42.190/nibbleblog/README
+</span></span></code></pre></div><ul>
+<li>我们从一个简单的<code>nmap</code>扫描开始，显示两个开放的端口</li>
+<li>发现了一个实例<code>Nibbleblog</code></li>
+<li>分析使用的技术<code>whatweb</code></li>
+<li>找到管理员登录门户页面<code>admin.php</code></li>
+<li>发现目录列表已启用，并浏览了几个目录</li>
+<li>确认该<code>admin</code>用户名有效</li>
+<li>经过一番努力才发现，启用 IP 黑名单是为了防止暴力登录尝试</li>
+<li>发现线索，让我们找到 nibbles 的有效管理员密码</li>
+</ul>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Jan 14, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-01-12-nmap%E5%9F%BA%E7%A1%80/" title="nmap基础">nmap基础</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-01-20-%E8%84%9A%E6%9C%AC%E5%B0%8F%E5%AD%90/" title="脚本小子">脚本小子</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

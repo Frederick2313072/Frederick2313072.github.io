@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>一些对于C&#43;&#43;的思考</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Mar 30, 2025
+     - 13 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-03-30-%E4%B8%80%E4%BA%9B%E5%AF%B9%E4%BA%8Ec-%E7%9A%84%E6%80%9D%E8%80%83/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     一些对于C&#43;&#43;的思考 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <ul>
+<li>static和extern区别？</li>
+</ul>
+<p>外部是可见性关键词，内部是所有实例共享static的变量，静态类成员变量属于全体实例，所以任意实例不能给静态变量分配内存，要用类使用变量，static让被修饰的语句具有唯一性，确定性</p>
+<ul>
+<li>为什么要在类内设置static？</li>
+</ul>
+<p>如果没有设定为static，连接器会跨编译单元进行连接（外部链接），尽可能让函数和变量变成静态（内部链接），除非需要跨编译单元进行连接。不能在静态方法中访问实例化对象里的非静态变量；static可以将被修饰的生存期延长到整个程序，静态成员只需要一个初始化，而没有静态的成员每次调用都会初始化</p>
+<ul>
+<li>构造对象时都会调用构造函数</li>
+<li>为什么要写析构函数？</li>
+</ul>
+<p>在对象被销毁时被调用，想到于给一个反馈，比如~Entity(){std::cout&laquo;&ldquo;Destroyed Entity!&quot;&laquo;std::endl;}</p>
+<ul>
+<li>可见性</li>
+</ul>
+<p>private（只有这个类可以访问这些变量）,public,protected（在层次结构中的子类可以访问这些符号）</p>
+<ul>
+<li>为什么要用可见性，哪里要用到，为什么所有不用public？</li>
+</ul>
+<p>可见性或许和性能无关，不是CPU需要理解的，但是增加代码的维护性，例如private规定一些东西不能被破坏</p>
+<ul>
+<li>比较int example[5]和int* another = new int[5],为什么要动态的用new来分配，而不是在栈上创建？</li>
+</ul>
+<p>生存期。用new在堆上创建，将一直存在直到手动回收</p>
+<ul>
+<li>为什么使用mutable?</li>
+</ul>
+<p>在类中修改特定成员变量（const）</p>
+<ul>
+<li>什么时候用栈，什么时候用堆？</li>
+</ul>
+<p>栈：作用域结束，内存释放，栈内存回收，如果想让在作用域之外依然存在，就不能分配到栈上，如果类/对象太多，栈没有足够的空间，分配在堆上（例：Entity* entity=new Entity(&ldquo;Cherno&rdquo;)）,显式的控制对象的生存期，但是麻烦，需要手动delete，可能会导致内存泄露，而栈方便自动</p>
+<ul>
+<li>创建new的过程</li>
+</ul>
+<p>找到一个足够大的内存块，给一个指向那块内存块的指针（内存地址 ），调用构造函数，记得delete！</p>
+<p>this是一个常量指针，但是可以修改this指向对象的内容</p>
+<ul>
+<li>智能指针的本质？为什么要用智能指针？</li>
+</ul>
+<p>原始指针的包装，调用new并分配内存，基于使用的智能指针，自动释放。好处，不会得到没有引用的悬空指针，从而造成内存泄露，在unique_ptr中不调用new是因为它安全，而shared_ptr需要分配另一块内存，叫做控制块，用来存储引用计数，当引用计数为0时shared_ptr不存在；有限使用unique_ptr,但在对象之间共享，不能使用unique_ptr时，就使用shared_ptr。</p>
+<ul>
+<li>为什么要重写C++中存在的数据结构？</li>
+</ul>
+<p>标准模板库的速度不是优先考虑的东西</p>
+<ul>
+<li>关于动态数组？</li>
+</ul>
+<p>std::vector<Vectex> vertices;&lt;&gt;内可以是int，与java不同，C++可以传递数据类型</p>
+<ul>
+<li>为什么存储vertor对象比存储指针在技术上更优？</li>
+</ul>
+<p>vertor内存分配时连续的数组，没有内部碎片，更方便读取，但是vector读取更慢，指针直接指向内存地址，更快</p>
+<ul>
+<li>vector如何重新分配多余的元素？</li>
+</ul>
+<p>从内存中的就位置复制到内存中的新位置，然后删除旧位置的内存，</p>
+<ul>
+<li>静态链接和动态链接的实际性能差异？</li>
+</ul>
+<p>静态链接允许更多优化发生，dll是动态链接库，lib文件其实就是指向ddl文件的指针，如果用不同的静态库，在运行时连接到ddl，会得到不匹配的函数</p>
+<ul>
+<li>
+<p>C++中如何处理多返回值</p>
+</li>
+<li>
+<p>C++模板,在哪里可以使用模板？在哪里不可以使用？</p>
+</li>
+</ul>
+<p>模板允许用户定义一个可以根据用途进行编译的模板，就是让编译器基于一个规则为人写代码</p>
+<pre tabindex="0"><code>template &lt;typename T&gt;
+void Print(T value){
+    std::count &lt;&lt; value &lt;&lt;std::endl;
+}
+Print&lt;std::string&gt;(5)
+</code></pre><p>T被string所替代</p>
+<p>模板只有在它被调用时才会被创建，因为它只是代码，才会被创建,报错取决于编辑器</p>
+<pre tabindex="0"><code>template&lt;T N&gt;
+class Array{
+private:
+    T m_Array[N];
+public:
+    int GetSize() const { return N;}
+}
+</code></pre><p>日志系统，包含不同类型的统一缓冲区时，但是模板变复杂容易找不到错误在哪</p>
+<ul>
+<li>C++中的堆与栈是如何分配内存的？</li>
+</ul>
+<pre tabindex="0"><code>int a=5;
+int* b =new int;
+*b =5;
+</code></pre><p>shift，又是堆栈</p>
+<p>应用程序启动后，操作系统要做的就是将整个程序加载到内存，并分配一大堆物理RAM，堆与栈是RAM中实际存在的两个区域，栈通常是一个预定义大小的内存区域，2M左右，堆也是预定义了默认值，但可以生长。我们的内存中有两个不同的区域，内存是用来实际存储数据的，需要另一个存储运行所需的数据，不管是局部变量还是从文件中读取的东西，当我们想要存储一个整数时，把栈指针移动4个字节，（就像一条CPU指令？）所以栈分配很快，而堆调用malloc的函数，浏览空闲列表，给一个指针，记录。</p>
+<ul>
+<li>auto自动推导类型，那么好用，为什么不全部用auto？</li>
+</ul>
+<p>迭代器声明可以用用，有些类型需要明确语义，如接口返回值，避免隐式转换</p>
+<ul>
+<li>静态数组std::array</li>
+</ul>
+<p>在栈上创建，有边界检查</p>
+<ul>
+<li>lambda</li>
+</ul>
+<p>在我们会设置函数指针指向函数的任何地方，都可以将它设置为lambda</p>
+<ul>
+<li>为什么需要结构体？</li>
+</ul>
+<pre tabindex="0"><code>struct Object{
+   int weight;
+   int value;
+} e[array_length];//一个类型为Object的数组
+
+const Object a；
+</code></pre><p>限制了成员元素的使用，避免混淆，有需要用到value[],Value[]，不同的结构体可以拥有相同名字的成员元素，同名的成员元素相互独立。访问/修改成员元素(*ptr).v=tmp,ptr-&gt;v=tmp修改结构体中的成员元素</p>
+<ul>
+<li>union和struct区别？</li>
+</ul>
+<p>union所有成员共享内存，而struct每个成员有独立内存，union大小=最大成员大小，struct大小&gt;=所有成员大小之和，union修改一个成员会影响其他成员，struct修改以一个成员不影响其他成员</p>
+<ul>
+<li>一些指针注意事项？</li>
+</ul>
+<p>指针变量的大小在不同环境下有差异。在 32 位机上，地址用 32 位二进制整数表示，因此一个指针的大小为 4 字节。而 64 位机上，地址用 64 位二进制整数表示，因此一个指针的大小就变成了 8 字节。</p>
+<pre tabindex="0"><code>int* pa = &amp;a；
+
+(*px).a=4;
+
+px-&gt;b =5;
+</code></pre><h3 id="c程序基本要素">C++程序基本要素</h3>
+<p>程序由语句组成，包括声明语句和执行语句</p>
+<p>语句由基本要素组成：标识符，关键字，常量（不占空间），变量，运算符，表达式</p>
+<p>C++对C的扩充</p>
+<ul>
+<li>C++函数声明不可以省略</li>
+<li>变量声明语句不要求放在函数和语句块的开始位置</li>
+<li>强制类型转换，增加形式 int（a），类似函数调用</li>
+<li>C++用new和delete运算符取代C中的malloc()和free()</li>
+<li>C++提供字符串类string，替代C字符数组</li>
+<li>C++用控制台输入输出流对象（iostream）替代C的stdio函数库，</li>
+</ul>
+<h3 id="数据类型">数据类型</h3>
+<ul>
+<li>基本数据类型：</li>
+</ul>
+<p>从低级到高级是自动转换，高级转低级会有风险，因为会丢掉一部分</p>
+<p>强制转换不安全，所以要指明，如</p>
+<pre tabindex="0"><code>float x=123.56;
+
+int i =(int)x
+</code></pre><ul>
+<li>为什么要有变量的类型？可以没有吗？</li>
+</ul>
+<p>变量类型确定长度，变量名确定起点，有了起点和长度，可以知道在内存中取的地址。如果一门语言设计的可以从其他地方知道终点，那就可以没有变量类型</p>
+<h3 id="数组">数组</h3>
+<p>一组具有相同类型数据的有序集合</p>
+<ul>
+<li>如何处理不同类型数据？</li>
+</ul>
+<p>结构体</p>
+<ul>
+<li>数组的维数为什么是常量表达式？</li>
+</ul>
+<p>因为要分配给定的空间，不可变（和编译器有关），所以不可以是变量</p>
+<p>！C++源程序编译时，为了保证编译和运行的效率，C++编译系统不对数组下标进行越界检查，程序运行时系统也不会提出越界警告，所以小心，以免破坏其他存储单元的数据</p>
+<p>一些初始化的特殊情况</p>
+<p>初始值的个数可以比数组元素个数少</p>
+<pre tabindex="0"><code>int a[2][3]={2,3,4};
+</code></pre><p>当提供全部初始值时，一维的长度可以省略</p>
+<pre tabindex="0"><code>float grade[]={90.0,75.0,85.0}
+int a[][3]={{2,4,6},{8,10,12}}
+</code></pre><h3 id="指针">指针</h3>
+<p>任何变量都有一个内存地址，该地址称为指针，而指针变量是一种存放内存地址的变量</p>
+<pre tabindex="0"><code>int* pointer;
+
+int a=10;
+
+int* pa=&amp;a;
+</code></pre><ul>
+<li>指针与数组</li>
+</ul>
+<p>指针代替下标引用数组元素，使数组的使用更加灵活有效，</p>
+<p>数组名表示数组在内存中的首地址（见数据类型问题）</p>
+<ul>
+<li>程序循环中的pa可以换成a吗？</li>
+</ul>
+<p>不可以，数组名就是常指针，而常指针不可变</p>
+<pre tabindex="0"><code>int a[]={0};
+
+int* pa=a;//a就是&amp;a[0]
+
+......
+result+=pa*;
+pa++;
+</code></pre><h3 id="字符串">字符串</h3>
+<p>C++语言没有提供字符串类类型，字符串变量作为以为字符串数组处理</p>
+<p>C++编译程序自动在字符串的末尾加上字符’\0‘（字符串结束符），求字符串长度时不能将它计算在内</p>
+<p>转义字符&rdquo;\&ldquo;&ldquo;表示双引号</p>
+<p>两种初始化写法，比较不同</p>
+<pre tabindex="0"><code>char s[]={&#34;hello&#34;};
+char s[]=&#34;hello&#34;;//6个元素
+
+char *ps = “hello”;
+const char *ps =&#34;hello&#34;;//C++ 11标准
+</code></pre><p>上面的常量是不占系统内存，拷贝一份到数组，但下面那个有指针指向它，占内存空间，只要有指针不被释放，就不能删内存空间。但是两者内存空间想用</p>
+<h3 id="const">const</h3>
+<p>必须初始化</p>
+<pre tabindex="0"><code>const int size2 =20;
+#define size1 20
+</code></pre><ul>
+<li>符号常量和const常量一样吗？该选哪个？</li>
+</ul>
+<p>推荐第一种。宏定义在预编译时作文本替换，不做类型检查，而const在编译时会进行类型检查</p>
+<ul>
+<li>常指针和常值变量指针</li>
+</ul>
+<pre tabindex="0"><code>double* const p1=&amp;x;//常指针，地址不能变
+const double *p2 =&amp;x;//常值变量指针，值不能变
+</code></pre><p>普通指针不能指向常值变量，常值变量不能指向普通指针</p>
+<h3 id="结构体">结构体</h3>
+<p>结构属于构造类型，是由多种类型的数据组成</p>
+<p>结构中的每个数据项位成员</p>
+<pre tabindex="0"><code>//定义结构体
+struct staffer{
+    int ID;
+    char name[20];
+    bool sex;
+    float salary;
+}
+</code></pre><p>例子:两种访问形式</p>
+<pre tabindex="0"><code>void eg2_11_0{
+    staffer employee1={110,&#34;liming&#34;,1,23678.39};
+    staffer employee2= employee1;
+    employee2.ID=234543;
+    staffer* pstaff = &amp;employee2;
+    pstaff -&gt; salary =1000.00;
+}
+</code></pre><p>数组名name即&amp;name[0]是个常值变量，所以不能写成employee2.name= &ldquo;WangPing&rdquo;;</p>
+<p>要写成拷贝字符串 strcpy(employee2.name,&ldquo;Wangping&rdquo;)</p>
+<h3 id="枚举">枚举</h3>
+<p>允许用符号常量代表数据</p>
+<pre tabindex="0"><code>enum Color {Red,Green,Blue};//Red对应0，Green对应1，Blue对应2，这是默认的
+Color color1 =Red;
+cout &lt;&lt; color1 &lt;&lt; endl;
+enum Weather {windy=2,rainy=-1,cloudy,sunny=3};//cloudy的常量是-1+1
+</code></pre><ul>
+<li>枚举类型有什么用？为什么不直接用枚举常量对应的数值？</li>
+</ul>
+<p>增加程序的可读性</p>
+<p>typedef</p>
+<p>对原有的数据类型定义一个新的名称</p>
+<pre tabindex="0"><code>typedef int INT32;
+INT32 i=1;//就是int i=1
+typedef struct tagDate{
+    int year;
+    int month;
+    int day;
+} DATE;
+
+INT32 i = 0;
+DATE today = {2025,4,1}
+</code></pre><ul>
+<li>使用typedef类型定义有什么用？</li>
+</ul>
+<p>增加程序的可移植性（不用全局改，只用改一句就行），可读性，用户自定义</p>
+<h3 id="控制语句">控制语句</h3>
+<pre tabindex="0"><code>if...else if ....else....
+
+switch{
+
+case &#39;A&#39;:
+
+    cout &lt;&lt; &#34;优秀&#34;;
+
+}
+</code></pre><p>注意加break！</p>
+<p>switch语句单入口多出库，一通百通</p>
+<p>如果没有break，几个case会一直执行下去</p>
+<ul>
+<li>for语句执行顺序？</li>
+</ul>
+<pre tabindex="0"><code>for(&lt;表达式1&gt;;&lt;表达式2&gt;;&lt;表达式3&gt;){
+
+  &lt;语句&gt;
+
+}
+</code></pre><p>先对表达式1求值，然后对表达式2求值，如果表达式2为真，执行循环体，执行完循环体，对表达式3求值，完成一次循环，再对表达式2求值，决定是否进行下一次循环</p>
+<p>do-while语句</p>
+<p>至少循环一次，先循环再判断</p>
+<ul>
+<li>三种循环语句比较？</li>
+</ul>
+<p>for：循环次数条件明确</p>
+<p>while：循环条件明确</p>
+<p>do&hellip;while&hellip;.至少循环一次</p>
+<h3 id="函数声明">函数声明</h3>
+<p>C++允许函数调用在前，定义在后</p>
+<ul>
+<li>此时要求在调用前必须进行函数声明，把函数名，函数类型，形参告诉编译系统，以便调用时进行语法检查，函数声明放*.h，函数定义放 *.cpp</li>
+</ul>
+<p>函数调用过程：中断当前函数的执行，将程序的执行流程转移到被调用函数，并将输参传递给形参，调用结束后返回主调函数</p>
+<p>例子：地址，引用</p>
+<pre tabindex="0"><code>void swap1(int* x,int* y){
+    int temp = *x;
+    *x =*y;
+    *y=temp;
+}
+void swap2(int&amp; x,int&amp; y){
+    int temp =x;
+    x=y;
+    y=temp;
+}
+swap1(&amp;a,&amp;b);
+swap2(a,b);
+</code></pre><h3 id="内联函数">内联函数</h3>
+<p>调用函数时，系统要进行现场处理工作，需要占用附加的现场处理时间</p>
+<ul>
+<li>把函数体直接嵌入函数调用处，则可消除附加的现场处理的事件开销，提高程序的运行效率</li>
+<li>调用内联函数时不发生控制转移，知识在编译时把函数体嵌入到调用出</li>
+</ul>
+<p>内联函数的定义：</p>
+<ul>
+<li>在函数头前加入关键字inline</li>
+<li>当编译程序遇到内联函数调用语句时，会将内联函数的函数体替换调用语句</li>
+</ul>
+<p>优缺点</p>
+<ul>
+<li>加快代码调用速度</li>
+<li>增加内存的空间开销</li>
+</ul>
+<p>函数默认参数</p>
+<ul>
+<li>
+<p>有多个默认参数，应该放在参数表的右侧</p>
+</li>
+<li>
+<p>调用时，若省略某实参，则该实参右边的所有实参都必须省略</p>
+</li>
+<li>
+<p>若省略实参，则默认值传递给形参</p>
+</li>
+</ul>
+<p>引用</p>
+<p>另一个变量的别名</p>
+<ul>
+<li>声明引用时，必须对其进行初始化</li>
+<li>编译器一般将引用实现为const指针，即指向位置不可变的指针，本质是同一个白能量并且占用相同的内存单元，只是名字不一样</li>
+</ul>
+<pre tabindex="0"><code>int i=10;
+int&amp; r=i;
+</code></pre><p>r和i占用的是同一个内存空间，只是两个不同名字</p>
+<p>引用一般作为函数参数，能让代码更好看</p>
+<h3 id="编译预处理指令">编译预处理指令</h3>
+<ul>
+<li>include文件包含</li>
+<li>define宏定义：不进行类型检查，注意宏的安全，带括号</li>
+</ul>
+<pre tabindex="0"><code>#define ((a)&gt;(b)?(a):(b))
+</code></pre><ul>
+<li>条件编译</li>
+</ul>
+<p>决定哪些源程序段将被编译，哪些源程序段将不被编译</p>
+<p>#if&hellip;&hellip;#else&hellip;&hellip;#endif&hellip;&hellip;</p>
+<p>主要作用：管理测试与生产代码</p>
+<h3 id="作用域和生存期区别和关系">作用域和生存期区别和关系</h3>
+<ul>
+<li>作用域是变量在源程序中的一段静态区域</li>
+<li>变量的生存期是指从创建到撤销（分配内存空间到释放）</li>
+<li>有些变量没有生存期，但有作用域，有时变量虽然在生存期，但不在作用域</li>
+</ul>
+<h3 id="变量的内存分配方式">变量的内存分配方式</h3>
+<p>自动分配（运行），静态分配（编译时），动态分配（运行时）</p>
+<h3 id="变量的存储类型">变量的存储类型</h3>
+<p>auto:内部变量，存储在栈上</p>
+<p>register：内部变量，存储在寄存器中</p>
+<p>extern：外部变量</p>
+<p>static：内部或外部变量</p>
+<p>未指定存储类型，内部默认为auto，外部默认为extern</p>
+<h3 id="作用域">作用域</h3>
+<p>例：全局变量</p>
+<pre tabindex="0"><code>extern int b
+</code></pre><p>引用外部变量，不开辟内存空间</p>
+<p>例：静态变量</p>
+<p>并不会因为函数调用结束而释放内存</p>
+<p>比较以下两种：</p>
+<pre tabindex="0"><code>void fun(){
+    int a=0;
+    a++;
+    cout &lt;&lt; &#34;a=&#34; &lt;&lt; a &lt;&lt; endl;
+}
+a=1,a=1
+void fun(){
+    static in a=0;
+    a++;
+    cout &lt;&lt; &#34;a=&#34; &lt;&lt; a &lt;&lt; endl;
+}
+a=1,a=2
+void exp(){
+    for(int i=0;i&lt;2;i++){
+    fun();
+    }
+}
+</code></pre><p>作用域限定符::</p>
+<pre tabindex="0"><code>int amout=123;//全局变量
+void sg2_33(){
+    int amount =456;//局部变量
+    cout&lt;&lt;::amout&lt;&lt;endl;//123
+    cout&lt;&lt;amout&lt;&lt;endl;//456
+}
+</code></pre><p>命名空间</p>
+<p>命名空间可避免全局标识符同名引起冲突，是对一些成员进行声明的一个描述性区域</p>
+<p>引入命名空间后，标准C++库都定义在std中（using namespace std）</p>
+<h3 id="函数的存储类型">函数的存储类型</h3>
+<p>内部函数static：只能被以同一个源文件中的函数调用</p>
+<p>外部函数extern：可以被其他源文件中的函数调用</p>
+<h3 id="动态分配内存">动态分配内存</h3>
+<p>动态分配是指在程序运行时为程序中的变量分配内存空间，它完全由应用程序自己进行内存的分配和释放，在堆上分配</p>
+<p>（一般来说，编译器在编译阶段就自动将管理这些空间的代码加入到目标文件中，程序运行后由系统自动为变量分配内存空间，在作用域结束后自动释放内存空间）</p>
+<h3 id="内存的动态分配与释放">内存的动态分配与释放</h3>
+<p>C语言中，动态内存分配时通过调用标准库malloc()和free()实现</p>
+<p>C++中，利用new和delete进行动态内存的分配释放</p>
+<pre tabindex="0"><code>&lt;指针变量&gt; = new &lt;数据类型&gt;；
+
+delete &lt;指针变量&gt;；
+
+delete[]&lt;指针变量&gt;；//释放动态数组
+</code></pre><p>例子：编程输出斐波那契数列</p>
+<pre tabindex="0"><code>void eg2_36(){
+     int *f,n;
+     cin &gt;&gt; n;
+     f=new int[n+1];
+     if(n==nullptr||n&lt;1){
+         cout &lt;&lt; &#34;Heap error&#34;
+         return;
+     }
+     f[0]=f[1]=1;
+     cout &lt;&lt; f[0] &lt;&lt; f[1] &lt;&lt;endl;
+     for(int i=2;i&lt;=n;i++){
+         f[i]=f[i-1]+f[i-2];
+         cout &lt;&lt; f[i] &lt;&lt;endl;
+     }
+     delete []f;
+}
+</code></pre><h3 id="构造函数和析构函数">构造函数和析构函数</h3>
+<ul>
+<li>如何初始化成员变量？</li>
+</ul>
+<p>成员变量一般都为私有属性，也不能在声明对象后利用赋值运算对成员变量进行初始化，成员变量的初始化一般时利用构造函数来完成</p>
+<ul>
+<li>构造函数：创建对象是系统自动调用的成员函数</li>
+<li>析构函数：对象生存期结束时系统自动调用的成员函数</li>
+</ul>
+<h3 id="重载">重载</h3>
+<p>函数重载，运算符重载，函数名相同函数参数的类型不同</p>
+<p>例子：构造函数重载</p>
+<pre tabindex="0"><code>class Box{
+public:
+Box();
+Box(double h);
+Box(double h,double w);
+Box(double h,double w,double d);
+}
+//超级构造函数
+Box(double h=0,doubke w =0,double d=0);
+</code></pre><p>重载规则</p>
+<ul>
+<li>
+<p>以下非法</p>
+</li>
+<li>
+<p>返回类型不能不同</p>
+</li>
+</ul>
+<p>long fun(int);</p>
+<p>float fun(int);</p>
+<ul>
+<li>不能利用引用重载</li>
+</ul>
+<pre tabindex="0"><code>void fun(int&amp;)
+
+void fun(int)
+</code></pre><ul>
+<li>const可用于重载</li>
+</ul>
+<pre tabindex="0"><code>void fun();
+
+void fun() const;
+</code></pre><p>运算符重载</p>
+<ul>
+<li>输出流运算符函数原型</li>
+</ul>
+<p>ostream&amp; operator&laquo;(ostream&amp; os,&lt;操作对象&gt;)</p>
+<ul>
+<li>加法运算符函数原型</li>
+</ul>
+<p>&lt;返回类型&gt; operator+(&lt;操作对象&gt;，&lt;操作对象&gt;)</p>
+<ul>
+<li>自增运算符函数类型</li>
+</ul>
+<p>&lt;返回类型&gt; operator++(&lt;操作对象&gt;)</p>
+<ul>
+<li>下标运算符函数类型</li>
+</ul>
+<p>&lt;返回类型&gt;&amp; operator[&lt;操作对象&gt;，int i]</p>
+<p>例子：加法运算符重载，复数相加(普通函数)</p>
+<pre tabindex="0"><code>class CComplex{
+private:
+    double r,i;
+public:
+    CComplex(double r=0,double i=0);
+    virtual ~CComplex();
+    friend CComplex operator+(CComplex c1,CComplex c2);
+};
+CComplex operator+(CComplex c1,CComplex c2){
+    CComplex Ctemp;
+    CTemp.r = c1.r+c2.r;
+    CTemp.i = c1.i+c2.e;
+    return CTemp;
+}
+</code></pre><p>例子：自增运算符重载</p>
+<pre tabindex="0"><code>class Counter{
+private:
+    int value;
+public:
+    Counter(){ value = 0;}
+    Counter operator++();//前缀运算符
+    Counter operator++(int);//后缀运算符
+    void display(){
+        cout &lt;&lt; &#34;value:&#34;&lt;&lt;value &lt;&lt; endl;
+    }
+};
+Counter Counter::operator++(){
+    value++;
+    return *this;
+}
+Counter Counter::operator++(int){
+    Counter temp;
+    temp.value=this-&gt;value++;
+    return temp;
+}
+</code></pre><p>写成++i前缀运算符效率更高，不用创建临时变量</p>
+<h3 id="模板">模板</h3>
+<p>函数模板</p>
+<p>编译器根据函数实参的数据类型确定模板参数T，再自动生成对应的函数，即模板函数</p>
+<pre tabindex="0"><code>template &lt;class T&gt;;
+T my_abs(T val){
+return (val&lt;0)?-val : val;
+}
+void eg4_22(){
+    int i=100;
+    long l=-123456L;
+    float f=-12.78F;
+    cout&lt;&lt;my_abs(i)&lt;&lt; my_abs(l)&lt;&lt;my_abs(f)&lt;&lt;endl;
+}
+</code></pre><p>类模板</p>
+<pre tabindex="0"><code>//内部定义成员函数
+template &lt;typename T&gt;
+class MyTemClass{
+private:
+    T x;
+public:
+    void setX(T a){ x=a;}
+    void getX(){ return x;}
+}
+//外部定义成员函数
+template &lt;typename T1&gt;
+void MyTemClass&lt;T1&gt;::setX(T1 x)
+{
+    this-&gt;x=x;
+}
+template &lt;typename T&gt;
+void MyTemClass&lt;T&gt;::getX(){
+    return this-&gt;x;
+}
+</code></pre><p>含多个参数的类模板</p>
+<pre tabindex="0"><code>template &lt;typename T1,int i,typename T2&gt;
+class MyClassM{};
+//实例化
+MyclassM&lt;int,100,float&gt; MyObject;
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Mar 30, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-03-25-%E5%B8%B8%E7%94%A8%E6%9D%BF%E5%AD%90/" title="常用板子">常用板子</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-04-05-os/" title="OS">OS</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

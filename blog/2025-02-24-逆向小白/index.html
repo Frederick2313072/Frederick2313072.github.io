@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>逆向小白</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Feb 24, 2025
+     - 6 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-02-24-%E9%80%86%E5%90%91%E5%B0%8F%E7%99%BD/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     逆向小白 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <pre tabindex="0"><code># F系列【主要是调试状态的处理】
+F2 添加/删除断点
+F4 运行到光标所在位置
+F5 反汇编
+F7 单步步入
+F8 单步跳过
+F9 持续运行直到输入/断点/结束
+shift系列【主要是调出对应的页面】
+shift+F1 Local types
+shift+F2 execute scripts【常用】
+shift+F3 Functions
+shift+F4 Names
+shift+F5 Signatures
+shift+F7 Segments
+shift+F8 Segments registers
+shift+F9 Structures
+shift+F10 Enumerations
+shift+F11 Type libraries
+shift+F12 Strings【常用】
+Shift+E 导出数据【常用】
+
+# 单字符系列【基本是数据处理转换相关】【这些都比较常用】
+G 按地址查找
+D 将字符串等元素转为数据
+N 重命名（函数名、变量名等）
+Y 修改变量类型等（比如int改char等等）
+H decimal 数据的进制快速转换
+A 将数据转变为字符串类型
+C code（将数据转变为汇编代码，分为自动和强制执行）
+U undefined（将字符串转变为原始数据）
+X 交叉引用（反汇编页面）
+P 选中位置识别为函数
+
+# Ctrl、Alt系列
+Ctrl+F 搜索【常用】
+Ctrl+X 交叉引用（汇编页面）【常用】
+Alt+T 查找Text
+Ctrl+T 查找下一个text
+Alt+C Next Code
+Ctrl+D Next Data
+Ctrl+Z 撤销
+Ctrl+Shift+Z 恢复
+Alt+K 修改堆栈值
+
+# else
+/ 添加注释 or 右键选择edit comment【常用】
+\ hide cast，隐藏/显示一些变量类型注解
+Ins 添加区块注释
+</code></pre><h3 id="通用寄存器">通用寄存器</h3>
+<ul>
+<li>EAX：（针对操作数和结果数据的）累加器</li>
+<li>EBX：（DS段的数据指针）基址寄存器</li>
+<li>ECX：（字符串和循环操作的）计数器</li>
+<li>EDX：（I/O指针）数据寄存器</li>
+<li>ESI：（字符串操作源指针）源变址寄存器</li>
+<li>EDI：（字符串操作目标指针）目的变址寄存器</li>
+<li>EBP：（SS段中栈内数据指针）扩展基址指针寄存器[栈帧寄存器、栈底指针寄存器]</li>
+<li>ESP：（SS段中栈指针）栈指针寄存器[指向栈顶]</li>
+</ul>
+<h3 id="段寄存器">段寄存器</h3>
+<ul>
+<li>CS：代码段寄存器</li>
+<li>SS：栈段寄存器</li>
+<li>DS：数据段寄存器</li>
+<li>FS：数据段寄存器</li>
+<li>ES：附加数据寄存器</li>
+<li>GS：数据段寄存器</li>
+</ul>
+<h3 id="程序状态与控制寄存器">程序状态与控制寄存器</h3>
+<ul>
+<li>EFLAGS：标志寄存器，32个位元的01控制</li>
+<li>ZF(零标志器，运算结果为0时置1)</li>
+<li>CF(进位标志，运算结果向最高位以上进位时置1)</li>
+<li>OF(溢出标志)</li>
+<li>AF(辅助进位标志，运算结果在第3位的时候置1)</li>
+<li>SF(符号标志，有符号整型的符号位为1时置1)</li>
+</ul>
+<h3 id="指令指针寄存器">指令指针寄存器</h3>
+<ul>
+<li>EIP / RIP：保存CPU要执行的指令地址</li>
+</ul>
+<h3 id="常用指令">常用指令</h3>
+<blockquote>
+<p>操作码 目的操作数 源操作数</p></blockquote>
+<ul>
+<li>PUSH/POP：压栈/出栈</li>
+<li>PUSHA/POPA 、 PUSHAD/POPAD</li>
+<li>MOV/CALL/RET/LEA/INT/EMD：传送 / 调用 / 返回 / 加载 / 中断 / 结束</li>
+<li>CMP/TEST：比较/测试（结果丢弃，只修改标志位寄存器）</li>
+<li>JMP系列跳转指令</li>
+<li>ADD/SUB/SHL/SHR/ROL/ROR：加 / 减 / 逻辑左移 / 逻辑右移 / 循环左移 / 循环右移</li>
+<li>INC/DEC ：加一 / 减一</li>
+<li>MUL/IMUL：无符号乘法、整数乘法</li>
+<li>DIV/IDIV：无符号除法、整数除法</li>
+<li>AND/XOR/OR/NOT：与 / 异或 / 或 / 取反</li>
+</ul>
+<h3 id="栈帧">栈帧</h3>
+<pre tabindex="0"><code>PUSH EBP          ;函数开始
+MOV  EBP,ESP      ;将栈顶地址存入EBP中
+
+....              ;函数执行，期间EBP地址不变
+
+MOV  ESP,EBP      ;基准点地址给到ESP
+POP EBP           ;栈状态恢复，弹出EBP
+RETN              ;函
+</code></pre><h3 id="ida常用脚本">IDA常用脚本</h3>
+<blockquote>
+<p>IDC&amp;python，具体可以看IDA的官方书籍</p></blockquote>
+<h4 id="idc">IDC</h4>
+<pre tabindex="0"><code>//获取寄存器的值
+auto eax = GetRegValue(&#34;EAX&#34;);
+auto addr = 0x0;
+auto i = 0;
+for(i; i &lt; 10; i = i+1)
+{
+    //打印字节
+	Message(&#34;%x&#34;,Byte(addr+i));
+    //修改字节
+	PatchByte(addr+i,Byte());
+}
+//dump数据
+auto i,fp;
+
+fp = fopen(&#34;D:\\dump2&#34;,&#34;wb&#34;);
+
+for(i=0x10;i&lt;0x12;i++)
+    fputc(Byte(i),fp);
+print(&#34;end&#34;);
+</code></pre><h4 id="python">python</h4>
+<pre tabindex="0"><code># 导入头文件
+from idaapi import *
+# 获取寄存器的值
+espval = get_reg_val(&#39;esp&#39;)
+# 获取字节值ida_bytes.get_word()
+value = ida_bytes.get_word(address)
+# 获取16字节长度的数据
+ida_bytes.get_bytes(address, 16)
+</code></pre><h2 id="easy动态调试">easy动态调试</h2>
+<p>思路：把不在主函数里面的函数运行下就行</p>
+<p>EIP修改为_ques函数的地址F9运行就行，拿到Flag</p>
+<p><img src="image-20250220194907446.png" alt=""></p>
+<h2 id="ez_xor">ez_xor</h2>
+<p>下面是XOR的encode函数</p>
+<p><img src="image-20250220202722479.png" alt=""></p>
+<p>一开始想了下a2是什么，发现就是传参</p>
+<p><img src="image-20250220202816494.png" alt=""></p>
+<pre tabindex="0"><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+int main(int argc, char const *argv[])
+{
+    char flag1[] = &#34;E`}J]OrQF[V8zV:hzpV}fVF[t&#34;;
+    char flag[] = &#34;&#34;;
+    for (int i = 0; i &lt; strlen(flag1); i++)
+    {
+        flag1[i] ^= 3 * 3;
+        printf(&#34;%s\n&#34;, flag1);
+    }
+}
+</code></pre><p>好无聊啊，想做PWN题了</p>
+<h2 id="xor">XOR</h2>
+<p>这道题主要是array要看懂</p>
+<p><img src="image-20250220205242212.png" alt=""></p>
+<pre tabindex="0"><code>\#include &lt;stdio.h&gt;
+
+\#include &lt;stdlib.h&gt;
+
+\#include &lt;string.h&gt;
+
+int main(int argc, char const *argv[])
+
+{
+
+  int flag1[] = {0x3FE, 0x3EB, 0x3EB, 0x3FB, 0x3E4, 0x3F6, 0x3D3, 0x3D0, 0x388, 0x3CA, 0x3EF, 0x389, 0x3CB, 0x3EF, 0x3CB, 0x388, 0x3EF, 0x3D5, 0x3D9, 0x3CB, 0x3D1, 0x3CD};
+
+  char flag[] = {};
+
+  for (int i = 0; i &lt; 21; i++)
+
+  {
+
+​    flag[i] = (flag1[i] - 900) ^ 0x34;
+
+​    printf(&#34;%c&#34;, flag[i]);
+
+  }
+
+  return 0;
+
+}
+</code></pre><h2 id="crakemev3">CrakeMEV3</h2>
+<p><img src="image-20250220214716655.png" alt=""></p>
+<p>意思是要读取一个同目录下名为CRACJME3.KEY的文件，试过如果文件名不叫这个，调试暂停</p>
+<p><img src="image-20250220215328482.png" alt=""></p>
+<p>看到写在CRACKME3.KEY的字符，步进查看函数</p>
+<h2 id="abexcrakeme3">abexcrakeme3</h2>
+<p><img src="image-20250221104610036.png" alt=""></p>
+<p><img src="image-20250221104657538.png" alt=""></p>
+<p>思路：要找一本abex.l2c文件，那就自己创建一个，下面还有两个比较跳转，直接爆破，把两个jne nop掉，秒了</p>
+<h2 id="cosh1exe">cosh1.exe</h2>
+<p><img src="image-20250221110115698.png" alt=""></p>
+<p>第一个爆破点：把jz换成jmp，强制跳转，不用看条件</p>
+<p>继续找，在函数头下断点，由于程序已经运行，直接按check for CD</p>
+<p><img src="image-20250221110646054.png" alt=""></p>
+<p><img src="image-20250221113816407.png" alt=""></p>
+<p>算法：就是在各种光驱里面循环查找，找有没CD_CHECK.DAT的文件</p>
+<h2 id="acid_burn">Acid_burn</h2>
+<p>第一个serial incorrect jge改成jmp</p>
+<p><img src="image-20250221120637530.png" alt=""></p>
+<p>第二个serial jnz给nop掉</p>
+<p><img src="image-20250221120910309.png" alt=""></p>
+<p>秒了</p>
+<p><img src="image-20250221121202503.png" alt=""></p>
+<p>算法分析：看右上角寄存器，自己输入1234放在寄存器EDX中，EAX是一段字符串，猜测明文是&quot;CW-4018-CRACKED&quot;</p>
+<p><img src="image-20250221124625217.png" alt=""></p>
+<p>拖到IDA中分析，找CRACKED所在的函数，差不多就是下面一段</p>
+<p><img src="image-20250221130051852.png" alt=""></p>
+<pre tabindex="0"><code>void Decryption(char* mima)
+{
+    char szBuff[260];
+    unsigned long data = (unsigned long)mima[0];
+    data *= 0X29;
+    data *= 2;
+    sprintf(szBuff, &#34;CW-%d-CRACKED&#34;, data);
+    printf(&#34;%s \r\n&#34;, szBuff);
+}
+</code></pre><h2 id="fakebase">fakebase</h2>
+<pre tabindex="0"><code>flag = &#39;xxxxxxxxxxxxxxxxxxx&#39;
+
+s_box = &#39;qwertyuiopasdfghjkzxcvb123456#$&#39;
+
+tmp = &#39;&#39;
+
+for i in flag:
+
+  tmp += str(bin(ord(i)))[2:].zfill(8) # 将每个字符转换为二进制字符串，并填充到 8 位
+
+b1 = int(tmp,2) # 将拼接后的二进制字符串转换为十进制整数
+
+s = &#39;&#39;
+
+while b1//31 != 0:
+
+  s += s_box[b1%31]# 将余数映射到 s_box 中的字符，并拼接到 s 中
+
+  b1 = b1//31
+
+print(s)
+
+\# s = u#k4ggia61egegzjuqz12jhfspfkay
+</code></pre><h2 id="动态调试crackme">动态调试crackme</h2>
+<p><img src="image-20250221171646290.png" alt=""></p>
+<p>经分析，string1和string2的子串比对，进而输出判断结果，在判断结束的地方下断点，ExitProcess(0)</p>
+<p><img src="image-20250221172154167.png" alt=""></p>
+<p>XDBG调试</p>
+<p>要求Name输入crackme</p>
+<p><img src="image-20250221174042727.png" alt=""></p>
+<p><img src="image-20250221173840412.png" alt=""></p>
+<p>一步步直到出现This serial sucks，回过去看看和那个字段做了比较，要比较的字段就是正确的serial</p>
+<p>一般在stramp下断点</p>
+<p>QA:为什么在程序失败返回才能出现正确的序列号</p>
+<h2 id="swpuctf-2021-新生赛fakebase">[SWPUCTF 2021 新生赛]fakebase</h2>
+<pre tabindex="0"><code>flag = &#39;xxxxxxxxxxxxxxxxxxx&#39;
+
+s_box = &#39;qwertyuiopasdfghjkzxcvb123456#$&#39;
+
+tmp = &#39;&#39;
+
+for i in flag:
+
+  tmp += str(bin(ord(i)))[2:].zfill(8)
+
+b1 = int(tmp,2)
+
+s = &#39;&#39;
+
+while b1//31 != 0:
+
+  s += s_box[b1%31]
+
+  b1 = b1//31
+
+print(s)
+
+\# s = u#k4ggia61egegzjuqz12jhfspfkay
+</code></pre><p>将flag中每个字符影射为字符集的code point, 转换为二进制, 再转换为十进制, 再转换为最低位在前的31进制,</p>
+<p>先把s逆回去</p>
+<pre tabindex="0"><code>import libnum
+s=&#34;u#k4ggia61egegzjuqz12jhfspfkay&#34;[::-1]
+s_box = &#39;qwertyuiopasdfghjkzxcvb123456#$&#39;
+print(s)
+for i in range(5):
+    key = i
+    for j in range((len(s))):
+        key = key *31 + s_box.index(s[j])
+        print(libnum.n2s(int(key)))
+</code></pre><p>看着答案，想起大一高代学的辗转相除，就是欧几里得算法</p>
+<p>扩展欧几里得算法可用于
+<a href="https://baike.baidu.com/item/RSA/210678?fromModule=lemma_inlink" target="_blank" rel="noopener">RSA</a>加密等领域。</p>
+<p>假如需要求 1997 和 615 两个正整数的最大公约数,用欧几里得算法，是这样进行的：</p>
+<p>1997 ÷ 615 = 3 (余 152)</p>
+<p>615 ÷ 152 = 4(余7)</p>
+<p>152 ÷ 7 = 21(余5)</p>
+<p>7 ÷ 5 = 1 (余2)</p>
+<p>5 ÷ 2 = 2 (余1)</p>
+<p>2 ÷ 1 = 2 (余0)</p>
+<p>至此，最大公约数为1</p>
+<p>以
+<a href="https://baike.baidu.com/item/%e9%99%a4%e6%95%b0/485249?fromModule=lemma_inlink" target="_blank" rel="noopener">除数</a>和
+<a href="https://baike.baidu.com/item/%e4%bd%99%e6%95%b0/6180737?fromModule=lemma_inlink" target="_blank" rel="noopener">余数</a>反复做除法运算，当余数为 0 时，取当前
+<a href="https://baike.baidu.com/item/%e7%ae%97%e5%bc%8f/1950558?fromModule=lemma_inlink" target="_blank" rel="noopener">算式</a>除数为最大公约数，所以就得出了 1997 和 615 的最大公约数 1。</p>
+<h3 id="证法一">证法一</h3>
+<p>a可以表示成a = kb + r（a，b，k，r皆为正整数，且r不为0）</p>
+<p>假设d是a,b的一个
+<a href="https://baike.baidu.com/item/%e5%85%ac%e7%ba%a6%e6%95%b0/1063409?fromModule=lemma_inlink" target="_blank" rel="noopener">公约数</a>，记作d|a,d|b，即a和b都可以被d整除。</p>
+<p>而r = a - kb，两边同时除以d，r/d=a/d-kb/d，由
+<a href="https://baike.baidu.com/item/%e7%ad%89%e5%bc%8f/3517693?fromModule=lemma_inlink" target="_blank" rel="noopener">等式</a>右边可知m=r/d为整数，因此d|r</p>
+<p>因此d也是b,a mod b的公约数。</p>
+<p>因(a,b)和(b,a mod b)的公约数相等，则其最大公约数也相等，得证。</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Feb 24, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-02-24-%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" title="数理统计">数理统计</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-02-24-%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" title="逆向核心原理">逆向核心原理</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

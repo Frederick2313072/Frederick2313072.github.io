@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>SQL必知必会例子</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Dec 5, 2024
+     - 2 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2024-12-05-sql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E4%BE%8B%E5%AD%90/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://Frederick2313072.github.io/blog/2024-12-05-sql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E4%BE%8B%E5%AD%90/">SQL必知必会例子</a>
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> RTRIM(vend_name) <span style="color:#719e07">+</span> <span style="color:#2aa198">&#39;(&#39;</span><span style="color:#719e07">+</span>   <span style="color:#586e75">--右边取消空格
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>RTRIM(vend_country) <span style="color:#719e07">+</span> <span style="color:#2aa198">&#39;)&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#719e07">AS</span> vend_title
+</span></span><span style="display:flex;"><span><span style="color:#719e07">From</span> Vendors
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> vend_name;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> prod_id,quantity,item_price,quantity<span style="color:#719e07">*</span>item_price
+</span></span><span style="display:flex;"><span><span style="color:#719e07">AS</span> expanded_price
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> OrderItems;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> vend_name,<span style="color:#719e07">UPPER</span>(vend_name) <span style="color:#586e75">--大写
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">AS</span> vend_name_upcase
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Vendors
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> vend_name;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> cust_name,cust_contact
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Customers
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> SOUNDEX(cust_contact) <span style="color:#719e07">=</span> SOUNDEX(<span style="color:#2aa198">&#39;Michael Green&#39;</span>); <span style="color:#586e75">--近似发音
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">SELECT</span> order_num
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Orders
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> DATEPART(yy,order_date) <span style="color:#719e07">=</span> <span style="color:#2aa198">2020</span>;  
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">AVG</span>(prod_price) <span style="color:#719e07">AS</span> avg_price <span style="color:#586e75">--取平均值
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">FROM</span> Products
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> vend_id <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;DLL01&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>)<span style="color:#719e07">AS</span> num_cust <span style="color:#586e75">--对所有行计数
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">FROM</span> Customers;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">MAX</span>(prod_price) <span style="color:#719e07">AS</span> max_price
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Products;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">SUM</span>(quantity<span style="color:#719e07">*</span>item_price) <span style="color:#719e07">AS</span>
+</span></span><span style="display:flex;"><span>items_ordered
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> OrderItems
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span> <span style="color:#2aa198">20005</span>;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">AVG</span>(<span style="color:#719e07">DISTINCT</span> prod_price) <span style="color:#719e07">AS</span> avg_price
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Products
+</span></span><span style="display:flex;"><span><span style="color:#719e07">Where</span> vend_id <span style="color:#719e07">=</span><span style="color:#2aa198">&#39;DLL01&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>) <span style="color:#719e07">AS</span> num_items,<span style="color:#719e07">MIN</span>(prod_price) <span style="color:#719e07">AS</span> price_min,<span style="color:#719e07">MAX</span>(prod_price) <span style="color:#719e07">AS</span> proce_max,<span style="color:#719e07">AVG</span>(prod_price) <span style="color:#719e07">AS</span> price_avg <span style="color:#586e75">--组合聚集函数
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">FROM</span> products;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> vend_id,<span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>) <span style="color:#719e07">AS</span> num_prods
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Products
+</span></span><span style="display:flex;"><span><span style="color:#719e07">Group</span> <span style="color:#719e07">BY</span> vend_id
+</span></span><span style="display:flex;"><span><span style="color:#719e07">HAVING</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>) <span style="color:#719e07">&gt;=</span> <span style="color:#2aa198">2</span>;<span style="color:#586e75">--过滤分组，group by 和 having结合
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> order_num,<span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>)<span style="color:#719e07">AS</span> items
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> OrderItems
+</span></span><span style="display:flex;"><span><span style="color:#719e07">Group</span> <span style="color:#719e07">BY</span> order_num
+</span></span><span style="display:flex;"><span><span style="color:#719e07">HAVING</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>) <span style="color:#719e07">&gt;=</span> <span style="color:#2aa198">3</span><span style="color:#586e75">--检索包含三个或更多物品的订单号和订购物品的数目
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> items,order_num;<span style="color:#586e75">--按订购物品的数目排序输出，having在group by前，order by后
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> cust_id
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> OrderItems
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> prod_id <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;RGAN01&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> cust_id
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Orders
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">IN</span> (<span style="color:#2aa198">20007</span>,<span style="color:#2aa198">20008</span>);
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> cust_id
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Orders
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">IN</span> (<span style="color:#719e07">SELECT</span> cust_id
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Orders
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">IN</span> (<span style="color:#2aa198">20007</span>,<span style="color:#2aa198">20008</span>));<span style="color:#586e75">--建立以上的子查询，由内向外
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> cust_name,cust_state,(<span style="color:#719e07">SELECT</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>)<span style="color:#719e07">FROM</span> Orders <span style="color:#719e07">WHERE</span> Orders.cust_id<span style="color:#719e07">=</span>Customers.cust_id) <span style="color:#719e07">AS</span> orders <span style="color:#586e75">--子查询对检索出的每个顾客执行一次，用句点避免混淆列名
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">FROM</span> Customers
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> cust_name;<span style="color:#586e75">--对于检索出的每个顾客，统计其在Orders表中的订单数目
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> vend_name,prod_name,prod_price
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Vendors,Products
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> Vendors.vend_id <span style="color:#719e07">=</span> Products.vend_id;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">BEGIN</span> <span style="color:#719e07">TRANSACTION</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">DELETE</span> OrderItems <span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span><span style="color:#2aa198">12345</span>
+</span></span><span style="display:flex;"><span>SAVE <span style="color:#719e07">TRANSACTION</span> delete1;<span style="color:#586e75">--使用保留点delete1，保留点越多越好，额能进行灵活的回退
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">DELETE</span> Orders
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span><span style="color:#2aa198">12345</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ROLLBACK</span> <span style="color:#719e07">TRANSACTION</span> delete1;<span style="color:#586e75">--回退到保留点delete1
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">COMMIT</span> <span style="color:#719e07">TRANSACTION</span><span style="color:#586e75">--控制事物处理，最后的commit仅在中间过程不出错的情况下写出更改
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">BEGIN</span> <span style="color:#719e07">TRANSACTION</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">DELETE</span> OrderItems <span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span><span style="color:#2aa198">12345</span>
+</span></span><span style="display:flex;"><span>SAVE <span style="color:#719e07">TRANSACTION</span> delete1;<span style="color:#586e75">--使用保留点delete1，保留点越多越好，额能进行灵活的回退
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">DELETE</span> Orders
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span><span style="color:#2aa198">12345</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ROLLBACK</span> <span style="color:#719e07">TRANSACTION</span> delete1;<span style="color:#586e75">--回退到保留点delete1
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">COMMIT</span> <span style="color:#719e07">TRANSACTION</span><span style="color:#586e75">--控制事物处理，最后的commit仅在中间过程不出错的情况下写出更改
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">DECLARE</span> <span style="color:#719e07">CURSOR</span> CustCursor
+</span></span><span style="display:flex;"><span><span style="color:#719e07">IS</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">*</span> <span style="color:#719e07">FROM</span> Customers
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> cust_email <span style="color:#719e07">IS</span> <span style="color:#719e07">NULL</span>;
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ALTER</span> <span style="color:#719e07">TABLE</span> Vendors
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ADD</span> <span style="color:#719e07">CONSTRAINT</span> 
+</span></span><span style="display:flex;"><span><span style="color:#719e07">PRIMARY</span> <span style="color:#719e07">KEY</span>(vend_id)<span style="color:#586e75">--设置主键，DBMS默认主键基本不修改或更新，不能重用
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">ALTER</span> <span style="color:#719e07">TABLE</span> Orders
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ADD</span> <span style="color:#719e07">CONSTRAINT</span> 
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FOREIGN</span> <span style="color:#719e07">KEY</span> (cust_id) <span style="color:#719e07">REFERENCES</span> Customers(cust_id);<span style="color:#586e75">--将此表中的cust_id设置为Customers的主键，即外键。外键有助防止意外删除，若删除，级联删除
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">CREATE</span> <span style="color:#719e07">INDEX</span> prod_name_ind<span style="color:#586e75">--索引名
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">ON</span> Products(prod_name)<span style="color:#586e75">--被索引的表，列
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">CREATE</span> <span style="color:#719e07">TRIGGER</span> customer_state
+</span></span><span style="display:flex;"><span><span style="color:#719e07">ON</span> Customers
+</span></span><span style="display:flex;"><span><span style="color:#719e07">FOR</span> <span style="color:#719e07">INSERT</span>,<span style="color:#719e07">UPDATE</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">AS</span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">UPDATE</span> Customers
+</span></span><span style="display:flex;"><span><span style="color:#719e07">SET</span> cust_state<span style="color:#719e07">=</span><span style="color:#719e07">Upper</span>(cust_state)
+</span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> Customers.cust_id <span style="color:#719e07">=</span> inserted.cust_id;<span style="color:#586e75">--创建一个触发器，对所有INSERT和UPDATE操作，将cust_state转为大写
+</span></span></span></code></pre></div>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Dec 5, 2024</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2024-12-02-plan-after-this-semester/" title="Plan after this semester">Plan after this semester</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2024-12-09-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%B9%A0%E9%A2%98%E7%AD%94%E6%A1%88/" title="数据库系统概论第一章习题答案">数据库系统概论第一章习题答案</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

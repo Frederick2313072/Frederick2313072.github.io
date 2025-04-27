@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>汇编语言</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Feb 24, 2025
+     - 5 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-02-24-%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     汇编语言 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>编辑：vim/edit</p>
+<p>编译：masm</p>
+<p>链接：link</p>
+<p>将内存2000:0，2000:1,2000:2,2000:3单元中的数据送入al,bl,cl,dl中</p>
+<pre tabindex="0"><code>mov ax,2000
+
+mov ds,ax;段地址2000h送入ds
+
+mov bx,0;偏移地址0送入bx
+
+mov al,[bx];ds:bx单元中的数据送入al
+</code></pre><pre tabindex="0"><code>mov ax,2000
+
+mov ds,ax;段地址2000h送入ds
+
+mov al,ds:[0]
+</code></pre><h3 id="比较">比较</h3>
+<pre tabindex="0"><code>mov al,[0];将常量0送入al中
+
+mov al,ds:[0];(al)=((ds)*16+0)
+
+mov al,ds:[bx];(al)=((ds)*16+(bx))
+
+mov al,ds:[bx];与上面相同
+</code></pre><h3 id="循环">循环</h3>
+<pre tabindex="0"><code>assume cs:code
+
+code segment
+
+​    mov ax,0ffffh
+
+​    mov ds,ax;初始化ds:bx指向ffff:0
+
+​    mov bx,0;初始化累加寄存器dx,(dx)=0
+
+​    mov cx,12;初始化循环计数寄存器
+
+s:  mov al,[bx]
+
+​    mov ah,0
+
+​    add dx,ax;间接向dx中加上((ds)*16+(bx))的数值
+
+​    inc bx
+
+​    loop s
+
+   
+
+​    mov ax,4c00h
+
+​    int 21h
+
+code ends
+
+end
+</code></pre><h3 id="复制">复制</h3>
+<pre tabindex="0"><code>assume cs:code
+
+code segment
+
+​    mov bx,0；偏移位置从0开始
+
+​    mov cx,12；循环12次
+
+
+
+s:  mov ax,0fffh
+
+​    mov ds,ax；(ds)=0ffffh
+
+​    mov dl,[bx]；(dl)=((ds)*16+(bx))，将ffff:bx中的数据送入dl
+
+​    mov ax,0020h
+
+​    mov ds,ax；（ds)=0020h
+
+​    mov [bx],dl；（(ds)*16+bx）=(dl),将dl的数据送入0020:bx
+
+​    inc bx；偏移位置加1
+
+​    loop s
+
+​    mov ax,4c00h
+
+​    int 21h
+
+code ends
+
+end  
+</code></pre><h3 id="代码段中使用栈">代码段中使用栈</h3>
+<pre tabindex="0"><code>assume cs:codesg
+
+codesg segment
+
+​     dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h
+
+​    dw 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0;用dw定义16个字型数据，在程序加载后，将取得16个字的内存空间，存放16个数据，在后面的程序中将这段空间当作栈来使用
+
+start: mov ax,cs
+
+​        mov ss,ax
+
+​        mov sp,30h
+
+​       mov bx,0
+
+​       mov cx,8
+
+​     s:push cs:[bx]
+
+​       add bx,2
+
+​       loop s;将代码0-15单元中的8个字型数据依次入栈
+
+​       mov bx,0
+
+​       mov cx,8
+
+​    s0:pop cs:[bx]
+
+​       add bx,2
+
+​       loop s0;出栈8个字型数据到代码段0-15单元
+
+​       mov ax,4c00h
+
+​       int 21h
+
+codesg ends
+
+end start;指明程序的入口在start处
+</code></pre><p>初始状态下栈为空，所以ss:sp要指向栈底</p>
+<p>将数据，代码，栈放入不同的段</p>
+<h3 id="qacpu如何知道stack放栈data放数据">QA：CPU如何知道stack放栈，data放数据？</h3>
+<p>mov ax,stack</p>
+<p>mov ss,ax</p>
+<p>mov sp,20h</p>
+<p>设置ss指向stack，设置ss:sp指向stack:20</p>
+<h3 id="大小写转换问题">大小写转换问题</h3>
+<p>思路：大写ASCII码的第5位为0，小写字母的第5位为1</p>
+<pre tabindex="0"><code>assume cs:codesg,ds:datasg
+datasg segment
+    db &#39;Basic&#39;
+    db &#39;iNfOrMaTiOn&#39;
+datasg ends
+codesg segment
+ start:mov ax,datasg
+       mov ds,ax;设置ds指向daatsg
+       mov bx,0;设置（bx）=0，ds:bx指向‘Basic’的第一个字母
+       mov cx,5;设置循环次数5，因为‘Basic’有5个字母
+     s:mov al,[bx];将ASCII码从ds:bx所指向的单元中取出
+       and al,11011111B;将al中的ASCII码的第5位置为0，变为大写字母
+       mov [bx],al;将转变后的ASCII码写回原单元
+       inc bx
+       loop s
+       mov bx,5
+       mov cx,11
+    s0:mov al,[bx]
+       or al,00100000B;将第5位置变为1
+       mov [bx],al
+       inc bx
+       loop s0
+       
+       mov ax,4c00h
+       int 21h
+       
+codesg ends
+end start
+</code></pre><p>[bx]一个内存单元</p>
+<p>[bx+idata]表示一个内存单元</p>
+<p>下面三个指令相同</p>
+<ul>
+<li>mov ax,[bx+200]</li>
+<li>mov ax,200[bx]</li>
+<li>mov ax,[bx],200</li>
+</ul>
+<p>下面两个指令相同</p>
+<ul>
+<li>mov ax,[bx+si]</li>
+<li>mov ax,[bx] [si]</li>
+</ul>
+<p>(ax)=((ds)*16+(bx)+(si))</p>
+<p>idata是常量，bx,si是变量</p>
+<p>reg表示一个寄存器，sreg表示一个段寄存器</p>
+<p>关注机器指令处理的数据在什么地方</p>
+<p>mov bx,[0]；内存，ds:0单元</p>
+<p>mov bx,ax；CPU内部，ax寄存器</p>
+<p>mov bx,1；CPU内部，指令缓存器</p>
+<h3 id="段地址sa和偏移地址ea">段地址（SA）和偏移地址（EA）</h3>
+<ul>
+<li>mov ax,ds:[bp]</li>
+</ul>
+<p>(ax)=(ds)*16+(bp)</p>
+<p>SA=(ds)，EA=(bp)</p>
+<p>X ptr指明内存单元的长度，X再汇编指令中可以为word或byte</p>
+<p>例如mov word ptr ds:[0],1 指明了指令访问的内存单元是一个字单元</p>
+<p>db字节型 dw字型 dd双字型数据</p>
+<p>如dd 100</p>
+<p>dup重复</p>
+<p>dw （重复次数） dump （数据）</p>
+<p>如db 3 dup (0) ,即db 0,0,0</p>
+<p>db 3 dup(0,1,2),即db 0,1,2,0,1,2,0,1,2</p>
+<h3 id="转移指令的原理">转移指令的原理</h3>
+<pre tabindex="0"><code>start:mov ax,0
+
+      mov bx,0
+
+      jmp short s
+
+      add ax,1
+
+    s:inc
+</code></pre><p>REVIEW:1.从CS：IP指向内存单元读取指令，读取的指令进入指令缓冲器；2.(IP)=(IP)+所读取指令长度，从而指向下一条指令；3.执行指令，转到1，重复过程</p>
+<ul>
+<li>CS= ,IP= CS:IP指向EB 03（jump short s的机器码)</li>
+<li>读取指令码EB 03进入指令缓冲器</li>
+<li>IP=IP+所读取指令长度（2），指向add ax,1</li>
+<li>CPU执行指令缓冲器中的指令EB 03（重点，如果EB 03没有对IP修改的话，应该执行add ax，1）</li>
+<li>执行后，IP=000BH，CS:IP指向inc ax</li>
+</ul>
+<p>jmp word ptr 内存单元地址（段内转移）</p>
+<p>jmp dword ptr 内存单元地址（段间转移）</p>
+<p>jcxz相当于if((cx)==0)jump short 标号；</p>
+<p>loop相当于（cx)&ndash;;if((cx)!=0)jump short 标号；</p>
+<p>jump short s的转移范围是-128~127</p>
+<p><u>offset</u></p>
+<p>CPU执行ret指令，修改IP，pop IP</p>
+<p>(IP)=((ss)*16+(sp))</p>
+<p>(sp)=(sp)+2</p>
+<p>CPU执行retf指令,修改CS和IP,POP IP,POP CS</p>
+<p>(IP)=((ss)*16+(sp))</p>
+<p>(sp)=(sp)+2</p>
+<p>(IP)=((ss)*16+(sp))</p>
+<p>(sp)=(sp)+2</p>
+<p>CPU执行call指令，将CS和IP压入栈，转移,pump IP ;jmp near ptr标号</p>
+<p>(sp)-=2</p>
+<p>((ss)*16+(sp))=(IP)</p>
+<p>IP+=16位位移</p>
+<p>call far ptr 相当于push CS; push IP; jmp far ptr</p>
+<p>mov ax,6;call ax将6存入ax，调用地址6处的函数</p>
+<p>mul做乘法，要么都是16位要么都是8位</p>
+<p>mul byte ptr ds:[0]</p>
+<p>(ax)=(al)*((ds)*16+0)</p>
+<p>ZF标志：零标志位。结果为0，ZF=1（逻辑为真）,结果为1，ZF=0</p>
+<p>PF标志:奇偶标志位，bit位个数是否为偶数</p>
+<p>SF标志：符号标志位，非负，sf=1</p>
+<p>CF标志：进位标志符，</p>
+<p>cmp ax，bx即比较ax-bx</p>
+<p>je等于则转移</p>
+<p>jne</p>
+<p>jb低于则转移below</p>
+<p>jnb不低于则转移</p>
+<p>ja高于则转移above</p>
+<p>jna不高于则转移</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Feb 24, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-02-24-%E9%80%86%E5%90%91%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/" title="逆向核心原理">逆向核心原理</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-02-24-nssctf%E9%80%86%E5%90%91%E9%A2%98/" title="nssctf逆向题">nssctf逆向题</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>数据库系统概论第一章习题答案</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/page/search/">» Search</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/page/search/" title="Search"  target="_blank"  rel="noopener noreferrer">Search</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Dec 9, 2024
+     - 5 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2024-12-09-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA%E7%AC%AC%E4%B8%80%E7%AB%A0%E4%B9%A0%E9%A2%98%E7%AD%94%E6%A1%88/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     数据库系统概论第一章习题答案 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h1 id="第一章-绪论">第一章 绪论</h1>
+<p>1.试述数据，数据库，数据库管理系统，数据库系统的概念</p>
+<ul>
+<li>数据：描述事物的符号</li>
+<li>数据库DB：长期储存在计算机内，有组织的，可共享的大量数据的集合。数据库中的数据按一定的数据模型组织，描述和储存，具有较小的冗余度，较高的数据独立性和易扩展性，并可为各种用户共享</li>
+<li>数据库管理系统DBMS：系统软件，有以下功能：
+<ul>
+<li>数据定义</li>
+<li>数据组织，存储和管理</li>
+<li>数据操纵功能</li>
+<li>数据库的事务管理和运行管理</li>
+<li>数据库建立和维护</li>
+</ul>
+</li>
+<li>数据库系统DBS：由DB，DBMS,DA组成的存储，管理，处理和维护数据的系统</li>
+</ul>
+<p>2.使用数据库有什么好处？</p>
+<p>数据结构化：整体和内部</p>
+<p>数据的共享性高，冗余度低且易扩展：大大减少数据冗余，节约存储空间，避免数据之间的不相容性与不一致性</p>
+<p>数据独立性高：</p>
+<ul>
+<li>物理独立性，用户的应用程序与数据库中数据库数据的物理存储相互独立</li>
+<li>逻辑独立性：用户的应用程序与数据库的逻辑结构是相互独立</li>
+</ul>
+<p>数据由数据库管理系统统一管理和控制</p>
+<ul>
+<li>数据的安全性保护：保护数据以防止不合法使用造成的数据泄密和破坏</li>
+<li>数据的完整性检查：数据的正确性，有效性和相容性</li>
+<li>用户可以并发控制</li>
+<li>数据库恢复功能：比如说rollback</li>
+</ul>
+<p>3.试述文件系统与数据库系统的区别和联系</p>
+<p>见P7表1.1</p>
+<p>6.数据库管理系统的主要功能</p>
+<p>在数据库建立，运用和维护时对数据库进行统一控制，以保证数据的完整性和安全性，并在多用户同时使用数据库时进行并发控制，在发生故障后对数据库进行恢复</p>
+<p>7.什么是概念模型？试述概念模型的作用</p>
+<p>信息模型，按用户的观点对数据和信息建模，主要用于数据库设计，用于信息世界的建模</p>
+<p>8.定义并解释概念模型中以下术语：</p>
+<p>实体：客观存在并可相互区别的事物。如具体的人，事，物，抽象的概念或联系</p>
+<p>实体型：用实体名及其属性名集合来抽象和刻画同类实体，如学生（学生号，姓名，性别，所在院系&hellip;)</p>
+<p>实体集：同一类型实体的集合。例如，全体学生就是一个实体集</p>
+<p>实体之间的联系：或称不同实体集之间的联系</p>
+<p>9.试述数据模型的概念，数据模型的作用和数据模型的三个要素</p>
+<p>对现实世界数据特征的抽象，用来描述数据，组织数据和对数据进行操作</p>
+<ul>
+<li>比较真实地模拟现实世界</li>
+<li>容易为人所理解</li>
+<li>便于在计算机上实现</li>
+</ul>
+<p>10.试述层次模型的概念，举出三个实例</p>
+<p>有且只有一个结点没有双亲结点（根节点），根以外的其他结点有且只有双亲结点，实例：行政结构，家族关系，生物分类学，电脑文件系统</p>
+<p>11.试述网状模型的概念，举出三个实例</p>
+<p>允许一个以上的结点无双亲，一个结点可以有多于一个的双亲，如互联网，社交网络，地铁交通网络</p>
+<p>12.试述层次，网状模型的优缺点</p>
+<p>层次模型的优点：</p>
+<ul>
+<li>数据结构简单清晰</li>
+<li>数据库的查询效率高</li>
+<li>层次数据模型提供了良好的完整性支持</li>
+</ul>
+<p>层次模型的缺点：</p>
+<ul>
+<li>现实世界中很多联系是非层次性的</li>
+<li>如果一个结点具有多个双亲结点等，不便于用层次模型表示联系</li>
+<li>查询子女结点必须通过双亲结点</li>
+<li>由于结构严密，层次命令趋于程序化</li>
+</ul>
+<p>网状模型的优点：</p>
+<ul>
+<li>能够更为直接地描述现实世界，如一个结点可以有多个双亲，结点之间可以有多种联系</li>
+<li>具有良好地性能，存取效率较高</li>
+</ul>
+<p>网状模型的缺点：</p>
+<ul>
+<li>结构过程比较复杂</li>
+<li>网状模型的DDL,DML复杂，需要嵌入语言</li>
+<li>记录之间的联系通过存取路径实现，应用程序在访问数据时候必须选择适当的存取路径，用户必须了解系统结构的细节，加重了应用程序的负担</li>
+</ul>
+<p>13.试述关系模型的概念，定义并解释以下术语</p>
+<p>关系模型由一组关系组成，每个关系的数据结构都是一张规范化的二维表。</p>
+<p>元组：表中的一行即为一个元组</p>
+<p>属性：表中的一列即为一个属性</p>
+<p>关系：一个关系对应以一张表</p>
+<p>码：某个可以唯一确定一个元组的属性组，如学生的学号</p>
+<p>域：一组具有相同数据类型的值的集合，如性别的域是{男，女}，大学生奈年龄属性的域是（15，45）</p>
+<p>分量：元组中的一个属性值</p>
+<p>14.试述关系数据库的特点</p>
+<ul>
+<li>
+<p>规范化，即关系的每一个分量必须是一个不可分的数据项</p>
+</li>
+<li>
+<p>关系模型与格式化模型不同，建立在严格的数学概念的基础上</p>
+</li>
+<li>
+<p>概念单一，实体间的联系，对数据的检索和更新也是关系（Table），数据结构简单清晰</p>
+</li>
+<li>
+<p>存取路径透明，更高的数据独立性，更好的安全保密性，简化程序员的工作，但查询效率较低</p>
+</li>
+</ul>
+<p>** 在计算机中，从某个角度*<em>看不到的特性称该特性是透明的*</em>。这个意义上的“透明”与社会生活中的透明含义*<em>恰好相反*</em>，例如计算机组织对程序员是透明的，就是说计算机组织对程序员来说是看不到的，也不需要看到的。*<em>和汉语字典里面的意思不一样。 *</em>**</p>
+<p>15，试述数据库系统的三级模式结构，并说明优点</p>
+<p>外模式，模式，内模式</p>
+<p>外模式：子模式或用户模式，数据库用户能够看见和使用的局部数据的逻辑结构和特征的描述，是数据库用户的数据视图，是与某一应用有关的数据的逻辑表示</p>
+<p>内模式：存储模式，数据物理结构和存储方式的描述，是数据在数据库内部的组织方式</p>
+<p>模式：逻辑模式，是数据库中全体数据的逻辑结构和特征的描述，是所有用户的公共数据视图，一个数据库只有一个模式</p>
+<p>使用户能够逻辑的，抽象的处理数据，而不必关心数据在计算机中的具体表示方式与存储方式</p>
+<p>17.什么叫数据与程序的物理独立性？数据与程序的逻辑独立性？为什么数据库由数据与程序的独立性？</p>
+<p>物理独立性：当数据库的存储结构改变时，由数据库管理员对模式/内模式映像作响应改变</p>
+<p>逻辑独立性：当模式改变时，由数据库管理员对各个外模式/模式的影响作相应改变，可以使外模式保持不变。应用程序是依据数据的外模式编写，从而应用程序不必修改，保证了数据与程序的逻辑独立性，简称数据的逻辑独立性。</p>
+<p>数据与程序之间的独立性使得数据的定义和描述可以从应用程序中分离出去。由于数据的存储由数据库管理系统管理，从而简化了应用程序的编制，大大减少了应用程序的维护和修改。</p>
+<p>18.试述数据库系统的组成</p>
+<p>数据库，数据库管理系统，应用程序和数据库管理员</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Dec 9, 2024</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2024-12-05-sql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E4%BE%8B%E5%AD%90/" title="SQL必知必会例子">SQL必知必会例子</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2024-12-09-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%AE%BA%E7%AC%AC%E4%BA%8C%E7%AB%A0%E4%B9%A0%E9%A2%98%E7%AD%94%E6%A1%88/" title="数据库系统概论第二章习题答案">数据库系统概论第二章习题答案</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="/about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="/blog/2025-04-05-os/">OS</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+
