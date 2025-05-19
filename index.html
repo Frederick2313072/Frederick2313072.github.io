@@ -122,6 +122,143 @@
           
 
 <header>
+  <p class="meta">May 19, 2025
+     - 15 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">算法八股文常见问题</a>
+  </h1>
+</header>
+
+          
+            <p><p>**1.**目前主流的开源模型体系有哪些？</p>
+<p>目前主流的开源LLM（语言模型）模型体系包括以下几个：</p>
+<ol>
+<li><strong>GPT（Generative Pre-trained Transformer）系列</strong>：由OpenAI发布的一系列基于Transformer架构的语言模型，包括GPT、GPT-2、GPT-3等。GPT模型通过在大规模无标签文本上进行预训练，然后在特定任务上进行微调，具有很强的生成能力和语言理解能力。</li>
+<li><strong>BERT（Bidirectional Encoder Representations from Transformers）</strong>：由Google发布的一种基于Transformer架构的双向预训练语言模型。BERT模型通过在大规模无标签文本上进行预训练，然后在下游任务上进行微调，具有强大的语言理解能力和表征能力。</li>
+<li><strong>XLNet</strong>：由CMU和Google Brain发布的一种基于Transformer架构的自回归预训练语言模型。XLNet模型通过自回归方式预训练，可以建模全局依赖关系，具有更好的语言建模能力和生成能力。</li>
+<li><strong>RoBERTa</strong>：由Facebook发布的一种基于Transformer架构的预训练语言模型。RoBERTa模型在BERT的基础上进行了改进，通过更大规模的数据和更长的训练时间，取得了更好的性能。</li>
+<li><strong>T5（Text-to-Text Transfer Transformer）</strong>：由Google发布的一种基于Transformer架构的多任务预训练语言模型。T5模型通过在大规模数据集上进行预训练，可以用于多种自然语言处理任务，如文本分类、机器翻译、问答等。</li>
+</ol>
+<p>这些模型在自然语言处理领域取得了显著的成果，并被广泛应用于各种任务和应用中。</p></p>
+            
+              <footer>
+                <a href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" rel="full-article">Would you like to know more? →</a>
+              </footer>
+            
+          
+        </article>
+        
+        <article>
+          
+          
+
+<header>
+  <p class="meta">May 19, 2025
+     - 7 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/">算法岗手撕代码</a>
+  </h1>
+</header>
+
+          
+            <p><ul>
+<li>随机梯度下降</li>
+</ul>
+<pre tabindex="0"><code># 数据加载
+
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+
+X, Y = fetch_california_housing(return_X_y=True)
+X.shape, Y.shape	# (20640, 8), (20640, )
+
+# 数据预处理
+
+ones = np.ones(shape=(X.shape[0], 1))
+X = np.hstack([X, ones])
+validate_size = 0.2
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=validate_size, shuffle=True)
+
+# batch 函数
+
+def get_batch(batchsize: int, X: np.ndarray, Y: np.ndarray):
+    assert 0 == X.shape[0]%batchsize, f&#39;{X.shape[0]}%{batchsize} != 0&#39;
+    batchnum = X.shape[0]//batchsize
+    X_new = X.reshape((batchnum, batchsize, X.shape[1]))
+    Y_new = Y.reshape((batchnum, batchsize, ))
+
+    for i in range(batchnum):
+        yield X_new[i, :, :], Y_new[i, :]
+
+# 损失函数
+
+def mse(X: np.ndarray, Y: np.ndarray, W: np.ndarray):
+    return 0.5 * np.mean(np.square(X@W-Y))
+
+def diff_mse(X: np.ndarray, Y: np.ndarray, W: np.ndarray):
+    return X.T@(X@W-Y) / X.shape[0]
+
+# 模型训练
+
+lr = 0.001          # 学习率
+num_epochs = 1000   # 训练周期
+batch_size = 64     # |每个batch包含的样本数
+validate_every = 4  # 多少个周期进行一次检验
+def train(num_epochs: int, batch_size: int, validate_every: int, W0: np.ndarray, X_train: np.ndarray, Y_train: np.ndarray, X_test: np.ndarray, Y_test: np.ndarray):
+    loop = tqdm(range(num_epochs))
+    loss_train = []
+    loss_validate = []
+    W = W0
+    # 遍历epoch
+    for epoch in loop:
+        loss_train_epoch = 0
+        # 遍历batch
+        for x_batch, y_batch in get_batch(64, X_train, Y_train):
+            loss_batch = mse(X=x_batch, Y=y_batch, W=W)
+            loss_train_epoch += loss_batch*x_batch.shape[0]/X_train.shape[0]
+            grad = diff_mse(X=x_batch, Y=y_batch, W=W)
+            W = W - lr*grad
+
+        loss_train.append(loss_train_epoch)
+        loop.set_description(f&#39;Epoch: {epoch}, loss: {loss_train_epoch}&#39;)
+    
+        if 0 == epoch%validate_every:
+            loss_validate_epoch = mse(X=X_test, Y=Y_test, W=W)
+            loss_validate.append(loss_validate_epoch)
+            print(&#39;============Validate=============&#39;)
+            print(f&#39;Epoch: {epoch}, train loss: {loss_train_epoch}, val loss: {loss_validate_epoch}&#39;)
+            print(&#39;================================&#39;)
+    plot_loss(np.array(loss_train), np.array(loss_validate), validate_every)
+
+# 程序运行
+
+W0 = np.random.random(size=(X.shape[1], ))  # 初始权重
+train(num_epochs=num_epochs, batch_size=batch_size, validate_every=validate_every, W0=W0, X_train=X_train, Y_train=Y_train, X_test=X_test, Y_test=Y_test)
+</code></pre><ul>
+<li>BP法</li>
+</ul>
+<p>BP算法就是反向传播，要输入的数据经过一个前向传播会得到一个输出，但是由于权重的原因，所以其输出会和你想要的输出有差距，这个时候就需要进行反向传播，利用梯度下降，对所有的权重进行更新，这样的话在进行前向传播就会发现其输出和你想要的输出越来越接近了。</p></p>
+            
+              <footer>
+                <a href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/" rel="full-article">Would you like to know more? →</a>
+              </footer>
+            
+          
+        </article>
+        
+        <article>
+          
+          
+
+<header>
   <p class="meta">May 13, 2025
      - 2 minute read 
      - <a href="https://Frederick2313072.github.io/blog/2025-05-13-%E9%9A%8F%E4%BE%BF%E8%81%8A%E8%81%8A%E5%AF%B9%E4%BA%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E7%9C%8B%E6%B3%95/#disqus_thread">Comments</a>
@@ -269,7 +406,7 @@
     
   </p>
   <h1 class="entry-title">
-    <a href="https://Frederick2313072.github.io/blog/2025-03-30-%E4%B8%80%E4%BA%9B%E5%AF%B9%E4%BA%8Ec-%E7%9A%84%E6%80%9D%E8%80%83/">一些对于C&#43;&#43;的思考</a>
+     一些对于C&#43;&#43;的思考 
   </h1>
 </header>
 
@@ -1446,6 +1583,18 @@ Click on
           
             
               <li class="post">
+                <a href="./blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">算法八股文常见问题</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="./blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/">算法岗手撕代码</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="./blog/2025-05-13-%E9%9A%8F%E4%BE%BF%E8%81%8A%E8%81%8A%E5%AF%B9%E4%BA%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E7%9C%8B%E6%B3%95/">随便聊聊对于技术的看法</a>
               </li>
             
@@ -1453,18 +1602,6 @@ Click on
             
               <li class="post">
                 <a href="./blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="./blog/2025-04-12-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/">数据结构与算法概念</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="./blog/2025-04-08-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84/">计算机系统层次结构</a>
               </li>
             
           

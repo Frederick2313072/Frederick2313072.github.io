@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="../../css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>算法八股文常见问题</title>
+
+  
+  
+  <link rel="stylesheet" href="../../css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="../../css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.3">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">May 19, 2025
+     - 15 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     算法八股文常见问题 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>**1.**目前主流的开源模型体系有哪些？</p>
+<p>目前主流的开源LLM（语言模型）模型体系包括以下几个：</p>
+<ol>
+<li><strong>GPT（Generative Pre-trained Transformer）系列</strong>：由OpenAI发布的一系列基于Transformer架构的语言模型，包括GPT、GPT-2、GPT-3等。GPT模型通过在大规模无标签文本上进行预训练，然后在特定任务上进行微调，具有很强的生成能力和语言理解能力。</li>
+<li><strong>BERT（Bidirectional Encoder Representations from Transformers）</strong>：由Google发布的一种基于Transformer架构的双向预训练语言模型。BERT模型通过在大规模无标签文本上进行预训练，然后在下游任务上进行微调，具有强大的语言理解能力和表征能力。</li>
+<li><strong>XLNet</strong>：由CMU和Google Brain发布的一种基于Transformer架构的自回归预训练语言模型。XLNet模型通过自回归方式预训练，可以建模全局依赖关系，具有更好的语言建模能力和生成能力。</li>
+<li><strong>RoBERTa</strong>：由Facebook发布的一种基于Transformer架构的预训练语言模型。RoBERTa模型在BERT的基础上进行了改进，通过更大规模的数据和更长的训练时间，取得了更好的性能。</li>
+<li><strong>T5（Text-to-Text Transfer Transformer）</strong>：由Google发布的一种基于Transformer架构的多任务预训练语言模型。T5模型通过在大规模数据集上进行预训练，可以用于多种自然语言处理任务，如文本分类、机器翻译、问答等。</li>
+</ol>
+<p>这些模型在自然语言处理领域取得了显著的成果，并被广泛应用于各种任务和应用中。</p>
+<p>**2.**prefix LM和causal LM区别是什么？</p>
+<p>前缀语言模型，因果模型</p>
+<p>Prefix LM其实是Encoder-Decoder模型的变体，为什么这样说？解释如下：</p>
+<ol>
+<li>在标准的Encoder-Decoder模型中，Encoder和Decoder各自使用一个独立的Transformer</li>
+<li>而在Prefix LM，Encoder和Decoder则共享了同一个Transformer结构，在Transformer内部通过Attention Mask机制来实现。</li>
+</ol>
+<p>与标准Encoder-Decoder类似，<strong>Prefix LM在Encoder部分采用Auto Encoding  (AE-自编码)模式，即前缀序列中任意两个token都相互可见，而Decoder部分采用Auto Regressive   (AR-自回归)模式，即待生成的token可以看到Encoder侧所有token(包括上下文)和Decoder侧已经生成的token，但不能看未来尚未产生的token</strong>。</p>
+<p>Causal LM只涉及到Encoder-Decoder中的Decoder部分，采用Auto Regressive模式，直白地说，就是<strong>根据历史的token来预测下一个token，也是在Attention Mask这里做的手脚</strong>。</p>
+<ol>
+<li><strong>Prefix LM</strong>：前缀语言模型是一种生成模型，它在生成每个词时都可以考虑之前的上下文信息。在生成时，前缀语言模型会根据给定的前缀（即部分文本序列）预测下一个可能的词。这种模型可以用于文本生成、机器翻译等任务。</li>
+<li><strong>Causal LM</strong>：因果语言模型是一种自回归模型，它只能根据之前的文本生成后续的文本，而不能根据后续的文本生成之前的文本。在训练时，因果语言模型的目标是预测下一个词的概率，给定之前的所有词作为上下文。这种模型可以用于文本生成、语言建模等任务。</li>
+</ol>
+<p>**3.**为何现在大模型大都是Decoder only？</p>
+<p><strong>Encoder的低秩问题</strong>：Encoder的双向注意力会<strong>存在低秩问题</strong>，这可能会<strong>削弱模型表达能力</strong>，就生成任务而言，引入双向注意力并无实质好处。</p>
+<p><strong>更好的Zero-Shot性能、更适合于大语料自监督学习</strong>：decoder-only 模型在没有任何 tuning 数据的情况下、zero-shot 表现最好，而 encoder-decoder 则需要在一定量的标注数据上做 multitask finetuning 才能激发最佳性能。</p>
+<p>**4.**大模型架构介绍？</p>
+<p>Transformer 模型一开始是用来做 seq2seq 任务的，所以它包含 Encoder 和 Decoder 两个部分；他们两者的区别主要是，<strong>Encoder 在抽取序列中某一个词的特征时能够看到整个序列中所有的信息，即上文和下文同时看到</strong>；而 <strong>Decoder 中因为有 mask 机制的存在，使得它在编码某一个词的特征时只能看到自身和它之前的文本信息</strong>。</p>
+<p>5.什么时候用Bert，什么时候用LLama，chatGLM</p>
+<ol>
+<li><strong>Bert模型</strong>：Bert是一种预训练的语言模型，<strong>适用于各种自然语言处理任务</strong>，如文本分类、命名实体识别、语义相似度计算等。如果你的任务是通用的文本处理任务，而不依赖于特定领域的知识或语言风格，Bert模型通常是一个不错的选择。Bert由一个Transformer编码器组成，更适合于NLU相关的任务。</li>
+<li><strong>LLaMA模型</strong>：LLaMA（Large Language Model Meta AI）包含从 7B 到 65B  的参数范围，训练使用多达14,000亿tokens语料，具有常识推理、问答、数学推理、代码生成、语言理解等能力。LLaMA由一个Transformer解码器组成。训练预料主要为以英语为主的拉丁语系，不包含中日韩文。所以适合于英文文本生成的任务。</li>
+<li><strong>ChatGLM模型</strong>：ChatGLM是一个面向对话生成的语言模型，适用于构建聊天机器人、智能客服等对话系统。如果你的应用场景需要模型能够生成连贯、流畅的对话回复，并且需要处理对话上下文、生成多轮对话等，ChatGLM模型可能是一个较好的选择。ChatGLM的架构为Prefix decoder，训练语料为中英双语，中英文比例为1:1。所以适合于中文和英文文本生成的任务。</li>
+</ol>
+<p>6.为什么增量预训练？</p>
+<p><strong>预训练学知识</strong>，<strong>指令微调学格式</strong>，<strong>强化学习对齐人类偏好</strong>，所以要想大模型有领域知识，得增量预训练（靠指令微调记知识不靠谱，不是几十w条数据能做到的）。</p>
+<p>7，训练框架？</p>
+<ul>
+<li><strong>超大规模训练</strong>：选用 3D 并行，Megatron-Deepspeed拥有多个成功案例</li>
+<li><strong>少量节点训练</strong>：选用张量并行，但张量并行只有在 nvlink 环境下才会起正向作用，但提升也不会太明显。</li>
+<li><strong>少量卡训练</strong>：如果资源特别少，显存怎么也不够，可以使用 LoRA 进行增量预训练。</li>
+</ul>
+<p>8.增量预训练？</p>
+<p>垂直领域预训练有三种思路：</p>
+<ul>
+<li>先用大规模通用语料预训练，再用小规模领域语料二次训练</li>
+<li>直接进行大规模领域语料预训练</li>
+<li>通用语料比例混合领域语料同时训练</li>
+</ul>
+<p>9.增量与训练流程？</p>
+<ol>
+<li><strong>数据预处理</strong>：参考 LLaMA 的预训练长度，也把数据处理成2048长度（如果不够，做补全）。</li>
+<li><strong>分词器</strong>：如果使用 LLaMA 可能需要添加中文词表，目前有不少人做了相关工作，当然也可以自己添加自己需要的词表。</li>
+<li><strong>原始模型</strong>：各家框架的模型层名不太一样，训练时可能需要做一些调整，在预训练时尽量选择基座模型，不选 Chat 模型。</li>
+<li><strong>训练模型</strong>：跑通只是第一步，根据训练情况反复调整比较重要。</li>
+<li><strong>模型转换</strong>：不同框架的checkpoint格式不同，还会根据并行度分成很多个文件。</li>
+<li><strong>模型测试</strong>：简单测试下续写能力，验证下模型是否正常。</li>
+</ol>
+<p>10.SFT指令微调如何构建？</p>
+<p>构建Supervised Fine-Tuning（SFT）的微调数据需要以下步骤：</p>
+<ol>
+<li><strong>收集原始数据</strong>：首先，您需要收集与目标任务相关的原始数据。这可以是对话数据、分类数据、生成任务数据等，具体取决于您的任务类型。确保数据集具有代表性和多样性，以提高模型的泛化能力。</li>
+<li><strong>标注数据</strong>：对原始数据进行标注，为每个样本提供正确的标签或目标输出。标签的类型取决于您的任务，可以是分类标签、生成文本、对话回复等。确保标注的准确性和一致性。</li>
+<li><strong>划分数据集</strong>：将标注数据划分为训练集、验证集和测试集。通常，大部分数据用于训练，一小部分用于验证模型的性能和调整超参数，最后一部分用于最终评估模型的泛化能力。</li>
+<li><strong>数据预处理</strong>：根据任务的要求，对数据进行预处理。这可能包括文本清洗、分词、去除停用词、词干化等处理步骤。确保数据格式和特征表示适合模型的输入要求。</li>
+<li><strong>格式转换</strong>：将数据转换为适合模型训练的格式。这可能涉及将数据转换为文本文件、JSON格式或其他适合模型输入的格式。</li>
+<li><strong>模型微调</strong>：使用转换后的数据对基座模型进行微调。根据任务的要求，选择适当的微调方法和超参数进行训练。这可以使用常见的深度学习框架（如PyTorch、TensorFlow）来实现。</li>
+<li><strong>模型评估</strong>：使用测试集对微调后的模型进行评估，计算模型在任务上的性能指标，如准确率、召回率、生成质量等。根据评估结果对模型进行进一步的优化和调整。</li>
+</ol>
+<p>11.如何训练自己的大模型？</p>
+<ol>
+<li><strong>数据收集和准备</strong>：首先，需要收集与目标任务和领域相关的大规模数据集。这可以包括从互联网上爬取数据、使用公开数据集或者与合作伙伴合作获取数据。然后，对数据进行预处理和清洗，包括去除噪声、处理缺失值、标准化数据等。</li>
+<li><strong>模型设计和架构选择</strong>：根据任务的特点和目标，选择适合的模型架构。可以基于已有的模型进行修改和调整，或者设计全新的模型。常见的大模型架构包括深度神经网络（如卷积神经网络、循环神经网络、Transformer等）和预训练语言模型（如BERT、GPT等）。</li>
+<li><strong>数据划分和预处理</strong>：将数据集划分为训练集、验证集和测试集。训练集用于模型的训练，验证集用于调整超参数和模型选择，测试集用于最终评估模型的性能。进行数据预处理，如分词、编码、标记化、特征提取等，以便输入到模型中。</li>
+<li><strong>模型训练</strong>：使用训练集对模型进行训练。训练过程中，需要选择合适的优化算法、损失函数和学习率等超参数，并进行适当的调整和优化。可以使用GPU或者分布式训练来加速训练过程。</li>
+<li><strong>模型调优和验证</strong>：使用验证集对训练过程中的模型进行调优和验证。根据验证集的性能指标，调整模型的超参数、网络结构或者其他相关参数，以提升模型的性能。</li>
+<li><strong>模型评估和测试</strong>：使用测试集对最终训练好的模型进行评估和测试。计算模型的性能指标，如准确率、召回率、F1值等，评估模型的性能和泛化能力。</li>
+<li><strong>模型部署和优化</strong>：将训练好的模型部署到实际应用中。根据实际需求，对模型进行进一步的优化和调整，以提高模型的效率和性能。</li>
+</ol>
+<p>12.预训练和微调在哪个阶段注入知识？</p>
+<p>在<strong>预训练阶段</strong>，模型通过大规模的未标注数据进行训练，从中学习语言的统计特征、语义知识和语言规律。预训练的目的是让模型建立起对语言的基本理解和概念，并学习到一般性的语言表示。这种预训练过程<strong>注入了通用的语言知识，并可以迁移到各种下游任务中</strong>。</p>
+<p>在<strong>微调阶段</strong>，预训练的模型通过在特定任务上使用带标注的数据进行微调，以适应具体任务的要求。在微调过程中，模型通过接触任务特定的数据和标签，进一步调整和优化模型的参数，使其更好地适应任务的特定特征和要求。微调阶段<strong>注入的是与任务相关的知识和信息。</strong></p>
+<p>13.简单介绍强化学习？</p>
+<p>强化学习（Reinforcement Learning，RL）研究的问题是<strong>智能体（Agent）<strong>与</strong>环境（Environment）</strong> 交互的问题，其目标是使智能体在复杂且不确定的环境中最大化奖励（Reward）。</p>
+<p>14.简单介绍下RLHF?</p>
+<p>基于人类反馈对语言模型进行强化学习</p>
+<p><strong>预训练语言模型</strong>（收集样本数据，有监督微调）：在人类标注的数据上微调出来的模型叫做 有监督的微调（supervised fine-tuning），这是训练出来的第一个模型</p>
+<ol>
+<li>
+<p>训练奖励模型</p>
+<p>（收集排序数据，训练奖励模型）：</p>
+<ul>
+<li>给定一个问题，让上一步训练好的<strong>预训练模型 SFT 生成答案</strong></li>
+<li>GPT 每一次预测一个词的概率，可以根据这个概率采样出很多答案，通常来说可以用 beam search</li>
+<li>这里生成了四个答案，然后把这四个答案的好坏进行人工标注，进行排序标注</li>
+<li>有了这些排序之后，再<strong>训练一个奖励模型（Reward Model，RM）</strong>，这个模型是说给定 prompt 得到输出，然后对这个输出生成一个分数，可以认为这个分数是一个奖励或者是打分，使得对答案的分数能够满足人工排序的关系（大小关系保持一致），一旦这个模型生成好之后，就能够对生成的答案进行打分</li>
+</ul>
+</li>
+</ol>
+<p><strong>用强化学习微调</strong>（使用RM模型优化SFT模型）：继续微调之前训练好的 SFT模型，使得它生成的答案能够尽量得到一个比较高的分数，即每一次将它生成的答案放进 RM 中打分，然后优化 SFT 的参数使得它生成的答案在 RM 中获得更高的分数。</p>
+<p>15.如何解决三个阶段寻来你SFT-&gt;RM-&gt;PPO过程较长，更新迭代慢问题？</p>
+<p>要解决三个阶段训练过程较长、更新迭代较慢的问题，可以考虑以下几种方法：</p>
+<ol>
+<li><strong>并行化训练</strong>：利用多个计算资源进行并行化训练，可以加速整个训练过程。可以通过使用多个CPU核心或GPU来并行处理不同的训练任务，从而提高训练的效率和速度。</li>
+<li><strong>分布式训练</strong>：将训练任务分发到多台机器或多个节点上进行分布式训练。通过将模型和数据分布在多个节点上，并进行并行计算和通信，可以加快训练的速度和更新的迭代。</li>
+<li><strong>优化算法改进</strong>：针对每个阶段的训练过程，可以考虑改进优化算法来加速更新迭代。例如，在SFT（Supervised Fine-Tuning）阶段，可以使用更高效的优化算法，如自适应学习率方法（Adaptive Learning  Rate）或者剪枝技术来减少模型参数；在RM（Reward Modeling）阶段，可以使用更快速的模型训练算法，如快速梯度法（Fast  Gradient Method）等；在PPO（Proximal Policy  Optimization）阶段，可以考虑使用更高效的采样和优化方法，如并行采样、多步采样等。</li>
+<li><strong>迁移学习和预训练</strong>：利用迁移学习和预训练技术，可以利用已有的模型或数据进行初始化或预训练，从而加速训练过程。通过将已有模型的参数或特征迁移到目标模型中，可以减少目标模型的训练时间和样本需求。</li>
+<li><strong>参数调优和超参数搜索</strong>：对于每个阶段的训练过程，可以进行参数调优和超参数搜索，以找到更好的参数设置和配置。通过系统地尝试不同的参数组合和算法设定，可以找到更快速和高效的训练方式。</li>
+</ol>
+<p>16.怎样构建基于LLM的Agents？</p>
+<pre tabindex="0"><code>Agent = LLM + Prompt Recipe + Tools + Interface + Knowledge + Memory
+</code></pre><ol>
+<li>Prompt Recipe：特定的内容要求、目标受众、所需的语气、输出长度、创造力水平等。</li>
+<li>Tools：工具集成允许通过API和外部服务完成任务。Agents 能够理解自然语言、推理提示、积累记忆并采取明智的行动。但是，Agents 的表现和一致性取决于他们收到的提示的质量。</li>
+<li>Knowledge：知识适用于所有用户的一般专业知识。知识扩展了LLM的内容。一般分为专业知识、常识知识和程序知识。</li>
+<li>Memory：单个用户或单个任务的上下文和记录细节。分为短期记忆和长期记忆。记忆服务与特定用户，在时间维度的体验。使特定用户的上下文对话个性化同时保持多步骤任务的一致性。记忆侧重暂时的用户和任务细节。</li>
+</ol>
+<p>17.LLM Agents有哪些类型？</p>
+<p>一般来说 LLM Agents 分为**会话型 Agents *<em>和*<em>任务型 Agents</em></em>，两者在目标、行为和prompt方法都有重要区别。 会话型专注于提供引人入胜的个性化讨论，任务型致力于完成明确定义的目标。</p>
+<p><strong>Conversational Agents</strong>：模拟人类对话，能够在讨论中反映人类的倾向。允许细致入微的上下文交互，会考虑语气、说话风格、领域知识、观点和个性怪癖等因素。agent的开发者可以持续增强记忆、知识整合提高响应能力，持续优化应用。</p>
+<p><strong>Task-Oriented Agents</strong>：实现目标驱动，利用模型的能力分析prompt、提取关键参数、指定计划、调用API、通过集成tools执行操作，并生成结果回复。Prompt 工程把目标型Agents拆分成如下环节：制定战略任务、串联思路、反思过去的工作以及迭代改进的方法。</p>
+<p>18.如何给LLM注入领域知识？</p>
+<p>给LLM（低层次模型，如BERT、GPT等）注入领域知识的方法有很多。以下是一些建议：</p>
+<ol>
+<li>数据增强：在训练过程中，可以通过添加领域相关的数据来增强模型的训练数据。这可以包括从领域相关的文本中提取示例、对现有数据进行扩充或生成新的数据。</li>
+<li>迁移学习：使用预训练的LLM模型作为基础，然后在特定领域的数据上进行微调。这样可以利用预训练模型学到的通用知识，同时使其适应新领域。</li>
+<li>领域专家标注：与领域专家合作，对模型的输出进行监督式标注。这可以帮助模型学习到更准确的领域知识。</li>
+<li>知识图谱：将领域知识表示为知识图谱，然后让LLM模型通过学习知识图谱中的实体和关系来理解领域知识。</li>
+<li>规则和启发式方法：编写领域特定的规则和启发式方法，以指导模型的学习过程。这些方法可以是基于规则的、基于案例的或基于实例的。</li>
+<li>模型融合：将多个LLM模型的预测结果结合起来，以提高模型在特定领域的性能。这可以通过投票、加权平均或其他集成方法来实现。</li>
+<li>元学习：训练一个元模型，使其能够在少量领域特定数据上快速适应新领域。这可以通过在线学习、模型蒸馏或其他元学习方法来实现。</li>
+<li>模型解释性：使用模型解释工具（如LIME、SHAP等）来理解模型在特定领域的预测原因，从而发现潜在的知识缺失并加以补充。</li>
+<li>持续学习：在模型部署后，持续收集领域特定数据并更新模型，以保持其在新数据上的性能。</li>
+<li>多任务学习：通过同时训练模型在多个相关任务上的表现，可以提高模型在特定领域的泛化能力。</li>
+</ol>
+<p>19.介绍TF-IDF算法</p>
+<p>TF-IDF是一种用于信息检索与文本挖掘的常用加权技术，TF表示词频，即一个词在文档中出现的频率，IDF是逆文档频率，用来减少所有文档中常见词的权重.TF-IDF随着词在文档中出现的次数增加二增加，但会随着该词在语料库中的文档频率增加而减少，有助于高亮文档中的重要词汇。</p>
+<p>20.问：什么是强化学习自人类反馈（RLHF），它在大模型训练中的应用是什么？</p>
+<p>答：强化学习自人类反馈（RLHF）是一种结合了监督学习和强化学习的技术，它使用人类生成的反馈来指导模型的学习过程。在大模型训练中，RLHF被用于微调模型，以执行特定的任务或改进特定的性能指标，如对话生成的连贯性和相关性，通过这种方式，模型学习根据人类的偏好和反馈来调整其行为。</p>
+<p>21.问：PPO(Proximal Policy Optimization)算法的基本原理是什么？</p>
+<p>答：PPO算法是一种在策略空间进行优化的强化学习方法，旨在通过限制策略更新步骤的大小来避免训练过程中的性能崩溃。PPO通过引入一个代理目标函数来优化策略，该函数鼓励小幅更新策略，同时避免过大的偏离原始策略。</p>
+<p>22.<strong>问：DPO（分布式策略优化）在RLHF中的核心思想是什么？</strong>
+答：DPO的核心思想是通过优化策略的概率分布而不仅仅是期望值来提高策略的鲁棒性和性能。它考虑了环境的不确定性和模型的探索性，通过优化策略的整个分布来寻找最优策略，从而在RLHF中实现更高效和稳定的学习。</p>
+<p>23.DDPG算法</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>May 19, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/" title="算法岗手撕代码">算法岗手撕代码</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="../../about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">算法八股文常见问题</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/">算法岗手撕代码</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-13-%E9%9A%8F%E4%BE%BF%E8%81%8A%E8%81%8A%E5%AF%B9%E4%BA%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E7%9C%8B%E6%B3%95/">随便聊聊对于技术的看法</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+
