@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="../../css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>强化学习</title>
+
+  
+  
+  <link rel="stylesheet" href="../../css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="../../css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.5">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">May 25, 2025
+     - 3 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     强化学习 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <p>强化学习算法分两种，（工作A）一种是预测每个状态的价值V，（工作B）一种是预测在每个状态下，所有可能出现的动作的价值（动作价值Q）</p>
+<h2 id="mc蒙特卡洛算法">MC蒙特卡洛算法</h2>
+<p>完成A工作，增量更新，需要收集很多样本数据来参加训练，预测每个状态的价值</p>
+<p><img src="image-20250525230352667.png" alt=""></p>
+<h2 id="时序差分td">时序差分TD</h2>
+<p>工作A，可以看作是蒙特卡罗的进化版，预测每个状态的价值</p>
+<p><img src="image-20250525230849954.png" alt=""></p>
+<p>一步一回头，用下一步的估值计算当前状态的估值</p>
+<h2 id="qlearning">Qlearning</h2>
+<p>工作B，直到某个状态下所有工作值的奖励值，因为我们既然要做决策，那只要知道某个状态下所有动作值的奖励值，也就是知道了具有最高奖励值的是哪个动作，然后直接采取这个动作就行。所以针对TD的推导公式，我们不预估V值，改为预测Q值</p>
+<p><img src="image-20250525231110232.png" alt=""></p>
+<h2 id="sarsa">SARSA</h2>
+<p>既然我们的目标是选取最大收益，所以，我们肯定会选择一个能够获得最大Q值的动作。也就是说，在实际选择中，我不可能选择不是最大Q值的动作。所以，<strong>我们应该用所有动作的Q值的最大值替代V(St+1)</strong></p>
+<p><img src="image-20250525231339664.png" alt=""></p>
+<h2 id="dqn">DQN</h2>
+<p>预测在每个状态下，所有可能出现的动作的价值</p>
+<p>处理连续，加上神经网络</p>
+<p>对于状态S(t)，我们使用该神经网络来预测该状态下各个动作可以获得的动作价值函数Q(S,A)</p>
+<p><img src="image-20250525231559779.png" alt=""></p>
+<p>Q(S,A)和Q&rsquo;(S,A)应该是一样的，所以我们就把它们作差后当做是神经网络的误差，利用该误差进行梯度下降即可训练出一个能够预测各个动作随代表的动作价值的神经网络。</p>
+<h2 id="doubledqn">DoubleDQN</h2>
+<p>当error相同时，DoubleDQN算法<strong>用了两个网络对Q进行预估，取最小的那个</strong></p>
+<h2 id="策略梯度pg">策略梯度PG</h2>
+<p>对于每一个状态，我们直接算出每一个动作可能出现的概率不行吗？然后直接把概率最大的动作作为当前状态应该采取的动作不就行了吗？似乎这样子就可以跳过求解V和Q这两个值了。如果说DQN是一个TD+神经网络的算法，那么PG是一个<strong>蒙地卡罗</strong>+神经网络的算法。</p>
+<p>如何设计损失函数以便训练神经网络？</p>
+<p>计算一个回合里神经网络预测的某个状态下实际采取的动作会被神经网络采取的概率，然后将这个概率乘奖励值，即可知道这个动作对奖励值得影响情况，如果发现采样这个动作对一个回合的平均奖励值有帮助的话，那么就提高这个这个动作的概率，否则降低这个动作的概率。</p>
+<h2 id="ddpg">DDPG</h2>
+<p>只要求什么动作使得一个回合效率最大</p>
+<p>对于状态S(t+1)和使用神经网络actor预测得到的动作a(t+1)，神经网络的输入，状态和动作，而不是只输入状态，与DQN不同</p>
+<p><img src="image-20250525232657478.png" alt=""></p>
+<p>Q(S,A)和Q&rsquo;(S,A)应该是一样的，所以我们就把它们作差后当做是神经网络的误差，利用该误差进行梯度下降即可训练出一个能够预测各个动作随代表的动作价值的神经网络。根据这个价值我们即可进行决策。</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>May 25, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="算法八股文常见问题">算法八股文常见问题</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="../../about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">算法八股文常见问题</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/">算法岗手撕代码</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-13-%E9%9A%8F%E4%BE%BF%E8%81%8A%E8%81%8A%E5%AF%B9%E4%BA%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E7%9C%8B%E6%B3%95/">随便聊聊对于技术的看法</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

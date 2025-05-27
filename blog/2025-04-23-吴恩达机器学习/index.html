@@ -40,7 +40,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.147.3">
+  <meta name="generator" content="Hugo 0.147.5">
 
   
   
@@ -169,37 +169,37 @@
 <p><img src="image-20250421213247155.png" alt=""></p>
 <p>损失值其实指的是预测和实际之间的偏差，有点不懂loss该怎么翻译</p>
 <p>简化版本</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421214700566.png" alt="image-20250421214700566"></p>
+<p><img src="image-20250421214700566.png" alt=""></p>
 <p>有个很好的凸性</p>
 <h3 id="梯度下降">梯度下降</h3>
 <p>线性回归和逻辑回归每次更新相同吗？形式上相同，但是每次代入的f不同</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421215053202.png" alt="image-20250421215053202"></p>
+<p><img src="image-20250421215053202.png" alt=""></p>
 <p>欠拟合</p>
 <p>泛化：能推广，但不精</p>
 <p>过拟合：也许不能推广所有</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421221128351.png" alt="image-20250421221128351"></p>
+<p><img src="image-20250421221128351.png" alt=""></p>
 <ul>
 <li>解决过拟合</li>
 </ul>
 <p>选择最好的特征值</p>
 <p>正则化：防止特征产生影响，减少参数影响</p>
 <p>lamdba值决定了如何平衡，lamdba过大会欠拟合，过小会过拟合</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421222533649.png" alt="image-20250421222533649"></p>
+<p><img src="image-20250421222533649.png" alt=""></p>
 <p>正则化线性回归</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421223252365.png" alt="image-20250421223252365"></p>
+<p><img src="image-20250421223252365.png" alt=""></p>
 <p>正则化就是在每一次迭代中将w诚意一个稍微小于1的数字</p>
 <p>正则化逻辑回归</p>
 <p>过拟合风险很大，加上lambda一项</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421223957720.png" alt="image-20250421223957720"></p>
+<p><img src="image-20250421223957720.png" alt=""></p>
 <h2 id="神经网络">神经网络</h2>
 <p>activation：一个神经元向下游的其他神经元发送高输出的程度</p>
 <p>layer: affordability,awareness,perceived quality</p>
 <ul>
 <li>全连接神经网络</li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421232054226.png" alt="image-20250421232054226"></p>
+<p><img src="image-20250421232054226.png" alt=""></p>
 <p>多隐藏层神经网络</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250421232352244.png" alt="image-20250421232352244"></p>
+<p><img src="image-20250421232352244.png" alt=""></p>
 <ul>
 <li>图像识别</li>
 </ul>
@@ -207,23 +207,23 @@
 <ul>
 <li>前向传播算法</li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422103312295.png" alt="image-20250422103312295"></p>
+<p><img src="image-20250422103312295.png" alt=""></p>
 <ul>
 <li>Tensorflow中的数据推理</li>
 </ul>
 <pre tabindex="0"><code>x=np.array([200,17])
 layer1=Dense(units=3,activations=&#39;sigmond&#39;)
 a1=layer1(x)
-</code></pre><p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422110234701.png" alt="image-20250422110234701"></p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422111208493.png" alt="image-20250422111208493"></p>
+</code></pre><p><img src="image-20250422110234701.png" alt=""></p>
+<p><img src="image-20250422111208493.png" alt=""></p>
 <ul>
 <li>神经网络向量化</li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422112757144.png" alt="image-20250422112757144"></p>
+<p><img src="image-20250422112757144.png" alt=""></p>
 <ul>
 <li>矩阵乘法代码</li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422113348021.png" alt="image-20250422113348021"></p>
+<p><img src="image-20250422113348021.png" alt=""></p>
 <ul>
 <li>TensorFlow实现</li>
 </ul>
@@ -238,15 +238,15 @@ Dense(unit=1,activation=&#39;sigmoid&#39;)
 model.compile(loss=MeanSquaredError())
 </code></pre><p>3.训练模型</p>
 <pre tabindex="0"><code>model.fit(X,y,epochs=100)
-</code></pre><p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422151932441.png" alt="image-20250422151932441"></p>
+</code></pre><p><img src="image-20250422151932441.png" alt=""></p>
 <ul>
 <li>sigmoid函数的替代品</li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422153138010.png" alt="image-20250422153138010"></p>
+<p><img src="image-20250422153138010.png" alt=""></p>
 <p>取决于预测标签Y是什么</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422154108097.png" alt="image-20250422154108097"></p>
+<p><img src="image-20250422154108097.png" alt=""></p>
 <p>在隐藏层更多使用ReLU因为速度更快</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422154354936.png" alt="image-20250422154354936"></p>
+<p><img src="image-20250422154354936.png" alt=""></p>
 <pre tabindex="0"><code>Dense(units=25,activation=&#39;relu&#39;)
 </code></pre><ul>
 <li>为什么需要使用激活函数，或者为什么不直接使用线性函数？</li>
@@ -254,34 +254,34 @@ model.compile(loss=MeanSquaredError())
 <p>hidden layer使用线性，output layer使用逻辑回归，结果是逻辑回归，如果都用线性函数，最终得到的也只是线性函数，不能得到更复杂的特性</p>
 <h2 id="多类">多类</h2>
 <p>当要识别的不仅仅是0或1</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422155600436.png" alt="image-20250422155600436"></p>
+<p><img src="image-20250422155600436.png" alt=""></p>
 <ul>
 <li>softmax回归算法</li>
 </ul>
 <p>逻辑回归算法的推广</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422160033349.png" alt="image-20250422160033349"></p>
+<p><img src="image-20250422160033349.png" alt=""></p>
 <p>当n=2时，就是逻辑回归模型</p>
 <p>损失函数</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422160716116.png" alt="image-20250422160716116"></p>
+<p><img src="image-20250422160716116.png" alt=""></p>
 <ul>
 <li>多标签分类</li>
 </ul>
 <p>方法一：构建三个独立的神经网络</p>
 <p>方法二：训练一个神经网络同时检测所有三种情况</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422163224515.png" alt="image-20250422163224515"></p>
+<p><img src="image-20250422163224515.png" alt=""></p>
 <ul>
 <li>优化方法</li>
 </ul>
 <p>Adam算法:自动调整学习率</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422163939817.png" alt="image-20250422163939817"></p>
+<p><img src="image-20250422163939817.png" alt=""></p>
 <pre tabindex="0"><code>model.compile(optimizer=tf.keras.optimaizers.Adam(learning_rate=le-3),......)
 </code></pre><ul>
 <li>Additional Layer Types</li>
 </ul>
 <p>Dense layer：每个层中的神经元都将前一层的所有激活作为输入</p>
 <p>Convolutional Layer:每个神经元只能看到部分前一层的输入。好处：更快计算，更少训练数据导致更少的过拟合</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422164619818.png" alt="image-20250422164619818"></p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422164811042.png" alt="image-20250422164811042"></p>
+<p><img src="image-20250422164619818.png" alt=""></p>
+<p><img src="image-20250422164811042.png" alt=""></p>
 <h3 id="模型评估">模型评估</h3>
 <p>70%训练集：训练模型参数</p>
 <p>30%测试集</p>
@@ -294,10 +294,10 @@ model.compile(loss=MeanSquaredError())
 <p>High bias</p>
 <p>Just right</p>
 <p>High variance</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422175631072.png" alt="image-20250422175631072"></p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422180042675.png" alt="image-20250422180042675"></p>
+<p><img src="image-20250422175631072.png" alt=""></p>
+<p><img src="image-20250422180042675.png" alt=""></p>
 <p>lambda越大，wj越小，拟合效果越不好</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422191911145.png" alt="image-20250422191911145"></p>
+<p><img src="image-20250422191911145.png" alt=""></p>
 <ul>
 <li>建立表现标准</li>
 </ul>
@@ -305,16 +305,16 @@ model.compile(loss=MeanSquaredError())
 <p>是否有一些竞争算法</p>
 <p>一要观察标准和训练误差差值（偏差），二要看训练误差和交叉验证误差差别（方差）</p>
 <p>如果一个学习算法有高偏差，增加更多的训练数据本身也无法降低出错率</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422193655347.png" alt="高偏差"></p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422193801140.png" alt="高方差"></p>
+<p><img src="image-20250422193655347.png" alt=""></p>
+<p><img src="image-20250422193801140.png" alt=""></p>
 <p>此时增加训练集可能会有帮助</p>
 <ul>
 <li>解决高方差/偏差方法</li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422194353657.png" alt="image-20250422194353657"></p>
+<p><img src="image-20250422194353657.png" alt=""></p>
 <p>高方差：获取更多训练数据或者简化模型（使用哦个更小的特征，增加正则化参数lambda）</p>
 <p>高偏差：给模型更多灵活性，适应更复杂情况</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422200018306.png" alt="image-20250422200018306"></p>
+<p><img src="image-20250422200018306.png" alt=""></p>
 <p>Bigger network是指更多训练单元units</p>
 <ul>
 <li>迁移学习</li>
@@ -323,7 +323,7 @@ model.compile(loss=MeanSquaredError())
 <ul>
 <li>决策树模型</li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250422235335240.png" alt="image-20250422235335240"></p>
+<p><img src="image-20250422235335240.png" alt=""></p>
 <p>1.如何选择哪个特征进行分割？</p>
 <p>最大化纯度</p>
 <p>2.什么时候停止划分？</p>
@@ -332,17 +332,17 @@ model.compile(loss=MeanSquaredError())
 <li>测量纯度</li>
 </ul>
 <p>使用熵函数</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423001136365.png" alt="image-20250423001136365"></p>
+<p><img src="image-20250423001136365.png" alt=""></p>
 <p>当熵值最小时，纯度最高，最大时，纯度最小</p>
 <p>实际函数</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423001244855.png" alt="image-20250423001244855"></p>
+<p><img src="image-20250423001244855.png" alt=""></p>
 <ul>
 <li>选择拆分信息增益(熵的减少)</li>
 </ul>
 <p>取左右平均的加权平均</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423002316639.png" alt="image-20250423002316639"></p>
+<p><img src="image-20250423002316639.png" alt=""></p>
 <p>H(0.5)-加权平均就是信息增益，如果熵的减少太小，低于一个阙值，就不再进行分裂</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423002546675.png" alt="image-20250423002546675"></p>
+<p><img src="image-20250423002546675.png" alt=""></p>
 <ul>
 <li>为什么使用热编码？</li>
 </ul>
@@ -382,9 +382,9 @@ y_pred=model.predict(X_test)
 <li>K-menas算法</li>
 </ul>
 <p>选择两个簇，初步猜测簇质心的位置，遍历每个点，分配到离簇中心更近的位置</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423093246056.png" alt="image-20250423093246056"></p>
+<p><img src="image-20250423093246056.png" alt=""></p>
 <p>移动簇中心，到红点的中心位置</p>
-<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250423093344171.png" alt="image-20250423093344171"></p>
+<p><img src="image-20250423093344171.png" alt=""></p>
 <p>再次检查，重复上述过程，簇中心位置不断变化，直到收敛</p>
 
         </div>
@@ -516,6 +516,12 @@ Click on
           
             
               <li class="post">
+                <a href="../../blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="../../blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">算法八股文常见问题</a>
               </li>
             
@@ -529,12 +535,6 @@ Click on
             
               <li class="post">
                 <a href="../../blog/2025-05-13-%E9%9A%8F%E4%BE%BF%E8%81%8A%E8%81%8A%E5%AF%B9%E4%BA%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E7%9C%8B%E6%B3%95/">随便聊聊对于技术的看法</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="../../blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
               </li>
             
           

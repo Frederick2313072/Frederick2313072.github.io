@@ -40,7 +40,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.147.3">
+  <meta name="generator" content="Hugo 0.147.5">
 
   
   
@@ -117,7 +117,7 @@
 
 <header>
   <p class="meta">May 19, 2025
-     - 15 minute read 
+     - 47 minute read 
      - <a href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/#disqus_thread">Comments</a>
 
     
@@ -158,8 +158,8 @@
 <p>**3.**为何现在大模型大都是Decoder only？</p>
 <p><strong>Encoder的低秩问题</strong>：Encoder的双向注意力会<strong>存在低秩问题</strong>，这可能会<strong>削弱模型表达能力</strong>，就生成任务而言，引入双向注意力并无实质好处。</p>
 <p><strong>更好的Zero-Shot性能、更适合于大语料自监督学习</strong>：decoder-only 模型在没有任何 tuning 数据的情况下、zero-shot 表现最好，而 encoder-decoder 则需要在一定量的标注数据上做 multitask finetuning 才能激发最佳性能。</p>
-<p>**4.**大模型架构介绍？</p>
-<p>Transformer 模型一开始是用来做 seq2seq 任务的，所以它包含 Encoder 和 Decoder 两个部分；他们两者的区别主要是，<strong>Encoder 在抽取序列中某一个词的特征时能够看到整个序列中所有的信息，即上文和下文同时看到</strong>；而 <strong>Decoder 中因为有 mask 机制的存在，使得它在编码某一个词的特征时只能看到自身和它之前的文本信息</strong>。</p>
+<p><strong>4.大模型架构介绍？</strong></p>
+<p><strong>Transformer 模型一开始是用来做 seq2seq 任务的，所以它包含 Encoder 和 Decoder 两个部分；他们两者的区别主要是，Encoder 在抽取序列中某一个词的特征时能够看到整个序列中所有的信息，即上文和下文同时看到；而 Decoder 中因为有 mask 机制的存在，使得它在编码某一个词的特征时只能看到自身和它之前的文本信息。</strong></p>
 <p>5.什么时候用Bert，什么时候用LLama，chatGLM</p>
 <ol>
 <li><strong>Bert模型</strong>：Bert是一种预训练的语言模型，<strong>适用于各种自然语言处理任务</strong>，如文本分类、命名实体识别、语义相似度计算等。如果你的任务是通用的文本处理任务，而不依赖于特定领域的知识或语言风格，Bert模型通常是一个不错的选择。Bert由一个Transformer编码器组成，更适合于NLU相关的任务。</li>
@@ -181,39 +181,6 @@
 <li>直接进行大规模领域语料预训练</li>
 <li>通用语料比例混合领域语料同时训练</li>
 </ul>
-<p>9.增量与训练流程？</p>
-<ol>
-<li><strong>数据预处理</strong>：参考 LLaMA 的预训练长度，也把数据处理成2048长度（如果不够，做补全）。</li>
-<li><strong>分词器</strong>：如果使用 LLaMA 可能需要添加中文词表，目前有不少人做了相关工作，当然也可以自己添加自己需要的词表。</li>
-<li><strong>原始模型</strong>：各家框架的模型层名不太一样，训练时可能需要做一些调整，在预训练时尽量选择基座模型，不选 Chat 模型。</li>
-<li><strong>训练模型</strong>：跑通只是第一步，根据训练情况反复调整比较重要。</li>
-<li><strong>模型转换</strong>：不同框架的checkpoint格式不同，还会根据并行度分成很多个文件。</li>
-<li><strong>模型测试</strong>：简单测试下续写能力，验证下模型是否正常。</li>
-</ol>
-<p>10.SFT指令微调如何构建？</p>
-<p>构建Supervised Fine-Tuning（SFT）的微调数据需要以下步骤：</p>
-<ol>
-<li><strong>收集原始数据</strong>：首先，您需要收集与目标任务相关的原始数据。这可以是对话数据、分类数据、生成任务数据等，具体取决于您的任务类型。确保数据集具有代表性和多样性，以提高模型的泛化能力。</li>
-<li><strong>标注数据</strong>：对原始数据进行标注，为每个样本提供正确的标签或目标输出。标签的类型取决于您的任务，可以是分类标签、生成文本、对话回复等。确保标注的准确性和一致性。</li>
-<li><strong>划分数据集</strong>：将标注数据划分为训练集、验证集和测试集。通常，大部分数据用于训练，一小部分用于验证模型的性能和调整超参数，最后一部分用于最终评估模型的泛化能力。</li>
-<li><strong>数据预处理</strong>：根据任务的要求，对数据进行预处理。这可能包括文本清洗、分词、去除停用词、词干化等处理步骤。确保数据格式和特征表示适合模型的输入要求。</li>
-<li><strong>格式转换</strong>：将数据转换为适合模型训练的格式。这可能涉及将数据转换为文本文件、JSON格式或其他适合模型输入的格式。</li>
-<li><strong>模型微调</strong>：使用转换后的数据对基座模型进行微调。根据任务的要求，选择适当的微调方法和超参数进行训练。这可以使用常见的深度学习框架（如PyTorch、TensorFlow）来实现。</li>
-<li><strong>模型评估</strong>：使用测试集对微调后的模型进行评估，计算模型在任务上的性能指标，如准确率、召回率、生成质量等。根据评估结果对模型进行进一步的优化和调整。</li>
-</ol>
-<p>11.如何训练自己的大模型？</p>
-<ol>
-<li><strong>数据收集和准备</strong>：首先，需要收集与目标任务和领域相关的大规模数据集。这可以包括从互联网上爬取数据、使用公开数据集或者与合作伙伴合作获取数据。然后，对数据进行预处理和清洗，包括去除噪声、处理缺失值、标准化数据等。</li>
-<li><strong>模型设计和架构选择</strong>：根据任务的特点和目标，选择适合的模型架构。可以基于已有的模型进行修改和调整，或者设计全新的模型。常见的大模型架构包括深度神经网络（如卷积神经网络、循环神经网络、Transformer等）和预训练语言模型（如BERT、GPT等）。</li>
-<li><strong>数据划分和预处理</strong>：将数据集划分为训练集、验证集和测试集。训练集用于模型的训练，验证集用于调整超参数和模型选择，测试集用于最终评估模型的性能。进行数据预处理，如分词、编码、标记化、特征提取等，以便输入到模型中。</li>
-<li><strong>模型训练</strong>：使用训练集对模型进行训练。训练过程中，需要选择合适的优化算法、损失函数和学习率等超参数，并进行适当的调整和优化。可以使用GPU或者分布式训练来加速训练过程。</li>
-<li><strong>模型调优和验证</strong>：使用验证集对训练过程中的模型进行调优和验证。根据验证集的性能指标，调整模型的超参数、网络结构或者其他相关参数，以提升模型的性能。</li>
-<li><strong>模型评估和测试</strong>：使用测试集对最终训练好的模型进行评估和测试。计算模型的性能指标，如准确率、召回率、F1值等，评估模型的性能和泛化能力。</li>
-<li><strong>模型部署和优化</strong>：将训练好的模型部署到实际应用中。根据实际需求，对模型进行进一步的优化和调整，以提高模型的效率和性能。</li>
-</ol>
-<p>12.预训练和微调在哪个阶段注入知识？</p>
-<p>在<strong>预训练阶段</strong>，模型通过大规模的未标注数据进行训练，从中学习语言的统计特征、语义知识和语言规律。预训练的目的是让模型建立起对语言的基本理解和概念，并学习到一般性的语言表示。这种预训练过程<strong>注入了通用的语言知识，并可以迁移到各种下游任务中</strong>。</p>
-<p>在<strong>微调阶段</strong>，预训练的模型通过在特定任务上使用带标注的数据进行微调，以适应具体任务的要求。在微调过程中，模型通过接触任务特定的数据和标签，进一步调整和优化模型的参数，使其更好地适应任务的特定特征和要求。微调阶段<strong>注入的是与任务相关的知识和信息。</strong></p>
 <p>13.简单介绍强化学习？</p>
 <p>强化学习（Reinforcement Learning，RL）研究的问题是<strong>智能体（Agent）<strong>与</strong>环境（Environment）</strong> 交互的问题，其目标是使智能体在复杂且不确定的环境中最大化奖励（Reward）。</p>
 <p>14.简单介绍下RLHF?</p>
@@ -275,7 +242,1260 @@
 <p>答：PPO算法是一种在策略空间进行优化的强化学习方法，旨在通过限制策略更新步骤的大小来避免训练过程中的性能崩溃。PPO通过引入一个代理目标函数来优化策略，该函数鼓励小幅更新策略，同时避免过大的偏离原始策略。</p>
 <p>22.<strong>问：DPO（分布式策略优化）在RLHF中的核心思想是什么？</strong>
 答：DPO的核心思想是通过优化策略的概率分布而不仅仅是期望值来提高策略的鲁棒性和性能。它考虑了环境的不确定性和模型的探索性，通过优化策略的整个分布来寻找最优策略，从而在RLHF中实现更高效和稳定的学习。</p>
-<p>23.DDPG算法</p>
+<p>Q1： 
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=Transformer&amp;zhida_source=entity" target="_blank" rel="noopener">Transformer</a></p>
+<p>中的编码器和解码器有什么区别，只有编码器或者只有解码器的模型是否有用？</p>
+<p>A1: Transformer 中编码器（Encoder）和解码器（Decoder）的区别：</p>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>编码器 (Encoder)</th>
+          <th>解码器 (Decoder)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>输入</td>
+          <td>原始输入序列（如一段英文、图片特征等）</td>
+          <td>目标输出序列的已有部分（如已翻译的前几个词）</td>
+      </tr>
+      <tr>
+          <td>主要功能</td>
+          <td>将输入序列编码成高维的连续表征（上下文向量）</td>
+          <td>基于编码器输出和已生成的内容一步步生成目标序列</td>
+      </tr>
+      <tr>
+          <td>结构特点</td>
+          <td>只看输入，不看输出</td>
+          <td>既看之前生成的输出（自回归，
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=Masked&#43;Self-Attention&amp;zhida_source=entity" target="_blank" rel="noopener">Masked Self-Attention</a></td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th>），又看编码器的输出（Encoder-Decoder Attention）</th>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>注意力类型</td>
+          <td>正常自注意力（Self-Attention）</td>
+          <td>Masked Self-Attention + Encoder-Decoder Attention</td>
+      </tr>
+      <tr>
+          <td>应用场景</td>
+          <td>文本分类、特征提取、理解类任务</td>
+          <td>文本生成、翻译、总结、对话等任务</td>
+      </tr>
+  </tbody>
+</table>
+<p>只有编码器（Encoder-only）的模型
+代表： 
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=BERT&amp;zhida_source=entity" target="_blank" rel="noopener">BERT</a></p>
+<p>、
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=RoBERTa&amp;zhida_source=entity" target="_blank" rel="noopener">RoBERTa</a>、
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=DeBERTa&amp;zhida_source=entity" target="_blank" rel="noopener">DeBERTa</a>
+用途： 理解型任务（分类、问答、检索、文本匹配）
+特点： 输入整体一次性处理，不涉及逐步生成。</p>
+<p>只有解码器（Decoder-only）的模型
+代表： GPT 系列（GPT-2, GPT-3, GPT-4）、
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=LLaMA&amp;zhida_source=entity" target="_blank" rel="noopener">LLaMA</a>、
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=Mistral&amp;zhida_source=entity" target="_blank" rel="noopener">Mistral</a></p>
+<p>用途： 生成型任务（写作、对话、翻译、总结）
+特点： 逐步生成，每次基于已有输出预测下一个 token。</p>
+<p>编码器-解码器（Encoder-Decoder）模型
+代表： 原版 Transformer、
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=T5&amp;zhida_source=entity" target="_blank" rel="noopener">T5</a></p>
+<p>、
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=BART&amp;zhida_source=entity" target="_blank" rel="noopener">BART</a>、
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=mBART&amp;zhida_source=entity" target="_blank" rel="noopener">mBART</a></p>
+<p>用途： 既需要理解输入、又需要生成输出的复杂任务（如机器翻译）。</p>
+<hr>
+<p>Q2： GPT 跟原始 Transformer 论文的模型架构有什么区别？</p>
+<p>A2： GPT 跟原始 Transformer 论文模型的主要区别</p>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>原始 Transformer（2017年论文）</th>
+          <th>GPT（以 GPT-1 为例）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>结构</td>
+          <td>编码器 + 解码器</td>
+          <td>只有解码器</td>
+      </tr>
+      <tr>
+          <td>输入输出</td>
+          <td>输入一个序列（编码器）-&gt; 输出另一个序列（解码器）</td>
+          <td>输入不完整的序列，预测下一个 token（自回归）</td>
+      </tr>
+      <tr>
+          <td>注意力机制</td>
+          <td>编码器使用普通 Self-Attention，解码器用 Masked Self-Attention + 
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=Cross-Attention&amp;zhida_source=entity" target="_blank" rel="noopener">Cross-Attention</a></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th>只用 Masked Self-Attention</th>
+          <th></th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Mask 处理</td>
+          <td>编码器的 Self-Attention 是标准的（可以看全局），解码器内部 Mask 未来的信息</td>
+          <td>整个模型 Mask 未来的信息，防止看见未来 token</td>
+      </tr>
+      <tr>
+          <td>训练目标</td>
+          <td>给定输入序列，预测输出序列（通常是机器翻译任务）</td>
+          <td>语言建模（自回归预测下一个 token）</td>
+      </tr>
+      <tr>
+          <td>应用任务</td>
+          <td>机器翻译、摘要</td>
+          <td>生成文本、问答、对话</td>
+      </tr>
+      <tr>
+          <td>预训练策略</td>
+          <td>原论文没强调预训练（监督学习为主）</td>
+          <td>明确使用预训练（大规模无监督语言建模）</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<p>Q3： 仅编码器（BERT 类）、仅解码器（GPT 类）和完整编码器 - 解码器架构各有什么优缺点？</p>
+<p>A3：
+仅编码器架构（如 BERT）
+特点：输入全局可见（双向 Attention），主要用于理解型任务（分类、问答、检索）
+优点：
+强大的理解能力，可以同时看到输入的前后文，建模上下文关系细腻。
+适合判别类任务：如分类、抽取式问答、文本匹配、情感分析。
+预训练效果好：Masked Language Model（MLM）任务易于优化和收敛。
+缺点：
+不适合生成任务：缺少左到右的自回归建模，不适合直接生成文本（如续写、翻译）。
+推理时较慢：全局注意力计算量大，序列较长时开销高。</p>
+<p>仅解码器架构（如 GPT）
+特点：自回归生成（仅能看到自己之前的 token），主要用于生成型任务（续写、对话、代码生成）
+优点：
+擅长生成任务：自然符合从左到右逐字生成的需求。
+推理友好：每次只用前缀，增量式推理速度快（利用缓存）。
+训练简单：标准的语言模型目标（预测下一个 token）容易训练和优化。
+缺点：
+理解能力有限：缺少完整双向上下文，深层次理解弱于编码器模型。
+长上下文难处理：纯解码器很难高效建模极长文本，尽管最近有改进（如 FlashAttention、MoE）。
+训练数据量需求大：要训练出强理解能力，通常需要更大的数据量和更深层次微调。</p>
+<p>编码器-解码器架构（如 T5、BART）
+特点：编码器负责理解输入，解码器负责生成输出。双向编码器 + 单向自回归解码器。
+优点：
+兼具理解和生成能力：编码器处理全局信息，解码器逐步生成，适合复杂的生成任务（如翻译、摘要、复杂 QA）。
+灵活性高：可以处理多种类型的输入-输出映射问题。
+迁移性好：T5 这类模型可以被格式化成各种任务（统一成“文本到文本”）。
+缺点：
+训练和推理都较重：编码器和解码器都要跑，推理开销大于纯编码器或纯解码器。
+推理速度慢：即使缓存了前缀，仍然需要编码完整输入，因此实时生成体验不如 GPT 类模型。
+实现复杂度高：需要协调 encoder output 和 decoder input 之间的 attention。</p>
+<hr>
+<p>Q4： 为什么说 Transformer 的自注意力机制相对于早期 RNN 中的注意力机制是一个显著的进步？</p>
+<p>A4：
+1.全局并行计算
+在 RNN 中（比如 LSTM + Attention），序列是逐步处理的，时间步之间有严格的依赖关系，不能并行。Transformer 的自注意力机制允许一次性看到整个序列，每个位置可以并行计算注意力，大幅提高了训练速度和计算效率。
+2.灵活建模长距离依赖
+在 RNN 中，即使有注意力机制，捕捉很远距离的信息仍然比较困难，容易出现梯度消失、难以关注远处的重要信息。自注意力机制直接在所有位置之间建连，不管是近的还是远的 token，都能很自然地互相影响，没有任何偏向于局部邻域的结构瓶颈。
+3.统一且更简单的架构：
+RNN + Attention 通常是先用 RNN 提取隐状态，再单独加一个注意力层，整个模型更复杂、难以优化。Transformer 直接用多层自注意力+前馈神经网络堆叠而成，不再依赖 RNN，本身结构更简洁，也更容易扩展。
+4.更好地支持长序列建模（理论上）：
+自注意力的计算复杂度是O(n*n)，n是序列长度，虽然带来一定计算成本，但换来的是对长序列建模能力的极大提升。传统RNN对长序列往往性能迅速下降。
+5.更强的位置编码和建模能力：
+Transformer通过加入位置编码（Positional Encoding）来补充位置信息，而不是靠序列顺序隐式建模，反而能更灵活地捕捉顺序和结构。</p>
+<p>Q9: 大模型的分词器和传统的中文分词有什么区别？对于一个指定的词表，一句话是不是只有一种唯一的分词方式？</p>
+<p>A9: 大模型的分词器（Tokenizer） vs 传统中文分词</p>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>大模型分词器（比如BERT、GPT类）</th>
+          <th>传统中文分词（比如jieba、THULAC）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>目的</td>
+          <td>把文本变成小块以供神经网络建模（建模单位可以是字、子词、字节对（
+<a href="https://zhida.zhihu.com/search?content_id=257713678&amp;content_type=Article&amp;match_order=1&amp;q=BPE&amp;zhida_source=entity" target="_blank" rel="noopener">BPE</a></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+      <tr>
+          <th>）、甚至Unicode码点）</th>
+          <th>把连续的汉字序列切成「词」级单位（符合自然语言理解习惯）</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>粒度</td>
+          <td>取决于预训练词表：可以是字、子词、词甚至子词片段，BPE、WordPiece、Unigram等方法</td>
+          <td>通常以词为基本单位，力求符合语言学定义的“词”</td>
+      </tr>
+      <tr>
+          <td>依据</td>
+          <td>固定词表（vocab），以最大化匹配原则切分（例如BPE优先匹配长片段）</td>
+          <td>依据语料库词频、语言规则、词典，甚至依靠统计模型、规则、或神经网络</td>
+      </tr>
+      <tr>
+          <td>目标优化</td>
+          <td>主要为了压缩词表大小、控制OOV（未登录词），且方便高效编码</td>
+          <td>主要为了符合人类语言习惯的自然理解和后续任务（如搜索引擎、机器翻译）</td>
+      </tr>
+      <tr>
+          <td>OOV处理</td>
+          <td>分成更小单位（比如子词、字符），尽量减少完全OOV</td>
+          <td>传统分词遇到OOV就分成单字，或启发式切分</td>
+      </tr>
+  </tbody>
+</table>
+<p>一般情况下，大模型的分词器在指定词表下，有且只有一种确定的分词方式。大模型的分词器（比如BPE, WordPiece, Unigram）要求：根据词表，采用贪心匹配（greedy  match）,总是尽可能匹配最长的片段（子词）。每一句话，在给定词表和确定的分词规则（通常是最长优先贪心）之下，分词结果是唯一的。</p>
+<hr>
+<p>Q16：word2vec 的训练过程中，负例的作用是什么？</p>
+<p>A16: word2vec有两种主流训练方法：CBOW（Continuous Bag of Words）和 Skip-gram。在 Skip-gram + Negative Sampling 模型中，负例的引入是为了提高训练效率。</p>
+<ol>
+<li>减少计算量。不再对整个词表做softmax，只在小量的负例和正例上做二分类，每次训练只更新一小部分词向量（正例+少数负例的向量），速度快很多。</li>
+<li>训练目标变成了二分类。训练变成了让模型学会判断，某两个词是否真的出现在上下文里。</li>
+<li>让词向量学到区分性的表示。正确搭配的词在向量空间里靠近，错误搭配的词在向量空间里远离。</li>
+</ol>
+<p>Q17： 传统的静态词嵌入（如 word2vec）与大模型产生的与上下文相关的嵌入相比，有什么区别？有了与上下文相关的嵌入，静态词嵌入还有什么价值？</p>
+<p>A17: 传统静态词嵌入 vs 上下文相关词嵌入</p>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>静态词嵌入（如 word2vec, GloVe）</th>
+          <th>上下文相关词嵌入（如 BERT, GPT）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>嵌入向量</td>
+          <td>每个词只有一个固定向量，不管出现在哪儿</td>
+          <td>每次出现根据具体上下文生成不同的向量</td>
+      </tr>
+      <tr>
+          <td>例子</td>
+          <td>&ldquo;bank&rdquo; 不管是“河岸”还是“银行”，都是同一个向量</td>
+          <td>&ldquo;bank&rdquo; 在“river bank”和“investment bank”中向量不同</td>
+      </tr>
+      <tr>
+          <td>训练方式</td>
+          <td>预测局部上下文（word2vec）或基于统计共现矩阵（GloVe）</td>
+          <td>通过掩蔽语言建模（BERT）或自回归语言建模（GPT）大规模训练</td>
+      </tr>
+      <tr>
+          <td>模型结构</td>
+          <td>简单的浅层神经网络</td>
+          <td>深层 Transformer 神经网络</td>
+      </tr>
+      <tr>
+          <td>表达能力</td>
+          <td>只能捕捉词与词的大致共现关系</td>
+          <td>能理解语义、歧义、多义词，细粒度的语境</td>
+      </tr>
+  </tbody>
+</table>
+<p>静态词嵌入依然很有价值.
+1.轻量 &amp; 快速。不需要跑Transformer，推理速度非常快，适合小模型、边缘设备、资源受限环境。
+2.低成本。训练、存储、使用成本都很低，适合中小型项目。
+3.可解释性强。因为一个词只有一个向量，便于分析（比如做词向量可视化、聚类）。
+4.先验知识迁移。静态词嵌入可以作为其他任务的初始化，提供良好的先验。
+5.兼容传统方法。一些经典的 NLP （比如文本分类、信息检索、推荐系统）设计就是用固定embedding的。
+6.适合小数据场景。没有大量标注数据、也没法finetune大模型时，静态词嵌入仍然可以快速起步。</p>
+<hr>
+<p>Q19： 在 word2vec 等词嵌入空间中，存在 king - man + woman ≈ queen 的现象，这是为什么？大模型的词元嵌入空间是否也有类似的属性？</p>
+<p>A19：词嵌入捕捉了语义和语法方向。word2vec的训练目标：出现在相似上下文中的词，它们的向量接近。word2vec的空间隐式学到了“属性方向”（例子中统治者身份保持不变，但性别变化）。</p>
+<p>比较区分</p>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>word2vec等静态词嵌入</th>
+          <th>大模型（BERT、GPT）词元嵌入</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>嵌入性质</td>
+          <td>单一静态词向量，训练目标就是建空间</td>
+          <td>嵌入只是Transformer的初始输入，最终靠隐藏层动态调整</td>
+      </tr>
+      <tr>
+          <td>线性属性</td>
+          <td>显式存在，比如king-man+woman≈queen</td>
+          <td>初始嵌入层弱一些，但隐藏层表达更强、更动态</td>
+      </tr>
+      <tr>
+          <td>空间结构</td>
+          <td>比较干净的线性结构</td>
+          <td>嵌入更复杂，混合了语义、位置、句法等多种特征</td>
+      </tr>
+      <tr>
+          <td>词义处理</td>
+          <td>靠邻居分布建模，弱上下文敏感</td>
+          <td>高度上下文敏感，后续动态调整</td>
+      </tr>
+  </tbody>
+</table>
+<p>word2vec构造了一个干净、线性化的词义空间，属性变化可以直接用向量加减模拟。大模型（BERT/GPT）虽然在初始词元嵌入层线性关系弱一些，但在经过Transformer处理后，可以以更复杂且灵活的方式捕捉到这些关系。大模型不是没有这种现象，而是以一种更深层、更动态的方式实现了。</p>
+<hr>
+<p>Q20： 大模型怎么知道它的输出该结束了？</p>
+<p>A20：1. 特殊的结束标记。训练数据里每一段文本通常都会加上一个特殊的“结束符号”<eos>，模型训练目标是预测下一个token，正确预测 <eos> 是它必须学会的一部分。</p>
+<ol start="2">
+<li>学到的结束策略。模型在学习“什么场景下该结束”：问答任务里，回答完一句话就该停；写故事任务里，写到合理收尾就停。这不是显式规则，是通过海量数据里的自然停顿规律，统计式学到的。</li>
+<li>解码阶段的辅助规则。推理时会配合一些人为的限制：设置最大输出长度；输出了<eos>立刻停止；连续重复(例如一直输出同一个词)，可以触发停止。</li>
+</ol>
+<hr>
+<p>Q21： 训练时如何防止模型看到未来的词元？</p>
+<p>A21：主要靠causal mask。训练时，对注意力矩阵（self-attention）应用一个上三角掩蔽矩阵。</p>
+<hr>
+<p>Q22： 注意力机制是如何计算上下文各个词元之间的相关性的？每个注意力头是只关注一个词元吗？ softmax之前为什么要除以 sqrt(Dk)？</p>
+<p>A22：
+(1).Self-Attention 机制。计算过程，点积 → 归一化（softmax）→ 加权求和。
+(2).不是。每个 Attention Head独立地 用一套自己的QKV，在整句话（上下文）上做 self-attention。每个 head  也是关注整句话，不是只看一个词元。有的 head 更关注句法结构；有的 head 更关注相邻词；有的 head 关注长距离依赖。
+(3).QK的点积较大，softmax的输出越接近one-hot（尖锐不平滑），这样导致梯度会变得很小（梯度消失问题）。避免梯度消失，保持训练稳定。</p>
+<hr>
+<p>Q23：Q 和 K 在注意力的表达式里看起来是对称的，但 KV 缓存里为什么只有 KV，没有 Q ？</p>
+<p>A23：K 和 V 是和“上下文”有关的，是&quot;过去&quot;积累下来的。Q  是跟&quot;当前要生成的新词元&quot;有关的，是&quot;现在&quot;动态计算的。在推理阶段，比如生成文本时，是token-by-token地生成的。以前已经生成过的词元的 K 和 V 是确定的，不需要重新计算，可以直接缓存到KV Cache里。Q  依赖的是新的输入，每次推理时都要新计算一次（根据当前的输入算出来，Prompt + 已生成的部分），它不能缓存下来用。</p>
+<p>Q25： 为什么 Transformer 中需要残差连接？</p>
+<p>A25：</p>
+<ol>
+<li>缓解深层网络中的梯度消失问题。残差连接让梯度可以直接流到前面的层，保证反向传播时梯度不会因为层数多而消失。</li>
+<li>促进特征的直接传播，保留输入信息。比如序列的位置关系，避免在子层处理后被扭曲。残差连接能让模型保留原始输入的关键信息，即使子层做了复杂的变换，可以通过直接加回输入，保持模型理解的稳定性。</li>
+<li>加速收敛，提高训练稳定性。实验表明，没有残差连接的 Transformer 很难训练，容易震荡或停滞。</li>
+<li>帮助学习细粒度调整。残差连接让子层只需要学习输入的微小修正，而不是从零开始学习新的复杂表示。</li>
+</ol>
+<hr>
+<p>Q26： Transformer 中的 LayerNorm 跟 ResNet 中的 BatchNorm 有什么区别，为什么 Llama-3 换用了 RMSNorm ？</p>
+<p>A26：LayerNorm vs BatchNorm</p>
+<table>
+  <thead>
+      <tr>
+          <th>对比项</th>
+          <th>LayerNorm（Transformer常用）</th>
+          <th>BatchNorm（ResNet常用）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>归一化维度</td>
+          <td>特征维度（每个样本内部归一化）</td>
+          <td>批量维度（跨样本归一化）</td>
+      </tr>
+      <tr>
+          <td>公式</td>
+          <td>对每个样本的每个通道归一化</td>
+          <td>对每个通道在整个batch中归一化(跨样本)</td>
+      </tr>
+      <tr>
+          <td>依赖 Batch Size</td>
+          <td>不依赖（单个样本也能用）</td>
+          <td>依赖（小batch时效果差）</td>
+      </tr>
+      <tr>
+          <td>主要应用场景</td>
+          <td>NLP（Transformer）</td>
+          <td>视觉（CNN，大batch）</td>
+      </tr>
+      <tr>
+          <td>使用的位置</td>
+          <td>通常在残差连接之前或之后（取决于PreNorm/PostNorm）</td>
+          <td>通常在卷积后、激活函数前</td>
+      </tr>
+      <tr>
+          <td>训练时推理时行为</td>
+          <td>一致（训练/推理行为一样）</td>
+          <td>训练用batch统计，推理用滑动平均统计</td>
+      </tr>
+  </tbody>
+</table>
+<p>LayerNorm是减均值后除以标准差，需要计算均值和方差，对数值波动更敏感（受均值影响），计算稍慢。RMSNorm只除以均方根，只需要均方差，省掉了减均值，更稳定计算更快。
+Llama-3 用 RMSNorm的原因：加速推理，少了减均值的操作，计算量更小；数值稳定性，大模型的 hidden size  通常很大，均值的波动微不足道，还能让归一化更简单稳定；经验上效果好，实验发现用 RMSNorm loss 降得更快，收敛稳定性也好于  LayerNorm。</p>
+<hr>
+<p>Q27： Transformer 中前馈神经网络的作用是什么？注意力层中已经有 softmax 非线性层，那么前馈神经网络是否必要？</p>
+<p>A27：前馈神经网络的作用
+增加模型的表达能力：注意力层主要是信息聚合（&ldquo;看哪里&rdquo;），FFN 提供非线性变换和特征加工（&ldquo;怎么理解&rdquo;）。
+逐位置特征提炼：FFN 对每个 token 独立处理，不引入新的跨token依赖，属于位置上的深度加工。
+引入额外的非线性：Attention用了 Softmax，它本身只在注意力权重上引入非线性，对value做的是加权平均；FFN是对每个 token 自身进行独立的非线性映射。</p>
+<table>
+  <thead>
+      <tr>
+          <th>项目</th>
+          <th>Attention（Softmax部分）</th>
+          <th>FFN</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>非线性位置</td>
+          <td>只作用在权重（query-key相关性）</td>
+          <td>直接作用在每个 token 的表示</td>
+      </tr>
+      <tr>
+          <td>加工内容</td>
+          <td>聚合不同 token 的信息（关注哪里）</td>
+          <td>逐 token 变换特征（理解和丰富每个 token）</td>
+      </tr>
+      <tr>
+          <td>是否改变 token 内部信息</td>
+          <td>否，value 是线性加权的</td>
+          <td>是，改变每个 token 的内容</td>
+      </tr>
+      <tr>
+          <td>是否独立于其他 token</td>
+          <td>否，相互依赖（通过 attention 权重）</td>
+          <td>是，每个 token 自己处理自己</td>
+      </tr>
+      <tr>
+          <td>表达能力提升</td>
+          <td>提高 token 间交互能力</td>
+          <td>提升 token 自身理解能力</td>
+      </tr>
+  </tbody>
+</table>
+<p>实验上佐证：如果你把 Transformer 的 FFN 拿掉，模型性能通常会大幅下降。Attention 负责交互，FFN 负责加工；Attention 聚合信息，FFN 理解信息。二者是互补的，缺一不可。</p>
+<p>Q40： 如何基于表示模型生成的嵌入向量实现文本分类？</p>
+<p>A40：用表示模型提取文本的向量表示。取 [CLS] token 的输出；或者mean-pooling（平均池化）整个最后一层的token embeddings。
+在嵌入向量上进行分类。加一层简单的分类器， MLP（多层感知机）或者可以直接一层线性层（Linear）+ Softmax。
+用标准的有监督学习，可以冻结表示模型，只训练分类头（少量数据时推荐）；还可以微调表示模型，一起训练（大量数据时效果更好）。</p>
+<p>Q41： 使用嵌入向量实现分类和使用生成模型直接分类的方法相比，有什么优缺点？</p>
+<p>A41：</p>
+<table>
+  <thead>
+      <tr>
+          <th>维度</th>
+          <th>嵌入向量分类（Embedding + Classifier）</th>
+          <th>生成模型直接分类（例如prompt+decoder生成类别）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>机制</td>
+          <td>提取文本嵌入，堆一个分类头（Linear/MLP）</td>
+          <td>把分类问题当成生成任务，直接输出类别文本</td>
+      </tr>
+      <tr>
+          <td>训练数据需求</td>
+          <td>标准监督数据（X, y对）</td>
+          <td>可以用少量示例（Few-shot Prompting），或者指令微调</td>
+      </tr>
+      <tr>
+          <td>推理速度</td>
+          <td>非常快（只跑一次前向传播+一层分类器）</td>
+          <td>相对慢（需要 auto-regressive decoding，逐步生成）</td>
+      </tr>
+      <tr>
+          <td>推理成本</td>
+          <td>极低</td>
+          <td>较高（尤其是长文本或类别多时）</td>
+      </tr>
+      <tr>
+          <td>分类精度</td>
+          <td>如果训练得好，通常非常高且稳定</td>
+          <td>小样本时灵活性高，但易受提示词格式、类别名称影响</td>
+      </tr>
+      <tr>
+          <td>类别数量</td>
+          <td>类别数目可以很大</td>
+          <td>类别数过多时容易出错，生成式模型对output空间敏感</td>
+      </tr>
+      <tr>
+          <td>扩展性（加新类）</td>
+          <td>需要重新训练分类头</td>
+          <td>Prompt式可以直接添加新类别（零样本 Zero-shot）</td>
+      </tr>
+      <tr>
+          <td>可解释性</td>
+          <td>直接看Logits或Softmax分布，清晰</td>
+          <td>文本生成过程可解释，但易受噪声干扰</td>
+      </tr>
+      <tr>
+          <td>应用场景适配</td>
+          <td>适合固定类别、数据量中等以上</td>
+          <td>适合小样本（Few-shot）、零样本（Zero-shot）任务</td>
+      </tr>
+      <tr>
+          <td>对表示模型依赖</td>
+          <td>需要一个好的embedding（SentenceBERT等）</td>
+          <td>需要一个强大的生成模型（T5、GPT、LLaMA等）</td>
+      </tr>
+  </tbody>
+</table>
+<p>Q47： 使用生成模型进行文本分类时，以下三个提示词哪个会更有效？
+– “Is the following sentence positive or negative?”
+– “Classify the sentiment of this movie review as positive or negative.”
+– “You are a sentiment analysis expert. Given a movie review, determine  if it expresses a positive or negative opinion. Return only the label  ‘positive’ or ‘negative’.”</p>
+<p>A47：第三个提示词更优
+角色指令（Role Prompting）：设定为“情感分析专家”有助于激活模型相关知识，提升任务专注度。
+任务上下文（Task Context）：指出是“电影评论”的情感分类，提供了必要的背景信息。
+输出约束（Output Constraint）：要求只返回“positive”或“negative”可减少生成干扰项，如解释或附加句子。</p>
+<p>Q49： 给定大量的文档，如何把它们聚类成几簇，并总结出每一簇的主题？</p>
+<p>A49：</p>
+<ol>
+<li>文本预处理。分词、去停用词、词干还原，提高表示质量。</li>
+<li>向量化。将文本转换为向量（如TF-IDF或者BERT Embedding），便于后续计算相似度。</li>
+<li>聚类。使用KMeans（需指定簇数）、HDBSCAN（无需指定簇数，支持异常点）算法将向量聚为若干簇，得到每篇文档所属的簇标签。</li>
+<li>主题提取。每簇内提取关键词或短语，如TF-IDF（提取每簇中TF-IDF最高的词语）、TextRank、LLM摘要（LLM生成摘要或标题），得到每一簇的主题描述。</li>
+</ol>
+<hr>
+<p>Q50： 词袋法和文档嵌入在实现原理上有什么区别？词袋法是不是一无是处了？</p>
+<p>A50：词袋法 vs 文档嵌入</p>
+<table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>词袋法（BoW / TF-IDF）</th>
+          <th>文档嵌入（BERT / SBERT / Doc2Vec 等）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>表示方式</td>
+          <td>稀疏向量，按词频统计</td>
+          <td>稠密向量，基于语义建模</td>
+      </tr>
+      <tr>
+          <td>维度</td>
+          <td>词汇表大小（几千到几万）</td>
+          <td>固定维度（如768）</td>
+      </tr>
+      <tr>
+          <td>上下文感知</td>
+          <td>❌ 不考虑词序、上下文</td>
+          <td>✅ 编码上下文语义</td>
+      </tr>
+      <tr>
+          <td>一词多义处理</td>
+          <td>❌ “bank”总是一个维度</td>
+          <td>✅ 根据上下文动态调整</td>
+      </tr>
+      <tr>
+          <td>语义相似性建模</td>
+          <td>差，更多依赖词面重合</td>
+          <td>强，能捕捉同义语义</td>
+      </tr>
+      <tr>
+          <td>计算资源</td>
+          <td>✅ 快速低成本</td>
+          <td>❌ 相对耗资源（需预训练模型）</td>
+      </tr>
+      <tr>
+          <td>可解释性</td>
+          <td>✅ 易解释：某词重要性高</td>
+          <td>❌ 向量难以解释</td>
+      </tr>
+      <tr>
+          <td>适用任务</td>
+          <td>简单分类、检索基线</td>
+          <td>语义匹配、问答、摘要、聚类等</td>
+      </tr>
+  </tbody>
+</table>
+<p>词袋法依然有以下价值：
+1.快速、轻量、易部署。无需深度学习框架，也不用GPU，适合资源受限场景。
+2.可解释性强。每个维度就是一个词，TF-IDF值能直观反映“关键词权重”。
+3.在简单任务上仍有不错表现。如新闻分类、垃圾邮件识别、产品评论情感分析等任务的小规模实验中，TF-IDF + 逻辑回归仍常作为有效基线。
+4.适合稀疏特征组合建模。与结构化数据结合建模（如推荐系统中的用户行为标签）。</p>
+<p>Q59： 针对翻译类任务、创意写作类任务、头脑风暴类任务，
+<a href="https://zhida.zhihu.com/search?content_id=257727377&amp;content_type=Article&amp;match_order=1&amp;q=temperature&amp;zhida_source=entity" target="_blank" rel="noopener">temperature</a> 和 
+<a href="https://zhida.zhihu.com/search?content_id=257727377&amp;content_type=Article&amp;match_order=1&amp;q=top_p&amp;zhida_source=entity" target="_blank" rel="noopener">top_p</a></p>
+<p>分别该怎么设置？如何验证你选择的参数设置是否最优？</p>
+<p>A59：在大语言模型（LLM）中，temperature 和 top_p 是控制采样多样性与输出确定性的两个重要参数。temperature：控制采样的随机性。越高越随机，越低越确定（趋近于贪婪解码）。通常范围为 [0.0, 1.5]。
+top_p：控制采样的保留概率质量。当 top_p=0.9 时，仅在累计概率达 0.9 的词表子集内采样。也叫 
+<a href="https://zhida.zhihu.com/search?content_id=257727377&amp;content_type=Article&amp;match_order=1&amp;q=nucleus&#43;sampling&amp;zhida_source=entity" target="_blank" rel="noopener">nucleus sampling</a></p>
+<p>。</p>
+<p>不同任务的推荐设置</p>
+<table>
+  <thead>
+      <tr>
+          <th>任务类型</th>
+          <th>推荐 temperature</th>
+          <th>推荐 top_p</th>
+          <th>原因说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>翻译类任务（准确性强）</td>
+          <td>0.2 ~ 0.5</td>
+          <td>0.8 ~ 1.0</td>
+          <td>翻译结果需准确、可重复，过高温度会导致误译或不一致</td>
+      </tr>
+      <tr>
+          <td>创意写作任务（如故事、诗歌）</td>
+          <td>0.7 ~ 1.0</td>
+          <td>0.9 ~ 1.0</td>
+          <td>创意写作追求多样性，允许模型自由“发挥”</td>
+      </tr>
+      <tr>
+          <td>头脑风暴任务（如点子生成）</td>
+          <td>0.8 ~ 1.2</td>
+          <td>0.9 ~ 1.0</td>
+          <td>需要模型跳出常规，多样性和创新性更重要</td>
+      </tr>
+  </tbody>
+</table>
+<p>若使用 temperature=0，表示贪婪解码，只选概率最高的 token，输出稳定但缺乏多样性。</p>
+<p>验证方式可分为主观评估和客观指标两类：</p>
+<ol>
+<li>人工评估（主观）</li>
+</ol>
+<p>采样多轮结果，人工打分对比以下指标：准确性（翻译、摘要等）；流畅性（语言是否自然）；多样性（输出是否重复，是否千篇一律）；新颖性或有趣度（创意任务中）
+可使用A/B测试或pairwise comparison（成对比较）方式进行盲评。</p>
+<ol start="2">
+<li>自动化指标（客观）</li>
+</ol>
+<p>翻译类任务：BLEU、ROUGE、METEOR 等指标（需要参考答案）
+创意/头脑风暴类：词汇多样性distinct-n（n-gram去重比例）；Self-BLEU（低值表示更高的样本间多样性）；Embedding-based metrics（BERTScore、MAUVE等）</p>
+<p>Q62： 一个专业的提示词模板应该由哪几部分构成？为什么提示词中需要描述角色定义？</p>
+<p>A62：专业提示词的标准结构</p>
+<table>
+  <thead>
+      <tr>
+          <th>模块</th>
+          <th>描述</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1. 角色定义（Role definition）</td>
+          <td>设定模型扮演的身份和专业性</td>
+          <td>限定语气风格、知识范围、输出可信度（减少幻觉）</td>
+      </tr>
+      <tr>
+          <td>2. 任务目标（Task specification）</td>
+          <td>明确说明需要模型完成什么任务</td>
+          <td>消除歧义，确保模型理解目标</td>
+      </tr>
+      <tr>
+          <td>3. 输入信息（Input context）</td>
+          <td>提供参考材料或上下文信息（可选）</td>
+          <td>限制模型只基于给定内容作答，避免编造</td>
+      </tr>
+      <tr>
+          <td>4. 输出格式（Output format）</td>
+          <td>规定回答的结构或格式</td>
+          <td>增加可控性和一致性，便于后续处理或解析</td>
+      </tr>
+      <tr>
+          <td>5. 约束条件（Constraints）</td>
+          <td>明确禁止行为、语言、领域边界</td>
+          <td>降低幻觉风险，减少跑题和“发明”内容</td>
+      </tr>
+      <tr>
+          <td>6. 示例或语气指导（Optional）</td>
+          <td>给出正面/反面示例或语气要求</td>
+          <td>提升风格一致性，减少误解</td>
+      </tr>
+  </tbody>
+</table>
+<p>Q81： 如果一个工具的调用时间较长，如何让智能体在等待工具调用返回前能够持续与用户交互或调用其他工具，并在工具调用返回时及时做出下一步动作？</p>
+<p>A81：这个问题涉及 <strong>异步工具调用 + 多轮对话并发管理</strong> 的问题。涉及技术如下，</p>
+<table>
+  <thead>
+      <tr>
+          <th>技术组件</th>
+          <th>作用</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>异步工具调用（Async Tool Invocation）</td>
+          <td>不阻塞主线程</td>
+          <td>工具调用应为异步（await/promise-based），使agent可以继续处理其他事件</td>
+      </tr>
+      <tr>
+          <td>任务ID / 请求标识符（Request ID）</td>
+          <td>跟踪调用结果</td>
+          <td>为每次工具调用生成唯一标识，等结果回来后匹配上下文</td>
+      </tr>
+      <tr>
+          <td>事件调度器（Event Dispatcher）</td>
+          <td>跳转控制流程</td>
+          <td>工具返回时触发对应处理逻辑，更新agent的工作状态</td>
+      </tr>
+      <tr>
+          <td>上下文管理器（Context Manager）</td>
+          <td>维持会话状态</td>
+          <td>用于缓存等待中工具的状态、调用意图、与用户对话历史等</td>
+      </tr>
+      <tr>
+          <td>中间状态响应（Intermediate Reply）</td>
+          <td>告知用户正在处理中</td>
+          <td>在等待期间与用户交互，如：“我正在为你查询××，这期间还需要我帮忙其他事吗？”</td>
+      </tr>
+      <tr>
+          <td>动态任务切换（Task Switching）</td>
+          <td>多任务管理</td>
+          <td>支持在等待期间处理新的用户请求、调用其他工具等</td>
+      </tr>
+  </tbody>
+</table>
+<p>Q88： 在 RAG 中，为什么要把文档划分成多个块进行索引？如何解决文档分块后，内容上下文缺失的问题？如何处理跨片段的依赖关系？</p>
+<p>A88：将文档划分成多个块进行索引</p>
+<table>
+  <thead>
+      <tr>
+          <th>原因</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1. 提升检索精度</td>
+          <td>长文档中只有部分段落与用户查询相关，按块索引能避免整篇召回，提高精确度。</td>
+      </tr>
+      <tr>
+          <td>2. 控制嵌入长度</td>
+          <td>向量索引需要将文本转换为嵌入，大模型或编码器（如 BERT、MiniLM）有最大输入长度限制（如 512 token），必须切块。</td>
+      </tr>
+      <tr>
+          <td>3. 细粒度匹配</td>
+          <td>检索时，较小的文本块更容易与用户查询形成语义对齐（semantic match），提高召回质量。</td>
+      </tr>
+      <tr>
+          <td>4. 并行处理能力</td>
+          <td>多个文档块可以并行进行编码、索引与检索，提升系统吞吐率。</td>
+      </tr>
+  </tbody>
+</table>
+<p>文档切块后导致上下文缺失的问题</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>描述</th>
+          <th>优点</th>
+          <th>缺点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1. Overlapping Sliding Window</td>
+          <td>使用滑动窗口法，每个块与前后有重叠区域（如前后各添加 50 token）</td>
+          <td>保留局部上下文</td>
+          <td>会导致索引冗余、存储成本上升</td>
+      </tr>
+      <tr>
+          <td>2. Chunk-with-Title or Chunk-with-Headings</td>
+          <td>每个块附带其所在标题或摘要，用作额外上下文</td>
+          <td>加强结构感知</td>
+          <td>对结构差文档效果有限</td>
+      </tr>
+      <tr>
+          <td>3. Chunk Expansion during Retrieval</td>
+          <td>检索到一个 chunk 后，同时拉取其前后相邻的 chunk 一起作为 context 提供给生成模型</td>
+          <td>增强上下文整体性</td>
+          <td>检索系统需支持“chunk + delta”聚合</td>
+      </tr>
+      <tr>
+          <td>4. Hierarchical Embeddings / Long-context Embeddings</td>
+          <td>为 chunk 编码时引入其上下文（如章节、标题、前文）到向量中，用更强的模型做全文感知</td>
+          <td>检索更准确</td>
+          <td>模型开销大，需预处理优化</td>
+      </tr>
+      <tr>
+          <td>5. Structured Memory / Index Augmentation</td>
+          <td>构建图结构或高层次索引（如段落层索引 + 文档层索引），使得从 chunk 可追溯到文档层信息</td>
+          <td>保留完整语义关系</td>
+          <td>系统实现复杂度上升</td>
+      </tr>
+  </tbody>
+</table>
+<p>处理跨片段的依赖关系，回答问题需要多个 chunk 的信息联合推理</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>描述</th>
+          <th>示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1. 多跳检索（Multi-hop Retrieval）</td>
+          <td>第一次检索相关 chunk 后，从中提取线索再进行第二轮检索，形成推理链</td>
+          <td>先找人名 → 再找人名相关背景</td>
+      </tr>
+      <tr>
+          <td>2. 多段拼接输入生成（Context Fusion）</td>
+          <td>将多个相关 chunk 拼接后输入生成模型，一次性输出答案</td>
+          <td>Top-k chunk 拼接</td>
+      </tr>
+      <tr>
+          <td>3. Reranking + 合并重写</td>
+          <td>初步检索多个 chunk 后，对其重新排序、聚合成统一 context 再喂给生成器</td>
+          <td>用 Cross-Encoder reranker</td>
+      </tr>
+      <tr>
+          <td>4. Retrieval Tree / Graph Reasoning</td>
+          <td>构建 chunk 之间的知识图谱或树形结构，做结构化检索与 reasoning</td>
+          <td>结合 Knowledge Graph</td>
+      </tr>
+      <tr>
+          <td>5. Memory-Augmented Decoding</td>
+          <td>将多个 chunk 存入外部 memory，通过读取 memory 支持跨 chunk 推理</td>
+          <td>用于复杂场景，如Agent对话</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<p>Q89： 如果发现向量相似度检索的匹配效果不佳，除了更换嵌入模型，还有哪些办法？</p>
+<p>A89：嵌入质量优化</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>说明</th>
+          <th>优点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1. Query &amp; Document 标准化处理</td>
+          <td>对输入做清洗，如去除无意义词、格式统一、简化结构</td>
+          <td>减少语义噪音</td>
+      </tr>
+      <tr>
+          <td>2. Prompt Engineering for Embedding</td>
+          <td>将文档 chunk 包装为“更具语义表达力”的格式，如加入标题、问题式表述等 示例：将 “Barack Obama was born in Hawaii.” 改为 “Where was Barack Obama born?” → Hawaii.”</td>
+          <td>提高语义对齐，特别对 QA 检索效果提升显著</td>
+      </tr>
+      <tr>
+          <td>3. Embedding Augmentation</td>
+          <td>将 chunk 的上下文（如标题、副标题、前文）一并编码</td>
+          <td>保留语义联系</td>
+      </tr>
+      <tr>
+          <td>4. 使用 Instruction-Tuned Embedding 模型</td>
+          <td>对于问答/对话类任务，尝试给嵌入模型加任务提示（如果模型支持） 如 E5 模型支持 query: xxx 和 passage: yyy</td>
+          <td>增强语义对齐精度</td>
+      </tr>
+  </tbody>
+</table>
+<p>检索策略优化</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>说明</th>
+          <th>优点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1. Hybrid Retrieval（混合检索）</td>
+          <td>向量检索 + BM25 结合 常用方法：Dense + Sparse，RRF（Reciprocal Rank Fusion）或加权融合</td>
+          <td>利用语义匹配与关键词匹配的互补性</td>
+      </tr>
+      <tr>
+          <td>2. Query Expansion</td>
+          <td>在检索前对 query 做语义扩展：同义词、上下位词、重述等（可用 LLM 自动生成）</td>
+          <td>提高 recall</td>
+      </tr>
+      <tr>
+          <td>3. Query Rewriting</td>
+          <td>利用大模型将 query 改写为更适合向量检索的语义形式</td>
+          <td>提高匹配相关性</td>
+      </tr>
+      <tr>
+          <td>4. 多轮检索（Iterative Retrieval）</td>
+          <td>先用 embedding 粗筛 Top-N，基于结果再发起更精细检索（如 rerank）</td>
+          <td>精度提升</td>
+      </tr>
+  </tbody>
+</table>
+<p>索引机制与后处理优化</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>说明</th>
+          <th>优点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1. Reranking（Cross-Encoder）</td>
+          <td>用更强的双塔/交叉编码器对初始 Top-k 检索结果做 rerank</td>
+          <td>显著提升 top-k 质量</td>
+      </tr>
+      <tr>
+          <td>2. Chunk Aggregation</td>
+          <td>将邻近的 chunk 合并作为一个整体回答依据，提高语义连贯性</td>
+          <td>避免割裂内容误召回</td>
+      </tr>
+      <tr>
+          <td>3. Chunk Filtering</td>
+          <td>对噪音块、空块、结构性弱的块预过滤掉，避免误检索</td>
+          <td>降低干扰项</td>
+      </tr>
+      <tr>
+          <td>4. Indexing with Metadata</td>
+          <td>建立多维索引（如作者、类型、标签），支持 filter-based 精确控制</td>
+          <td>提高精准性与可控性</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<p>Q90： 向量相似度检索不能实现关键词的精确匹配，传统关键词检索不能匹配语义相近的词，如何解决这对矛盾？</p>
+<p>A90:  将 稀疏（关键词）检索 和 稠密（向量）检索 结合起来，综合两者优点。</p>
+<hr>
+<p>Q91： 向量相似度检索已经是根据语义相似度匹配，为什么还需要重排序模型？</p>
+<p>A91:   向量检索是粗排，不是精排。向量检索阶段通常使用双塔架构（bi-encoder），query 和 document  分别独立编码成向量，用向量相似度（如 cosine 或 dot  product）快速计算相似度。它的优点是速度快，可向量化索引。但缺点是：缺乏交互建模，不能精准理解细粒度语义关系。</p>
+<p>Cross-Encoder（交叉编码器）架构排序
+将 query 和每个候选文档拼接为一个整体输入模型（如 [CLS] query [SEP] document [SEP]），模型（如  BERT）可在 token 级别做 attention 建模。用 Dense 模型做候选召回（Recall） + Cross-Encoder  做精排（Rerank），RAG系统的最佳实践是“双阶段检索结构”</p>
+<hr>
+<p>Q92： 为什么要在向量相似度检索前，对用户输入的话进行改写？</p>
+<p>A92：向量检索依赖语义相似性，但用户 query 往往不具备良好表达。改写的核心目标是构造“嵌入友好型语义查询”。改写后的 query 更接近文档中的自然语言表达，因此匹配效果更佳。</p>
+<p>Query 改写技术</p>
+<table>
+  <thead>
+      <tr>
+          <th>方法</th>
+          <th>描述</th>
+          <th>工具/模型</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>LLM 改写（prompt-based）</td>
+          <td>用 GPT 类模型将原始 query 改写为自然语言问句、补全背景等</td>
+          <td>ChatGPT, Claude, Gemini 等</td>
+      </tr>
+      <tr>
+          <td>规则改写 / 模板化</td>
+          <td>针对 FAQ、查询意图库做模板替换或补全</td>
+          <td>适合领域任务</td>
+      </tr>
+      <tr>
+          <td>多样性扩展（multi-turn query expansion）</td>
+          <td>生成多个改写，做并行向量检索，增加 recall</td>
+          <td>Retrieval-augmented LLM</td>
+      </tr>
+      <tr>
+          <td>提示式改写（Instruction-tuned Embedding）</td>
+          <td>对 query 加上结构提示词，如 query: xxx（适用于 E5, GTE 等模型）</td>
+          <td>提高语义对齐能力</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="1全量微调"><strong>1、全量微调</strong></h2>
+<ul>
+<li>**原理：**在预训练的大型模型基础上，对模型的所有层和参数进行调整，使其适应特定任务。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>备注：微调时，使用较小的学习率和特定任务的数据进行
+</span></span></code></pre></div><ul>
+<li>**优点：**因为对模型的所有参数进行了调整，所以可以充分利用预训练模型的通用特征，能够较好地适应特定任务。</li>
+<li>**缺点：**计算成本较高，需要大量的计算资源和时间来训练模型，尤其是对于非常大的模型。</li>
+</ul>
+<h2 id="2参数高效微调"><strong>2、参数高效微调（
+<a href="https://zhida.zhihu.com/search?content_id=253031647&amp;content_type=Article&amp;match_order=1&amp;q=PEFT&amp;zhida_source=entity" target="_blank" rel="noopener">PEFT</a></strong></h2>
+<h2 id="parameter-efficient-fine-tuning-"><strong>：Parameter-Efficient Fine-Tuning ）</strong></h2>
+<ul>
+<li>通过最小化微调参数的数量和计算复杂度，来提高预训练模型在新任务上的性能，从而缓解大型预训练模型的训练成本。</li>
+</ul>
+<p><img src="https://picx.zhimg.com/v2-60e5d085b0e36a6f71db5cc072f70fc7_1440w.jpg" alt="img"></p>
+<h3 id="21-adapter"><strong>2.1 Adapter</strong></h3>
+<blockquote>
+<p>Parameter-Efficient Transfer Learning for NLP
+2019年，Houlsby N等人将Adapter引入NLP领域，作为全模型微调的一种替代方案。</p></blockquote>
+<ul>
+<li>**原理：**在预训练模型的每一层（或某些层）中添加Adapter模块。微调时冻结预训练模型主体，由Adapter模块学习特定下游任务的知识。模型结构如下：</li>
+</ul>
+<p><img src="https://pic3.zhimg.com/v2-a2af30f57e3dd8dc924ad7f2f0818ea2_1440w.jpg" alt="img"></p>
+<ul>
+<li>**优点：**训练室，只需要训练Adapter模块的少量参数，大大降低了训练的计算成本和存储成本。同时，由于预训练模型的主体被冻结，保留了预训练模型的大部分知识，能够快速适应新的任务。</li>
+<li>**缺点：**增加网络深度，模型变得更复杂，影响模型的推理速度。</li>
+</ul>
+<h3 id="22-prefix-tuning">2.2 
+<a href="https://zhida.zhihu.com/search?content_id=253031647&amp;content_type=Article&amp;match_order=1&amp;q=Prefix&#43;Tuning&amp;zhida_source=entity" target="_blank" rel="noopener">Prefix Tuning</a></h3>
+<blockquote>
+<p>Prefix-Tuning: Optimizing Continuous Prompts for Generation
+
+<a href="https://link.zhihu.com/?target=https%3A//github.com/XiangLi1999/PrefixTuning" target="_blank" rel="noopener">https://github.com/XiangLi1999/PrefixTuning</a></p></blockquote>
+<p><strong>原理</strong>：输入token之前构造一段任务相关的virtual tokens作为Prefix，在每个Transformer层的hidden states加入Prefix。在微调时，预训练模型的参数被冻结，只有prefix部分的参数进行更新。</p>
+<p><img src="https://picx.zhimg.com/v2-2f87bfb2658927d74811ce653dec936b_1440w.jpg" alt="img"></p>
+<h3 id="23-prompt-tuning">2.3 Prompt Tuning</h3>
+<p><strong>原理</strong>：通过在输入文本中添加提示信息，引导模型更好地理解任务，并根据提示信息进行预测。提示信息可以是一些特定的文本片段、关键词或者问题模板等，其目的是将下游任务转化为与预训练模型的预训练任务相似的形式，以便模型能够更好地利用预训练的知识。</p>
+<blockquote>
+<p><strong>Prefix Tuning和Prompt Tuning的区别：</strong>
+**Prompt Tuning：**在模型输入之前添加一个可学习的“提示”，也就是embedding层的前面
+**Prefix Tuning：**将可学习的Prefix向量应用于模型的自回归部分（如Transformer的解码器部分），而非输入序列的开头。前缀向量被附加到自回归过程中的隐藏状态，并随着每次自回归步骤传播，影响整个解码过程。</p></blockquote>
+<h3 id="24-lora">2.4 LORA</h3>
+<p>**原理：**冻结预训练模型的矩阵参数，并引入额外的低秩矩阵来替代模型权重的变化。在下游任务时只更新这些低秩矩阵的参数，而保持预训练模型的大部分参数不变。</p>
+<p>
+<a href="https://zhida.zhihu.com/search?content_id=253031647&amp;content_type=Article&amp;match_order=1&amp;q=LoRA&amp;zhida_source=entity" target="_blank" rel="noopener">LoRA</a></p>
+<p>做的就是增加小参数模块去学习改变量ΔW</p>
+<p><img src="https://pic4.zhimg.com/v2-97c643cfe19b5c7a549cf9b862795325_1440w.jpg" alt="img"></p>
+<p>在训练过程中，W0是Frozen参数，A和B是update的训练参数。</p>
+<p><img src="https://pic3.zhimg.com/v2-7e79a3f9669b6156f5cf98a3d0db4ff8_1440w.jpg" alt="img"></p>
+<p>**缺点：**低秩假设可能并不完全适用于所有的任务和模型，在某些情况下可能无法达到与全量微调相当的性能。</p>
+<h3 id="1-神经网络-neural-networks-nn">1. 神经网络 (Neural Networks, NN)</h3>
+<p><strong>核心思想</strong>： 神经网络受到人脑神经元工作方式的启发，是一种模拟生物神经网络结构和功能的数学模型。它通过大量连接的简单处理单元（称为神经元或节点）的协作来学习和表示复杂的模式。</p>
+<p><strong>基本结构</strong>：</p>
+<ul>
+<li>
+<p>神经元 (Neuron)</p>
+<p>：神经网络的基本计算单元。每个神经元接收来自其他神经元或外部输入的信号，对这些信号进行加权求和，然后通过一个激活函数 (Activation Function) 处理，产生一个输出信号。</p>
+<ul>
+<li><strong>权重 (Weights)</strong>：表示输入信号的重要性。</li>
+<li><strong>偏置 (Bias)</strong>：一个额外的可调参数，允许激活函数输出的微调。</li>
+<li><strong>激活函数 (Activation Function)</strong>：引入非线性，使得网络能够学习复杂模式。常见的激活函数有 Sigmoid、ReLU (Rectified Linear Unit)、Tanh 等。</li>
+</ul>
+</li>
+<li>
+<p>层 (Layers)</p>
+<p>：神经元被组织在不同的层中。</p>
+<ul>
+<li><strong>输入层 (Input Layer)</strong>：接收原始数据（特征）。</li>
+<li><strong>隐藏层 (Hidden Layers)</strong>：位于输入层和输出层之间，进行大部分的计算和特征提取。一个神经网络可以有零个、一个或多个隐藏层。“深度学习”通常指包含多个隐藏层的神经网络。</li>
+<li><strong>输出层 (Output Layer)</strong>：产生最终的预测或分类结果。</li>
+</ul>
+</li>
+<li>
+<p><strong>连接 (Connections)</strong>：神经元之间的连接，每个连接都有一个关联的权重。信息从输入层流向输出层（在前馈神经网络中）。</p>
+</li>
+</ul>
+<p><strong>学习过程 (训练)</strong>：</p>
+<ol>
+<li><strong>前向传播 (Forward Propagation)</strong>：输入数据通过网络，从输入层逐层传递到输出层，计算出预测结果。</li>
+<li><strong>损失函数 (Loss Function)</strong>：度量预测结果与真实标签之间的差异（误差）。</li>
+<li><strong>反向传播 (Backward Propagation)</strong>：根据损失函数计算出的误差，从输出层反向传播回网络，并使用优化算法（如梯度下降）调整每个连接的权重和每个神经元的偏置，以最小化误差。</li>
+<li><strong>迭代 (Epochs)</strong>：重复上述过程多次，直到模型的性能达到满意的水平。</li>
+</ol>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>能够学习非常复杂的数据模式和非线性关系。</li>
+<li>在图像识别、自然语言处理等领域表现出色。</li>
+<li>具有良好的泛化能力（在未见过的数据上表现良好），如果训练得当。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>需要大量的训练数据。</li>
+<li>计算成本高，训练时间长。</li>
+<li>模型通常是“黑箱”，难以解释其内部决策过程。</li>
+<li>容易过拟合（在训练数据上表现好，但在新数据上表现差），需要正则化等技术来缓解。</li>
+</ul>
+<hr>
+<h3 id="2-卷积神经网络-convolutional-neural-networks-cnn-或-convnet">2. 卷积神经网络 (Convolutional Neural Networks, CNN 或 ConvNet)</h3>
+<p><strong>核心思想</strong>： CNN 是一种特殊类型的深度神经网络，特别适用于处理具有网格状拓扑结构的数据，例如图像（二维像素网格）和时间序列数据（一维信号网格）。它们通过引入卷积层和池化层来自动学习空间层级结构中的特征。</p>
+<p><strong>关键组件</strong>：</p>
+<ul>
+<li>
+<p>卷积层 (Convolutional Layer)</p>
+<p>：</p>
+<ul>
+<li><strong>滤波器/卷积核 (Filter/Kernel)</strong>：一个小型的权重矩阵，在输入数据上滑动（卷积操作），检测特定的局部特征，如边缘、角点、纹理等。</li>
+<li><strong>特征图 (Feature Map)</strong>：滤波器在输入上卷积后产生的输出，表示特定特征在输入数据不同位置的激活程度。一个卷积层通常包含多个滤波器，学习多种特征。</li>
+<li><strong>参数共享 (Parameter Sharing)</strong>：同一个滤波器在输入数据的不同位置使用相同的权重，大大减少了模型参数数量，提高了效率，并使网络对特征的位置具有一定的平移不变性。</li>
+</ul>
+</li>
+<li>
+<p>池化层 (Pooling Layer) / 子采样层 (Subsampling Layer)</p>
+<p>：</p>
+<ul>
+<li>通常在卷积层之后，用于降低特征图的空间维度（宽度和高度），减少计算量和参数数量，从而控制过拟合。</li>
+<li><strong>最大池化 (Max Pooling)</strong>：选取局部区域内的最大值作为输出。</li>
+<li><strong>平均池化 (Average Pooling)</strong>：计算局部区域内的平均值作为输出。</li>
+<li>池化操作有助于使特征表示更加鲁棒，对微小的位移和形变不敏感。</li>
+</ul>
+</li>
+<li>
+<p>全连接层 (Fully Connected Layer)</p>
+<p>：</p>
+<ul>
+<li>通常位于 CNN 的尾部，在经过多次卷积和池化操作提取出高级特征后，全连接层将这些特征组合起来进行最终的分类或回归任务。其工作方式与传统神经网络中的层类似。</li>
+</ul>
+</li>
+<li>
+<p><strong>激活函数 (Activation Function)</strong>：如 ReLU，通常在卷积层和全连接层之后使用，引入非线性。</p>
+</li>
+</ul>
+<p><strong>工作流程</strong>： 输入数据（如图像）首先通过一系列交替的卷积层和池化层，以提取越来越复杂和抽象的特征。然后，这些高级特征被展平 (Flatten) 并输入到一个或多个全连接层中，最后通过输出层得到结果。</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>在图像识别、目标检测、图像分割等计算机视觉任务中取得了巨大成功。</li>
+<li>能有效学习空间层次结构特征。</li>
+<li>由于参数共享和池化，具有一定程度的平移、缩放和旋转不变性。</li>
+<li>相比于传统全连接网络处理高维图像数据，参数数量大大减少。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>设计和调优 CNN 架构可能比较复杂。</li>
+<li>仍然需要大量数据进行训练。</li>
+</ul>
+<hr>
+<h3 id="3-循环神经网络-recurrent-neural-networks-rnn">3. 循环神经网络 (Recurrent Neural Networks, RNN)</h3>
+<p><strong>核心思想</strong>： RNN 是一类专门用于处理序列数据（如文本、语音、时间序列）的神经网络。与前馈神经网络不同，RNN 具有内部的“记忆”机制，允许信息在序列的不同时间步之间传递和保持。</p>
+<p><strong>关键特征</strong>：</p>
+<ul>
+<li><strong>循环连接 (Recurrent Connections)</strong>：网络的输出不仅依赖于当前的输入，还依赖于先前时间步的隐藏状态（记忆）。隐藏状态会作为下一个时间步计算的一部分输入回网络自身。</li>
+<li><strong>隐藏状态 (Hidden State)</strong>：可以看作是网络对到目前为止已处理序列信息的摘要或记忆。</li>
+<li><strong>时间步 (Time Steps)</strong>：序列数据被分解成一系列时间步进行处理。在每个时间步，RNN 接收当前输入和前一时间步的隐藏状态，然后计算新的隐藏状态和当前输出。</li>
+</ul>
+<p><strong>工作流程</strong>： 对于一个输入序列 x1,x2,&hellip;,xT，RNN 会按顺序处理：</p>
+<ol>
+<li>在时间步 t=1，RNN 接收 x1 和一个初始隐藏状态 h0（通常为零向量），计算出 h1 和输出 y1。</li>
+<li>在时间步 t=2，RNN 接收 x2 和 h1，计算出 h2 和输出 y2。</li>
+<li>以此类推，直到序列结束。在每个时间步，通常使用相同的权重参数集。</li>
+</ol>
+<p><strong>变体</strong>： 标准 RNN 存在梯度消失 (Vanishing Gradient) 和梯度爆炸 (Exploding Gradient) 的问题，这使得它们难以学习长距离依赖关系。为了解决这些问题，发展出了更复杂的 RNN 变体：</p>
+<ul>
+<li><strong>长短期记忆网络 (Long Short-Term Memory, LSTM)</strong>：引入了门控机制（输入门、遗忘门、输出门）来控制信息的流动和记忆的更新，能更好地捕捉长期依赖。</li>
+<li><strong>门控循环单元 (Gated Recurrent Unit, GRU)</strong>：LSTM 的一个简化版本，也使用门控机制，但参数更少，计算效率有时更高。</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>能够对序列数据建模，捕捉时间动态和上下文信息。</li>
+<li>广泛应用于自然语言处理（如机器翻译、情感分析、语言模型）、语音识别、时间序列预测等。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>标准 RNN 难以训练和捕捉长期依赖。</li>
+<li>训练过程可能较慢，尤其对于长序列。</li>
+<li>并行计算不如 CNN 容易。</li>
+</ul>
+<hr>
+<h3 id="4-决策树-decision-tree">4. 决策树 (Decision Tree)</h3>
+<p><strong>核心思想</strong>： 决策树是一种非参数的监督学习算法，可用于分类和回归任务。它通过学习一系列简单的决策规则（基于特征值）来将数据划分为不同的区域，最终得到预测结果。模型结构呈树状，因此得名。</p>
+<p><strong>结构</strong>：</p>
+<ul>
+<li><strong>根节点 (Root Node)</strong>：代表整个数据集。</li>
+<li><strong>内部节点 (Internal Node)</strong>：代表一个特征上的测试（决策规则）。</li>
+<li><strong>分支 (Branch/Edge)</strong>：代表测试的结果。</li>
+<li><strong>叶节点 (Leaf Node/Terminal Node)</strong>：代表一个类别标签（分类树）或一个数值（回归树）。</li>
+</ul>
+<p><strong>构建过程 (例如 ID3, C4.5, CART 算法)</strong>：</p>
+<ol>
+<li><strong>特征选择</strong>：选择一个最优特征来分裂当前数据集。选择标准通常是基于信息增益 (Information Gain)、信息增益率 (Gain Ratio) 或基尼不纯度 (Gini Impurity) 等指标，目标是使得分裂后的子集尽可能“纯净”（即包含尽可能单一的类别）。</li>
+<li><strong>节点分裂</strong>：根据选定特征的不同取值将数据集分裂成多个子集，并为每个子集创建一个新的分支。</li>
+<li><strong>递归构建</strong>：对每个子集递归地重复步骤 1 和 2，直到满足停止条件（如节点中的所有样本属于同一类别、没有更多特征可用、达到预设的树深度等）。</li>
+</ol>
+<p><strong>预测过程</strong>： 从根节点开始，根据样本的特征值，沿着树的决策路径向下移动，直到到达一个叶节点，该叶节点的标签或值即为预测结果。</p>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>模型易于理解和解释，可以可视化。</li>
+<li>数据预处理要求较低（例如，不需要特征缩放）。</li>
+<li>能够处理数值型和类别型特征。</li>
+<li>计算成本相对较低。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>容易过拟合，生成的树可能过于复杂，对训练数据中的噪声敏感。可以通过剪枝 (Pruning) 或设置停止条件来缓解。</li>
+<li>对于特征之间存在复杂关系（如异或问题）的情况，可能表现不佳。</li>
+<li>模型不稳定，数据微小的变动可能导致生成完全不同的树。</li>
+</ul>
+<hr>
+<h3 id="5-随机森林-random-forest">5. 随机森林 (Random Forest)</h3>
+<p><strong>核心思想</strong>： 随机森林是一种集成学习 (Ensemble Learning) 方法，它通过构建多个决策树并将它们的预测结果进行组合（例如，分类任务中通过投票，回归任务中通过平均）来提高整体模型的性能、鲁棒性和准确性，并减少过拟合。</p>
+<p><strong>构建过程</strong>：</p>
+<ol>
+<li>
+<p><strong>数据采样 (Bagging - Bootstrap Aggregating)</strong>：从原始训练数据集中，通过有放回地随机抽样（Bootstrap sampling）来创建多个不同的子数据集。每个子数据集的大小与原始数据集相当，但由于是有放回抽样，某些样本可能出现多次，某些则可能不出现。</p>
+</li>
+<li>
+<p><strong>特征随机选择</strong>：在每个决策树的每个节点进行分裂时，不是从所有特征中选择最优特征，而是从随机选择的一个特征子集中选择最优特征。这增加了树之间的多样性。</p>
+</li>
+<li>
+<p><strong>构建多棵决策树</strong>：使用每个子数据集和特征随机选择策略，独立地构建多棵决策树。通常不进行剪枝，让树充分生长。</p>
+</li>
+<li>
+<p>组合预测</p>
+<p>：</p>
+<ul>
+<li><strong>分类任务</strong>：每棵树对新样本进行预测，最终类别由所有树投票决定（多数票原则）。</li>
+<li><strong>回归任务</strong>：每棵树对新样本进行预测，最终结果是所有树预测值的平均。</li>
+</ul>
+</li>
+</ol>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>通常比单棵决策树具有更高的准确性和更好的泛化能力。</li>
+<li>能有效减少过拟合。</li>
+<li>能够处理高维数据，并且可以评估特征的重要性。</li>
+<li>对缺失值不敏感。</li>
+<li>训练过程可以并行化。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>模型复杂度比单棵决策树高，解释性有所下降（虽然可以评估特征重要性）。</li>
+<li>对于非常高维且稀疏的数据（如文本数据），可能不如线性模型表现好。</li>
+<li>训练和预测时间比单棵决策树长。</li>
+</ul>
+<hr>
+<h3 id="6-支持向量机-support-vector-machine-svm-支持向量机-support-vector-machine-svm">6. 支持向量机 (Support Vector Machine, SVM) 支持向量机 (Support Vector Machine, SVM)</h3>
+<p><strong>核心思想</strong>： SVM 是一种强大的监督学习算法，主要用于分类任务，也可用于回归 (Support Vector Regression, SVR)。其核心思想是在特征空间中找到一个最优的超平面 (Hyperplane)，该超平面能够将不同类别的数据点分隔开，并且使得离超平面最近的数据点（称为支持向量）到超平面的间隔 (Margin) 最大化。</p>
+<p><strong>关键概念</strong>：</p>
+<ul>
+<li>
+<p><strong>超平面 (Hyperplane)</strong>：在 n 维空间中，一个 n−1 维的子空间。例如，在二维空间中是一个直线，在三维空间中是一个平面。</p>
+</li>
+<li>
+<p><strong>间隔 (Margin)</strong>：分隔超平面与最近的支持向量之间的距离。SVM 的目标是最大化这个间隔。更大的间隔通常意味着更好的泛化能力和鲁棒性。</p>
+</li>
+<li>
+<p><strong>支持向量 (Support Vectors)</strong>：那些最接近决策边界（超平面）的数据点。它们是“支撑”起这个最优超平面的关键点，如果移动它们，超平面也会随之改变。</p>
+</li>
+<li>
+<p>核技巧 (Kernel Trick)</p>
+<p>：对于线性不可分的数据，SVM 可以通过核函数将数据映射到更高维的特征空间，使得数据在该高维空间中变得线性可分。常见的核函数有：</p>
+<ul>
+<li>线性核 (Linear Kernel) 线性核</li>
+<li>多项式核 (Polynomial Kernel)
+多项式核</li>
+<li>径向基函数核 (Radial Basis Function Kernel, RBF Kernel) - 非常常用
+径向基函数核 - 非常常用</li>
+<li>Sigmoid 核</li>
+</ul>
+</li>
+</ul>
+<p><strong>工作原理</strong>：</p>
+<ol>
+<li><strong>线性可分情况</strong>：找到一个能将数据完美分开并且间隔最大的超平面。</li>
+<li><strong>线性不可分情况（软间隔）</strong>：允许一些数据点被错误分类或落在间隔内，通过引入一个惩罚参数 C 来平衡间隔最大化和分类错误最小化。C 越大，对误分类的惩罚越重，模型越倾向于正确分类所有点，可能导致间隔变小和过拟合。</li>
+<li><strong>非线性情况（核技巧）</strong>：使用核函数将数据映射到高维空间，然后在高维空间中寻找线性超平面。</li>
+</ol>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>在高维空间中非常有效，即使维度数量大于样本数量。</li>
+<li>由于只使用支持向量来定义决策边界，内存效率高。</li>
+<li>通过选择不同的核函数，可以灵活地处理各种数据分布。</li>
+<li>在许多分类问题上表现出色，泛化能力强。</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>当特征数量远大于样本数量时，性能可能会下降（除非使用合适的核函数和正则化）。</li>
+<li>对核函数的选择和参数（如 C 和 RBF 核的 γ）比较敏感，需要仔细调优。</li>
+<li>对于大规模数据集，训练时间可能较长。</li>
+<li>模型解释性不如决策树。</li>
+</ul>
 
         </div>
         
@@ -296,6 +1516,8 @@
         <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/" title="算法岗手撕代码">算法岗手撕代码</a>
     
 
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="强化学习">强化学习</a>
     
   </p>
   
@@ -404,6 +1626,12 @@ Click on
           
             
               <li class="post">
+                <a href="../../blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="../../blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">算法八股文常见问题</a>
               </li>
             
@@ -417,12 +1645,6 @@ Click on
             
               <li class="post">
                 <a href="../../blog/2025-05-13-%E9%9A%8F%E4%BE%BF%E8%81%8A%E8%81%8A%E5%AF%B9%E4%BA%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E7%9C%8B%E6%B3%95/">随便聊聊对于技术的看法</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="../../blog/2025-04-23-%E5%90%B4%E6%81%A9%E8%BE%BE%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">吴恩达机器学习</a>
               </li>
             
           

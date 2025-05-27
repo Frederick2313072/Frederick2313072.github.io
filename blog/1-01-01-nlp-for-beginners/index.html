@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="../../css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>NLP for beginners</title>
+
+  
+  
+  <link rel="stylesheet" href="../../css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="../../css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="转自翻译https://www.kaggle.com/code/jhoward/getting-started-with-nlp-for-absolute-beginners" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.5">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Jan 1, 0001
+     - 9 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/1-01-01-nlp-for-beginners/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     NLP for beginners 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h3 id="分词">分词</h3>
+<p>深度学习模型期望数字作为输入，而不是英语句子！所以我们需要做两件事：</p>
+<ul>
+<li><em>Tokenization</em>: Split each text up into words (or actually, as we&rsquo;ll see, into <em>tokens</em>)
+分词：将每段文本分割成单词（或者，实际上，我们会看到，分割成标记）</li>
+<li><em>Numericalization</em>: Convert each word (or token) into a number.
+数字化：将每个单词（或标记）转换为一个数字。</li>
+</ul>
+<pre tabindex="0"><code>from datasets import Dataset,DatasetDict
+
+ds = Dataset.from_pandas(df)
+#选择模型
+model_nm = &#39;microsoft/deberta-v3-small&#39;
+#分词
+from transformers import AutoModelForSequenceClassification,AutoTokenizer
+tokz = AutoTokenizer.from_pretrained(model_nm)
+def tok_func(x): return tokz(x[&#34;input&#34;])
+tok_ds = ds.map(tok_func, batched=True)
+</code></pre><p>分词器中有一个名为 <code>vocab</code> 的列表，其中包含每个可能的标记字符串的唯一整数。我们可以这样查找它们，例如，为了找到单词&quot;of&quot;的标记：</p>
+<pre tabindex="0"><code>tokz_vocab[&#39;_of&#39;]
+</code></pre><p>我们需要准备我们的标签。Transformer 始终假设你的标签列名为 <code>labels</code> ，但我们的数据集中目前是 <code>score</code> 。因此，我们需要将其重命名：</p>
+<pre tabindex="0"><code>tok_ds = tok_ds.rename_columns({&#39;score&#39;:&#39;labels&#39;})
+</code></pre><h3 id="简单rnn">简单RNN</h3>
+<pre tabindex="0"><code># using keras tokenizer here
+token = text.Tokenizer(num_words=None)
+max_len = 1500
+
+token.fit_on_texts(list(xtrain) + list(xvalid))
+xtrain_seq = token.texts_to_sequences(xtrain)
+xvalid_seq = token.texts_to_sequences(xvalid)
+
+#zero pad the sequences
+xtrain_pad = sequence.pad_sequences(xtrain_seq, maxlen=max_len)
+xvalid_pad = sequence.pad_sequences(xvalid_seq, maxlen=max_len)
+
+word_index = token.word_index
+</code></pre><p>初始化分词器，nums=None说明分词器会学习并保留文本中找到的所有单词</p>
+<p>构建词汇表，为每个单词分配正式索引</p>
+<p>将文本转换为序列</p>
+<p>对序列进行进行零填充，因为神经网络要求所有的输入序列都必须又完全相同的长度</p>
+<p>词汇索引，把分词器创建的词汇表保存到一个名为word_index的变量里，这是一个字典</p>
+<pre tabindex="0"><code>%%time
+with strategy.scope():
+    # A simpleRNN without any pretrained embeddings and one dense layer
+    model = Sequential()
+    model.add(Embedding(len(word_index) + 1,
+                     300,
+                     input_length=max_len))
+    model.add(SimpleRNN(100))
+    model.add(Dense(1, activation=&#39;sigmoid&#39;))
+    model.compile(loss=&#39;binary_crossentropy&#39;, optimizer=&#39;adam&#39;, metrics=[&#39;accuracy&#39;])
+    
+model.summary()
+</code></pre><p>初始化：一个不适用任何与训练词嵌入的SimpleRNN和一个全连接层</p>
+<p>嵌入层：词汇表大小，词向量维度，输入序列长度</p>
+<p>简单循环神经网络层，按时间步（单词的顺序）处理输入词向量序列</p>
+<p>输出层/全连接层，输出单元数量，激活函数</p>
+<p>模型编译，选择损失函数，优化器，评估指标</p>
+<p>模型概览</p>
+<pre tabindex="0"><code># 1. 训练模型
+model.fit(xtrain_pad, ytrain, epochs=5, batch_size=64*strategy.num_replicas_in_sync) 
+
+# 2. 在验证集上生成预测
+scores = model.predict(xvalid_pad)
+
+# 3. 计算并打印 AUC 分数
+auc_score = roc_auc(scores, yvalid)
+print(&#34;Auc: %.2f%%&#34; % (auc_score * 100)) # AUC通常是小数，乘以100变成百分比
+
+# 4. 存储模型和分数以备比较
+scores_model = [] # 初始化列表
+scores_model.append({
+    &#39;Model&#39;: &#39;SimpleRNN&#39;,
+    &#39;AUC_Score&#39;: auc_score
+})
+</code></pre><h3 id="lstm">LSTM</h3>
+<p>嵌入矩阵：这个矩阵的作用是利用<strong>预训练的词向量</strong>（例如 GloVe, Word2Vec 或 FastText）来初始化模型中的嵌入层 (Embedding Layer)，而不是让模型从零开始学习词向量。</p>
+<pre tabindex="0"><code># create an embedding matrix for the words we have in the dataset
+embedding_matrix = np.zeros((len(word_index) + 1, 300))
+for word, i in tqdm(word_index.items()):
+    embedding_vector = embeddings_index.get(word)
+    if embedding_vector is not None:
+        embedding_matrix[i] = embedding_vector
+</code></pre><p><strong><code>weights=[embedding_matrix]</code></strong>: 这是关键！它告诉 <code>Embedding</code> 层不要随机初始化权重，而是直接使用我们之前精心准备好的 <code>embedding_matrix</code> 作为初始权重。</p>
+<p><strong><code>trainable=False</code></strong>: 这个参数同样至关重要。它会“<strong>冻结</strong>”嵌入层，意味着在模型训练过程中，这些来自 GloVe 的词向量<strong>不会被更新</strong>。我们这样做是为了保留预训练词向量中已经包含的丰富语义信息，防止模型在训练我们这个（可能较小的）数据集时破坏掉这些有价值的信息。</p>
+<pre tabindex="0"><code>%%time
+with strategy.scope():
+    
+    # A simple LSTM with glove embeddings and one dense layer
+    model = Sequential()
+    model.add(Embedding(len(word_index) + 1,
+                     300,
+                     weights=[embedding_matrix],
+                     input_length=max_len,
+                     trainable=False))
+
+    model.add(LSTM(100, dropout=0.3, recurrent_dropout=0.3))
+    model.add(Dense(1, activation=&#39;sigmoid&#39;))
+    model.compile(loss=&#39;binary_crossentropy&#39;, optimizer=&#39;adam&#39;,metrics=[&#39;accuracy&#39;])
+    
+model.summary()
+</code></pre><h3 id="gru">GRU</h3>
+<p>解决梯度消失问题</p>
+<pre tabindex="0"><code>%%time
+with strategy.scope():
+    # GRU with glove embeddings and two dense layers
+     model = Sequential()
+     model.add(Embedding(len(word_index) + 1,
+                     300,
+                     weights=[embedding_matrix],
+                     input_length=max_len,
+                     trainable=False))
+     model.add(SpatialDropout1D(0.3))
+     model.add(GRU(300))
+     model.add(Dense(1, activation=&#39;sigmoid&#39;))
+
+     model.compile(loss=&#39;binary_crossentropy&#39;, optimizer=&#39;adam&#39;,metrics=[&#39;accuracy&#39;])   
+    
+model.summary()
+</code></pre><p><strong><code>SpatialDropout1D(0.3)</code></strong>: 和常规的 Dropout 随机丢弃单个神经元不同，<strong><code>SpatialDropout1D</code> 会丢弃整个一维的特征图</strong>。在词嵌入的上下文中，这意味着它会随机地将<strong>整个词向量</strong>置为零（丢弃率为 30%），而不是词向量中的某个单独的数值。这种方法被证明在处理序列数据时能更有效地防止过拟合，因为它能促使模型不依赖于任何一个特定的词。</p>
+<p><strong>门控循环单元 (GRU)</strong> 是 LSTM 的一种变体，通常被认为性能与 LSTM 相当，但结构更简单，参数更少，因此训练速度可能更快。它同样通过“门”机制来解决长期依赖问题。<code>300</code> 是 GRU 层的单元数（即输出维度）。</p>
+<h2 id="预处理">预处理</h2>
+<h3 id="清理语料库">清理语料库</h3>
+<pre tabindex="0"><code>def clean_text(text):
+    &#39;&#39;&#39;Make text lowercase, remove text in square brackets,remove links,remove punctuation
+    and remove words containing numbers.&#39;&#39;&#39;
+    text = str(text).lower()
+    text = re.sub(&#39;\[.*?\]&#39;, &#39;&#39;, text)
+    text = re.sub(&#39;https?://\S+|www\.\S+&#39;, &#39;&#39;, text)
+    text = re.sub(&#39;&lt;.*?&gt;+&#39;, &#39;&#39;, text)
+    text = re.sub(&#39;[%s]&#39; % re.escape(string.punctuation), &#39;&#39;, text)
+    text = re.sub(&#39;\n&#39;, &#39;&#39;, text)
+    text = re.sub(&#39;\w*\d\w*&#39;, &#39;&#39;, text)
+    return text
+</code></pre><h3 id="去除停止词">去除停止词</h3>
+<pre tabindex="0"><code>stop_words = stopwords.words(&#39;english&#39;)
+more_stopwords = [&#39;u&#39;, &#39;im&#39;, &#39;c&#39;]
+stop_words = stop_words + more_stopwords
+
+def remove_stopwords(text):
+    text = &#39; &#39;.join(word for word in text.split(&#39; &#39;) if word not in stop_words)
+    return text
+    
+df[&#39;message_clean&#39;] = df[&#39;message_clean&#39;].apply(remove_stopwords)
+df.head()
+</code></pre><h3 id="词干提取">词干提取</h3>
+<pre tabindex="0"><code>stemmer = nltk.SnowballStemmer(&#34;english&#34;)
+
+def stemm_text(text):
+    text = &#39; &#39;.join(stemmer.stem(word) for word in text.split(&#39; &#39;))
+    return text
+</code></pre><h3 id="合并">合并</h3>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-s" data-lang="s"><span style="display:flex;"><span>def <span style="color:#268bd2">preprocess_data</span>(text)<span style="color:#719e07">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#586e75"># Clean puntuation, urls, and so on</span>
+</span></span><span style="display:flex;"><span>    text <span style="color:#719e07">=</span> <span style="color:#268bd2">clean_text</span>(text)
+</span></span><span style="display:flex;"><span>    <span style="color:#586e75"># Remove stopwords</span>
+</span></span><span style="display:flex;"><span>    text <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39; &#39;</span><span style="color:#268bd2">.join</span>(word <span style="color:#268bd2">for</span> word <span style="color:#268bd2">in</span> <span style="color:#268bd2">text.split</span>(<span style="color:#2aa198">&#39; &#39;</span>) <span style="color:#268bd2">if</span> word not <span style="color:#268bd2">in</span> stop_words)
+</span></span><span style="display:flex;"><span>    <span style="color:#586e75"># Stemm all the words in the sentence</span>
+</span></span><span style="display:flex;"><span>    text <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39; &#39;</span><span style="color:#268bd2">.join</span>(<span style="color:#268bd2">stemmer.stem</span>(word) <span style="color:#268bd2">for</span> word <span style="color:#268bd2">in</span> <span style="color:#268bd2">text.split</span>(<span style="color:#2aa198">&#39; &#39;</span>))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">return</span> text
+</span></span></code></pre></div><h3 id="目标编码">目标编码</h3>
+<pre tabindex="0"><code>from sklearn.preprocessing import LabelEncoder
+
+le = LabelEncoder()
+le.fit(df[&#39;target&#39;])
+#学习标签
+df[&#39;target_encoded&#39;] = le.transform(df[&#39;target&#39;])#转换标签
+df.head()
+</code></pre><p>将文本形式的分类标签转换成机器可以理解的数字形式</p>
+<h2 id="向量化">向量化</h2>
+<p>1.统计每个消息中单词出现的次数（词频）</p>
+<p>2.加权技术，频繁的次元获得较低的权重（逆文档频率）</p>
+<p>3.向量唯一化，忽略原始文本长度</p>
+<p>每个向量将有与 SMS 语料库中唯一单词数量相同的维度。我们将首先使用 SciKit Learn 的 CountVectorizer。该模型将文本文档集合转换为标记计数的矩阵。</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250525191641342.png" alt="image-20250525191641342"></p>
+<pre tabindex="0"><code>from sklearn.feature_extraction.text import CountVectorizer
+
+# instantiate the vectorizer
+vect = CountVectorizer()
+vect.fit(x_train)
+# Use the trained to create a document-term matrix from train and test sets
+x_train_dtm = vect.transform(x_train)
+x_test_dtm = vect.transform(x_test)
+</code></pre><h3 id="调整countvectorizer">调整CountVectorizer</h3>
+<p>一些参数</p>
+<p>stop_words:一组不想用作特征的词</p>
+<p>ngram_range：n个连续单词组成的字符串</p>
+<p>min_df,max_df：单词必须具有的最小和最大文档频率才能用作特征</p>
+<p>max_features:选择频率最高的单词/特征构成词汇表</p>
+<p>在信息检索中，tf–idf，TF-IDF，或 TFIDF，全称 term frequency–inverse document  frequency，是一个数值统计量，旨在反映一个词在文档集合或语料库中对文档的重要性。它通常用作信息检索、文本挖掘和用户建模中搜索的加权因子。tf–idf 值随着一个词在文档中出现的次数成正比增加，并受到语料库中包含该词的文档数量的影响，这有助于调整某些词在总体中更频繁出现的事实</p>
+<p>tf–idf 是目前最流行的词频-逆文档频率方案之一。2015 年进行的一项调查表明，数字图书馆中 83%基于文本的推荐系统使用 tf–idf。</p>
+<pre tabindex="0"><code>from sklearn.feature_extraction.text import TfidfTransformer
+
+tfidf_transformer = TfidfTransformer()
+
+tfidf_transformer.fit(x_train_dtm)
+x_train_tfidf = tfidf_transformer.transform(x_train_dtm)
+
+x_train_tfidf
+</code></pre><h3 id="词嵌入glove">词嵌入：Glove</h3>
+<p><strong>全局矩阵分解 (Global Matrix Factorization)</strong>：这类方法（如 LSA）能有效地利用语料库的<strong>全局统计信息</strong>，但它们在词汇类比任务（如 &ldquo;king&rdquo; - &ldquo;man&rdquo; + &ldquo;woman&rdquo; = &ldquo;queen&rdquo;）上表现不佳。</p>
+<p><strong>局部上下文窗口 (Local Context Window)</strong>：这类方法（如 Word2Vec）专注于利用单词的<strong>局部上下文信息</strong>，它们在词汇类比任务上表现出色，但没有充分利用全局的统计信息。</p>
+<p><strong>GloVe 的核心思想是：词与词之间的共现概率的比率 (Ratio of Co-occurrence Probabilities) 能够蕴含丰富的、可量化的语义信息。</strong></p>
+<p>让我们通过一个非常经典的例子来理解这一点：</p>
+<p>假设我们想考察 <code>ice</code> (冰) 和 <code>steam</code> (蒸汽) 这两个词。</p>
+<ul>
+<li>我们选择一个探针词 <code>solid</code> (固体)。<code>ice</code> 和 <code>solid</code> 一起出现的概率会<strong>远大于</strong> <code>steam</code> 和 <code>solid</code> 一起出现的概率。所以，概率比率 <code>P(solid | ice) / P(solid | steam)</code> 会是一个很大的数。</li>
+<li>我们选择另一个探针词 <code>gas</code> (气体)。<code>ice</code> 和 <code>gas</code> 一起出现的概率会<strong>远小于</strong> <code>steam</code> 和 <code>gas</code> 一起出现的概率。所以，概率比率 <code>P(gas | ice) / P(gas | steam)</code> 会是一个很小的数 (接近0)。</li>
+<li>如果探针词是 <code>water</code> (水) 或者 <code>fashion</code> (时尚)，这两个比率可能都接近 1，因为它们与 <code>ice</code> 和 <code>steam</code> 的关系差不多（或者都无关）。</li>
+</ul>
+<p>GloVe 发现，这种<strong>概率的比率</strong>比概率本身更能揭示词与词之间的线性关系。因此，算法的设计目标就是让学习到的词向量能够很好地拟合这些共现概率的比率。</p>
+<p>好的，我们来详细解释一下 GloVe 算法。</p>
+<p>GloVe (发音与 &ldquo;glove&rdquo; 相同) 的全称是 Global Vectors for Word Representation，即“用于词语表示的全局向量”。它是由斯坦福大学的研究人员在 2014 年提出的一种强大的词嵌入 (Word Embedding) 算法。</p>
+<p>简单来说，GloVe 的核心目标和 Word2Vec 一样，都是为词汇表中的每个单词学习一个稠密的向量（即“词向量”），这个向量能够捕捉单词的语义和语法信息。</p>
+<ol>
+<li>GloVe 的核心思想是什么？</li>
+</ol>
+<p>GloVe 的独特之处在于它同时利用了两种主流词嵌入方法的优点：</p>
+<pre><code>全局矩阵分解 (Global Matrix Factorization)：这类方法（如 LSA）能有效地利用语料库的全局统计信息，但它们在词汇类比任务（如 &quot;king&quot; - &quot;man&quot; + &quot;woman&quot; = &quot;queen&quot;）上表现不佳。
+局部上下文窗口 (Local Context Window)：这类方法（如 Word2Vec）专注于利用单词的局部上下文信息，它们在词汇类比任务上表现出色，但没有充分利用全局的统计信息。
+</code></pre>
+<p>GloVe 的核心思想是：词与词之间的共现概率的比率 (Ratio of Co-occurrence Probabilities) 能够蕴含丰富的、可量化的语义信息。</p>
+<p>让我们通过一个非常经典的例子来理解这一点：</p>
+<p>假设我们想考察 ice (冰) 和 steam (蒸汽) 这两个词。</p>
+<pre><code>我们选择一个探针词 solid (固体)。ice 和 solid 一起出现的概率会远大于 steam 和 solid 一起出现的概率。所以，概率比率 P(solid | ice) / P(solid | steam) 会是一个很大的数。
+我们选择另一个探针词 gas (气体)。ice 和 gas 一起出现的概率会远小于 steam 和 gas 一起出现的概率。所以，概率比率 P(gas | ice) / P(gas | steam) 会是一个很小的数 (接近0)。
+如果探针词是 water (水) 或者 fashion (时尚)，这两个比率可能都接近 1，因为它们与 ice 和 steam 的关系差不多（或者都无关）。
+</code></pre>
+<p>GloVe 发现，这种概率的比率比概率本身更能揭示词与词之间的线性关系。因此，算法的设计目标就是让学习到的词向量能够很好地拟合这些共现概率的比率。
+2. GloVe 算法是如何工作的？</p>
+<p>GloVe 的工作流程可以概括为以下三个步骤：
+第一步：构建词-词共现矩阵 (Word-Word Co-occurrence Matrix)</p>
+<p>这是算法的基础。算法首先会遍历整个语料库，统计在一个固定大小的“上下文窗口”内，任意两个词共同出现的次数。</p>
+<pre><code>共现矩阵 X：这是一个巨大的方阵，行和列都是词汇表中的所有单词。矩阵中的元素 Xij 表示单词 j 出现在单词 i 上下文中的次数。
+权重衰减：通常，距离中心词越远的上下文词，其贡献权重会越小。例如，距离为 d 的词，其贡献权重可以是 1/d。
+</code></pre>
+<p>这个矩阵包含了整个语料库的全局统计信息。
+第二步：定义词向量与共现概率的关系</p>
+<p>GloVe 的核心公式旨在将词向量和共现概率联系起来。其最终推导出的目标函数形式如下：</p>
+<p>J=i,j=1∑Vf(Xij)(wiTw<del>j+bi+b</del>j−log(Xij))2</p>
+<p>让我们来拆解这个复杂的公式：</p>
+<pre><code>wi 和 w~j：分别是要学习的中心词 i 的词向量和上下文词 j 的词向量。
+bi 和 b~j：是两个额外的偏置项，帮助模型更好地拟合。
+log(Xij)：是单词 i 和 j 共现次数的对数。
+wiTw~j：是两个词向量的点积，这个点积的结果应该尽可能地接近它们共现次数的对数。
+f(Xij)：这是一个权重函数，非常重要。它的作用是：
+    对那些非常高频的词对（如 &quot;the&quot; 和 &quot;is&quot;）进行降权，因为它们虽然共现次数多，但提供的语义信息有限。
+    对那些非常低频、几乎不出现的词对也进行降权，因为它们可能是噪音，统计意义不大。
+    对于共现次数为 0 的词对，权重为 0，直接忽略，大大减少了计算量。
+</code></pre>
+<p>第三步：优化目标函数</p>
+<p>算法的目标就是通过调整词向量 w 和偏置 b，来最小化上述目标函数 J 的值。这个过程通常使用随机梯度下降 (SGD) 等优化算法来完成。</p>
+<p>训练结束后，对于每个单词，我们会得到两个词向量（一个作为中心词，一个作为上下文词）。通常的做法是将这两个向量相加或取平均，得到最终的词向量表示</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Jan 1, 0001</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/1-01-01-/" title=""></a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="../../about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">算法八股文常见问题</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/">算法岗手撕代码</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-13-%E9%9A%8F%E4%BE%BF%E8%81%8A%E8%81%8A%E5%AF%B9%E4%BA%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E7%9C%8B%E6%B3%95/">随便聊聊对于技术的看法</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+
