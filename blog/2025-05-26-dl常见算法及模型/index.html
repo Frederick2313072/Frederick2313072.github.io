@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="../../css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>DL常见算法及模型</title>
+
+  
+  
+  <link rel="stylesheet" href="../../css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="../../css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.6">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">May 26, 2025
+     - 17 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     DL常见算法及模型 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h2 id="cnn">CNN</h2>
+<table>
+  <thead>
+      <tr>
+          <th>CNN层次结构</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>输入层</td>
+          <td>卷积网络的原始输入，可以是原始或预处理后的像素矩阵</td>
+      </tr>
+      <tr>
+          <td>卷积层</td>
+          <td>参数共享、局部连接，利用平移不变性从全局特征图提取局部特征</td>
+      </tr>
+      <tr>
+          <td>激活层</td>
+          <td>将卷积层的输出结果进行非线性映射</td>
+      </tr>
+      <tr>
+          <td>池化层</td>
+          <td>进一步筛选特征，可以有效减少后续网络层次所需的参数量</td>
+      </tr>
+      <tr>
+          <td>全连接层</td>
+          <td>用于把该层之前提取到的特征综合起来。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="11-输入层">1.1 输入层</h3>
+<p>在做输入的时候，需要把图片处理成同样大小的图片才能够进行处理。</p>
+<p>常见的处理数据的方式有：</p>
+<ol>
+<li>
+<p>去均值(<strong>常用</strong>)</p>
+<ul>
+<li><strong>AlexNet</strong>：训练集中100万张图片，对每个像素点求均值，得到均值图像，当训练时用原图减去均值图像。</li>
+<li><strong>VGG</strong>：对所有输入在三个颜色通道R/G/B上取均值，只会得到3个值，当训练时减去对应的颜色通道均值。(<strong>此种方法效率高</strong>)</li>
+</ul>
+<p>**TIPS:**在训练集和测试集上减去训练集的均值。</p>
+</li>
+<li>
+<p>归一化</p>
+<p>幅度归一化到同样的范围。</p>
+</li>
+<li>
+<p>PCA/白化(<strong>很少用</strong>)</p>
+<ul>
+<li>用PCA降维</li>
+<li>白化是对数据每个特征轴上的幅度归一化。</li>
+</ul>
+</li>
+</ol>
+<h3 id="12-卷积计算层conv">1.2 卷积计算层(conv)</h3>
+<p>对图像（不同的数据窗口数据）和滤波矩阵（一组固定的权重：因为每个神经元的多个权重固定，所以又可以看做一个恒定的滤波器filter）做<strong>内积</strong>（逐个元素相乘再求和）的操作就是所谓的『卷积』操作，也是卷积神经网络的名字来源。</p>
+<p>滤波器filter是什么呢！请看下图。图中左边部分是原始输入数据，图中中间部分是滤波器filter，图中右边是输出的新的二维数据。</p>
+<p>
+<a href="https://camo.githubusercontent.com/1ad079c8adf6402a3dd63d69154612158dc48c542c9a70e3393c22d8548036b8/68747470733a2f2f7773332e73696e61696d672e636e2f6c617267652f30303633304465666779316732646a75716c6e31786a333069383064793130342e6a7067" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/1ad079c8adf6402a3dd63d69154612158dc48c542c9a70e3393c22d8548036b8/68747470733a2f2f7773332e73696e61696d672e636e2f6c617267652f30303633304465666779316732646a75716c6e31786a333069383064793130342e6a7067" alt="image"></a></p>
+<p>不同的滤波器filter会得到不同的输出数据，比如颜色深浅、轮廓。**相当于提取图像的不同特征，模型就能够学习到多种特征。**用不同的滤波器filter，提取想要的关于图像的特定信息：颜色深浅或轮廓。如下图所示。</p>
+<p>
+<a href="https://camo.githubusercontent.com/27bb7fa07313024a6328500bda228e8c2b689e7f57182636f1d5f6d4ec2d5c9b/687474703a2f2f7778332e73696e61696d672e636e2f6d773639302f303036333044656667793167357233306462336a706a333068763062317771332e6a7067" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/27bb7fa07313024a6328500bda228e8c2b689e7f57182636f1d5f6d4ec2d5c9b/687474703a2f2f7778332e73696e61696d672e636e2f6d773639302f303036333044656667793167357233306462336a706a333068763062317771332e6a7067" alt="img"></a></p>
+<p>在CNN中，滤波器filter（带着一组固定权重的神经元）对局部输入数据进行卷积计算。每计算完一个数据窗口内的局部数据后，数据窗口不断平移滑动，直到计算完所有数据。这个过程中，有这么几个参数：</p>
+<ul>
+<li>深度depth：神经元个数，决定输出的depth厚度。同时代表滤波器个数。</li>
+<li>步长stride：决定滑动多少步可以到边缘。</li>
+<li>填充值zero-padding：在外围边缘补充若干圈0，方便从初始位置以步长为单位可以刚好滑倒末尾位置，通俗地讲就是为了总长能被步长整除。</li>
+</ul>
+<p>
+<a href="https://camo.githubusercontent.com/83ef3b25a3bd6ea5cdb17ac9a9d357d37231281cfb684b274f74c6493f5043b5/687474703a2f2f7778332e73696e61696d672e636e2f6d773639302f3030363330446566677931673572333479693670346a3330386730356261616a2e6a7067" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/83ef3b25a3bd6ea5cdb17ac9a9d357d37231281cfb684b274f74c6493f5043b5/687474703a2f2f7778332e73696e61696d672e636e2f6d773639302f3030363330446566677931673572333479693670346a3330386730356261616a2e6a7067" alt="img"></a></p>
+<p>
+<a href="https://camo.githubusercontent.com/4f3e8033f967ea42a79e372723d746e7475c904f8521013392ffacf1b4807031/68747470733a2f2f6d6c6e6f7465626f6f6b2e6769746875622e696f2f696d672f434e4e2f636f6e76536f62656c2e676966" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/4f3e8033f967ea42a79e372723d746e7475c904f8521013392ffacf1b4807031/68747470733a2f2f6d6c6e6f7465626f6f6b2e6769746875622e696f2f696d672f434e4e2f636f6e76536f62656c2e676966" alt="img"></a></p>
+<ul>
+<li>
+<p><strong>参数共享机制</strong></p>
+<p>假设每个神经元连接数据窗的权重是固定对的。固定每个神经元连接权重，可以看做模板，每个神经元只关注<strong>一个特性(模板)</strong>，这使得需要估算的权重个数减少：一层中从1亿到3.5万。</p>
+</li>
+<li>
+<p>一组固定的权重和不同窗口内数据做<strong>内积</strong>：卷积</p>
+</li>
+<li>
+<p>作用在于捕捉某一种模式，具体表现为很大的值。</p>
+</li>
+</ul>
+<p><strong>卷积操作的本质特性包括稀疏交互和参数共享</strong>。</p>
+<h3 id="13-激励层">1.3 激励层</h3>
+<p>把卷积层输出结果做非线性映射。</p>
+<p>激活函数有：</p>
+<p>
+<a href="https://camo.githubusercontent.com/5a0a141090a2b68053a81d6c1e14846266f314ecd4dde30c4f911bde0477d717/68747470733a2f2f692e6c6f6c692e6e65742f323031392f30342f32342f356362666636313533656566332e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/5a0a141090a2b68053a81d6c1e14846266f314ecd4dde30c4f911bde0477d717/68747470733a2f2f692e6c6f6c692e6e65742f323031392f30342f32342f356362666636313533656566332e706e67" alt="UTOOLS1556084241657.png"></a></p>
+<ul>
+<li>sigmoid：在两端斜率接近于0，梯度消失。</li>
+<li>ReLu：修正线性单元，有可能出现斜率为0，但概率很小，因为mini-batch是一批样本损失求导之和。</li>
+</ul>
+<p><strong>TIPS:</strong></p>
+<ul>
+<li>CNN慎用sigmoid！慎用sigmoid！慎用sigmoid！</li>
+<li>首先试RELU，因为快，但要小心点。</li>
+<li>如果RELU失效，请用 Leaky ReLU或者Maxout。</li>
+<li>某些情况下tanh倒是有不错的结果，但是很少。</li>
+</ul>
+<h3 id="14-池化层">1.4 池化层</h3>
+<p>也叫<strong>下采样层</strong>，就算通过了卷积层，纬度还是很高 ，需要进行池化层操作。</p>
+<ul>
+<li>夹在连续的卷积层中间。</li>
+<li>压缩数据和参数的量，降低维度。</li>
+<li>减小过拟合。</li>
+<li>具有特征不变性。</li>
+</ul>
+<p>方式有：<strong>Max pooling、average pooling</strong></p>
+<p><strong>Max pooling</strong></p>
+<p>取出每个部分的最大值作为输出，例如上图左上角的4个黄色方块取最大值为3作为输出，以此类推。</p>
+<p><strong>average pooling</strong></p>
+<p>每个部分进行计算得到平均值作为输出，例如上图左上角的4个黄色方块取得平均值2作为输出，以此类推。</p>
+<h3 id="15-全连接层">1.5 全连接层</h3>
+<p>全连接层的每一个结点都与上一层的所有结点相连，用来把前边提取到的特征综合起来。由于其全连接的特性，一般全连接层的参数也是最多的。</p>
+<ul>
+<li>两层之间所有神经元都有权重连接</li>
+<li>通常全连接层在卷积神经网络尾部</li>
+</ul>
+<h2 id="rnn">RNN</h2>
+<p>循环神经网络（Recurrent Neural Network, RNN）是一类以序列（sequence）数据为输入，在序列的演进方向进行递归（recursion）且所有节点（循环单元）按链式连接的递归神经网络（recursive neural network）</p>
+<ul>
+<li>传统神经网络(包括CNN)，输入和输出都是互相独立的。图像上的猫和狗是分隔开的，但有些任务，后续的输出和之前的内容是相关的。例如：我是中国人，我的母语是____。这是一道填空题，需要依赖于之前的输入。</li>
+<li>所以，RNN引入“记忆”的概念，也就是输出需要依赖于之前的输入序列，并把关键输入记住。循环2字来源于其每个元素都执行相同的任务。</li>
+<li>它并⾮刚性地记忆所有固定⻓度的序列，而是通过隐藏状态来存储之前时间步的信息。</li>
+</ul>
+<p>这⾥我们保存上⼀时间步的隐藏变量 
+<a href="https://camo.githubusercontent.com/3fba592d6c6b016cc453ae5e870e9307db4f69392489d10023355a23ffb09153/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742d31253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/3fba592d6c6b016cc453ae5e870e9307db4f69392489d10023355a23ffb09153/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742d31253744" alt="img"></a>，并引⼊⼀个新的权重参数，该参数⽤来描述在当前时间步如何使⽤上⼀时间步的隐藏变量。具体来说，<strong>时间步 t 的隐藏变量的计算由当前时间步的输⼊和上⼀时间步的隐藏变量共同决定。</strong> 
+<a href="https://camo.githubusercontent.com/17dfca8deb8c9221218c844371f491b1f391d437a2ce91a14e58cf75e8ebfdff/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f253543706869" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/17dfca8deb8c9221218c844371f491b1f391d437a2ce91a14e58cf75e8ebfdff/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f253543706869" alt="img"></a><strong>函数其实就是激活函数。</strong></p>
+<h2 id="cnn与rnn的区别">CNN与RNN的区别</h2>
+<table>
+  <thead>
+      <tr>
+          <th>类别</th>
+          <th>特点描述</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>相同点</td>
+          <td>1、传统神经网络的扩展。 2、前向计算产生结果，反向计算模型更新。 3、每层神经网络横向可以多个神经元共存,纵向可以有多层神经网络连接。</td>
+      </tr>
+      <tr>
+          <td>不同点</td>
+          <td>1、CNN空间扩展，神经元与特征卷积；RNN时间扩展，神经元与多个时间输出计算 2、RNN可以用于描述时间上连续状态的输出，有记忆功能，CNN用于静态输出</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="为什么rnn-训练的时候loss波动很大">为什么RNN 训练的时候Loss波动很大</h2>
+<p>由于RNN特有的memory会影响后期其他的RNN的特点，梯度时大时小，learning  rate没法个性化的调整，导致RNN在train的过程中，Loss会震荡起伏，为了解决RNN的这个问题，在训练的时候，可以设置临界值，当梯度大于某个临界值，直接截断，用这个临界值作为梯度的大小，防止大幅震荡。</p>
+<h2 id="gru">GRU</h2>
+<p>当时间步数较⼤或者时间步较小时，**循环神经⽹络的梯度较容易出现衰减或爆炸。虽然裁剪梯度可以应对梯度爆炸，但⽆法解决梯度衰减的问题。**通常由于这个原因，循环神经⽹络在实际中较难捕捉时间序列中时间步距离较⼤的依赖关系。</p>
+<p>**门控循环神经⽹络（gated recurrent neural network）的提出，正是为了更好地捕捉时间序列中时间步距离较⼤的依赖关系。**它通过可以学习的⻔来控制信息的流动。</p>
+<p>GRU它引⼊了**重置⻔（reset gate）和更新⻔（update gate）**的概念，从而修改了循环神经⽹络中隐藏状态的计算⽅式。</p>
+<h3 id="21-重置门和更新门">2.1 重置门和更新门</h3>
+<p>门控循环单元中的重置⻔和更新⻔的输⼊均为当前时间步输⼊ 
+<a href="https://camo.githubusercontent.com/5c56606694c93dc6278573f4972766f9ca8d1b573b7e86905c4cc859ec34d62a/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f585f74" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/5c56606694c93dc6278573f4972766f9ca8d1b573b7e86905c4cc859ec34d62a/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f585f74" alt="img"></a>与上⼀时间步隐藏状态
+<a href="https://camo.githubusercontent.com/3fba592d6c6b016cc453ae5e870e9307db4f69392489d10023355a23ffb09153/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742d31253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/3fba592d6c6b016cc453ae5e870e9307db4f69392489d10023355a23ffb09153/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742d31253744" alt="img"></a>，输出由激活函数为sigmoid函数的全连接层计算得到。</p>
+<h3 id="22-候选隐藏状态">2.2 候选隐藏状态</h3>
+<p>接下来，⻔控循环单元将计算候选隐藏状态来辅助稍后的隐藏状态计算。我们将当前时间步重置⻔的输出与上⼀时间步隐藏状态做按元素乘法（符号为*⊙*）。如果重置⻔中元素值接近0，那么意味着重置对应隐藏状态元素为0，即丢弃上⼀时间步的隐藏状态。如果元素值接近1，那么表⽰保留上⼀时间步的隐藏状态。然后，将按元素乘法的结果与当前时间步的输⼊连结，再通过含激活函数tanh的全连接层计算出候选隐藏状态，其所有元素的值域为[-1,1]。</p>
+<h3 id="23-隐藏状态">2.3 隐藏状态</h3>
+<p>最后，时间步<em>t</em>的隐藏状态 
+<a href="https://camo.githubusercontent.com/392b98f5ac405fe4a4bb7bdef5102257f7ea75f84cdc4e6e267ef0fd2524a699/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f74253543696e5f2537422537442535436d6174686262253742522537442535452537426e2a68253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/392b98f5ac405fe4a4bb7bdef5102257f7ea75f84cdc4e6e267ef0fd2524a699/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f74253543696e5f2537422537442535436d6174686262253742522537442535452537426e2a68253744" alt="img"></a>的计算使⽤当前时间步的更新⻔ 
+<a href="https://camo.githubusercontent.com/8ab70e5cc814d6b39bb1663f1678eaa79929c4570a4ccd3d775f11fd3f646f0d/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f5a5f74" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/8ab70e5cc814d6b39bb1663f1678eaa79929c4570a4ccd3d775f11fd3f646f0d/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f5a5f74" alt="img"></a>来对上⼀时间步的隐藏状态 
+<a href="https://camo.githubusercontent.com/3fba592d6c6b016cc453ae5e870e9307db4f69392489d10023355a23ffb09153/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742d31253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/3fba592d6c6b016cc453ae5e870e9307db4f69392489d10023355a23ffb09153/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742d31253744" alt="img"></a>和当前时间步的候选隐藏状态 
+<a href="https://camo.githubusercontent.com/426ebfb4defbcade9dddb3a3d4a4231721bcd19891dee7c4f30865672599c000/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f25354374696c6465253742482537445f74" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/426ebfb4defbcade9dddb3a3d4a4231721bcd19891dee7c4f30865672599c000/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f25354374696c6465253742482537445f74" alt="img"></a>做组合：</p>
+<p>值得注意的是，**更新⻔可以控制隐藏状态应该如何被包含当前时间步信息的候选隐藏状态所更新，**如上图所⽰。假设更新⻔在时间步
+<a href="https://camo.githubusercontent.com/a646f84499c4d31377897f2e607f264398cf5e2f107c0ec21f070f0e11abec11/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31365f31352d32362d32342e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/a646f84499c4d31377897f2e607f264398cf5e2f107c0ec21f070f0e11abec11/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31365f31352d32362d32342e706e67" alt="img"></a>之间⼀直近似1。那么，在时间步
+<a href="https://camo.githubusercontent.com/f41de0e5bf6ae23bb7a0d0d75f16884485a32b44585d7e88869093c7c2f5bc4a/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31365f31352d32372d35352e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/f41de0e5bf6ae23bb7a0d0d75f16884485a32b44585d7e88869093c7c2f5bc4a/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31365f31352d32372d35352e706e67" alt="img"></a>间的输⼊信息⼏乎没有流⼊时间步 t 的隐藏状态 
+<a href="https://camo.githubusercontent.com/f7f6382d501c73fda3fed7e3ab9a53cd5d419df6ac81a3042a6b7ea7956ecf78/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f74" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/f7f6382d501c73fda3fed7e3ab9a53cd5d419df6ac81a3042a6b7ea7956ecf78/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f74" alt="img"></a>实际上，这可以看作是较早时刻的隐藏状态 
+<a href="https://camo.githubusercontent.com/4f9613d8068fa078cd73b87d0db26a0e9bab681f1973945989fd02ae4fd3b9fe/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742535452537422545322538302542322537442d31253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/4f9613d8068fa078cd73b87d0db26a0e9bab681f1973945989fd02ae4fd3b9fe/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742535452537422545322538302542322537442d31253744" alt="img"></a>直通过时间保存并传递⾄当前时间步 t。这个设计可以应对循环神经⽹络中的梯度衰减问题，并更好地捕捉时间序列中时间步距离较⼤的依赖关系。</p>
+<p>我们对⻔控循环单元的设计稍作总结：</p>
+<ul>
+<li>重置⻔有助于捕捉时间序列⾥短期的依赖关系；</li>
+<li>更新⻔有助于捕捉时间序列⾥⻓期的依赖关系。</li>
+</ul>
+<h2 id="2-输遗忘和输出">2. 输⼊⻔、遗忘⻔和输出⻔</h2>
+<p>与⻔控循环单元中的重置⻔和更新⻔⼀样，⻓短期记忆的⻔的输⼊均为当前时间步输⼊Xt与上⼀时间步隐藏状态Ht−1，输出由激活函数为sigmoid函数的全连接层计算得到。如此⼀来，这3个⻔元素的值域均为[0, 1]。如下图所示：</p>
+<p>
+<a href="https://camo.githubusercontent.com/de4dd76c9107eaf68adb66c1bdf743291310f457f18743d9e405be921eb8b591/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31375f31362d312d34332e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/de4dd76c9107eaf68adb66c1bdf743291310f457f18743d9e405be921eb8b591/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31375f31362d312d34332e706e67" alt="img"></a></p>
+<p>具体来说，假设隐藏单元个数为 h，给定时间步 t 的小批量输⼊ 
+<a href="https://camo.githubusercontent.com/3abbb69f3998d1d564ab4150a0f94d2b0d67a18de83238744b275af20a5fc467/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f585f74253543696e5f2537422537442535436d6174686262253742522537442535452537426e2a64253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/3abbb69f3998d1d564ab4150a0f94d2b0d67a18de83238744b275af20a5fc467/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f585f74253543696e5f2537422537442535436d6174686262253742522537442535452537426e2a64253744" alt="img"></a>（样本数为n，输⼊个数为d）和上⼀时间步隐藏状态 
+<a href="https://camo.githubusercontent.com/f4901fe3a2100e016bc36628dc4fd28f7beadf98dc55681474e3113f3a6c35b3/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742d31253744253543696e5f2537422537442535436d6174686262253742522537442535452537426e2a68253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/f4901fe3a2100e016bc36628dc4fd28f7beadf98dc55681474e3113f3a6c35b3/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f253742742d31253744253543696e5f2537422537442535436d6174686262253742522537442535452537426e2a68253744" alt="img"></a>。三个门的公式如下：</p>
+<p><strong>输入门：</strong> 
+<a href="https://camo.githubusercontent.com/8f83db37c58ded7dcb770eb69f958805749abfb7daacaae03a0f32683646f6f9/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f495f743d2535437369676d6128585f74575f25374278692537442b485f253742742d31253744575f25374268692537442b625f6929" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/8f83db37c58ded7dcb770eb69f958805749abfb7daacaae03a0f32683646f6f9/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f495f743d2535437369676d6128585f74575f25374278692537442b485f253742742d31253744575f25374268692537442b625f6929" alt="img"></a></p>
+<p><strong>遗忘问：</strong> 
+<a href="https://camo.githubusercontent.com/4e0dc02172c0212b634339cfdff5af9c0b9ac5e2c7e946467da40899d6b9e060/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f465f743d2535437369676d6128585f74575f25374278662537442b485f253742742d31253744575f25374268662537442b625f6629" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/4e0dc02172c0212b634339cfdff5af9c0b9ac5e2c7e946467da40899d6b9e060/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f465f743d2535437369676d6128585f74575f25374278662537442b485f253742742d31253744575f25374268662537442b625f6629" alt="img"></a></p>
+<p><strong>输出门：</strong> 
+<a href="https://camo.githubusercontent.com/f49be856c41e3fef460eb38c1b7f40e1f4422135eecf93aeb0e9122c3cc88dd8/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f4f5f743d2535437369676d6128585f74575f253742786f2537442b485f253742742d31253744575f253742686f2537442b625f6f29" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/f49be856c41e3fef460eb38c1b7f40e1f4422135eecf93aeb0e9122c3cc88dd8/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f4f5f743d2535437369676d6128585f74575f253742786f2537442b485f253742742d31253744575f253742686f2537442b625f6f29" alt="img"></a></p>
+<h2 id="3-候选记忆细胞">3. 候选记忆细胞</h2>
+<p>接下来，⻓短期记忆需要计算候选记忆细胞 
+<a href="https://camo.githubusercontent.com/560901682552cde3b61b6607c681ce7161ece6962d87594f3763eb8d7beaa3c5/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f25354374696c6465253742432537445f74" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/560901682552cde3b61b6607c681ce7161ece6962d87594f3763eb8d7beaa3c5/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f25354374696c6465253742432537445f74" alt="img"></a>。它的计算与上⾯介绍的3个⻔类似，但使⽤了值域在[−1, 1]的tanh函数作为激活函数，如下图所示：</p>
+<p>
+<a href="https://camo.githubusercontent.com/0a58858d25949cfc0b5ae4a115bf868418839460463b26a3d2b737c3eb90c784/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31375f31362d32342d33392e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/0a58858d25949cfc0b5ae4a115bf868418839460463b26a3d2b737c3eb90c784/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31375f31362d32342d33392e706e67" alt="img"></a></p>
+<p>具体来说，时间步t的候选记忆细胞计算如下：</p>
+<p>
+<a href="https://camo.githubusercontent.com/9ae25b3695cb864054cfa6c8e3b49efb6cc037f8d484783de4aca76f8b8c6686/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f25354374696c6465253742432537445f743d74616e6828585f745778632b485f253742742d31253744575f25374268632537442b625f6329" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/9ae25b3695cb864054cfa6c8e3b49efb6cc037f8d484783de4aca76f8b8c6686/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f25354374696c6465253742432537445f743d74616e6828585f745778632b485f253742742d31253744575f25374268632537442b625f6329" alt="img"></a></p>
+<h2 id="4-记忆细胞">4. 记忆细胞</h2>
+<p>我们可以通过元素值域在[0, 1]的输⼊⻔、遗忘⻔和输出⻔来控制隐藏状态中信息的流动，这⼀般也是通过使⽤按元素乘法（符号为⊙）来实现的。当前时间步记忆细胞
+<a href="https://camo.githubusercontent.com/539f3b89a31bdbf46570b984802ae87d4073e4de24a50cc84a7f37a1d138cb7b/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f25374274253744253543696e5f2537422537442535436d6174686262253742522537442535452537426e2a68253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/539f3b89a31bdbf46570b984802ae87d4073e4de24a50cc84a7f37a1d138cb7b/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f25374274253744253543696e5f2537422537442535436d6174686262253742522537442535452537426e2a68253744" alt="img"></a>的计算组合了上⼀时间步记忆细胞和当前时间步候选记忆细胞的信息，并通过遗忘⻔和输⼊⻔来控制信息的流动：</p>
+<p>
+<a href="https://camo.githubusercontent.com/ad6b495facc5a3d945d39de18611f06836dcc9fb679d537ba873010010d50208/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f435f743d465f74254532253841253939435f253742742d312537442b495f7425453225384125393925354374696c6465253742432537445f74" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/ad6b495facc5a3d945d39de18611f06836dcc9fb679d537ba873010010d50208/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f435f743d465f74254532253841253939435f253742742d312537442b495f7425453225384125393925354374696c6465253742432537445f74" alt="img"></a></p>
+<p>如下图所⽰，遗忘⻔控制上⼀时间步的记忆细胞Ct−1中的信息是否传递到当前时间步，而输⼊⻔则控制当前时间步的输⼊Xt通过候选记忆细胞C˜t如何流⼊当前时间步的记忆细胞。如果遗忘⻔⼀直近似1且输⼊⻔⼀直近似0，过去的记忆细胞将⼀直通过时间保存并传递⾄当前时间步。这个设计可以应对循环神经⽹络中的梯度衰减问题，并更好地捕捉时间序列中时间步距离较⼤的依赖关系。</p>
+<p>
+<a href="https://camo.githubusercontent.com/61e5217bc582ebe013698921b7b997a21c83cc5cce9c74c547acd10a983943ee/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31375f31362d33322d35302e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/61e5217bc582ebe013698921b7b997a21c83cc5cce9c74c547acd10a983943ee/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31375f31362d33322d35302e706e67" alt="img"></a></p>
+<h2 id="5-隐藏状态">5. 隐藏状态</h2>
+<p>有了记忆细胞以后，接下来我们还可以通过输出⻔来控制从记忆细胞到隐藏状态Ht的信 息的流动：</p>
+<p>
+<a href="https://camo.githubusercontent.com/b9b5e50daf78dbfd82921152a37eae1dbcdfb2d7aa3453d8306105def519c502/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f743d4f5f7425453225384125393974616e6828435f7429" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/b9b5e50daf78dbfd82921152a37eae1dbcdfb2d7aa3453d8306105def519c502/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f485f743d4f5f7425453225384125393974616e6828435f7429" alt="img"></a></p>
+<p>这⾥的tanh函数确保隐藏状态元素值在-1到1之间。需要注意的是，当输出⻔近似1时，记忆细胞信息将传递到隐藏状态供输出层使⽤；当输出⻔近似0时，记忆细胞信息只⾃⼰保留。<strong>下图展⽰了⻓短期记忆中隐藏状态的全部计算：</strong></p>
+<p>
+<a href="https://camo.githubusercontent.com/2e188e7261d4e64659d669c9c5f85ce6e9df8cdd5e42ecd15f6a383b3693c0a9/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31375f31362d33372d332e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/2e188e7261d4e64659d669c9c5f85ce6e9df8cdd5e42ecd15f6a383b3693c0a9/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31375f31362d33372d332e706e67" alt="img"></a></p>
+<h2 id="6-lstm与gru的区别">6. LSTM与GRU的区别</h2>
+<p>LSTM与GRU二者结构十分相似，<strong>不同在于</strong>：</p>
+<ol>
+<li>新的记忆都是根据之前状态及输入进行计算，但是GRU中有一个重置门控制之前状态的进入量，而在LSTM里没有类似门；</li>
+<li>产生新的状态方式不同，LSTM有两个不同的门，分别是遗忘门(forget gate)和输入门(input gate)，而GRU只有一种更新门(update gate)；</li>
+<li>LSTM对新产生的状态可以通过输出门(output gate)进行调节，而GRU对输出无任何调节。</li>
+<li>GRU的优点是这是个更加简单的模型，所以更容易创建一个更大的网络，而且它只有两个门，在计算性上也运行得更快，然后它可以扩大模型的规模。</li>
+<li>LSTM更加强大和灵活，因为它有三个门而不是两个。</li>
+</ol>
+<h2 id="7-lstm可以使用别的激活函数吗">7. LSTM可以使用别的激活函数吗？</h2>
+<p>关于激活函数的选取，在LSTM中，遗忘门、输入门和输出门使用Sigmoid函数作为激活函数；在生成候选记忆时，使用双曲正切函数Tanh作为激活函数。</p>
+<p>值得注意的是，这两个激活函数都是饱和的，也就是说在输入达到一定值的情况下，输出就不会发生明显变化了。如果是用非饱和的激活函数，例如ReLU，那么将难以实现门控的效果。</p>
+<p>Sigmoid函数的输出在0～1之间，符合门控的物理定义。且当输入较大或较小时，其输出会非常接近1或0，从而保证该门开或关。在生成候选记忆时，使用Tanh函数，是因为其输出在−1～1之间，这与大多数场景下特征分布是0中心的吻合。此外，Tanh函数在输入为0附近相比Sigmoid函数有更大的梯度，通常使模型收敛更快。</p>
+<p>激活函数的选择也不是一成不变的，但要选择合理的激活函数。</p>
+<h2 id="迁移学习">迁移学习</h2>
+<p>迁移学习(Transfer Learning)是一种机器学习方法，就是把为任务 A 开发的模型作为初始点，重新使用在为任务 B  开发模型的过程中。迁移学习是通过从已学习的相关任务中转移知识来改进学习的新任务，虽然大多数机器学习算法都是为了解决单个任务而设计的，但是促进迁移学习的算法的开发是机器学习社区持续关注的话题。 迁移学习对人类来说很常见，例如，我们可能会发现学习识别苹果可能有助于识别梨，或者学习弹奏电子琴可能有助于学习钢琴。</p>
+<p>找到目标问题的相似性，迁移学习任务就是从相似性出发，将旧领域(domain)学习过的模型应用在新领域上。</p>
+<p><strong>迁移学习的核心是</strong>：找到源领域和目标领域之间的相似性，并加以合理利用</p>
+<p>迁移学习<strong>最有用的场合</strong>是，如果你尝试优化任务B的性能，通常这个任务数据相对较少。  例如，在放射科中你知道很难收集很多射线扫描图来搭建一个性能良好的放射科诊断系统，所以在这种情况下，你可能会找一个相关但不同的任务，如图像识别，其中你可能用 1 百万张图片训练过了，并从中学到很多低层次特征，</p>
+<p><img src="C:%5CUsers%5C%E6%B0%B4%E8%8D%89%E5%A7%90%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20250526092432074.png" alt="image-20250526092432074"></p>
+<h2 id="优化算法">优化算法</h2>
+<h2 id="7-优化算法">7. 优化算法</h2>
+<h3 id="71-动量法">7.1 动量法</h3>
+<p>在每次迭代中，梯度下降根据⾃变量当前位置，沿着当前位置的梯度更新⾃变量。然而，如果⾃变量的 迭代⽅向仅仅取决于⾃变量当前位置，这可能会带来⼀些问题。</p>
+<p>让我们考虑⼀个输⼊和输出分别为⼆维向量x = [x1, x2]⊤和标量的⽬标函数 
+<a href="https://camo.githubusercontent.com/22e336db48195882e1942a974811fe36abd2ea3e8a8d17ff735997218c6424fe/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f662878293d302e31785f31253545322b32785f3225354532" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/22e336db48195882e1942a974811fe36abd2ea3e8a8d17ff735997218c6424fe/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f662878293d302e31785f31253545322b32785f3225354532" alt="img"></a>。，这⾥将
+<a href="https://camo.githubusercontent.com/09a63f68373aad5823b4cc56990dfcbfb4e48bec2826892c6c2359bb9b36ab67/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f785f3125354532" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/09a63f68373aad5823b4cc56990dfcbfb4e48bec2826892c6c2359bb9b36ab67/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f785f3125354532" alt="img"></a>系数从1减小到了0.1。下⾯实现基于这个⽬标函数的梯度下降，并演⽰使⽤学习率为0.4时⾃变量的迭代轨迹。</p>
+<p>
+<a href="https://camo.githubusercontent.com/0e9b5fbfe293787a05400b5601c5b3262d4919b1f39a0b40ec8a07640a4ba25a/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31385f32322d32342d35302e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/0e9b5fbfe293787a05400b5601c5b3262d4919b1f39a0b40ec8a07640a4ba25a/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31385f32322d32342d35302e706e67" alt="img"></a></p>
+<p>可以看到，同⼀位置上，⽬标函数在竖直⽅向（x2轴⽅向）⽐在⽔平⽅向（x1轴⽅向）的斜率的绝对值更⼤。**因此，给定学习率，梯度下降迭代⾃变量时会使⾃变量在竖直⽅向⽐在⽔平⽅向移动幅度更⼤。**那么，我们需要⼀个较小的学习率从而避免⾃变量在竖直⽅向上越过⽬标函数最优解。然而，这会造成⾃变量在⽔平⽅向上朝最优解移动变慢。</p>
+<p>**动量法的提出是为了解决梯度下降的上述问题。**由于小批量随机梯度下降⽐梯度下降更为⼴义，本章后续讨论将沿⽤“小批量随机梯度下降”⼀节中时间步t的小批量随机梯度gt的定义。设时间步t的⾃变量为xt，学习率为ηt。在时间步0，动量法创建速度变量v0，并将其元素初始化成0。在时间步t &gt; 0，动量法对每次迭代的步骤做如下修改：</p>
+<p>
+<a href="https://camo.githubusercontent.com/d2fddea714ad8e8cf6304678978a9da9318f7738c21d6e5c61b8bcf9da58ad50/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d34362d35312e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/d2fddea714ad8e8cf6304678978a9da9318f7738c21d6e5c61b8bcf9da58ad50/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d34362d35312e706e67" alt="img"></a></p>
+<p>其中，动量超参数γ满⾜0 ≤ γ &lt; 1。当γ = 0时，动量法等价于小批量随机梯度下降。在梯度下降时候使用动量法后的迭代轨迹：</p>
+<p>
+<a href="https://camo.githubusercontent.com/b432fd1e6ce1ba02979fca4c329722c1a8acdd9450249b6f2b7738e8a953075c/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31385f32322d33342d32302e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/b432fd1e6ce1ba02979fca4c329722c1a8acdd9450249b6f2b7738e8a953075c/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31385f32322d33342d32302e706e67" alt="img"></a></p>
+<p>可以看到使⽤较小的学习率η = 0.4和动量超参数γ = 0.5时，动量法在竖直⽅向上的移动更加平滑，且在⽔平⽅向上更快逼近最优解。</p>
+<p>所以，在动量法中，⾃变量在各个⽅向上的移动幅度不仅取决当前梯度，还取决于过去的各个梯度在各个⽅向上是否⼀致。在本节之前⽰例的优化问题中，所有梯度在⽔平⽅向上为正（向右），而在竖直⽅向上时正（向上）时负（向下）。这样，我们就可以使⽤较⼤的学习率，从而使⾃变量向最优解更快移动。</p>
+<h3 id="72-adagrad算法">7.2 AdaGrad算法</h3>
+<p>优化算法中，⽬标函数⾃变量的每⼀个元素在相同时间步都使⽤同⼀个学习率来⾃我迭代。在“动量法”⾥我们看到当x1和x2的梯度值有较⼤差别时，需要选择⾜够小的学习率使得⾃变量在梯度值较⼤的维度上不发散。但这样会导致⾃变量在梯度值较小的维度上迭代过慢。动量法依赖指数加权移动平均使得⾃变量的更新⽅向更加⼀致，从而降低发散的可能。<strong>本节我们介绍AdaGrad算法，它根据⾃变量在每个维度的梯度值的⼤小来调整各个维度上的学习率，从而避免统⼀的学习率难以适应所有维度的问题。</strong></p>
+<p>AdaGrad算法会使⽤⼀个小批量随机梯度gt按元素平⽅的累加变量st。在时间步0，AdaGrad将s0中每个元素初始化为0。在时间步t，⾸先将小批量随机梯度gt按元素平⽅后累加到变量st：</p>
+<p>
+<a href="https://camo.githubusercontent.com/dba7f0ea50706052bebab8ec30a7ca9bedbce24ffeda5002ff06bcc7db441c49/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d34392d32302e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/dba7f0ea50706052bebab8ec30a7ca9bedbce24ffeda5002ff06bcc7db441c49/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d34392d32302e706e67" alt="img"></a></p>
+<p>其中⊙是按元素相乘。接着，我们将⽬标函数⾃变量中每个元素的学习率通过按元素运算重新调整⼀下：</p>
+<p>
+<a href="https://camo.githubusercontent.com/854abf18277bd044b210db904d0d36abf1895bc456821a62c393602002966c36/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35302d32342e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/854abf18277bd044b210db904d0d36abf1895bc456821a62c393602002966c36/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35302d32342e706e67" alt="img"></a></p>
+<p>其中η是学习率，ϵ是为了维持数值稳定性而添加的常数，如10的-6次方。这⾥开⽅、除法和乘法的运算都是按元素运算的。这些按元素运算使得⽬标函数⾃变量中每个元素都分别拥有⾃⼰的学习率。</p>
+<p>需要强调的是，小批量随机梯度按元素平⽅的累加变量st出现在学习率的分⺟项中。因此，</p>
+<ul>
+<li>如果⽬标函数有关⾃变量中某个元素的偏导数⼀直都较⼤，那么该元素的学习率将下降较快；</li>
+<li>反之，如果⽬标函数有关⾃变量中某个元素的偏导数⼀直都较小，那么该元素的学习率将下降较慢。</li>
+</ul>
+<p>然而，由于st⼀直在累加按元素平⽅的梯度，⾃变量中每个元素的学习率在迭代过程中⼀直在降低（或不变）。<strong>所以，当学习率在迭代早期降得较快且当前解依然不佳时，AdaGrad算法在迭代后期由于学习率过小，可能较难找到⼀个有⽤的解。</strong></p>
+<p>
+<a href="https://camo.githubusercontent.com/1002234559747c77bc909f5b825b4f24037403ae277e03d6810afd8552e5473a/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31385f32322d34382d34362e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/1002234559747c77bc909f5b825b4f24037403ae277e03d6810afd8552e5473a/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31385f32322d34382d34362e706e67" alt="img"></a></p>
+<h3 id="73-rmsprop算法">7.3 RMSProp算法</h3>
+<p>当学习率在迭代早期降得较快且当前解依然不佳时，AdaGrad算法在迭代后期由于学习率过小，可能较难找到⼀个有⽤的解。为了解决这⼀问题，RMSProp算法对AdaGrad算法做了⼀点小小的修改。</p>
+<p>不同于AdaGrad算法⾥状态变量st是截⾄时间步t所有小批量随机梯度gt按元素平⽅和，RMSProp算法将这些梯度按元素平⽅做指数加权移动平均。具体来说，给定超参数0 ≤ γ &lt; 1，RMSProp算法在时间步t &gt; 0计算：</p>
+<p>
+<a href="https://camo.githubusercontent.com/443f8eab3fd2466cfaf49b4cd29178bd35f31b39fd437da3fa35b6f6267c1f10/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35312d392e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/443f8eab3fd2466cfaf49b4cd29178bd35f31b39fd437da3fa35b6f6267c1f10/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35312d392e706e67" alt="img"></a></p>
+<p>和AdaGrad算法⼀样，RMSProp算法将⽬标函数⾃变量中每个元素的学习率通过按元素运算重新调整，然后更新⾃变量：</p>
+<p>
+<a href="https://camo.githubusercontent.com/1e560ae9b60540dafb1f4ba7de54a87ed781f3939f9f6b1c17f5ca6845d4bba4/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35322d332e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/1e560ae9b60540dafb1f4ba7de54a87ed781f3939f9f6b1c17f5ca6845d4bba4/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35322d332e706e67" alt="img"></a></p>
+<p>其中η是学习率，ϵ是为了维持数值稳定性而添加的常数，如10的-6次方。因为RMSProp算法的状态变量st是对平⽅项gt ⊙ gt的指数加权移动平均，<strong>所以可以看作是最近1/(1 − γ)个时间步的小批量随机梯度平⽅项的加权平均。如此⼀来，⾃变量每个元素的学习率在迭代过程中就不再⼀直降低（或不变）。</strong></p>
+<p>
+<a href="https://camo.githubusercontent.com/29a6e4c2f00fa22ee4e315a56f91dde3d5ae582a410fd382750f91f4e2e5dffb/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31385f32322d35372d33392e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/29a6e4c2f00fa22ee4e315a56f91dde3d5ae582a410fd382750f91f4e2e5dffb/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31385f32322d35372d33392e706e67" alt="img"></a></p>
+<h3 id="74-adadelta算法">7.4 AdaDelta算法</h3>
+<p>除了RMSProp算法以外，另⼀个常⽤优化算法AdaDelta算法也针对AdaGrad算法在迭代后期可能较难找到有⽤解的问题做了改进。有意思的是，AdaDelta算法没有学习率这⼀超参数。</p>
+<p>AdaDelta算法也像RMSProp算法⼀样，使⽤了小批量随机梯度gt按元素平⽅的指数加权移动平均变量st。在时间步0，它的所有元素被初始化为0。给定超参数0 ≤ ρ &lt; 1（对应RMSProp算法中的γ），在时间步t &gt; 0，同RMSProp算法⼀样计算：</p>
+<p>
+<a href="https://camo.githubusercontent.com/3f2002474cd0af4c4ebf3a8c37df94715d44946d6d40c93e67f534d5072b0d3c/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35322d35332e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/3f2002474cd0af4c4ebf3a8c37df94715d44946d6d40c93e67f534d5072b0d3c/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35322d35332e706e67" alt="img"></a></p>
+<p>与RMSProp算法不同的是，AdaDelta算法还维护⼀个额外的状态变量∆xt，其元素同样在时间步0时被初始化为0。我们使⽤∆xt−1来计算⾃变量的变化量：</p>
+<p>
+<a href="https://camo.githubusercontent.com/c925af001d215a3fc3fca78bb32c3fd7978f97b7f3b1e9139b2f81edd54733b2/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35332d33392e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/c925af001d215a3fc3fca78bb32c3fd7978f97b7f3b1e9139b2f81edd54733b2/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35332d33392e706e67" alt="img"></a></p>
+<p>最后，我们使⽤∆xt来记录⾃变量变化量 
+<a href="https://camo.githubusercontent.com/e1108347430755f84af3e15a82f64f2fa28cc845343c8aa447e9bbcb395d4c6c/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35362d33362e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/e1108347430755f84af3e15a82f64f2fa28cc845343c8aa447e9bbcb395d4c6c/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35362d33362e706e67" alt="img"></a>按元素平⽅的指数加权移动平均：</p>
+<p>
+<a href="https://camo.githubusercontent.com/7a4539d80eaf1a3c96dedb83989ed9a130eda08cbcacbb8e9f63a5b39952052c/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35372d31342e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/7a4539d80eaf1a3c96dedb83989ed9a130eda08cbcacbb8e9f63a5b39952052c/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35372d31342e706e67" alt="img"></a></p>
+<p>可以看到，如不考虑ϵ的影响，AdaDelta算法与RMSProp算法的不同之处在于使⽤ 
+<a href="https://camo.githubusercontent.com/acbf6869083ec643459e87f09f637f8c6cb5b9bbd3152a7e18bf9b45d51da42e/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35382d34332e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/acbf6869083ec643459e87f09f637f8c6cb5b9bbd3152a7e18bf9b45d51da42e/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35382d34332e706e67" alt="img"></a>来替代超参数η。</p>
+<h3 id="75-adam算法">7.5 Adam算法</h3>
+<p>Adam算法在RMSProp算法基础上对小批量随机梯度也做了指数加权移动平均。</p>
+<p>Adam算法使⽤了动量变量vt和RMSProp算法中小批量随机梯度按元素平⽅的指数加权移动平均变量st，并在时间步0将它们中每个元素初始化为0。给定超参数0 ≤ β1 &lt; 1（算法作者建议设为0.9），时间步t的动量变量vt即小批量随机梯度gt的指数加权移动平均：</p>
+<p>
+<a href="https://camo.githubusercontent.com/15d27344ebd5f9857a3c74080371e1bb2b1dae58072b9fe99a669d42658c66d0/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f765f743d253543626574615f31765f253742742d312537442b28312d253543626574615f3129675f74" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/15d27344ebd5f9857a3c74080371e1bb2b1dae58072b9fe99a669d42658c66d0/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f765f743d253543626574615f31765f253742742d312537442b28312d253543626574615f3129675f74" alt="img"></a></p>
+<p>和RMSProp算法中⼀样，给定超参数0 ≤ β2 &lt; 1（算法作者建议设为0.999），将小批量随机梯度按元素平⽅后的项gt ⊙ gt做指数加权移动平均得到st：</p>
+<p>
+<a href="https://camo.githubusercontent.com/dd35d1061f2a8722ae05fa8f0ff3baa0fe99eb30600d9f12c0ba5334945a2ba9/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35392d34332e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/dd35d1061f2a8722ae05fa8f0ff3baa0fe99eb30600d9f12c0ba5334945a2ba9/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31302d35392d34332e706e67" alt="img"></a></p>
+<p>由于我们将 v0 和 s0 中的元素都初始化为 0，在时间步 t 我们得到 
+<a href="https://camo.githubusercontent.com/232000f818eb4f80022632f9140182678b8a7c8c710536e1255602fc6b026244/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f765f743d28312d253543626574615f312925354373756d5f253742693d3125374425354574253543626574615f31253545253742742d69253744675f69" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/232000f818eb4f80022632f9140182678b8a7c8c710536e1255602fc6b026244/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f765f743d28312d253543626574615f312925354373756d5f253742693d3125374425354574253543626574615f31253545253742742d69253744675f69" alt="img"></a>。将过去各时间步小批量随机梯度的权值相加，得到 
+<a href="https://camo.githubusercontent.com/3d9a75d6a2041714b86202318efb03120d6e83a5d0b759f14c02ed721e1fd5e8/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f28312d253543626574615f312925354373756d5f253742693d3125374425354574253543626574615f31253545253742742d692537443d312d253543626574615f3125354574" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/3d9a75d6a2041714b86202318efb03120d6e83a5d0b759f14c02ed721e1fd5e8/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f28312d253543626574615f312925354373756d5f253742693d3125374425354574253543626574615f31253545253742742d692537443d312d253543626574615f3125354574" alt="img"></a>。需要注意的是，当 t 较小时，过去各时间步小批量随机梯度权值之和会较小。例如，当β1 = 0.9时，v1 = 0.1g1。为了消除这样的影响，对于任意时间步 t，我们可以将 vt 再除以 
+<a href="https://camo.githubusercontent.com/e5de06327ccffabe104a009c93aa046352e7aa0ea0240301a9ada117f3ec2a18/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f312d253543626574615f3125354574" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/e5de06327ccffabe104a009c93aa046352e7aa0ea0240301a9ada117f3ec2a18/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f312d253543626574615f3125354574" alt="img"></a>，从而使过去各时间步小批量随机梯度权值之和为1。这也叫作偏差修正。在Adam算法中，我们对变量 vt 和 st 均作偏差修正：</p>
+<p>
+<a href="https://camo.githubusercontent.com/88c517d73e60ddd2302ed16266efb9ed25bc2e5e42e8369fd82fb8cd21d17a13/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f253543636865636b253742762537445f743d25354366726163253742765f74253744253742312d253543626574615f3125354574253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/88c517d73e60ddd2302ed16266efb9ed25bc2e5e42e8369fd82fb8cd21d17a13/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f253543636865636b253742762537445f743d25354366726163253742765f74253744253742312d253543626574615f3125354574253744" alt="img"></a></p>
+<p>
+<a href="https://camo.githubusercontent.com/ba8a4cc07576db07afa1ce7bda1cbf4466bce3f1f2540922baafb0400b2eee25/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f253543636865636b253742732537445f743d25354366726163253742735f74253744253742312d253543626574615f3225354574253744" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/ba8a4cc07576db07afa1ce7bda1cbf4466bce3f1f2540922baafb0400b2eee25/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f253543636865636b253742732537445f743d25354366726163253742735f74253744253742312d253543626574615f3225354574253744" alt="img"></a></p>
+<p>接下来，Adam算法使⽤以上偏差修正后的变量<em><strong>v</strong></em>ˆ<em>t</em>和<em><strong>s</strong></em>ˆ<em>t</em>，将模型参数中每个元素的学习率通过按元素运算重新调整：</p>
+<p>
+<a href="https://camo.githubusercontent.com/073a41ad92923c4c49161f94efa3c76339304a6f59185b3918544646a35571fa/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31312d322d32302e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/073a41ad92923c4c49161f94efa3c76339304a6f59185b3918544646a35571fa/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31312d322d32302e706e67" alt="img"></a></p>
+<p>其中<em>η</em>是学习率，<em>ϵ</em>是为了维持数值稳定性而添加的常数，如10的-8次方。和AdaGrad算法、RMSProp算法以及AdaDelta算法⼀样，⽬标函数⾃变量中每个元素都分别拥有⾃⼰的学习率。最后，使⽤
+<a href="https://camo.githubusercontent.com/4f884c45fbff7e24e3f93debf2a3702e91d734b8ff97577cbac126a0f61c5794/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31312d332d35302e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/4f884c45fbff7e24e3f93debf2a3702e91d734b8ff97577cbac126a0f61c5794/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31312d332d35302e706e67" alt="img"></a>迭代⾃变量：</p>
+<p>
+<a href="https://camo.githubusercontent.com/84a20647642a1b4bf028f9e49e949d0df4e321f24b602e4fe8c1e012354a9341/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31312d342d32332e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/84a20647642a1b4bf028f9e49e949d0df4e321f24b602e4fe8c1e012354a9341/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f31312d342d32332e706e67" alt="img"></a></p>
+<h3 id="76-局部最优鞍点问题">7.6 局部最优&ndash;鞍点问题</h3>
+<p>一个具有高维度空间的函数，如果梯度为 0，那么在每个方向，它可能是凸函数，也可能是凹函数。如果你在 2 万维空间中，那么想要得到局部最优，所有的 2  万个方向都需要是这样，但发生的机率也许很小，也许是2的-20000次方，你更有可能遇到有些方向的曲线会这样向上弯曲，另一些方向曲线向下弯，而不是所有的都向上弯曲，因此在高维度空间，你更可能碰到鞍点。</p>
+<p>
+<a href="https://camo.githubusercontent.com/5d040eabfe818dbc2513b0e565570b6ef8e7f944bf0903ac17a8dee7e9ce1749/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f392d332d33312e706e67" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/5d040eabfe818dbc2513b0e565570b6ef8e7f944bf0903ac17a8dee7e9ce1749/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d31395f392d332d33312e706e67" alt="img"></a></p>
+<p>而不会碰到局部最优。**至于为什么会把一个曲面叫做鞍点，**你想象一下，就像是放在马背上的马鞍一样，如果这是马，这是马的头，这就是马的眼睛，画得不好请多包涵，然后你就是骑马的人，要坐在马鞍上，因此这里的这个点，导数为 0 的点，这个点叫做鞍点。我想那确实是你坐在马鞍上的那个点，而这里导数为 0。</p>
+<p>鞍点中的平稳段是一个问题，这样使得学习十分缓慢，**这也是像 Momentum 或是RMSprop，Adam 这样的算法，能够加速学习算法的地方。**在这些情况下，更成熟的优化算法，如 Adam 算法，能够加快速度，让你尽早往下走出平稳段。</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>May 26, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" title="强化学习">强化学习</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/" title="NLP总结">NLP总结</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="../../about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/">NLP总结</a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/">DL常见算法及模型</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-24-nlp-for-beginners/">NLP for beginners</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

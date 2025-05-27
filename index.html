@@ -40,7 +40,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.147.5">
+  <meta name="generator" content="Hugo 0.147.6">
 
   
   
@@ -122,6 +122,97 @@
           
 
 <header>
+  <p class="meta">May 27, 2025
+     - 23 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://Frederick2313072.github.io/blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/">NLP总结</a>
+  </h1>
+</header>
+
+          
+            <p><h2 id="word-embedding">Word Embedding</h2>
+<h3 id="one-hot表示">One-hot表示</h3>
+<p>One-hot简称读热向量编码，也是特征工程中最常用的方法。其步骤如下：</p>
+<ol>
+<li>构造文本分词后的字典，每个分词是一个比特值，比特值为0或者1。</li>
+<li>每个分词的文本表示为该分词的比特位为1，其余位为0的矩阵表示。</li>
+</ol>
+<p>每个词典索引对应比特位</p></p>
+            
+              <footer>
+                <a href="https://Frederick2313072.github.io/blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/" rel="full-article">Would you like to know more? →</a>
+              </footer>
+            
+          
+        </article>
+        
+        <article>
+          
+          
+
+<header>
+  <p class="meta">May 26, 2025
+     - 17 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://Frederick2313072.github.io/blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/">DL常见算法及模型</a>
+  </h1>
+</header>
+
+          
+            <p><h2 id="cnn">CNN</h2>
+<table>
+  <thead>
+      <tr>
+          <th>CNN层次结构</th>
+          <th>作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>输入层</td>
+          <td>卷积网络的原始输入，可以是原始或预处理后的像素矩阵</td>
+      </tr>
+      <tr>
+          <td>卷积层</td>
+          <td>参数共享、局部连接，利用平移不变性从全局特征图提取局部特征</td>
+      </tr>
+      <tr>
+          <td>激活层</td>
+          <td>将卷积层的输出结果进行非线性映射</td>
+      </tr>
+      <tr>
+          <td>池化层</td>
+          <td>进一步筛选特征，可以有效减少后续网络层次所需的参数量</td>
+      </tr>
+      <tr>
+          <td>全连接层</td>
+          <td>用于把该层之前提取到的特征综合起来。</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="11-输入层">1.1 输入层</h3>
+<p>在做输入的时候，需要把图片处理成同样大小的图片才能够进行处理。</p></p>
+            
+              <footer>
+                <a href="https://Frederick2313072.github.io/blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/" rel="full-article">Would you like to know more? →</a>
+              </footer>
+            
+          
+        </article>
+        
+        <article>
+          
+          
+
+<header>
   <p class="meta">May 25, 2025
      - 3 minute read 
      - <a href="https://Frederick2313072.github.io/blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/#disqus_thread">Comments</a>
@@ -140,6 +231,50 @@
             
               <footer>
                 <a href="https://Frederick2313072.github.io/blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="full-article">Would you like to know more? →</a>
+              </footer>
+            
+          
+        </article>
+        
+        <article>
+          
+          
+
+<header>
+  <p class="meta">May 24, 2025
+     - 9 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-24-nlp-for-beginners/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+    <a href="https://Frederick2313072.github.io/blog/2025-05-24-nlp-for-beginners/">NLP for beginners</a>
+  </h1>
+</header>
+
+          
+            <p><h3 id="分词">分词</h3>
+<p>深度学习模型期望数字作为输入，而不是英语句子！所以我们需要做两件事：</p>
+<ul>
+<li><em>Tokenization</em>: Split each text up into words (or actually, as we&rsquo;ll see, into <em>tokens</em>)
+分词：将每段文本分割成单词（或者，实际上，我们会看到，分割成标记）</li>
+<li><em>Numericalization</em>: Convert each word (or token) into a number.
+数字化：将每个单词（或标记）转换为一个数字。</li>
+</ul>
+<pre tabindex="0"><code>from datasets import Dataset,DatasetDict
+
+ds = Dataset.from_pandas(df)
+#选择模型
+model_nm = &#39;microsoft/deberta-v3-small&#39;
+#分词
+from transformers import AutoModelForSequenceClassification,AutoTokenizer
+tokz = AutoTokenizer.from_pretrained(model_nm)
+def tok_func(x): return tokz(x[&#34;input&#34;])
+tok_ds = ds.map(tok_func, batched=True)
+</code></pre><p>分词器中有一个名为 <code>vocab</code> 的列表，其中包含每个可能的标记字符串的唯一整数。我们可以这样查找它们，例如，为了找到单词&quot;of&quot;的标记：</p></p>
+            
+              <footer>
+                <a href="https://Frederick2313072.github.io/blog/2025-05-24-nlp-for-beginners/" rel="full-article">Would you like to know more? →</a>
               </footer>
             
           
@@ -1195,7 +1330,7 @@ Ins 添加区块注释
     
   </p>
   <h1 class="entry-title">
-    <a href="https://Frederick2313072.github.io/blog/2025-01-05-sqli-labs%E9%80%9A%E5%85%B3/">sqli-labs通关</a>
+     sqli-labs通关 
   </h1>
 </header>
 
@@ -1500,119 +1635,6 @@ $$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\bin
 
 <header>
   <p class="meta">Jan 1, 0001
-     - 17 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/1-01-01-/#disqus_thread">Comments</a>
-
-    
-  </p>
-  <h1 class="entry-title">
-    <a href="https://Frederick2313072.github.io/blog/1-01-01-/"></a>
-  </h1>
-</header>
-
-          
-            <p><h2 id="cnn">CNN</h2>
-<table>
-  <thead>
-      <tr>
-          <th>CNN层次结构</th>
-          <th>作用</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td>输入层</td>
-          <td>卷积网络的原始输入，可以是原始或预处理后的像素矩阵</td>
-      </tr>
-      <tr>
-          <td>卷积层</td>
-          <td>参数共享、局部连接，利用平移不变性从全局特征图提取局部特征</td>
-      </tr>
-      <tr>
-          <td>激活层</td>
-          <td>将卷积层的输出结果进行非线性映射</td>
-      </tr>
-      <tr>
-          <td>池化层</td>
-          <td>进一步筛选特征，可以有效减少后续网络层次所需的参数量</td>
-      </tr>
-      <tr>
-          <td>全连接层</td>
-          <td>用于把该层之前提取到的特征综合起来。</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="11-输入层">1.1 输入层</h3>
-<p>在做输入的时候，需要把图片处理成同样大小的图片才能够进行处理。</p></p>
-            
-              <footer>
-                <a href="https://Frederick2313072.github.io/blog/1-01-01-/" rel="full-article">Would you like to know more? →</a>
-              </footer>
-            
-          
-        </article>
-        
-        <article>
-          
-          
-
-<header>
-  <p class="meta">Jan 1, 0001
-     - 0 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/1-01-01-/#disqus_thread">Comments</a>
-
-    
-  </p>
-  <h1 class="entry-title">
-    <a href="https://Frederick2313072.github.io/blog/1-01-01-/"></a>
-  </h1>
-</header>
-
-          
-            <p></p>
-            
-          
-        </article>
-        
-        <article>
-          
-          
-
-<header>
-  <p class="meta">Jan 1, 0001
-     - 23 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/1-01-01-/#disqus_thread">Comments</a>
-
-    
-  </p>
-  <h1 class="entry-title">
-    <a href="https://Frederick2313072.github.io/blog/1-01-01-/"></a>
-  </h1>
-</header>
-
-          
-            <p><h2 id="word-embedding">Word Embedding</h2>
-<h3 id="one-hot表示">One-hot表示</h3>
-<p>One-hot简称读热向量编码，也是特征工程中最常用的方法。其步骤如下：</p>
-<ol>
-<li>构造文本分词后的字典，每个分词是一个比特值，比特值为0或者1。</li>
-<li>每个分词的文本表示为该分词的比特位为1，其余位为0的矩阵表示。</li>
-</ol>
-<p>每个词典索引对应比特位</p></p>
-            
-              <footer>
-                <a href="https://Frederick2313072.github.io/blog/1-01-01-/" rel="full-article">Would you like to know more? →</a>
-              </footer>
-            
-          
-        </article>
-        
-        <article>
-          
-          
-
-<header>
-  <p class="meta">Jan 1, 0001
      - 1 minute read 
      - <a href="https://Frederick2313072.github.io/blog/1-01-01-/#disqus_thread">Comments</a>
 
@@ -1633,30 +1655,6 @@ $$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\bin
                 <a href="https://Frederick2313072.github.io/blog/1-01-01-/" rel="full-article">Would you like to know more? →</a>
               </footer>
             
-          
-        </article>
-        
-        <article>
-          
-          
-
-<header>
-  <p class="meta">Jan 1, 0001
-     - 9 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/1-01-01-nlp-for-beginners/#disqus_thread">Comments</a>
-
-    
-  </p>
-  <h1 class="entry-title">
-    <a href="https://Frederick2313072.github.io/blog/1-01-01-nlp-for-beginners/">NLP for beginners</a>
-  </h1>
-</header>
-
-          
-            转自翻译https://www.kaggle.com/code/jhoward/getting-started-with-nlp-for-absolute-beginners
-              <footer>
-                <a href="https://Frederick2313072.github.io/blog/1-01-01-nlp-for-beginners/" rel="full-article">Would you like to know more? →</a>
-              </footer>
           
         </article>
         
@@ -1745,6 +1743,18 @@ Click on
           
           
             
+              <li class="post">
+                <a href="./blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/">NLP总结</a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="post">
+                <a href="./blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/">DL常见算法及模型</a>
+              </li>
+            
           
             
               <li class="post">
@@ -1754,19 +1764,7 @@ Click on
           
             
               <li class="post">
-                <a href="./blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%85%AB%E8%82%A1%E6%96%87%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/">算法八股文常见问题</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="./blog/2025-05-19-%E7%AE%97%E6%B3%95%E5%B2%97%E6%89%8B%E6%92%95%E4%BB%A3%E7%A0%81/">算法岗手撕代码</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="./blog/2025-05-13-%E9%9A%8F%E4%BE%BF%E8%81%8A%E8%81%8A%E5%AF%B9%E4%BA%8E%E6%8A%80%E6%9C%AF%E7%9A%84%E7%9C%8B%E6%B3%95/">随便聊聊对于技术的看法</a>
+                <a href="./blog/2025-05-24-nlp-for-beginners/">NLP for beginners</a>
               </li>
             
           

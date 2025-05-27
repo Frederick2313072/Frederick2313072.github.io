@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="../../css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>NLP总结</title>
+
+  
+  
+  <link rel="stylesheet" href="../../css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="../../css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.147.6">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">May 27, 2025
+     - 23 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     NLP总结 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h2 id="word-embedding">Word Embedding</h2>
+<h3 id="one-hot表示">One-hot表示</h3>
+<p>One-hot简称读热向量编码，也是特征工程中最常用的方法。其步骤如下：</p>
+<ol>
+<li>构造文本分词后的字典，每个分词是一个比特值，比特值为0或者1。</li>
+<li>每个分词的文本表示为该分词的比特位为1，其余位为0的矩阵表示。</li>
+</ol>
+<p>每个词典索引对应比特位</p>
+<p>One-hot表示文本信息的<strong>缺点</strong>：</p>
+<ul>
+<li>随着语料库的增加，数据特征的维度会越来越大，产生一个维度很高，又很稀疏的矩阵。</li>
+<li>这种表示方法的分词顺序和在句子中的顺序是无关的，不能保留词与词之间的关系信息。</li>
+</ul>
+<h3 id="词袋模型">词袋模型</h3>
+<p>词袋模型(Bag-of-words model)，像是句子或是文件这样的文字可以用一个袋子装着这些词的方式表现，这种表现方式不考虑文法以及词的顺序。</p>
+<p><strong>文档的向量表示可以直接将各词的词向量表示加和</strong>。</p>
+<p>词袋模型同样有一下<strong>缺点</strong>：</p>
+<ul>
+<li>词向量化后，词与词之间是有大小关系的，不一定词出现的越多，权重越大。</li>
+<li>词与词之间是没有顺序关系的。</li>
+</ul>
+<h3 id="tf-idf">TF-IDF</h3>
+<p>TF意思是词频(Term Frequency)，IDF意思是逆文本频率指数(Inverse Document Frequency)。</p>
+<p><strong>字词的重要性随着它在文件中出现的次数成正比增加，但同时会随着它在语料库中出现的频率成反比下降。一个词语在一篇文章中出现次数越多, 同时在所有文档中出现次数越少, 越能够代表该文章。</strong></p>
+<p>那么，
+<a href="https://camo.githubusercontent.com/77401c0c298a129ad5db0af60a359e4826f734bd3db245ee3dff57046311f7ae/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f54462d4944463d54462a494446" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/77401c0c298a129ad5db0af60a359e4826f734bd3db245ee3dff57046311f7ae/68747470733a2f2f6c617465782e636f6465636f67732e636f6d2f6769662e6c617465783f54462d4944463d54462a494446" alt="img"></a>，从这个公式可以看出，当w在文档中出现的次数增大时，而TF-IDF的值是减小的，所以也就体现了以上所说的了。</p>
+<p>**缺点：**还是没有把词与词之间的关系顺序表达出来。</p>
+<h3 id="n-gram模型">n-gram模型</h3>
+<p>n-gram模型为了保持词的顺序，做了一个滑窗的操作，这里的n表示的就是滑窗的大小，例如2-gram模型，也就是把2个词当做一组来处理，然后向后移动一个词的长度，再次组成另一组词，把这些生成一个字典，按照词袋模型的方式进行编码得到结果。改模型考虑了词的顺序。</p>
+<p>**缺点：**随着n的大小增加，词表会成指数型膨胀，会越来越大。</p>
+<h3 id="离散表示存在的问题">离散表示存在的问题</h3>
+<p>由于存在以下的问题，对于一般的NLP问题，是可以使用离散表示文本信息来解决问题的，但对于要求精度较高的场景就不适合了。</p>
+<ul>
+<li>无法衡量词向量之间的关系。</li>
+<li>词表的维度随着语料库的增长而膨胀。</li>
+<li>n-gram词序列随语料库增长呈指数型膨胀，更加快。</li>
+<li>离散数据来表示文本会带来数据稀疏问题，导致丢失了信息，与我们生活中理解的信息是不一样的。</li>
+</ul>
+<h3 id="共现矩阵">共现矩阵</h3>
+<p>共现矩阵顾名思义就是共同出现的意思，词文档的共现矩阵主要用于发现主题(topic)，用于主题模型，如LSA。</p>
+<p>中间的每个格子表示的是行和列组成的词组在词典中共同出现的次数，也就体现了<strong>共现</strong>的特性。</p>
+<p><strong>存在的问题：</strong></p>
+<ul>
+<li>向量维数随着词典大小线性增长。</li>
+<li>存储整个词典的空间消耗非常大。</li>
+<li>一些模型如文本分类模型会面临稀疏性问题。</li>
+<li><strong>模型会欠稳定，每新增一份语料进来，稳定性就会变化。</strong></li>
+</ul>
+<h2 id="nnlm">NNLM</h2>
+<p>NNLM (Neural Network Language model)，神经网络语言模型是03年提出来的，通过训练得到中间产物&ndash;词向量矩阵，这就是我们要得到的文本表示向量矩阵。</p>
+<p>NNLM说的是定义一个前向窗口大小，其实和上面提到的窗口是一个意思。把这个窗口中最后一个词当做y，把之前的词当做输入x，通俗来说就是预测这个窗口中最后一个词出现概率的模型。</p>
+<h3 id="word2vec">Word2Vec</h3>
+<p>谷歌2013年提出的Word2Vec是目前最常用的词嵌入模型之一。Word2Vec实际是一种浅层的神经网络模型，它有两种网络结构，**分别是CBOW（Continues Bag of Words）连续词袋和Skip-gram。**Word2Vec和上面的NNLM很类似，但比NNLM简单。</p>
+<p><strong>CBOW</strong></p>
+<p>CBOW获得中间词两边的的上下文，然后用周围的词去预测中间的词，把中间词当做y，把窗口中的其它词当做x输入，x输入是经过one-hot编码过的，然后通过一个隐层进行求和操作，最后通过激活函数softmax，可以计算出每个单词的生成概率，接下来的任务就是训练神经网络的权重，使得语料库中所有单词的整体生成概率最大化，而求得的权重矩阵就是文本表示词向量的结果。</p>
+<p>
+<a href="https://camo.githubusercontent.com/cd14552af54367e7d01b506f05c0359b2f3f2a120ecffc39f372145c5e2cd28e/68747470733a2f2f7773322e73696e61696d672e636e2f6c617267652f30303633304465666c7931673275367661356676796a333067663068306162792e6a7067" target="_blank" rel="noopener"><img src="https://camo.githubusercontent.com/cd14552af54367e7d01b506f05c0359b2f3f2a120ecffc39f372145c5e2cd28e/68747470733a2f2f7773322e73696e61696d672e636e2f6c617267652f30303633304465666c7931673275367661356676796a333067663068306162792e6a7067" alt="image"></a></p>
+<p><strong>Skip-gram</strong>：</p>
+<p>Skip-gram是通过当前词来预测窗口中上下文词出现的概率模型，把当前词当做x，把窗口中其它词当做y，依然是通过一个隐层接一个Softmax激活函数来预测其它词的概率。如下图所示：</p>
+<p>
+<a href="https://camo.githubusercontent.com/7f2e33a6bf332c13eb9aef32a9ad76dc79c8fe79f4054fef3eed5998984b3525/68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d32305f32302d33342d302e6a7067" target="_blank" rel="noopener"><img src="G:%5Chugo_extended_withdeploy_0.139.3_windows-amd64%5CmyBlog%5Ccontent%5Cpost%5CNLP%E6%80%BB%E7%BB%93%5C68747470733a2f2f67697465652e636f6d2f6b6b7765697368652f696d616765732f7261772f6d61737465722f4d4c2f323031392d382d32305f32302d33342d302e6a7067" alt="img"></a></p>
+<p><strong>优化方法</strong>：</p>
+<ul>
+<li><strong>层次Softmax：至此还没有结束，因为如果单单只是接一个softmax激活函数，计算量还是很大的，有多少词就会有多少维的权重矩阵，所以这里就提出层次Softmax(Hierarchical Softmax)</strong>，使用Huffman Tree来编码输出层的词典，相当于平铺到各个叶子节点上，<strong>瞬间把维度降低到了树的深度</strong>，可以看如下图所示。这课Tree把出现频率高的词放到靠近根节点的叶子节点处，每一次只要做二分类计算，计算路径上所有非叶子节点词向量的贡献即可。</li>
+</ul>
+<h2 id="glove">Glove</h2>
+<p>GloVe的全称叫Global Vectors for Word Representation，它是一个基于全局词频统计（count-based &amp; overall statistics）的词表征（word representation）工具，它可以把一个单词表达成一个由实数组成的向量，这些向量捕捉到了单词之间一些语义特性，比如相似性（similarity）、类比性（analogy）等。**我们通过对向量的运算，比如欧几里得距离或者cosine相似度，可以计算出两个单词之间的语义相似性。</p>
+<h3 id="21-构建共现矩阵">2.1 构建共现矩阵</h3>
+<p><strong>什么是共现矩阵？</strong></p>
+<p>共现矩阵顾名思义就是共同出现的意思，词文档的共现矩阵主要用于发现主题(topic)，用于主题模型，如LSA。</p>
+<p>局域窗中的word-word共现矩阵可以挖掘语法和语义信息，<strong>例如：</strong></p>
+<ul>
+<li>I like deep learning.</li>
+<li>I like NLP.</li>
+<li>I enjoy flying</li>
+</ul>
+<p>有以上三句话，设置滑窗为2，可以得到一个词典：<strong>{&ldquo;I like&rdquo;,&ldquo;like deep&rdquo;,&ldquo;deep learning&rdquo;,&ldquo;like NLP&rdquo;,&ldquo;I enjoy&rdquo;,&ldquo;enjoy flying&rdquo;,&ldquo;I like&rdquo;}</strong>。</p>
+<p>我们可以得到一个共现矩阵(对称矩阵)：</p>
+<p><img src="https://wx2.sinaimg.cn/large/00630Defly1g2rwv1op5zj30q70c7wh2.jpg" alt="image"></p>
+<p>中间的每个格子表示的是行和列组成的词组在词典中共同出现的次数，也就体现了<strong>共现</strong>的特性。</p>
+<p><strong>GloVe的共现矩阵</strong></p>
+<p>根据语料库（corpus）构建一个共现矩阵（Co-ocurrence Matrix）X，**矩阵中的每一个元素 Xij 代表单词 i 和上下文单词 j 在特定大小的上下文窗口（context window）内共同出现的次数。*<em>一般而言，这个次数的最小单位是1，但是GloVe不这么认为：它根据两个单词在上下文窗口的距离 d，提出了一个衰减函数（decreasing weighting）：decay=1/d 用于计算权重，也就是说*<em>距离越远的两个单词所占总计数（total count）的权重越小</em></em>。</p>
+<h3 id="22-词向量和共现矩阵的近似关系">2.2 词向量和共现矩阵的近似关系</h3>
+<p>构建词向量（Word Vector）和共现矩阵（Co-ocurrence Matrix）之间的近似关系，论文的作者提出以下的公式可以近似地表达两者之间的关系：</p>
+<p><img src="https://latex.codecogs.com/gif.latex?w_i%5ET%5Ctilde%7Bw_j%7D+b_i+%5Ctilde%7Bb%7D_j=log(X_%7Bij%7D)" alt="img"></p>
+<p>其中，<img src="https://latex.codecogs.com/gif.latex?w_i%5ET%E5%92%8C%5Ctilde%7Bw%7D_j" alt="img">是我们最终要求解的词向量；<img src="https://latex.codecogs.com/gif.latex?b_i%E5%92%8C%5Ctilde%7Bb%7D_j" alt="img">分别是两个词向量的bias term。当然你对这个公式一定有非常多的疑问，比如它到底是怎么来的，为什么要使用这个公式，为什么要构造两个词向量 <img src="https://latex.codecogs.com/gif.latex?w_i%5ET%E5%92%8C%5Ctilde%7Bw%7D_j" alt="img">？请参考文末的参考文献。</p>
+<h3 id="23-构造损失函数">2.3 构造损失函数</h3>
+<p>有了2.2的公式之后我们就可以构造它的loss function了：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-24_10-11-53.png" alt="img"></p>
+<p>这个loss function的基本形式就是最简单的mean square loss，只不过在此基础上加了一个权重函数<img src="https://latex.codecogs.com/gif.latex?f(X_%7Bij%7D)" alt="img">，那么这个函数起了什么作用，为什么要添加这个函数呢？我们知道在一个语料库中，肯定存在很多单词他们在一起出现的次数是很多的（frequent co-occurrences），那么我们希望：</p>
+<ul>
+<li>这些单词的权重要大于那些很少在一起出现的单词（rare co-occurrences），所以这个函数要是非递减函数（non-decreasing）；</li>
+<li>但我们也不希望这个权重过大（overweighted），当到达一定程度之后应该不再增加；</li>
+<li>如果两个单词没有在一起出现，也就是<img src="https://latex.codecogs.com/gif.latex?X_%7Bij%7D=0" alt="img">，那么他们应该不参与到 loss function 的计算当中去，也就是f(x) 要满足 f(0)=0。</li>
+</ul>
+<p>满足以上三个条件的函数有很多，论文作者采用了如下形式的分段函数：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-23_21-52-27.png" alt="img"></p>
+<p>这个函数图像如下所示：</p>
+<p><img src="http://www.fanyeong.com/wp-content/uploads/2019/08/zE6t1ig.jpg" alt="img"></p>
+<h3 id="24-训练glove模型">2.4 训练GloVe模型</h3>
+<p>虽然很多人声称GloVe是一种无监督（unsupervised learing）的学习方式（因为它确实不需要人工标注label），但其实它还是有label的，这个label就是以上公式中的 log(Xij)，而公式中的向量 w和w~<em>w</em>和<em>w</em>~ 就是要不断更新/学习的参数，所以本质上它的训练方式跟监督学习的训练方法没什么不一样，都是基于梯度下降的。</p>
+<p>具体地，这篇论文里的实验是这么做的：**采用了AdaGrad的梯度下降算法，对矩阵 X 中的所有非零元素进行随机采样，学习曲率（learning rate）设为0.05，在vector size小于300的情况下迭代了50次，其他大小的vectors上迭代了100次，直至收敛。**最终学习得到的是两个vector是 w和w~<em>w</em>和<em>w</em><del>，因为 X 是对称的（symmetric），所以从原理上讲 w和w</del><em>w</em>和<em>w</em>~ 是也是对称的，他们唯一的区别是初始化的值不一样，而导致最终的值不一样。</p>
+<p>所以这两者其实是等价的，都可以当成最终的结果来使用。<strong>但是为了提高鲁棒性，我们最终会选择两者之和</strong> <img src="https://latex.codecogs.com/gif.latex?w+%5Ctilde%7Bw%7D" alt="img">**作为最终的vector（两者的初始化不同相当于加了不同的随机噪声，所以能提高鲁棒性）。**在训练了400亿个token组成的语料后，得到的实验结果如下图所示：</p>
+<p><img src="http://www.fanyeong.com/wp-content/uploads/2019/08/X6eVUJJ.jpg" alt="img"></p>
+<p>这个图一共采用了三个指标：语义准确度，语法准确度以及总体准确度。那么我们不难发现Vector Dimension在300时能达到最佳，而context Windows size大致在6到10之间。</p>
+<h2 id="3-glove与lsaword2vec的比较">3. GloVe与LSA、Word2Vec的比较</h2>
+<p>LSA（Latent Semantic Analysis）是一种比较早的count-based的词向量表征工具，它也是基于co-occurance matrix的，只不过采用了基于奇异值分解（SVD）的矩阵分解技术对大矩阵进行降维，而我们知道SVD的复杂度是很高的，所以它的计算代价比较大。还有一点是它对所有单词的统计权重都是一致的。而这些缺点在GloVe中被一一克服了。</p>
+<p>而word2vec最大的缺点则是没有充分利用所有的语料，所以GloVe其实是把两者的优点结合了起来。从这篇论文给出的实验结果来看，GloVe的性能是远超LSA和word2vec的，但网上也有人说GloVe和word2vec实际表现其实差不多。</p>
+<h2 id="textrnn">textRNN</h2>
+<h2 id="什么是textrnn">什么是textRNN</h2>
+<p><strong>textRNN指的是利用RNN循环神经网络解决文本分类问题</strong>，文本分类是自然语言处理的一个基本任务，试图推断出给定文本(句子、文档等)的标签或标签集合。</p>
+<p>文本分类的应用非常广泛，如：</p>
+<ul>
+<li>垃圾邮件分类：2分类问题，判断邮件是否为垃圾邮件</li>
+<li>情感分析：2分类问题：判断文本情感是积极还是消极；多分类问题：判断文本情感属于{非常消极，消极，中立，积极，非常积极}中的哪一类。</li>
+<li>新闻主题分类：判断一段新闻属于哪个类别，如财经、体育、娱乐等。根据类别标签的数量，可以是2分类也可以是多分类。</li>
+<li>自动问答系统中的问句分类</li>
+<li>社区问答系统中的问题分类：多标签多分类(对一段文本进行多分类，该文本可能有多个标签)，如知乎看山杯</li>
+<li>让AI做法官：基于案件事实描述文本的罚金等级分类(多分类)和法条分类(多标签多分类)</li>
+<li>判断新闻是否为机器人所写：2分类</li>
+</ul>
+<h3 id="11-textrnn的原理">1.1 textRNN的原理</h3>
+<p>在一些自然语言处理任务中，当对序列进行处理时，我们一般会采用循环神经网络RNN，尤其是它的一些变种，如LSTM(更常用)，GRU。当然我们也可以把RNN运用到文本分类任务中。</p>
+<p>这里的文本可以一个句子，文档(短文本，若干句子)或篇章(长文本)，因此每段文本的长度都不尽相同。在对文本进行分类时，我们一般会指定一个固定的输入序列/文本长度：该长度可以是最长文本/序列的长度，此时其他所有文本/序列都要进行填充以达到该长度；该长度也可以是训练集中所有文本/序列长度的均值，此时对于过长的文本/序列需要进行截断，过短的文本则进行填充。总之，要使得训练集中所有的文本/序列长度相同，该长度除之前提到的设置外，也可以是其他任意合理的数值。在测试时，也需要对测试集中的文本/序列做同样的处理。</p>
+<p>首先我们需要对文本进行分词，然后指定一个序列长度n（大于n的截断，小于n的填充），并使用词嵌入得到每个词固定维度的向量表示。对于每一个输入文本/序列，我们可以在RNN的每一个时间步长上输入文本中一个单词的向量表示，计算当前时间步长上的隐藏状态，然后用于当前时间步骤的输出以及传递给下一个时间步长并和下一个单词的词向量一起作为RNN单元输入，然后再计算下一个时间步长上RNN的隐藏状态，以此重复&hellip;直到处理完输入文本中的每一个单词，由于输入文本的长度为n，所以要经历n个时间步长。</p>
+<p>基于RNN的文本分类模型非常灵活，有多种多样的结构。接下来，我们主要介绍两种典型的结构。</p>
+<h2 id="2-textrnn网络结构">2. textRNN网络结构</h2>
+<h3 id="21-structure-1">2.1 structure 1</h3>
+<p><strong>流程</strong>：embedding&mdash;&gt;BiLSTM&mdash;&gt;concat final output/average all output&mdash;&ndash;&gt;softmax layer</p>
+<p>结构图如下图所示：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-26_8-57-47.png" alt="img"></p>
+<p>一般取前向/反向LSTM在最后一个时间步长上隐藏状态，然后进行拼接，在经过一个softmax层(输出层使用softmax激活函数)进行一个多分类；或者取前向/反向LSTM在每一个时间步长上的隐藏状态，对每一个时间步长上的两个隐藏状态进行拼接，然后对所有时间步长上拼接后的隐藏状态取均值，再经过一个softmax层(输出层使用softmax激活函数)进行一个多分类(2分类的话使用sigmoid激活函数)。</p>
+<p><strong>上述结构也可以添加dropout/L2正则化或BatchNormalization 来防止过拟合以及加速模型训练。</strong></p>
+<h3 id="22-structure-2">2.2 structure 2</h3>
+<p>流程：embedding&ndash;&gt;BiLSTM&mdash;-&gt;(dropout)&ndash;&gt;concat ouput&mdash;&gt;UniLSTM&mdash;&gt;(droput)&ndash;&gt;softmax layer</p>
+<p>结构图如下图所示：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-26_9-1-2.png" alt="img"></p>
+<p>与之前结构不同的是，在双向LSTM(上图不太准确，底层应该是一个双向LSTM)的基础上又堆叠了一个单向的LSTM。把双向LSTM在每一个时间步长上的两个隐藏状态进行拼接，作为上层单向LSTM每一个时间步长上的一个输入，最后取上层单向LSTM最后一个时间步长上的隐藏状态，再经过一个softmax层(输出层使用softamx激活函数，2分类的话则使用sigmoid)进行一个多分类。</p>
+<h3 id="23-总结">2.3 总结</h3>
+<p>TextRNN的结构非常灵活，可以任意改变。比如把LSTM单元替换为GRU单元，把双向改为单向，添加dropout或BatchNormalization以及再多堆叠一层等等。TextRNN在文本分类任务上的效果非常好，与TextCNN不相上下，但RNN的训练速度相对偏慢，一般2层就已经足够多了。</p>
+<h2 id="3-什么是textcnn">3. 什么是textCNN</h2>
+<p>在“卷积神经⽹络”中我们探究了如何使⽤⼆维卷积神经⽹络来处理⼆维图像数据。在之前的语⾔模型和⽂本分类任务中，我们将⽂本数据看作是只有⼀个维度的时间序列，并很⾃然地使⽤循环神经⽹络来表征这样的数据。<strong>其实，我们也可以将⽂本当作⼀维图像，从而可以⽤⼀维卷积神经⽹络来捕捉临近词之间的关联。本节将介绍将卷积神经⽹络应⽤到⽂本分析的开创性⼯作之⼀：textCNN</strong>。</p>
+<h3 id="31-维卷积层">3.1 ⼀维卷积层</h3>
+<p>在介绍模型前我们先来解释⼀维卷积层的⼯作原理。与⼆维卷积层⼀样，⼀维卷积层使⽤⼀维的互相关运算。在⼀维互相关运算中，卷积窗口从输⼊数组的最左⽅开始，按从左往右的顺序，依次在输⼊数组上滑动。当卷积窗口滑动到某⼀位置时，窗口中的输⼊⼦数组与核数组按元素相乘并求和，得到输出数组中相应位置的元素。如下图所⽰，输⼊是⼀个宽为7的⼀维数组，核数组的宽为2。可以看到输出的宽度为 7 - 2 + 1 = 6，且第⼀个元素是由输⼊的最左边的宽为2的⼦数组与核数组按元素相乘后再相加得到的：0 <em>×</em> 1 + 1 × 2 = 2。</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-26_9-35-48.png" alt="img"></p>
+<p>多输⼊通道的⼀维互相关运算也与多输⼊通道的⼆维互相关运算类似：在每个通道上，将核与相应的输⼊做⼀维互相关运算，并将通道之间的结果相加得到输出结果。下图展⽰了含3个输⼊ 通道的⼀维互相关运算，其中阴影部分为第⼀个输出元素及其计算所使⽤的输⼊和核数组元素： 0 <em>×</em> 1 + 1 <em>×</em> 2 + 1 <em>×</em> 3 + 2 <em>×</em> 4 + 2 <em>×</em> (-1) + 3 <em>×</em> (-3) = 2。</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-26_9-38-34.png" alt="img"></p>
+<p>由⼆维互相关运算的定义可知，多输⼊通道的⼀维互相关运算可以看作单输⼊通道的⼆维互相关运算。如下图所⽰，我们也可以将上图中多输⼊通道的⼀维互相关运算以等价的单输⼊通道的⼆维互相关运算呈现。这⾥核的⾼等于输⼊的⾼。下图的阴影部分为第⼀个输出元素及其计算所使⽤的输⼊和核数组元素：2 <em>×</em> (-1) + 3 <em>×</em> (-3) + 1 <em>×</em> 3 + 2 <em>×</em> 4 + 0 <em>×</em> 1 + 1 <em>×</em> 2 = 2。</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-26_9-52-37.png" alt="img"></p>
+<p>以上都是输出都只有⼀个通道。我们在“多输⼊通道和多输出通道”⼀节中介绍了如何在⼆维卷积层中指定多个输出通道。类似地，我们也可以在⼀维卷积层指定多个输出通道，从而拓展卷积层中的模型参数。</p>
+<h3 id="3-2-时序最池化层">3. 2 时序最⼤池化层</h3>
+<p>类似地，我们有⼀维池化层。textCNN中使⽤的时序最⼤池化（max-over-time pooling）层实际上对应⼀维全局最⼤池化层：假设输⼊包含多个通道，各通道由不同时间步上的数值组成，各通道的输出即该通道所有时间步中最⼤的数值。因此，时序最⼤池化层的输⼊在各个通道上的时间步数可以不同。为提升计算性能，我们常常将不同⻓度的时序样本组成⼀个小批量，并通过在较短序列后附加特殊字符（如0）令批量中各时序样本⻓度相同。这些⼈为添加的特殊字符当然是⽆意义的。由于时序最⼤池化的主要⽬的是抓取时序中最重要的特征，它通常能使模型不受⼈为添加字符的影响。</p>
+<h3 id="33-textcnn模型">3.3 textCNN模型</h3>
+<p>textCNN模型主要使⽤了⼀维卷积层和时序最⼤池化层。假设输⼊的⽂本序列由<em>n</em>个词组成，每个词⽤<em>d</em>维的词向量表⽰。那么输⼊样本的宽为<em>n</em>，⾼为1，输⼊通道数为<em>d</em>。textCNN的计算主要分为以下⼏步：</p>
+<ol>
+<li>定义多个⼀维卷积核，并使⽤这些卷积核对输⼊分别做卷积计算。宽度不同的卷积核可能会捕捉到不同个数的相邻词的相关性。</li>
+<li>对输出的所有通道分别做时序最⼤池化，再将这些通道的池化输出值连结为向量。</li>
+<li>通过全连接层将连结后的向量变换为有关各类别的输出。这⼀步可以使⽤丢弃层应对过拟合。</li>
+</ol>
+<p>下图⽤⼀个例⼦解释了textCNN的设计。这⾥的输⼊是⼀个有11个词的句⼦，每个词⽤6维词向量表⽰。因此输⼊序列的宽为11，输⼊通道数为6。给定2个⼀维卷积核，核宽分别为2和4，输出通道数分别设为4和5。因此，⼀维卷积计算后，4个输出通道的宽为 11 - 2 + 1 = 10，而其他5个通道的宽为 11 - 4 + 1 = 8。尽管每个通道的宽不同，我们依然可以对各个通道做时序最⼤池化，并将9个通道的池化输出连结成⼀个9维向量。最终，使⽤全连接将9维向量变换为2维输出，即正⾯情感和负⾯情感的预测。</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-26_11-4-51.png" alt="img"></p>
+<h2 id="seq2seq">seq2seq</h2>
+<h2 id="1-什么是seq2seq">1. 什么是seq2seq</h2>
+<p>在⾃然语⾔处理的很多应⽤中，输⼊和输出都可以是不定⻓序列。以机器翻译为例，输⼊可以是⼀段不定⻓的英语⽂本序列，输出可以是⼀段不定⻓的法语⽂本序列，例如：</p>
+<p>英语输⼊：“They”、“are”、“watching”、“.”</p>
+<p>法语输出：“Ils”、“regardent”、“.”</p>
+<p>当输⼊和输出都是不定⻓序列时，我们可以使⽤编码器—解码器（encoder-decoder）或者seq2seq模型。<strong>序列到序列模型，简称seq2seq模型。这两个模型本质上都⽤到了两个循环神经⽹络，分别叫做编码器和解码器。编码器⽤来分析输⼊序列，解码器⽤来⽣成输出序列。两 个循环神经网络是共同训练的。</strong></p>
+<p>下图描述了使⽤编码器—解码器将上述英语句⼦翻译成法语句⼦的⼀种⽅法。在训练数据集中，我们可以在每个句⼦后附上特殊符号“<eos>”（end of sequence）以表⽰序列的终⽌。编码器每个时间步的输⼊依次为英语句⼦中的单词、标点和特殊符号“<eos>”。下图中使⽤了编码器在 最终时间步的隐藏状态作为输⼊句⼦的表征或编码信息。解码器在各个时间步中使⽤输⼊句⼦的 编码信息和上个时间步的输出以及隐藏状态作为输⼊。我们希望解码器在各个时间步能正确依次 输出翻译后的法语单词、标点和特殊符号“<eos>”。需要注意的是，解码器在最初时间步的输⼊ ⽤到了⼀个表⽰序列开始的特殊符号“”（beginning of sequence）。</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_11-10-4.png" alt="img"></p>
+<h2 id="2-编码器">2. 编码器</h2>
+<p>编码器的作⽤是把⼀个不定⻓的输⼊序列变换成⼀个定⻓的背景变量 c，并在该背景变量中编码输⼊序列信息。常⽤的编码器是循环神经⽹络。</p>
+<p>让我们考虑批量⼤小为1的时序数据样本。假设输⼊序列是 x1, . . . , xT，例如 xi 是输⼊句⼦中的第 i 个词。在时间步 t，循环神经⽹络将输⼊ xt 的特征向量 xt 和上个时间步的隐藏状态 <img src="https://latex.codecogs.com/gif.latex?h_%7Bt-1%7D" alt="img">变换为当前时间步的隐藏状态ht。我们可以⽤函数 f 表达循环神经⽹络隐藏层的变换：</p>
+<p><img src="https://latex.codecogs.com/gif.latex?h_t=f(x_t,h_%7Bt-1%7D)" alt="img"></p>
+<p>接下来，编码器通过⾃定义函数 q 将各个时间步的隐藏状态变换为背景变量：</p>
+<p><img src="https://latex.codecogs.com/gif.latex?c=q(h_1,...,h_T)" alt="img"></p>
+<p>例如，当选择 <em>q</em>(<em><strong>h</strong></em>1*, . . . ,* <em><strong>h</strong></em><em>T</em> ) = <em><strong>h</strong></em><em>T</em> 时，背景变量是输⼊序列最终时间步的隐藏状态<em><strong>h</strong></em><em>T</em>。</p>
+<p>以上描述的编码器是⼀个单向的循环神经⽹络，每个时间步的隐藏状态只取决于该时间步及之前的输⼊⼦序列。我们也可以使⽤双向循环神经⽹络构造编码器。在这种情况下，编码器每个时间步的隐藏状态同时取决于该时间步之前和之后的⼦序列（包括当前时间步的输⼊），并编码了整个序列的信息。</p>
+<h2 id="3-解码器">3. 解码器</h2>
+<p>刚刚已经介绍，编码器输出的背景变量 c 编码了整个输⼊序列 x1, . . . , xT 的信息。给定训练样本中的输出序列 y1, y2, . . . , yT′ ，对每个时间步 t′（符号与输⼊序列或编码器的时间步 t 有区别），解码器输出 yt′ 的条件概率将基于之前的输出序列<img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-39-17.png" alt="img">和背景变量 c，即：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-45-12.png" alt="img"></p>
+<p>为此，我们可以使⽤另⼀个循环神经⽹络作为解码器。在输出序列的时间步 t′，解码器将上⼀时间步的输出 <img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-46-6.png" alt="img">以及背景变量 c 作为输⼊，并将它们与上⼀时间步的隐藏状态 <img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-46-54.png" alt="img">变换为当前时间步的隐藏状态st′。因此，我们可以⽤函数 g 表达解码器隐藏层的变换：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-47-36.png" alt="img"></p>
+<p>有了解码器的隐藏状态后，我们可以使⽤⾃定义的输出层和softmax运算来计算 <img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-49-45.png" alt="img">，例如，基于当XQ前时间步的解码器隐藏状态 st′、上⼀时间步的输出<img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-46-54.png" alt="img">以及背景变量 c 来计算当前时间步输出 yt′ 的概率分布。</p>
+<h2 id="4-训练模型">4. 训练模型</h2>
+<p>根据最⼤似然估计，我们可以最⼤化输出序列基于输⼊序列的条件概率：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-51-22.png" alt="img"></p>
+<p>并得到该输出序列的损失：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-52-25.png" alt="img"></p>
+<p>在模型训练中，所有输出序列损失的均值通常作为需要最小化的损失函数。在上图所描述的模型预测中，我们需要将解码器在上⼀个时间步的输出作为当前时间步的输⼊。与此不同，在训练中我们也可以将标签序列（训练集的真实输出序列）在上⼀个时间步的标签作为解码器在当前时间步的输⼊。这叫作强制教学（teacher forcing）。</p>
+<h2 id="5-seq2seq模型预测">5. seq2seq模型预测</h2>
+<p>以上介绍了如何训练输⼊和输出均为不定⻓序列的编码器—解码器。本节我们介绍如何使⽤编码器—解码器来预测不定⻓的序列。</p>
+<p>在准备训练数据集时，我们通常会在样本的输⼊序列和输出序列后面分别附上⼀个特殊符号“<eos>”表⽰序列的终⽌。我们在接下来的讨论中也将沿⽤上⼀节的全部数学符号。为了便于讨论，假设解码器的输出是⼀段⽂本序列。设输出⽂本词典Y（包含特殊符号“<eos>”）的⼤小为|Y|，输出序列的最⼤⻓度为T′。所有可能的输出序列⼀共有 <img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-53-47.png" alt="img">种。这些输出序列中所有特殊符号“<eos>”后⾯的⼦序列将被舍弃。</p>
+<h3 id="51-贪婪搜索">5.1 贪婪搜索</h3>
+<p>贪婪搜索（greedy search）。对于输出序列任⼀时间步t′，我们从|Y|个词中搜索出条件概率最⼤的词：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-55-26.png" alt="img"></p>
+<p>作为输出。⼀旦搜索出“<eos>”符号，或者输出序列⻓度已经达到了最⼤⻓度T′，便完成输出。我们在描述解码器时提到，基于输⼊序列⽣成输出序列的条件概率是<img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-56-6.png" alt="img">。我们将该条件概率最⼤的输出序列称为最优输出序列。而贪婪搜索的主要问题是不能保证得到最优输出序列。</p>
+<p>下⾯来看⼀个例⼦。假设输出词典⾥⾯有“A”“B”“C”和“<eos>”这4个词。下图中每个时间步 下的4个数字分别代表了该时间步⽣成“A”“B”“C”和“<eos>”这4个词的条件概率。在每个时间步，贪婪搜索选取条件概率最⼤的词。因此，图10.9中将⽣成输出序列“A”“B”“C”“<eos>”。该输出序列的条件概率是0.5 × 0.4 × 0.4 × 0.6 = 0.048。</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_13-44-5.png" alt="img"></p>
+<p>接下来，观察下面演⽰的例⼦。与上图中不同，在时间步2中选取了条件概率第⼆⼤的词“C” 。由于时间步3所基于的时间步1和2的输出⼦序列由上图中的“A”“B”变为了下图中的“A”“C”，下图中时间步3⽣成各个词的条件概率发⽣了变化。我们选取条件概率最⼤的词“B”。此时时间步4所基于的前3个时间步的输出⼦序列为“A”“C”“B”，与上图中的“A”“B”“C”不同。因此，下图中时间步4⽣成各个词的条件概率也与上图中的不同。我们发现，此时的输出序列“A”“C”“B”“<eos>”的条件概率是0.5 × 0.3 × 0.6 × 0.6 = 0.054，⼤于贪婪搜索得到的输出序列的条件概率。因此，贪婪搜索得到的输出序列“A”“B”“C”“<eos>”并⾮最优输出序列。</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_13-47-56.png" alt="img"></p>
+<h3 id="52-穷举搜索">5.2 穷举搜索</h3>
+<p>如果⽬标是得到最优输出序列，我们可以考虑穷举搜索（exhaustive search）：穷举所有可能的输出序列，输出条件概率最⼤的序列。</p>
+<p>虽然穷举搜索可以得到最优输出序列，但它的计算开销<img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-59-0.png" alt="img">很容易过⼤。例如，当|Y| =10000且T′ = 10时，我们将评估 <img src="https://latex.codecogs.com/gif.latex?10000%5E%7B10%7D=10%5E%7B40%7D" alt="img">个序列：这⼏乎不可能完成。而贪婪搜索的计算开销是 <img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_15-59-0.png" alt="img">，通常显著小于穷举搜索的计算开销。例如，当|Y| = 10000且T′ = 10时，我们只需评估<img src="https://latex.codecogs.com/gif.latex?10000*10=10%5E5" alt="img">个序列。</p>
+<h3 id="53-束搜索">5.3 束搜索</h3>
+<p>束搜索（beam search）是对贪婪搜索的⼀个改进算法。它有⼀个束宽（beam size）超参数。我们将它设为 k。在时间步 1 时，选取当前时间步条件概率最⼤的 k 个词，分别组成 k 个候选输出序列的⾸词。在之后的每个时间步，基于上个时间步的 k 个候选输出序列，从 k |Y| 个可能的输出序列中选取条件概率最⼤的 k 个，作为该时间步的候选输出序列。最终，我们从各个时间步的候选输出序列中筛选出包含特殊符号“<eos>”的序列，并将它们中所有特殊符号“<eos>”后⾯的⼦序列舍弃，得到最终候选输出序列的集合。</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_14-0-5.png" alt="img"></p>
+<p>束宽为2，输出序列最⼤⻓度为3。候选输出序列有A、C、AB、CE、ABD和CED。我们将根据这6个序列得出最终候选输出序列的集合。在最终候选输出序列的集合中，我们取以下分数最⾼的序列作为输出序列：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_16-5-41.png" alt="img"></p>
+<p>其中 L 为最终候选序列⻓度，α ⼀般可选为0.75。分⺟上的 Lα 是为了惩罚较⻓序列在以上分数中较多的对数相加项。分析可知，束搜索的计算开销为<img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_16-6-24.png" alt="img">。这介于贪婪搜索和穷举搜索的计算开销之间。此外，贪婪搜索可看作是束宽为 1 的束搜索。束搜索通过灵活的束宽 k 来权衡计算开销和搜索质量。</p>
+<h2 id="6-bleu得分">6. Bleu得分</h2>
+<p>评价机器翻译结果通常使⽤BLEU（Bilingual Evaluation Understudy）(双语评估替补)。对于模型预测序列中任意的⼦序列，BLEU考察这个⼦序列是否出现在标签序列中。</p>
+<p>具体来说，设词数为 n 的⼦序列的精度为 pn。它是预测序列与标签序列匹配词数为 n 的⼦序列的数量与预测序列中词数为 n 的⼦序列的数量之⽐。举个例⼦，假设标签序列为A、B、C、D、E、F，预测序列为A、B、B、C、D，那么：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_16-7-11.png" alt="img"></p>
+<p>预测序列一元词组：A/B/C/D，都在标签序列里存在，所以P1=4/5，以此类推，p2 = 3/4, p3 = 1/3, p4 = 0。设 <img src="https://latex.codecogs.com/gif.latex?len_%7Blabel%7D,len_%7Bpred%7D" alt="img">分别为标签序列和预测序列的词数，那么，BLEU的定义为：</p>
+<p><img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_16-8-52.png" alt="img"></p>
+<p>其中 k 是我们希望匹配的⼦序列的最⼤词数。可以看到当预测序列和标签序列完全⼀致时，BLEU为1。</p>
+<p>因为匹配较⻓⼦序列⽐匹配较短⼦序列更难，BLEU对匹配较⻓⼦序列的精度赋予了更⼤权重。例如，当 pn 固定在0.5时，随着n的增⼤，<img src="https://gitee.com/kkweishe/images/raw/master/ML/2019-8-29_16-10-11.png" alt="img">。另外，模型预测较短序列往往会得到较⾼pn 值。因此，上式中连乘项前⾯的系数是为了惩罚较短的输出而设的。举个例⼦，当k = 2时，假设标签序列为A、B、C、D、E、F，而预测序列为A、 B。虽然p1 = p2 = 1，但惩罚系数exp(1-6/2) ≈ 0.14，因此BLEU也接近0.14。</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>May 27, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/" title="DL常见算法及模型">DL常见算法及模型</a>
+    
+
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="../../about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/">NLP总结</a>
+              </li>
+            
+          
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/">DL常见算法及模型</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-24-nlp-for-beginners/">NLP for beginners</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+

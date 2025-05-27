@@ -6,14 +6,35 @@
     <description>Recent content in Posts on Frederick</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 May 2025 13:40:09 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 May 2025 15:05:29 +0000</lastBuildDate>
     <atom:link href="https://Frederick2313072.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NLP总结</title>
+      <link>https://Frederick2313072.github.io/blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Tue, 27 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://Frederick2313072.github.io/blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/</guid>
+      <description>&lt;h2 id=&#34;word-embedding&#34;&gt;Word Embedding&lt;/h2&gt;&#xA;&lt;h3 id=&#34;one-hot表示&#34;&gt;One-hot表示&lt;/h3&gt;&#xA;&lt;p&gt;One-hot简称读热向量编码，也是特征工程中最常用的方法。其步骤如下：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;构造文本分词后的字典，每个分词是一个比特值，比特值为0或者1。&lt;/li&gt;&#xA;&lt;li&gt;每个分词的文本表示为该分词的比特位为1，其余位为0的矩阵表示。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;每个词典索引对应比特位&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>DL常见算法及模型</title>
+      <link>https://Frederick2313072.github.io/blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/</link>
+      <pubDate>Mon, 26 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://Frederick2313072.github.io/blog/2025-05-26-dl%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95%E5%8F%8A%E6%A8%A1%E5%9E%8B/</guid>
+      <description>&lt;h2 id=&#34;cnn&#34;&gt;CNN&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;CNN层次结构&lt;/th&gt;&#xA;          &lt;th&gt;作用&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;输入层&lt;/td&gt;&#xA;          &lt;td&gt;卷积网络的原始输入，可以是原始或预处理后的像素矩阵&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;卷积层&lt;/td&gt;&#xA;          &lt;td&gt;参数共享、局部连接，利用平移不变性从全局特征图提取局部特征&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;激活层&lt;/td&gt;&#xA;          &lt;td&gt;将卷积层的输出结果进行非线性映射&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;池化层&lt;/td&gt;&#xA;          &lt;td&gt;进一步筛选特征，可以有效减少后续网络层次所需的参数量&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;全连接层&lt;/td&gt;&#xA;          &lt;td&gt;用于把该层之前提取到的特征综合起来。&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h3 id=&#34;11-输入层&#34;&gt;1.1 输入层&lt;/h3&gt;&#xA;&lt;p&gt;在做输入的时候，需要把图片处理成同样大小的图片才能够进行处理。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>强化学习</title>
       <link>https://Frederick2313072.github.io/blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</link>
       <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
       <guid>https://Frederick2313072.github.io/blog/2025-05-25-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</guid>
       <description>&lt;p&gt;强化学习算法分两种，（工作A）一种是预测每个状态的价值V，（工作B）一种是预测在每个状态下，所有可能出现的动作的价值（动作价值Q）&lt;/p&gt;&#xA;&lt;h2 id=&#34;mc蒙特卡洛算法&#34;&gt;MC蒙特卡洛算法&lt;/h2&gt;&#xA;&lt;p&gt;完成A工作，增量更新，需要收集很多样本数据来参加训练，预测每个状态的价值&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>NLP for beginners</title>
+      <link>https://Frederick2313072.github.io/blog/2025-05-24-nlp-for-beginners/</link>
+      <pubDate>Sat, 24 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://Frederick2313072.github.io/blog/2025-05-24-nlp-for-beginners/</guid>
+      <description>&lt;h3 id=&#34;分词&#34;&gt;分词&lt;/h3&gt;&#xA;&lt;p&gt;深度学习模型期望数字作为输入，而不是英语句子！所以我们需要做两件事：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;em&gt;Tokenization&lt;/em&gt;: Split each text up into words (or actually, as we&amp;rsquo;ll see, into &lt;em&gt;tokens&lt;/em&gt;)&#xA;分词：将每段文本分割成单词（或者，实际上，我们会看到，分割成标记）&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Numericalization&lt;/em&gt;: Convert each word (or token) into a number.&#xA;数字化：将每个单词（或标记）转换为一个数字。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;from datasets import Dataset,DatasetDict&#xA;&#xA;ds = Dataset.from_pandas(df)&#xA;#选择模型&#xA;model_nm = &amp;#39;microsoft/deberta-v3-small&amp;#39;&#xA;#分词&#xA;from transformers import AutoModelForSequenceClassification,AutoTokenizer&#xA;tokz = AutoTokenizer.from_pretrained(model_nm)&#xA;def tok_func(x): return tokz(x[&amp;#34;input&amp;#34;])&#xA;tok_ds = ds.map(tok_func, batched=True)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;分词器中有一个名为 &lt;code&gt;vocab&lt;/code&gt; 的列表，其中包含每个可能的标记字符串的唯一整数。我们可以这样查找它们，例如，为了找到单词&amp;quot;of&amp;quot;的标记：&lt;/p&gt;</description>
     </item>
     <item>
       <title>算法八股文常见问题</title>
@@ -244,35 +265,7 @@
       <link>https://Frederick2313072.github.io/blog/1-01-01-/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Frederick2313072.github.io/blog/1-01-01-/</guid>
-      <description>&lt;h2 id=&#34;cnn&#34;&gt;CNN&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;CNN层次结构&lt;/th&gt;&#xA;          &lt;th&gt;作用&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;输入层&lt;/td&gt;&#xA;          &lt;td&gt;卷积网络的原始输入，可以是原始或预处理后的像素矩阵&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;卷积层&lt;/td&gt;&#xA;          &lt;td&gt;参数共享、局部连接，利用平移不变性从全局特征图提取局部特征&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;激活层&lt;/td&gt;&#xA;          &lt;td&gt;将卷积层的输出结果进行非线性映射&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;池化层&lt;/td&gt;&#xA;          &lt;td&gt;进一步筛选特征，可以有效减少后续网络层次所需的参数量&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;全连接层&lt;/td&gt;&#xA;          &lt;td&gt;用于把该层之前提取到的特征综合起来。&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h3 id=&#34;11-输入层&#34;&gt;1.1 输入层&lt;/h3&gt;&#xA;&lt;p&gt;在做输入的时候，需要把图片处理成同样大小的图片才能够进行处理。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://Frederick2313072.github.io/blog/1-01-01-/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Frederick2313072.github.io/blog/1-01-01-/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://Frederick2313072.github.io/blog/1-01-01-/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Frederick2313072.github.io/blog/1-01-01-/</guid>
-      <description>&lt;h2 id=&#34;word-embedding&#34;&gt;Word Embedding&lt;/h2&gt;&#xA;&lt;h3 id=&#34;one-hot表示&#34;&gt;One-hot表示&lt;/h3&gt;&#xA;&lt;p&gt;One-hot简称读热向量编码，也是特征工程中最常用的方法。其步骤如下：&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;构造文本分词后的字典，每个分词是一个比特值，比特值为0或者1。&lt;/li&gt;&#xA;&lt;li&gt;每个分词的文本表示为该分词的比特位为1，其余位为0的矩阵表示。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;每个词典索引对应比特位&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title></title>
-      <link>https://Frederick2313072.github.io/blog/1-01-01-/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Frederick2313072.github.io/blog/1-01-01-/</guid>
       <description>&lt;h1 id=&#34;第三章-sql&#34;&gt;第三章 SQL&lt;/h1&gt;&#xA;&lt;p&gt;1.试述SQL的特点&lt;/p&gt;&#xA;&lt;p&gt;综合统一，高度非过程化，面向集合的操作方式，以同一种语法结构提供多种使用方式&lt;/p&gt;&#xA;&lt;p&gt;2.说明在DROP TABLE时，RESTRICT和CASCADE的区别&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>NLP for beginners</title>
-      <link>https://Frederick2313072.github.io/blog/1-01-01-nlp-for-beginners/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://Frederick2313072.github.io/blog/1-01-01-nlp-for-beginners/</guid>
-      <description>&lt;h3 id=&#34;分词&#34;&gt;分词&lt;/h3&gt;&#xA;&lt;p&gt;深度学习模型期望数字作为输入，而不是英语句子！所以我们需要做两件事：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;em&gt;Tokenization&lt;/em&gt;: Split each text up into words (or actually, as we&amp;rsquo;ll see, into &lt;em&gt;tokens&lt;/em&gt;)&#xA;分词：将每段文本分割成单词（或者，实际上，我们会看到，分割成标记）&lt;/li&gt;&#xA;&lt;li&gt;&lt;em&gt;Numericalization&lt;/em&gt;: Convert each word (or token) into a number.&#xA;数字化：将每个单词（或标记）转换为一个数字。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;from datasets import Dataset,DatasetDict&#xA;&#xA;ds = Dataset.from_pandas(df)&#xA;#选择模型&#xA;model_nm = &amp;#39;microsoft/deberta-v3-small&amp;#39;&#xA;#分词&#xA;from transformers import AutoModelForSequenceClassification,AutoTokenizer&#xA;tokz = AutoTokenizer.from_pretrained(model_nm)&#xA;def tok_func(x): return tokz(x[&amp;#34;input&amp;#34;])&#xA;tok_ds = ds.map(tok_func, batched=True)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;分词器中有一个名为 &lt;code&gt;vocab&lt;/code&gt; 的列表，其中包含每个可能的标记字符串的唯一整数。我们可以这样查找它们，例如，为了找到单词&amp;quot;of&amp;quot;的标记：&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
