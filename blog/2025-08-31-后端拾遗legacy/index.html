@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="../../css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>后端拾遗Legacy</title>
+
+  
+  
+  <link rel="stylesheet" href="../../css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="../../css/fork-awesome.min.css">
+  
+
+  
+  
+    <link href="https://Frederick2313072.github.io/favicon.png" rel="icon">
+  
+
+  
+  
+
+  <meta name="description" content="暑假摸鱼看项目的时候顺便翻了翻某些官方文档" />
+  <meta name="keywords" content="">
+  <meta name="author" content="Frederick">
+
+  
+  <meta name="generator" content="Hugo 0.150.0">
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://Frederick2313072.github.io/">Frederick</a></h1>
+    <h2>Welcome to my Alter Ego&#39;s site!</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
+      
+        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+      
+        <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://Frederick2313072.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss-square fa-lg"></i></a>
+    
+  
+</ul>
+
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Aug 31, 2025
+     - 10 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-08-31-%E5%90%8E%E7%AB%AF%E6%8B%BE%E9%81%97legacy/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     后端拾遗Legacy 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h3 id="服务端web框架">服务端web框架</h3>
+<p>直接处理http请求和响应</p>
+<p>将请求路由到相关的handler中</p>
+<p>使从请求中获得数据变得简单</p>
+<p>抽象数据库接口</p>
+<h3 id="类型提示">类型提示</h3>
+<pre tabindex="0"><code>first_name: str, last_name: str
+Dict[str, float]//第一个是所有键类型，第二个是所有值类型
+</code></pre><h3 id="pydantic模型">Pydantic模型</h3>
+<ul>
+<li>三种序列化</li>
+</ul>
+<p>dict，jsonable，JSON字符串</p>
+<p>符合json schema</p>
+<pre tabindex="0"><code>Meeting.model_json_schema()
+</code></pre><p>数据校验</p>
+<p>将数据的结构声明为具有属性的类</p>
+<pre tabindex="0"><code>from pydantic import BaseModel
+class User(BaseModel):
+    id:int
+    name:str=&#34;John&#34;
+    signup_ts: datetime | None = None
+external_data={
+    &#34;id&#34;:&#34;123&#34;,
+    &#34;signup_ts&#34;:&#34;2017-06-01&#34;,
+}
+user = User(external_data)
+</code></pre><h3 id="并发asyncawait">并发async/await</h3>
+<p>常见的异步任务（i/o密集型）</p>
+<ul>
+<li>通过网络发送来自客户端的数据</li>
+<li>客户端接收来自网络中的数据</li>
+<li>磁盘中要由系统读取并提供给程序的文件的内容</li>
+<li>程序提供给系统的要写入磁盘的内容</li>
+<li>一个 API 的远程调用</li>
+<li>一个数据库操作，直到完成</li>
+<li>一个数据库查询，直到返回结果</li>
+<li>等等.</li>
+</ul>
+<p>CPU密集型</p>
+<ul>
+<li><strong>音频</strong>或<strong>图像</strong>处理；</li>
+<li><strong>计算机视觉</strong>: 一幅图像由数百万像素组成，每个像素有3种颜色值，处理通常需要同时对这些像素进行计算；</li>
+<li><strong>机器学习</strong>: 它通常需要大量的&quot;矩阵&quot;和&quot;向量&quot;乘法。想象一个包含数字的巨大电子表格，并同时将所有数字相乘；</li>
+<li><strong>深度学习</strong>: 这是机器学习的一个子领域，同样适用。只是没有一个数字的电子表格可以相乘，而是一个庞大的数字集合，在很多情况下，你需要使用一个特殊的处理器来构建和使用这些模型。</li>
+</ul>
+<p>示例</p>
+<pre tabindex="0"><code>@app.get(&#39;/burgers&#39;)
+async def read_burgers():
+    burgers = await get_burgers(2)
+    return burgers
+</code></pre><p><code>async</code> 和 <code>await</code> 的异步代码的所有功能大多数被概括为&quot;协程&quot;</p>
+<ul>
+<li>导入 <code>FastAPI</code>。</li>
+<li>创建一个 <code>app</code> 实例。</li>
+<li>编写一个<strong>路径操作装饰器</strong>，如 <code>@app.get(&quot;/&quot;)</code>。</li>
+<li>定义一个<strong>路径操作函数</strong>，如 <code>def root(): ...</code>。</li>
+</ul>
+<pre tabindex="0"><code>from fastapi import FastAPI
+app=FastAPI()
+@app.get(&#34;/&#34;)
+async def root():
+return {&#34;message&#34;:&#34;hello,fastapi&#34;}
+</code></pre><h3 id="使用pydantic模型的查询参数">使用pydantic模型的查询参数</h3>
+<pre tabindex="0"><code>from typing import Annotated, Literal
+
+from fastapi import FastAPI, Query
+from pydantic import BaseModel, Field
+
+app = FastAPI()
+
+
+class FilterParams(BaseModel):
+    limit: int = Field(100, gt=0, le=100)
+    offset: int = Field(0, ge=0)
+    order_by: Literal[&#34;created_at&#34;, &#34;updated_at&#34;] = &#34;created_at&#34;
+    tags: list[str] = []
+
+
+@app.get(&#34;/items/&#34;)
+async def read_items(filter_query: Annotated[FilterParams, Query()]):
+    return filter_query
+</code></pre><p><code>Annotated[..., Body()]</code> 的作用是<strong>显式声明</strong>这个&hellip;参数必须从请求体中获取</p>
+<p><code>Annotated</code>: 从 <code>typing</code> 模块导入，它是一种高级类型提示，允许我们为类型附加额外的元数据。</p>
+<p>如果参数没有出现在路径中，fastapi将它识别成query，比如</p>
+<pre tabindex="0"><code>from fastapi import FastAPI
+
+app = FastAPI()
+
+# 模拟一个商品列表
+fake_items_db = [{&#34;item_name&#34;: &#34;Apple&#34;}, {&#34;item_name&#34;: &#34;Banana&#34;}, {&#34;item_name&#34;: &#34;Cherry&#34;}]
+
+# skip 和 limit 就是查询参数
+@app.get(&#34;/items/&#34;)
+async def read_items(skip: int = 0, limit: int = 10):
+    # skip 和 limit 有默认值，所以它们是可选的
+    return fake_items_db[skip : skip + limit]
+</code></pre><h3 id="cookie参数模型">cookie参数模型</h3>
+<pre tabindex="0"><code>from fastapi import Cookie,FastAPI
+from pydantic import BaseModel
+app=FastAPI()
+class Cookies(BaseModel):
+    model_config={&#34;extra&#34;:&#34;forbid&#34;}//禁止额外的cookie
+    session_id:str
+    fatebook_tracker:str|None=None
+    googall_tracker:str|None=None
+@app.get(&#34;/items/&#34;)
+async def read_items(cookies:Annotated[Cookies,Cookie()]):
+return cookies
+</code></pre><p>从提供的cookie中提取字段，传给Cookies这个base model模型</p>
+<h3 id="header参数模型">header参数模型</h3>
+<pre tabindex="0"><code>from typing import Annotated
+
+from fastapi import FastAPI, Header
+from pydantic import BaseModel
+
+app = FastAPI()
+
+
+class CommonHeaders(BaseModel):
+    host: str
+    save_data: bool
+    if_modified_since: str | None = None
+    traceparent: str | None = None
+    x_tag: list[str] = []
+
+
+@app.get(&#34;/items/&#34;)
+async def read_items(headers: Annotated[CommonHeaders, Header()]):
+    return headers
+</code></pre><h3 id="响应模型">响应模型</h3>
+<p>一个有明文密码的输入模型和一个没有明文密码的输出模型</p>
+<pre tabindex="0"><code>from typing import Any
+
+from fastapi import FastAPI
+from pydantic import BaseModel, EmailStr
+
+app = FastAPI()
+
+
+class UserIn(BaseModel):
+    username: str
+    password: str
+    email: EmailStr
+    full_name: str | None = None
+
+
+class UserOut(BaseModel):
+    username: str
+    //注意这里没有password
+    email: EmailStr
+    full_name: str | None = None
+
+
+@app.post(&#34;/user/&#34;, response_model=UserOut)
+async def create_user(user: UserIn) -&gt; Any:
+    return user
+</code></pre><p>不会包含默认值</p>
+<pre tabindex="0"><code>@app.get(&#34;/items/{item_id}&#34;, response_model=Item, response_model_exclude_unset=True)
+async def read_item(item_id: str):
+    return items[item_id]
+</code></pre><h3 id="后端的pydantic模型">后端的Pydantic模型</h3>
+<pre tabindex="0"><code>class FormData(BaseModel):
+    username:str
+    password:str
+@app.post(&#34;/login/&#34;)
+async def login(data:Annotated[FormData,Form()])://如果发现是FormData数据类型,会提取使用后面的元数据
+    return data
+</code></pre><h3 id="请求文件">请求文件</h3>
+<pre tabindex="0"><code>@app.post(&#34;/files/&#34;)
+async def create_file(file:bytes=File()):
+    return {&#34;file_size&#34;:len(file)}
+@app.post(&#34;/uploadfile/&#34;)
+async def create_upload_file(file: UploadFile):
+    return {&#34;filename&#34;: file.filename}
+</code></pre><p>读取文件内容</p>
+<pre tabindex="0"><code>contents=await myfile.read()
+</code></pre><p>多文件上传</p>
+<pre tabindex="0"><code>async def create_files(files: list[bytes] = File()):
+</code></pre><pre tabindex="0"><code>async def create_upload_files(files: list[UploadFile]):
+</code></pre><h3 id="路径操作配置">路径操作配置</h3>
+<p>支持summary和description两个参数</p>
+<pre tabindex="0"><code>@app.post(&#34;/iems/&#34;,response_model=Item,summary=&#34;Create an Item&#34;,description=&#34;create an item&#34;)
+</code></pre><p>deprecated参数可以把路径操作标记为弃用，无需直接删除</p>
+<pre tabindex="0"><code>@app.get(&#34;/elements/&#34;,tags=[&#34;items&#34;],deprecated=True)
+</code></pre><h3 id="json兼容编码器">JSON兼容编码器</h3>
+<pre tabindex="0"><code>@app.put(&#34;/itmes/{id})
+
+def update_item(id:str,itme:Item):
+   Json_compatible_item_data=jsonable_encoder(item)
+
+   Fake_db[id]=json_compatible_item_data
+</code></pre><p>将pydantic模型转换为dic，并将datetime转换为str</p>
+<h3 id="类作为依赖项">类作为依赖项</h3>
+<pre tabindex="0"><code>commons: CommonQueryParams = Depends(CommonQueryParams)
+</code></pre><p>简洁写法</p>
+<pre tabindex="0"><code>async def read_items(commons: CommonQueryParams = Depends()):
+</code></pre><h3 id="路径操作解释器作为依赖项全局">路径操作解释器作为依赖项（全局）</h3>
+<pre tabindex="0"><code>app = FastAPI(dependencies=[Depends(verify_token), Depends(verify_key)])
+</code></pre><h3 id="使用yield的依赖项">使用yield的依赖项</h3>
+<p>数据库依赖</p>
+<pre tabindex="0"><code>async def get_db():
+    db=DBSession()
+    try:
+        yield db
+    finally:
+        db.close()
+</code></pre><p>yield和return区别：yield会暂停一个函数的执行，并产出一个值，函数会记住暂停的位置，下次取值时，它会从上次暂停的地方继续执行，return会彻底终止一个函数的执行并返回一个值</p>
+<p>在包含yield和except的依赖项中一定要raise</p>
+<pre tabindex="0"><code>def get_username():
+    try:
+        yield &#34;Rick&#34;
+    except InternalError:
+        print(&#34;We don&#39;t swallow the internal error here, we raise again 😎&#34;)
+        raise
+</code></pre><h3 id="上下文管理器">上下文管理器</h3>
+<p>with语句中使用的任何python对象</p>
+<pre tabindex="0"><code>with open(&#34;./somefile.txt&#34;) as f:
+    contents = f.read()
+    print(contents)
+</code></pre><p>openapi的安全方案</p>
+<ul>
+<li>apikey，查询参数，请求头，cookie</li>
+<li>http，标准的http身份认证</li>
+<li>oauth2</li>
+<li>openid connect提供了一种定义如何自动发现oauth2身份认证数据的方法</li>
+</ul>
+<p>fastapi如何处理api与身份验证？</p>
+<ul>
+<li>用户在前端输入 <code>username</code> 与<code>password</code>，并点击<strong>回车</strong></li>
+<li>（用户浏览器中运行的）前端把 <code>username</code> 与<code>password</code> 发送至 API 中指定的 URL（使用 <code>tokenUrl=&quot;token&quot;</code> 声明）</li>
+<li>API 检查 <code>username</code> 与<code>password</code>，并用令牌（<code>Token</code>） 响应（暂未实现此功能）：</li>
+<li>令牌只是用于验证用户的字符串</li>
+<li>一般来说，令牌会在一段时间后过期
+<ul>
+<li>过时后，用户要再次登录</li>
+<li>这样一来，就算令牌被人窃取，风险也较低。因为它与永久密钥不同，<strong>在绝大多数情况下</strong>不会长期有效</li>
+</ul>
+</li>
+<li>前端临时将令牌存储在某个位置</li>
+<li>用户点击前端，前往前端应用的其它部件</li>
+<li>前端需要从 API 中提取更多数据：
+<ul>
+<li>为指定的端点（Endpoint）进行身份验证</li>
+<li>因此，用 API 验证身份时，要发送值为 <code>Bearer</code> + 令牌的请求头 <code>Authorization</code></li>
+<li>假如令牌为 <code>foobar</code>，<code>Authorization</code> 请求头就是： <code>Bearer foobar</code></li>
+</ul>
+</li>
+</ul>
+<pre tabindex="0"><code>oauth2_scheme = OAuth2PasswordBearer(tokenUrl=&#34;token&#34;)
+</code></pre><h3 id="获取当前用户">获取当前用户</h3>
+<p>创建用户模型</p>
+<pre tabindex="0"><code>from pydantic import BaseModel
+
+class User(BaseModel):
+    username: str
+    email: Union[str, None] = None
+    full_name: Union[str, None] = None
+    disabled: Union[bool, None] = None
+</code></pre><p>创建依赖项</p>
+<pre tabindex="0"><code>async def get_current_user(token:str=Depends(oauth2_schema))
+    user=fake_decode_token(token)
+    return user
+</code></pre><pre tabindex="0"><code>def fake_decode_token(token):
+    return User(username=token+&#34;fakedecoded&#34;,email=&#34;john@example.com&#34;)
+</code></pre><p>注入当前用户</p>
+<pre tabindex="0"><code>@app.get(&#34;/users/me&#34;)
+async def read_users_me(current_user: User = Depends(get_current_user)):
+    return current_user
+</code></pre><p>装饰器本质上是一个函数，它接收另一个函数作为参数，并返回一个新的函数，目的是在不修改原函数代码的情况下，为原函数增加额外的功能。</p>
+<h3 id="中间件">中间件</h3>
+<p>创建中间件顶部使用@app.middleware(&ldquo;http&rdquo;)</p>
+<pre tabindex="0"><code>@app.middleware(&#34;http&#34;)//请将以下函数定义为处理http请求的中间件
+async def add_process_time_header(request: Request, call_next):
+    start_time = time.perf_counter()
+    response = await call_next(request)
+    process_time = time.perf_counter() - start_time
+    response.headers[&#34;X-Process-Time&#34;] = str(process_time)
+    return response
+</code></pre><h3 id="cors跨域资源共享">cors跨域资源共享</h3>
+<p>使用 CORSMiddleware</p>
+<pre tabindex="0"><code>from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+origins = [
+    &#34;http://localhost.tiangolo.com&#34;,
+    &#34;https://localhost.tiangolo.com&#34;,
+    &#34;http://localhost&#34;,
+    &#34;http://localhost:8080&#34;,
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=[&#34;*&#34;],
+    allow_headers=[&#34;*&#34;],
+)
+
+
+@app.get(&#34;/&#34;)
+async def main():
+    return {&#34;message&#34;: &#34;Hello World&#34;}
+</code></pre><p>allow_credentials - 跨域请求支持cooies，默认是cookies</p>
+<h3 id="多文件协作">多文件协作</h3>
+<p>有几个__init__.py文件，这是代码能从一个文件导入到另一个文件的原因</p>
+<p>导入APIRouter</p>
+<pre tabindex="0"><code>from fastapi import APIRouter
+router=APIRouter()
+</code></pre><p>在main.py中导入路径</p>
+<pre tabindex="0"><code>from fastapi import Depends, FastAPI
+
+from .dependencies import get_query_token, get_token_header
+from .internal import admin
+from .routers import items, users
+
+app = FastAPI(dependencies=[Depends(get_query_token)])
+
+
+app.include_router(users.router)
+app.include_router(items.router)
+app.include_router(
+    admin.router,
+    prefix=&#34;/admin&#34;,
+    tags=[&#34;admin&#34;],
+    dependencies=[Depends(get_token_header)],
+    responses={418: {&#34;description&#34;: &#34;I&#39;m a teapot&#34;}},
+)
+
+
+@app.get(&#34;/&#34;)
+async def root():
+    return {&#34;message&#34;: &#34;Hello Bigger Applications!&#34;}
+</code></pre><h3 id="后台任务">后台任务</h3>
+<p>使用BackgroundTasks</p>
+<pre tabindex="0"><code>@app.post(&#34;/send-notification/{email}&#34;)
+async def send_notifaction(email:str,background_tasks:BackgroundTaks):
+    background_tasks.add_task(write_notification,email,messages=&#34;some notification&#34;)
+    return {&#34;message&#34;: &#34;Notification sent in the background&#34;}
+</code></pre><p>fastapi会创建一个backgroundtasks类型的对象并作为参数传入</p>
+<p>创建一个任务函数</p>
+<pre tabindex="0"><code>from fastapi import BackgroundTasks,FastAPI
+app=FastAPI()
+def write_notifacation(email:str,message=&#34;&#34;):
+    with open(&#34;log.txt&#34;,mode=&#34;w&#34;) as email_file:
+    content = f&#34;notifaction for {email}:{message}&#34;
+    email_file.write(content)
+</code></pre><p>设置swagger ui服务于/documentation并且禁用redoc</p>
+<pre tabindex="0"><code>app = FastAPI(docs_url=&#34;/documentation&#34;, redoc_url=None)
+</code></pre><h3 id="静态文件">静态文件</h3>
+<p>导入staticfiles，搞在一个staticfiles()实例到一个指定路径</p>
+<pre tabindex="0"><code>from fastapi import FastAPI
+from fastapi.staticfile import StaticFiles
+app=FastAPI()
+app.mount(&#34;/static&#34;,StaticFile(directory=&#34;static&#34;),name=&#34;static&#34;)
+</code></pre><p>任何以&quot;/static&quot;开头的路径都会被第一个“/static“指向的子路径处理</p>
+<h3 id="测试">测试</h3>
+<p>导入tetsclient</p>
+<pre tabindex="0"><code>from fastapi import FastAPI
+from fastapi.testclient import TestClient
+
+app = FastAPI() //创建一个testclient
+
+
+@app.get(&#34;/&#34;)
+async def read_main():
+    return {&#34;msg&#34;: &#34;Hello World&#34;}
+
+
+client = TestClient(app)
+
+
+def test_read_main()://创建名字以test_开头的函数，这是标准的pytest约定
+    response = client.get(&#34;/&#34;)
+    assert response.status_code == 200
+    assert response.json() == {&#34;msg&#34;: &#34;Hello World&#34;}
+</code></pre><p>写assert语句</p>
+<p>测试文件结构</p>
+<pre tabindex="0"><code>.
+├── app
+│   ├── __init__.py
+│   ├── main.py
+│   └── test_main.py
+</code></pre><h3 id="celery">celery</h3>
+<p>创建任务Celery()</p>
+<pre tabindex="0"><code>from celery import Celery
+app=Celery(&#39;tasks&#39;,broker=&#39;redis://localhost:6379/0&#39;)
+@app.task
+def add(x,y):
+    return x+y
+</code></pre><p>调度任务dely()</p>
+<pre tabindex="0"><code>from tasks import add
+add.delay(4,4)
+</code></pre><p>保留结果</p>
+<pre tabindex="0"><code>app = Celery(&#39;tasks&#39;, backend=&#39;rpc://&#39;, broker=&#39;pyamqp://&#39;)
+</code></pre><p>返回任务是否已完成处理（log？）</p>
+<pre tabindex="0"><code>result.ready()
+</code></pre><p>后端使用资源来存储和传输结果，确保资源被释放时，必须调用get()或forget()调用任务返回的每个asyncresult实例</p>
+<p>配置</p>
+<pre tabindex="0"><code>app.conf.update(
+    task_serializer=&#39;json&#39;,
+    accept_content=[&#39;json&#39;],  # Ignore other content
+    result_serializer=&#39;json&#39;,
+    timezone=&#39;Europe/Oslo&#39;,
+    enable_utc=True,
+)
+</code></pre><p>通过调用config_from_object()告诉celery实例使用配置模块</p>
+<pre tabindex="0"><code>app.config_from_object(&#39;celeryconfig&#39;)
+</code></pre><p>验证配置文件是否正常工作不包含语法错误，导入</p>
+<pre tabindex="0"><code>python -m celeryconfig
+</code></pre><p>项目结构</p>
+<pre tabindex="0"><code>src/
+    proj/__init__.py
+        /celery.py
+        /tasks.py
+</code></pre><p>proj/celery.py</p>
+<pre tabindex="0"><code>from celery import Celery
+
+app = Celery(&#39;proj&#39;,
+             broker=&#39;amqp://&#39;,
+             backend=&#39;rpc://&#39;,
+             include=[&#39;proj.tasks&#39;])
+
+# Optional configuration, see the application user guide.
+app.conf.update(
+    result_expires=3600,
+)
+
+if __name__ == &#39;__main__&#39;:
+    app.start()
+</code></pre><p>Proj/tasks.py</p>
+<pre tabindex="0"><code>from .celery import app
+@app.task
+def add(x, y):
+    return x + y
+@app.task
+def mul(x, y):
+    return x * y
+@app.task
+def xsum(numbers):
+    return sum(numbers)
+</code></pre><p>在后台启动一个或多个工作程序</p>
+<pre tabindex="0"><code>celery multi start w1 -A proj -l INFO
+</code></pre><h3 id="chain">chain</h3>
+<pre tabindex="0"><code>chain(add.s(4)|mul.s(8)).get()
+</code></pre><p>另一种写法</p>
+<pre tabindex="0"><code>c=chain(add.s(4)|mul.s(8))
+c.get()
+</code></pre><h3 id="路由">路由</h3>
+<p>Task_routes将所有内容集中在一个位置</p>
+<pre tabindex="0"><code>app.conf.update(task_routes={&#39;prok.tasks.add&#39;:{&#39;queue&#39;:&#39;hipri&#39;}})
+</code></pre><h3 id="redis">redis</h3>
+<p>redis insight可视化</p>
+<h3 id="文档数据库">文档数据库</h3>
+<p>支持在json和hash文档上创建二级索引</p>
+<pre tabindex="0"><code>schema = (
+    TextField(&#34;$.brand&#34;, as_name=&#34;brand&#34;),
+    TextField(&#34;$.model&#34;, as_name=&#34;model&#34;),
+    TextField(&#34;$.description&#34;, as_name=&#34;description&#34;),
+    NumericField(&#34;$.price&#34;, as_name=&#34;price&#34;),
+    TagField(&#34;$.condition&#34;, as_name=&#34;condition&#34;),
+)
+
+index = r.ft(&#34;idx:bicycle&#34;)
+index.create_index(
+    schema,
+    definition=IndexDefinition(prefix=[&#34;bicycle:&#34;], index_type=IndexType.JSON),
+)
+</code></pre><p>任何带有键前缀bicycle：的预先存在的json文档会自动添加到索引中</p>
+<p>rag不说了，应该没人会用redis搭建rag or embedding？</p>
+<h3 id="asgi">ASGI</h3>
+<p>scope，一个包含连接细节的dic，send是一个异步可调用对象，允许应用程序向客户端发送事件消息</p>
+<p>events</p>
+<p>ASGI只需要http.request和http.disconnect</p>
+<p>对于像websocket，接受websocket.connect，发送web socket.send，接受websocket.receive，最后接受web socket.disconnect</p>
+<p>ASGI应用程序应该是单个异步可调用对象</p>
+<pre tabindex="0"><code>coroutine application(scope,receive,send)
+</code></pre><h3 id="unicorn">unicorn</h3>
+<p>使用&ndash;reload使用watchfiles</p>
+<p>运行服务器</p>
+<pre tabindex="0"><code>uvicorn main:app
+</code></pre><p>更好地控制配置和服务器生命周期，使用config和server</p>
+<pre tabindex="0"><code>import uvicorn
+if __name__ == &#34;__main__&#34;:
+    config=uvicorn.Config(&#34;main:app&#34;,port=5000,log_level=&#34;info&#34;)
+    server =uvicorn.Server(config)
+    server.run()
+</code></pre><p>工厂函数</p>
+<p>调用者只需要告诉工厂它想要什么，而不需要知道类的存在，也不需要知道如何去实例化它</p>
+<p>uvicorn使用ASGI规范与应用程序交互</p>
+<p>scope-包含传入连接的信息dic</p>
+<pre tabindex="0"><code>{
+    &#39;type&#39;: &#39;http&#39;,
+    &#39;scheme&#39;: &#39;http&#39;,
+    &#39;root_path&#39;: &#39;&#39;,
+    &#39;server&#39;: (&#39;127.0.0.1&#39;, 8000),
+    &#39;http_version&#39;: &#39;1.1&#39;,
+    &#39;method&#39;: &#39;GET&#39;,
+    &#39;path&#39;: &#39;/&#39;,
+    &#39;headers&#39;: [
+        (b&#39;host&#39;, b&#39;127.0.0.1:8000&#39;),
+        (b&#39;user-agent&#39;, b&#39;curl/7.51.0&#39;),
+        (b&#39;accept&#39;, b&#39;*/*&#39;)
+    ]
+}
+</code></pre><p>Receive-接受来自服务器的传入消息的通道</p>
+<p>Send-将传出消息发送到服务器的通道</p>
+<pre tabindex="0"><code>await send({
+    &#39;type&#39;: &#39;http.response.start&#39;,
+    &#39;status&#39;: 200,
+    &#39;headers&#39;: [
+        [b&#39;content-type&#39;, b&#39;text/plain&#39;],
+    ]
+})
+await send({
+    &#39;type&#39;: &#39;http.response.body&#39;,
+    &#39;body&#39;: b&#39;Hello, world!&#39;,
+})
+</code></pre><p>请求和响应示例</p>
+<pre tabindex="0"><code>async def app(scope, receive, send):
+    &#34;&#34;&#34;
+    Echo the method and path back in an HTTP response.
+    &#34;&#34;&#34;
+    assert scope[&#39;type&#39;] == &#39;http&#39;
+
+    body = f&#39;Received {scope[&#34;method&#34;]} request to {scope[&#34;path&#34;]}&#39;
+    await send({
+        &#39;type&#39;: &#39;http.response.start&#39;,
+        &#39;status&#39;: 200,
+        &#39;headers&#39;: [
+            [b&#39;content-type&#39;, b&#39;text/plain&#39;],
+        ]
+    }) //发送响应头
+    await send({
+        &#39;type&#39;: &#39;http.response.body&#39;,
+        &#39;body&#39;: body.encode(&#39;utf-8&#39;),
+    }) //发送响应体
+</code></pre><p>在ASGI中，一个完整的http响应是通过发送一系列的的事件完成的</p>
+<p>接受scope，发送响应头，发送响应体</p>
+<p>读取请求正文</p>
+<pre tabindex="0"><code>async def read_body(receive):
+    &#34;&#34;&#34;
+    Read and return the entire body from an incoming ASGI message.
+    &#34;&#34;&#34;
+    body = b&#39;&#39;
+    more_body = True
+
+    while more_body:
+        message = await receive()
+        body += message.get(&#39;body&#39;, b&#39;&#39;)
+        more_body = message.get(&#39;more_body&#39;, False)
+
+    return body
+
+
+async def app(scope, receive, send):
+    &#34;&#34;&#34;
+    Echo the request body back in an HTTP response.
+    &#34;&#34;&#34;
+    body = await read_body(receive)
+    await send({
+        &#39;type&#39;: &#39;http.response.start&#39;,
+        &#39;status&#39;: 200,
+        &#39;headers&#39;: [
+            (b&#39;content-type&#39;, b&#39;text/plain&#39;),
+            (b&#39;content-length&#39;, str(len(body)).encode())
+        ]
+    })
+    await send({
+        &#39;type&#39;: &#39;http.response.body&#39;,
+        &#39;body&#39;: body,
+    })
+</code></pre><p>流式响应</p>
+<pre tabindex="0"><code>import asyncio
+
+
+async def app(scope, receive, send):
+    &#34;&#34;&#34;
+    Send a slowly streaming HTTP response back to the client.
+    &#34;&#34;&#34;
+    await send({
+        &#39;type&#39;: &#39;http.response.start&#39;,
+        &#39;status&#39;: 200,
+        &#39;headers&#39;: [
+            [b&#39;content-type&#39;, b&#39;text/plain&#39;],
+        ]
+    })
+    for chunk in [b&#39;Hello&#39;, b&#39;, &#39;, b&#39;world!&#39;]:
+        await send({
+            &#39;type&#39;: &#39;http.response.body&#39;,
+            &#39;body&#39;: chunk,
+            &#39;more_body&#39;: True
+        })
+        await asyncio.sleep(1)
+    await send({
+        &#39;type&#39;: &#39;http.response.body&#39;,
+        &#39;body&#39;: b&#39;&#39;,
+    })
+</code></pre><p>发送响应头</p>
+<p>分数据块chunk，在每次发送完一块chunk后，程序会异步暂停1秒，因为是await，服务器的事件循环可以去处理其他请求，不会被阻塞</p>
+<p>结束响应流</p>
+<h3 id="django-admin框架">django-admin框架</h3>
+<ul>
+<li>文件夹结构</li>
+</ul>
+<pre tabindex="0"><code>locallibrary/
+    manage.py
+    locallibrary/
+        settings.py
+        urls.py
+        wsgi.py
+</code></pre><p>settings包括所有的网站设置,urls定义了url到view的映射，wsgi帮助django应用和网络服务器间的通讯</p>
+<p>创建应用</p>
+<pre tabindex="0"><code>python manager startapp catalog
+</code></pre><p>视图函数就是views.py，<em>模型就是</em>models.py，<em>测试是</em>tests.py，<em>网站管理设置是</em>admin.py，<em>注册应用是</em>apps.py</p>
+<p>Migration/文件夹，当修改数据模型时，这个文件会自动升级数据库</p>
+<p>模型根据数据库来创建</p>
+<p>每次模型创建完成以后，要重新运行数据库迁移将它们添加到数据库中</p>
+<pre tabindex="0"><code>python3 manage.py makemigrations
+python3 manage.py migrate
+</code></pre><p>创建超级用户</p>
+<pre tabindex="0"><code>python manage.py createsuperuser
+</code></pre><p>启动开发服务器</p>
+<pre tabindex="0"><code>python manage.py runserver
+</code></pre><p><img src="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Extensions/Server-side/Django/Home_page/basic-django.png" alt="img"></p>
+<h3 id="node">node</h3>
+<p>一个完整的基于node.js的web应用</p>
+<p>需要实现：</p>
+<ul>
+<li>我们需要提供Web页面，因此需要一个<em>HTTP服务器</em></li>
+<li>对于不同的请求，根据请求的URL，我们的服务器需要给予不同的响应，因此我们需要一个<em>路由</em>，用于把请求对应到请求处理程序（request handler）</li>
+<li>当请求被服务器接收并通过路由传递之后，需要可以对其进行处理，因此我们需要最终的<em>请求处理程序</em></li>
+<li>路由还应该能处理POST数据，并且把数据封装成更友好的格式传递给请求处理入程序，因此需要<em>请求数据处理功能</em></li>
+<li>我们不仅仅要处理URL对应的请求，还要把内容显示出来，这意味着我们需要一些<em>视图逻辑</em>供请求处理程序使用，以便将内容发送给用户的浏览器</li>
+<li>最后，用户需要上传图片，所以我们需要<em>上传处理功能</em>来处理这方面的细节</li>
+</ul>
+<h3 id="函数回调">函数回调</h3>
+<p>一个函数（A）作为参数被传递给另一个函数（B），然后在函数（B）执行的某个特定时刻，这个被传递进来的函数（A）会被调用执行。</p>
+<pre tabindex="0"><code>var http = require(&#34;http&#34;);
+
+function onRequest(request, response) {
+  console.log(&#34;Request received.&#34;);
+  response.writeHead(200, {&#34;Content-Type&#34;: &#34;text/plain&#34;});
+  response.write(&#34;Hello World&#34;);
+  response.end();
+}
+
+http.createServer(onRequest).listen(8888);
+
+console.log(&#34;Server has started.&#34;);
+</code></pre><p><em>onRequest()</em> 函数被触发的时候，有两个参数被传入： <em>request</em> 和 <em>response</em> 。</p>
+<p>当收到请求时，使用 <em>response.writeHead()</em> 函数发送一个HTTP状态200和HTTP头的内容类型（content-type），使用 <em>response.write()</em> 函数在HTTP相应主体中发送文本“Hello World&quot;。</p>
+<p>调用 <em>response.end()</em> 完成响应。</p>
+
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
+    
+    <time>Aug 31, 2025</time>
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-06-25-%E5%A4%A7%E4%BA%8C%E4%B8%8B%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/" title="大二下学期总结">大二下学期总结</a>
+    
+
+    
+      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-09-01-%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/" title="读paper的一些思考">读paper的一些思考</a>
+    
+  </p>
+  
+    
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+  
+</footer>
+
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>About me</h1>
+    
+
+    <p>
+      
+        <p>2023南开DS在读</p>
+<p>目前在TJUNLP</p>
+<p>感兴趣的方向：NLP,OS,LLM,Security</p>
+<p>最喜欢的编程语言：Rust<br>
+Click on 
+<a href="../../about/">About</a> to know more.</p>
+
+      
+    </p>
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+    
+      <section class="odd">
+        
+          <h1>Collections</h1>
+        
+        
+          <li>
+            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
+          </li>
+        
+      </section>
+    
+  
+
+  
+  
+  
+    
+      <section class="even">
+        <h1>Recent Posts</h1>
+        <ul id="recent_posts">
+          
+          
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-09-01-%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">读paper的一些思考</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-08-31-%E5%90%8E%E7%AB%AF%E6%8B%BE%E9%81%97legacy/">后端拾遗Legacy</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-06-25-%E5%A4%A7%E4%BA%8C%E4%B8%8B%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/">大二下学期总结</a>
+              </li>
+            
+          
+            
+              <li class="post">
+                <a href="../../blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/">NLP总结</a>
+              </li>
+            
+          
+        </ul>
+      </section>
+    
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2025 Frederick - <a href="https://Frederick2313072.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+
