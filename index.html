@@ -122,6 +122,48 @@
           
 
 <header>
+  <p class="meta">Dec 15, 2025
+     - 10 minute read 
+     - <a href="https://Frederick2313072.github.io/blog/2025-12-15-%E5%A6%82%E4%BD%95%E5%9C%A80g%E4%B8%8A%E9%83%A8%E7%BD%B2inft%E6%B5%8B%E8%AF%95%E7%BD%91/#disqus_thread">Comments</a>
+
+    
+  </p>
+  <h1 class="entry-title">
+     如何在0g上部署INFT(测试网) 
+  </h1>
+</header>
+
+          
+            <p><p>默认hardhat框架，用的ts，配置环境不讲了</p>
+<p>因为要在0g测试网上部署，现在hardhat.config.ts上加</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>const config: HardhatUserConfig <span style="color:#719e07">=</span> {
+</span></span><span style="display:flex;"><span>  solidity: <span style="color:#2aa198">&#34;0.8.20&#34;</span>, <span style="color:#719e07">//</span> 匹配合约的编译器版本要求
+</span></span><span style="display:flex;"><span>  networks: {
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">//</span> 默认本地网络
+</span></span><span style="display:flex;"><span>    hardhat: {
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#719e07">//</span> <span style="color:#2aa198">0</span>G Testnet (Newton)
+</span></span><span style="display:flex;"><span>    <span style="color:#2aa198">&#34;og-testnet&#34;</span>: {
+</span></span><span style="display:flex;"><span>      url: <span style="color:#2aa198">&#34;https://evmrpc-testnet.0g.ai&#34;</span>, <span style="color:#719e07">//</span> <span style="color:#2aa198">0</span>G Testnet 官方 RPC
+</span></span><span style="display:flex;"><span>      accounts: process<span style="color:#719e07">.</span>env<span style="color:#719e07">.</span>PRIVATE_KEY ? [process<span style="color:#719e07">.</span>env<span style="color:#719e07">.</span>PRIVATE_KEY] : [],
+</span></span><span style="display:flex;"><span>      chainId: <span style="color:#2aa198">16602</span>, 
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>注意先删去lock.sol，然后创建INFT.so合约</p></p>
+            
+              <footer>
+                <a href="https://Frederick2313072.github.io/blog/2025-12-15-%E5%A6%82%E4%BD%95%E5%9C%A80g%E4%B8%8A%E9%83%A8%E7%BD%B2inft%E6%B5%8B%E8%AF%95%E7%BD%91/" rel="full-article">Would you like to know more? →</a>
+              </footer>
+            
+          
+        </article>
+        
+        <article>
+          
+          
+
+<header>
   <p class="meta">Sep 2, 2025
      - 11 minute read 
      - <a href="https://Frederick2313072.github.io/blog/2025-09-02-%E9%98%85%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/#disqus_thread">Comments</a>
@@ -1407,7 +1449,7 @@ Ins 添加区块注释
     
   </p>
   <h1 class="entry-title">
-    <a href="https://Frederick2313072.github.io/blog/2025-01-05-sqli-labs%E9%80%9A%E5%85%B3/">sqli-labs通关</a>
+     sqli-labs通关 
   </h1>
 </header>
 
@@ -1531,7 +1573,7 @@ $$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\bin
     
   </p>
   <h1 class="entry-title">
-     SQL必知必会例子 
+    <a href="https://Frederick2313072.github.io/blog/2024-12-05-sql%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A%E4%BE%8B%E5%AD%90/">SQL必知必会例子</a>
   </h1>
 </header>
 
@@ -1958,6 +2000,12 @@ Click on
           
             
               <li class="post">
+                <a href="./blog/2025-12-15-%E5%A6%82%E4%BD%95%E5%9C%A80g%E4%B8%8A%E9%83%A8%E7%BD%B2inft%E6%B5%8B%E8%AF%95%E7%BD%91/">如何在0g上部署INFT(测试网)</a>
+              </li>
+            
+          
+            
+              <li class="post">
                 <a href="./blog/2025-09-02-%E9%98%85%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/">阅读paper的一些想法</a>
               </li>
             
@@ -1971,12 +2019,6 @@ Click on
             
               <li class="post">
                 <a href="./blog/2025-06-25-%E5%A4%A7%E4%BA%8C%E4%B8%8B%E5%AD%A6%E6%9C%9F%E6%80%BB%E7%BB%93/">大二下学期总结</a>
-              </li>
-            
-          
-            
-              <li class="post">
-                <a href="./blog/2025-05-27-nlp%E6%80%BB%E7%BB%93/">NLP总结</a>
               </li>
             
           
