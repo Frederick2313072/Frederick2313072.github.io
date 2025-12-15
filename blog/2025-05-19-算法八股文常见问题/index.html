@@ -40,7 +40,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.150.0">
+  <meta name="generator" content="Hugo 0.152.2">
 
   
   
@@ -1225,7 +1225,8 @@ top_p：控制采样的保留概率质量。当 top_p=0.9 时，仅在累计概�
 <h3 id="21-adapter"><strong>2.1 Adapter</strong></h3>
 <blockquote>
 <p>Parameter-Efficient Transfer Learning for NLP
-2019年，Houlsby N等人将Adapter引入NLP领域，作为全模型微调的一种替代方案。</p></blockquote>
+2019年，Houlsby N等人将Adapter引入NLP领域，作为全模型微调的一种替代方案。</p>
+</blockquote>
 <ul>
 <li>**原理：**在预训练模型的每一层（或某些层）中添加Adapter模块。微调时冻结预训练模型主体，由Adapter模块学习特定下游任务的知识。模型结构如下：</li>
 </ul>
@@ -1239,7 +1240,8 @@ top_p：控制采样的保留概率质量。当 top_p=0.9 时，仅在累计概�
 <blockquote>
 <p>Prefix-Tuning: Optimizing Continuous Prompts for Generation
 
-<a href="https://link.zhihu.com/?target=https%3A//github.com/XiangLi1999/PrefixTuning" target="_blank" rel="noopener">https://github.com/XiangLi1999/PrefixTuning</a></p></blockquote>
+<a href="https://link.zhihu.com/?target=https%3A//github.com/XiangLi1999/PrefixTuning" target="_blank" rel="noopener">https://github.com/XiangLi1999/PrefixTuning</a></p>
+</blockquote>
 <p><strong>原理</strong>：输入token之前构造一段任务相关的virtual tokens作为Prefix，在每个Transformer层的hidden states加入Prefix。在微调时，预训练模型的参数被冻结，只有prefix部分的参数进行更新。</p>
 <p><img src="https://picx.zhimg.com/v2-2f87bfb2658927d74811ce653dec936b_1440w.jpg" alt="img"></p>
 <h3 id="23-prompt-tuning">2.3 Prompt Tuning</h3>
@@ -1247,7 +1249,8 @@ top_p：控制采样的保留概率质量。当 top_p=0.9 时，仅在累计概�
 <blockquote>
 <p><strong>Prefix Tuning和Prompt Tuning的区别：</strong>
 **Prompt Tuning：**在模型输入之前添加一个可学习的“提示”，也就是embedding层的前面
-**Prefix Tuning：**将可学习的Prefix向量应用于模型的自回归部分（如Transformer的解码器部分），而非输入序列的开头。前缀向量被附加到自回归过程中的隐藏状态，并随着每次自回归步骤传播，影响整个解码过程。</p></blockquote>
+**Prefix Tuning：**将可学习的Prefix向量应用于模型的自回归部分（如Transformer的解码器部分），而非输入序列的开头。前缀向量被附加到自回归过程中的隐藏状态，并随着每次自回归步骤传播，影响整个解码过程。</p>
+</blockquote>
 <h3 id="24-lora">2.4 LORA</h3>
 <p>**原理：**冻结预训练模型的矩阵参数，并引入额外的低秩矩阵来替代模型权重的变化。在下游任务时只更新这些低秩矩阵的参数，而保持预训练模型的大部分参数不变。</p>
 <p>
@@ -1626,7 +1629,7 @@ Click on
           
             
               <li class="post">
-                <a href="../../blog/2025-09-01-%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">读paper的一些思考</a>
+                <a href="../../blog/2025-09-02-%E9%98%85%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/">阅读paper的一些想法</a>
               </li>
             
           

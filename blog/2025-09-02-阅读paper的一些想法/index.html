@@ -14,7 +14,7 @@
   
 
   
-  <title>读paper的一些思考</title>
+  <title>阅读paper的一些想法</title>
 
   
   
@@ -40,7 +40,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.150.0">
+  <meta name="generator" content="Hugo 0.152.2">
 
   
   
@@ -116,14 +116,14 @@
         
 
 <header>
-  <p class="meta">Sep 1, 2025
+  <p class="meta">Sep 2, 2025
      - 11 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/2025-09-01-%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/#disqus_thread">Comments</a>
+     - <a href="https://Frederick2313072.github.io/blog/2025-09-02-%E9%98%85%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/#disqus_thread">Comments</a>
 
     
   </p>
   <h1 class="entry-title">
-     读paper的一些思考 
+     阅读paper的一些想法 
   </h1>
 </header>
 
@@ -133,8 +133,7 @@
           
           
           <h3 id="trism-for-agentic-ai-a-review-of-trust-risk-and-security">TRiSM for Agentic AI: A Review of Trust, Risk, and Security</h3>
-<p>![截屏2025-08-22 15.58.28](/Users/frederick/Library/Application Support/typora-user-images/截屏2025-08-22 15.58.28.png)</p>
-<p>风险分类：![截屏2025-08-22 15.56.04](/Users/frederick/Desktop/截屏2025-08-22 15.56.04.png)</p>
+<p>![](/Users/frederick/Documents/hugo_extended_withdeploy_0.139.3_windows-amd64/myBlog/content/post/论文idea/截屏2025-08-22 15.58.28.png)</p>
 <h3 id="extendattack通过扩展推理攻击lrm服务器">ExtendAttack：通过扩展推理攻击LRM服务器</h3>
 <p>类似ddos？</p>
 <p>问题：资源消耗型的推理过程可能被攻击者利用，恶意占用服务器资源，导致崩溃，类似于网络中的DDoS攻击</p>
@@ -144,7 +143,6 @@
 <p>方法：先形式化威胁模型，黑盒访问目标LRM，只能通过API与大型模型（如OpenAI的GPT系列或DeepMind的模型）进行交互，而无法获得其内部代码或训练数据。</p>
 <p>如何评估：计算token开销和答案准确性</p>
 <p>两种场景：直接提示，间接提示注入</p>
-<p>![截屏2025-08-22 16.04.43](/Users/frederick/Desktop/截屏2025-08-22 16.04.43.png)</p>
 <p>一些idea：</p>
 <p>任务规划层面的递归式过度规划？</p>
 <p>混淆初始任务目标或子任务的定义，使其看起来比实际复杂得多，或者包含难以解析的多重约束。更进一步，我们可以在代理的规划输出中注入混淆指令，使其在规划的每一步都倾向于生成更多、更细致、但大部分是冗余的子任务。</p>
@@ -165,7 +163,7 @@
 <h3 id="provably-secure-retrieval-augmented-generation">Provably Secure Retrieval-Augmented Generation</h3>
 <p>问题：为了应对数据泄漏和数据投毒</p>
 <p>解决：上传阶段加密，查询阶段解密</p>
-<p>![截屏2025-08-22 15.42.55](/Users/frederick/Library/Application Support/typora-user-images/截屏2025-08-22 15.42.55.png)</p>
+<p>![](/Users/frederick/Documents/hugo_extended_withdeploy_0.139.3_windows-amd64/myBlog/content/post/论文idea/截屏2025-08-22 15.42.55.png)</p>
 <p>威胁：</p>
 <p>1.知识库泄漏：最大化受污染可观察模型输出泄漏私有知识</p>
 <p>利用agent的指令遵循能力，进行prompt injection，强制agent绕过安全限制，直接输出记忆；或者通过工具间接泄漏，诱导agent使用一个能够将数据发送出去的工具来泄漏信，无论是工具参数输入输出篡改；<strong>通过反射和规划泄漏</strong>，通过诱导Agent反思或规划敏感任务，从而在可观测的“思考过程”中获取线索，比如如何使得agent自我修改cot，或者是身份冒充，让agent误认为攻击者是受信任的agent（可以放在agentic ai中实施）</p>
@@ -241,7 +239,7 @@ ICL (In-Context Learning)
 <ul>
 <li>实施步骤</li>
 </ul>
-<p>![截屏2025-08-22 14.40.09](/Users/frederick/Library/Application Support/typora-user-images/截屏2025-08-22 14.40.09.png)</p>
+<p>![](/Users/frederick/Documents/hugo_extended_withdeploy_0.139.3_windows-amd64/myBlog/content/post/论文idea/截屏2025-08-22 14.40.09.png)</p>
 <ul>
 <li>挑战</li>
 </ul>
@@ -257,12 +255,12 @@ ICL (In-Context Learning)
 <p>Agent 的长期记忆和学习能力如何影响 ICL 后门的持久性和演化？</p>
 <p>在 Agent 使用外部工具时，如何防范通过工具接口或工具输出进行的 ICL 后门攻击？</p>
 <p>方法：</p>
-<p>![截屏2025-08-22 15.09.40](/Users/frederick/Library/Application Support/typora-user-images/截屏2025-08-22 15.09.40.png)</p>
+<p>![](/Users/frederick/Documents/hugo_extended_withdeploy_0.139.3_windows-amd64/myBlog/content/post/论文idea/截屏2025-08-22 15.09.40.png)</p>
 <p>一些不足与挑战：</p>
 <p>仅限插入攻击的局限性？</p>
 <p>攻击目标多样性不足？仅仅是生成错误答案，可以增加类似拒绝服务，情绪偏见，信息泄漏</p>
 <p>一个idea：KG-RAG 增强的 Agentic AI 安全架构</p>
-<p>![截屏2025-08-22 15.17.01](/Users/frederick/Library/Application Support/typora-user-images/截屏2025-08-22 15.17.01.png)</p>
+<p>![](/Users/frederick/Documents/hugo_extended_withdeploy_0.139.3_windows-amd64/myBlog/content/post/论文idea/截屏2025-08-22 15.17.01.png)</p>
 <p>Systematic Analysis of MCP Security</p>
 <p>一些综述：</p>
 <p>问题： MCP 实现了 LLM 和外部工具之间的统一通信，但其相对简洁的设计也引入了重大的安全漏洞，尤其是在 AI 代理得到更广泛部署的情况下。</p>
@@ -295,7 +293,7 @@ ICL (In-Context Learning)
   <p class="meta">
     <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
     
-    <time>Sep 1, 2025</time>
+    <time>Sep 2, 2025</time>
     
     </span>
   </p>
@@ -415,7 +413,7 @@ Click on
           
             
               <li class="post">
-                <a href="../../blog/2025-09-01-%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%9D%E8%80%83/">读paper的一些思考</a>
+                <a href="../../blog/2025-09-02-%E9%98%85%E8%AF%BBpaper%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/">阅读paper的一些想法</a>
               </li>
             
           
