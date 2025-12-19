@@ -14,7 +14,7 @@
   
 
   
-  <title>Python渗透测试</title>
+  <title>沉思录</title>
 
   
   
@@ -116,14 +116,14 @@
         
 
 <header>
-  <p class="meta">Feb 8, 2025
+  <p class="meta">Dec 19, 2025
      - 2 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/2025-02-08-python%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/#disqus_thread">Comments</a>
+     - <a href="https://Frederick2313072.github.io/blog/2025-12-19-%E6%B2%89%E6%80%9D%E5%BD%95/#disqus_thread">Comments</a>
 
     
   </p>
   <h1 class="entry-title">
-     Python渗透测试 
+     沉思录 
   </h1>
 </header>
 
@@ -132,42 +132,16 @@
           
           
           
-          <p>UDP TCP 客户端 服务器</p>
-<h2 id="socket实例化">socket实例化</h2>
-<p>socket(family,type,[protocal])协议族（默认AF_INET),,SOCK_STREAM(TCP)/SOCK_DGRAM(UDP)</p>
-<p>s=socket.socket()</p>
-<p>初始化TCP:s=socket.socket()</p>
-<p>初始化UDP:s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</p>
-<h2 id="socket常用函数">socket常用函数</h2>
-<h3 id="服务器">服务器</h3>
-<p>s.bind((&lsquo;127.0.0.1&rsquo;,2345))绑定IP和端口</p>
-<p>s.listen(5)最大监听5个端口</p>
-<p>conn,address=s.accept()套字对象，客户端地址（本机）</p>
-<h3 id="客户端">客户端</h3>
-<p>s.connect((&ldquo;127.0.0.1&rdquo;,2345))</p>
-<h3 id="通用">通用</h3>
-<p>send()</p>
-<p>sendall()区别在于可以完整发送TCP数据</p>
-<p>s.snedall(bytes(&ldquo;Hello&rdquo;,encoding=&ldquo;utf-8&rdquo;))</p>
-<p>recv(bufsize)最多可以接受的数量</p>
-<p>sendto(string[,flag],address)使用UDP时发送数据</p>
-<p>recovfrom(data,address) UDP专用，接受数据</p>
-<p>close()关闭socket</p>
-<h2 id="nmap实例化">nmap实例化</h2>
-<p>nm = nmap.PortScannerAsycn()</p>
-<h2 id="常见函数">常见函数</h2>
-<p>scan(self,hosts=&ldquo;127.0.0.1&rdquo;,ports=None,arguments=&quot;-sV&quot;,sudo=False)</p>
-<p>nm.scan(&ldquo;127.0.0.1&rdquo;,&ldquo;1-500&rdquo;,&quot;-sS&quot;)1-500端口</p>
-<p>nm.all_hosts()返回被扫描的所有主机列表</p>
-<p>nm.command_line()返回再当前扫描中使用的命令行</p>
-<p>nm.csv()返回被扫描主机的csv格式的文件</p>
-<p>print（nm.csv())希望看得更清楚</p>
-<p>nm.has_hsot检查是否有host扫描结果，返回值为false/true</p>
-<p>nm.scaninfo()列出扫描信息的结构</p>
-<p>nmp[&ldquo;192.168.1.101&rdquo;].hostname()获取192.168.1.1.1的主机名</p>
-<p>still_scanning()是否正在扫描</p>
-<p>wait（2）等待时间</p>
-<p>stop（）停止当前扫描</p>
+          <p>以下是近期与一些人谈话的收获做的整合：
+web3其实是对生产关系的改良  但是AI却是对生产力的革命
+你觉得无政府主义等想法非常前卫，很向往，是因为包括你在内的很多人都感受到了旧社会的结构性腐朽
+web3的底层逻辑是“去中心化的生产关系” 解决资源的分配、信任和所有权问题 他们研究怎么切蛋糕  但随着经济下行 能够给人们去切的蛋糕越来越少 。最终沦为存量博弈的数字赌场 这也是为什么你觉得那里价值观扭曲的原因。用一句话来形容这个圈子非常准确：用最前卫的叙事包装最古老的贪婪
+AI的发展极大程度优化了社会结构，极大幅度地提升了产能 编程、设计、分析，甚至是体力劳动。AI的渗透率极强，改变世界需要的是新的生产力去颠覆破旧的社会关系
+所以咋说呢  你如果问我 什么能够让世界更合理  我相信web3肯定有一席之地（优化生产关系）  但如果你问我什么能够真正改变世界  那我一定会告诉你是人工智能（生产力革命）
+不过一旦人工智能技术产生了更大的突破  世界已经被颠覆的时候  或许以web3为首的一众技术（量子计算潜力也很大哦）都会有所变革吧</p>
+<p>我认为区块链的出现绝对是一个伟大的变革，因为区块链实际上已经带来了一种全新的生产关系变革的可能性。很多人觉得区块链都是割韭菜，觉得数字货币纯粹是炒作，去中心化是伪命题。但是我认为，web3+ 的理念绝对不能看成是 web2 的平替，web2 其实本质上来说是区域视角，一个公司主要是服务一个或几个地区的人们。但是 web3 一定要看成世界视角，所以事情的语境都必须放在全人类的视角来看。</p>
+<p>从这个语境出发，很多我们觉得没有意义的事情就迎刃而解，作为中国人，你可能觉得去中心化的组织远没有国家靠谱，比特币没有人民币靠谱是割韭菜。但是你如果站在以津巴布韦、委内瑞拉为代表的大部分亚非拉国家的来说，你觉得去中心化的组织跟他们国家来比哪个靠谱？比特币跟他们国家的货币相比哪个值得信任。同样的，web3 可能会解决全世界人民同工同酬的问题，一个美国程序员，跟一个尼日利亚的程序员，对于很多编程技术的理解可能最多也就是有 10% 到 20% 的水平差异，但薪酬可能会差出几倍-几十倍，如果使用智能合约相关的技术，完全有可能打破公司、地域的限制，带来非常大的可能性。</p>
+<p>但我相信，在这个“用最前卫的叙事包装最古老的贪婪”总还是有技术清流的一席之地</p>
 
         </div>
         
@@ -176,7 +150,7 @@
   <p class="meta">
     <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
     
-    <time>Feb 8, 2025</time>
+    <time>Dec 19, 2025</time>
     
     </span>
   </p>
@@ -185,11 +159,9 @@
 
   <p class="meta">
     
-        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-01-20-%E8%84%9A%E6%9C%AC%E5%B0%8F%E5%AD%90/" title="脚本小子">脚本小子</a>
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-12-15-0g%E5%AE%98%E6%96%B9docs%E5%90%88%E7%BA%A6%E6%BC%8F%E6%B4%9E/" title="0g官方docs合约漏洞">0g官方docs合约漏洞</a>
     
 
-    
-      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2025-02-08-ctfhub-web/" title="ctfhub-web">ctfhub-web</a>
     
   </p>
   
