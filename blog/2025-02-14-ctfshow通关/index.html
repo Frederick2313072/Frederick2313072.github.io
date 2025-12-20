@@ -40,7 +40,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.152.2">
+  <meta name="generator" content="Hugo 0.153.0">
 
   
   
@@ -213,9 +213,9 @@
 <p>三个参数 v1 ，v2 ，v3，其中v0 实际上只会去判断v1是否为数字 ，因此v1 = 1234 数字即可</p>
 <div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#719e07">if</span>(<span style="color:#268bd2">$v0</span>){
 </span></span><span style="display:flex;"><span>    <span style="color:#719e07">if</span>(<span style="color:#719e07">!</span>preg_match(<span style="color:#2aa198">&#34;/\;/&#34;</span>, <span style="color:#268bd2">$v2</span>)){ <span style="color:#586e75"># 表示v2中不能有符号 ；
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#719e07">if</span>(preg_match(<span style="color:#2aa198">&#34;/\;/&#34;</span>, <span style="color:#268bd2">$v3</span>)){ <span style="color:#586e75">#表示v3 中必须要有 ;
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#719e07">eval</span>(<span style="color:#2aa198">&#34;</span><span style="color:#2aa198">$v2</span><span style="color:#2aa198">(&#39;ctfshow&#39;)</span><span style="color:#2aa198">$v3</span><span style="color:#2aa198">&#34;</span>); <span style="color:#586e75"># 这里是eval中 拼接v2 v3 
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        }
+</span></span></span><span style="display:flex;"><span>        <span style="color:#719e07">if</span>(preg_match(<span style="color:#2aa198">&#34;/\;/&#34;</span>, <span style="color:#268bd2">$v3</span>)){ <span style="color:#586e75">#表示v3 中必须要有 ;
+</span></span></span><span style="display:flex;"><span>            <span style="color:#719e07">eval</span>(<span style="color:#2aa198">&#34;</span><span style="color:#2aa198">$v2</span><span style="color:#2aa198">(&#39;ctfshow&#39;)</span><span style="color:#2aa198">$v3</span><span style="color:#2aa198">&#34;</span>); <span style="color:#586e75"># 这里是eval中 拼接v2 v3 
+</span></span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>v2<span style="color:#719e07">=</span>var_dump(<span style="color:#268bd2">$ctfshow</span>)<span style="color:#586e75">/*
@@ -354,7 +354,7 @@ Click on
           
             
               <li class="post">
-                <a href="../../blog/2025-12-19-heart/">heart?</a>
+                <a href="../../blog/2025-12-20-heart/">heart?</a>
               </li>
             
           
@@ -406,7 +406,7 @@ Click on
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD696TRRSE"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

@@ -40,7 +40,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.152.2">
+  <meta name="generator" content="Hugo 0.153.0">
 
   
   
@@ -122,21 +122,24 @@
           
 
 <header>
-  <p class="meta">Dec 19, 2025
+  <p class="meta">Dec 20, 2025
      - 1 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/2025-12-19-heart/#giscus-container">评论</a>
+     - <a href="https://Frederick2313072.github.io/blog/2025-12-20-heart/#giscus-container">评论</a>
 
     
   </p>
   <h1 class="entry-title">
-    <a href="https://Frederick2313072.github.io/blog/2025-12-19-heart/">heart?</a>
+    <a href="https://Frederick2313072.github.io/blog/2025-12-20-heart/">heart?</a>
   </h1>
 </header>
 
           
             <p><p>12.19
 感觉自己像傻x一样给对方带来了很多麻烦，不知道该做什么弥补他。
-心痛到无法呼吸，终于体会到你当时的感觉，你一定比我更痛苦更崩溃，如果我难受的是做了很多破事无法改变，你难受的是付出的一切，你说的那本弗洛姆《爱的艺术》我有在看，如果有机会，一定要学会爱你，就像弗洛姆说的那样，任何对此真正关心的人，都会学会建立信心，正像小孩都能学会走路那样</p></p>
+心痛到无法呼吸，终于体会到你当时的感觉，你一定比我更痛苦更崩溃，如果我难受的是做了很多破事无法改变，你难受的是付出的一切，你说的那本弗洛姆《爱的艺术》我有在看，如果有机会，一定要学会爱你，就像弗洛姆说的那样，任何对此真正关心的人，都会学会建立信心，正像小孩都能学会走路那样
+12.20
+可以对某项技术很痴迷，也可以对某个人很喜欢。
+我曾以为找很多军师会挽回你，没想到破解之道就在我们过去的聊天记录中，就像我们一起看过的《暖暖内含光》不知道你米氮平片吃完了没，今天一问才发现，对你的家庭知之甚少。</p></p>
             
           
         </article>
@@ -1636,7 +1639,7 @@ $$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\bin
           
             <p><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> RTRIM(vend_name) <span style="color:#719e07">+</span> <span style="color:#2aa198">&#39;(&#39;</span><span style="color:#719e07">+</span>   <span style="color:#586e75">--右边取消空格
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>RTRIM(vend_country) <span style="color:#719e07">+</span> <span style="color:#2aa198">&#39;)&#39;</span>
+</span></span></span><span style="display:flex;"><span>RTRIM(vend_country) <span style="color:#719e07">+</span> <span style="color:#2aa198">&#39;)&#39;</span>
 </span></span><span style="display:flex;"><span>  <span style="color:#719e07">AS</span> vend_title
 </span></span><span style="display:flex;"><span><span style="color:#719e07">From</span> Vendors
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> vend_name;
@@ -1644,20 +1647,20 @@ $$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\bin
 </span></span><span style="display:flex;"><span><span style="color:#719e07">AS</span> expanded_price
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> OrderItems;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> vend_name,<span style="color:#719e07">UPPER</span>(vend_name) <span style="color:#586e75">--大写
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">AS</span> vend_name_upcase
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">AS</span> vend_name_upcase
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Vendors
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> vend_name;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> cust_name,cust_contact
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Customers
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> SOUNDEX(cust_contact) <span style="color:#719e07">=</span> SOUNDEX(<span style="color:#2aa198">&#39;Michael Green&#39;</span>); <span style="color:#586e75">--近似发音
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">SELECT</span> order_num
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> order_num
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Orders
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> DATEPART(yy,order_date) <span style="color:#719e07">=</span> <span style="color:#2aa198">2020</span>;  
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">AVG</span>(prod_price) <span style="color:#719e07">AS</span> avg_price <span style="color:#586e75">--取平均值
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">FROM</span> Products
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Products
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> vend_id <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;DLL01&#39;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>)<span style="color:#719e07">AS</span> num_cust <span style="color:#586e75">--对所有行计数
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">FROM</span> Customers;
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Customers;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">MAX</span>(prod_price) <span style="color:#719e07">AS</span> max_price
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Products;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">SUM</span>(quantity<span style="color:#719e07">*</span>item_price) <span style="color:#719e07">AS</span>
@@ -1669,18 +1672,18 @@ $$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\bin
 </span></span><span style="display:flex;"><span><span style="color:#719e07">Where</span> vend_id <span style="color:#719e07">=</span><span style="color:#2aa198">&#39;DLL01&#39;</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>) <span style="color:#719e07">AS</span> num_items,<span style="color:#719e07">MIN</span>(prod_price) <span style="color:#719e07">AS</span> price_min,<span style="color:#719e07">MAX</span>(prod_price) <span style="color:#719e07">AS</span> proce_max,<span style="color:#719e07">AVG</span>(prod_price) <span style="color:#719e07">AS</span> price_avg <span style="color:#586e75">--组合聚集函数
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">FROM</span> products;
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> products;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> vend_id,<span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>) <span style="color:#719e07">AS</span> num_prods
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Products
 </span></span><span style="display:flex;"><span><span style="color:#719e07">Group</span> <span style="color:#719e07">BY</span> vend_id
 </span></span><span style="display:flex;"><span><span style="color:#719e07">HAVING</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>) <span style="color:#719e07">&gt;=</span> <span style="color:#2aa198">2</span>;<span style="color:#586e75">--过滤分组，group by 和 having结合
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> order_num,<span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>)<span style="color:#719e07">AS</span> items
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> OrderItems
 </span></span><span style="display:flex;"><span><span style="color:#719e07">Group</span> <span style="color:#719e07">BY</span> order_num
 </span></span><span style="display:flex;"><span><span style="color:#719e07">HAVING</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>) <span style="color:#719e07">&gt;=</span> <span style="color:#2aa198">3</span><span style="color:#586e75">--检索包含三个或更多物品的订单号和订购物品的数目
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> items,order_num;<span style="color:#586e75">--按订购物品的数目排序输出，having在group by前，order by后
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> items,order_num;<span style="color:#586e75">--按订购物品的数目排序输出，having在group by前，order by后
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> cust_id
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> OrderItems
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> prod_id <span style="color:#719e07">=</span> <span style="color:#2aa198">&#39;RGAN01&#39;</span>;
@@ -1692,11 +1695,11 @@ $$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\bin
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">IN</span> (<span style="color:#719e07">SELECT</span> cust_id
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Orders
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">IN</span> (<span style="color:#2aa198">20007</span>,<span style="color:#2aa198">20008</span>));<span style="color:#586e75">--建立以上的子查询，由内向外
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> cust_name,cust_state,(<span style="color:#719e07">SELECT</span> <span style="color:#719e07">COUNT</span>(<span style="color:#719e07">*</span>)<span style="color:#719e07">FROM</span> Orders <span style="color:#719e07">WHERE</span> Orders.cust_id<span style="color:#719e07">=</span>Customers.cust_id) <span style="color:#719e07">AS</span> orders <span style="color:#586e75">--子查询对检索出的每个顾客执行一次，用句点避免混淆列名
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">FROM</span> Customers
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Customers
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ORDER</span> <span style="color:#719e07">BY</span> cust_name;<span style="color:#586e75">--对于检索出的每个顾客，统计其在Orders表中的订单数目
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> vend_name,prod_name,prod_price
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FROM</span> Vendors,Products
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> Vendors.vend_id <span style="color:#719e07">=</span> Products.vend_id;
@@ -1704,30 +1707,30 @@ $$\binom n{n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$<p>因此，$\bin
 </span></span><span style="display:flex;"><span><span style="color:#719e07">BEGIN</span> <span style="color:#719e07">TRANSACTION</span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">DELETE</span> OrderItems <span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span><span style="color:#2aa198">12345</span>
 </span></span><span style="display:flex;"><span>SAVE <span style="color:#719e07">TRANSACTION</span> delete1;<span style="color:#586e75">--使用保留点delete1，保留点越多越好，额能进行灵活的回退
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">DELETE</span> Orders
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">DELETE</span> Orders
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span><span style="color:#2aa198">12345</span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ROLLBACK</span> <span style="color:#719e07">TRANSACTION</span> delete1;<span style="color:#586e75">--回退到保留点delete1
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">COMMIT</span> <span style="color:#719e07">TRANSACTION</span><span style="color:#586e75">--控制事物处理，最后的commit仅在中间过程不出错的情况下写出更改
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">BEGIN</span> <span style="color:#719e07">TRANSACTION</span>
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">COMMIT</span> <span style="color:#719e07">TRANSACTION</span><span style="color:#586e75">--控制事物处理，最后的commit仅在中间过程不出错的情况下写出更改
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">BEGIN</span> <span style="color:#719e07">TRANSACTION</span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">DELETE</span> OrderItems <span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span><span style="color:#2aa198">12345</span>
 </span></span><span style="display:flex;"><span>SAVE <span style="color:#719e07">TRANSACTION</span> delete1;<span style="color:#586e75">--使用保留点delete1，保留点越多越好，额能进行灵活的回退
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">DELETE</span> Orders
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">DELETE</span> Orders
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> order_num <span style="color:#719e07">=</span><span style="color:#2aa198">12345</span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ROLLBACK</span> <span style="color:#719e07">TRANSACTION</span> delete1;<span style="color:#586e75">--回退到保留点delete1
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">COMMIT</span> <span style="color:#719e07">TRANSACTION</span><span style="color:#586e75">--控制事物处理，最后的commit仅在中间过程不出错的情况下写出更改
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">DECLARE</span> <span style="color:#719e07">CURSOR</span> CustCursor
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">COMMIT</span> <span style="color:#719e07">TRANSACTION</span><span style="color:#586e75">--控制事物处理，最后的commit仅在中间过程不出错的情况下写出更改
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">DECLARE</span> <span style="color:#719e07">CURSOR</span> CustCursor
 </span></span><span style="display:flex;"><span><span style="color:#719e07">IS</span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">SELECT</span> <span style="color:#719e07">*</span> <span style="color:#719e07">FROM</span> Customers
 </span></span><span style="display:flex;"><span><span style="color:#719e07">WHERE</span> cust_email <span style="color:#719e07">IS</span> <span style="color:#719e07">NULL</span>;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ALTER</span> <span style="color:#719e07">TABLE</span> Vendors
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ADD</span> <span style="color:#719e07">CONSTRAINT</span> 
 </span></span><span style="display:flex;"><span><span style="color:#719e07">PRIMARY</span> <span style="color:#719e07">KEY</span>(vend_id)<span style="color:#586e75">--设置主键，DBMS默认主键基本不修改或更新，不能重用
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">ALTER</span> <span style="color:#719e07">TABLE</span> Orders
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">ALTER</span> <span style="color:#719e07">TABLE</span> Orders
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ADD</span> <span style="color:#719e07">CONSTRAINT</span> 
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FOREIGN</span> <span style="color:#719e07">KEY</span> (cust_id) <span style="color:#719e07">REFERENCES</span> Customers(cust_id);<span style="color:#586e75">--将此表中的cust_id设置为Customers的主键，即外键。外键有助防止意外删除，若删除，级联删除
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">CREATE</span> <span style="color:#719e07">INDEX</span> prod_name_ind<span style="color:#586e75">--索引名
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">ON</span> Products(prod_name)<span style="color:#586e75">--被索引的表，列
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">CREATE</span> <span style="color:#719e07">TRIGGER</span> customer_state
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">CREATE</span> <span style="color:#719e07">INDEX</span> prod_name_ind<span style="color:#586e75">--索引名
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">ON</span> Products(prod_name)<span style="color:#586e75">--被索引的表，列
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">CREATE</span> <span style="color:#719e07">TRIGGER</span> customer_state
 </span></span><span style="display:flex;"><span><span style="color:#719e07">ON</span> Customers
 </span></span><span style="display:flex;"><span><span style="color:#719e07">FOR</span> <span style="color:#719e07">INSERT</span>,<span style="color:#719e07">UPDATE</span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">AS</span>
@@ -2054,7 +2057,7 @@ Click on
           
             
               <li class="post">
-                <a href="./blog/2025-12-19-heart/">heart?</a>
+                <a href="./blog/2025-12-20-heart/">heart?</a>
               </li>
             
           
@@ -2105,7 +2108,7 @@ Click on
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD696TRRSE"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }

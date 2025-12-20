@@ -40,7 +40,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.152.2">
+  <meta name="generator" content="Hugo 0.153.0">
 
   
   
@@ -150,33 +150,33 @@
 </span></span><span style="display:flex;"><span>};
 </span></span></code></pre></div><p>注意先删去lock.sol，然后创建INFT.so合约</p>
 <div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-solidity" data-lang="solidity"><span style="display:flex;"><span><span style="color:#586e75">// contracts/INFT.sol
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#719e07">pragma solidity</span> <span style="color:#719e07">^</span><span style="color:#2aa198">0</span>.<span style="color:#2aa198">8</span>.<span style="color:#2aa198">19</span>;
+</span></span></span><span style="display:flex;"><span><span style="color:#719e07">pragma solidity</span> <span style="color:#719e07">^</span><span style="color:#2aa198">0</span>.<span style="color:#2aa198">8</span>.<span style="color:#2aa198">19</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> <span style="color:#2aa198">&#34;@openzeppelin/contracts/token/ERC721/ERC721.sol&#34;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> <span style="color:#2aa198">&#34;@openzeppelin/contracts/access/Ownable.sol&#34;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#719e07">import</span> <span style="color:#2aa198">&#34;@openzeppelin/contracts/security/ReentrancyGuard.sol&#34;</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// Oracle接口，用于验证零知识证明
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">interface</span> <span style="color:#268bd2">IOracle</span> {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">interface</span> <span style="color:#268bd2">IOracle</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">verifyProof</span>(<span style="color:#dc322f">bytes</span> calldata proof) <span style="color:#719e07">external</span> <span style="color:#719e07">view</span> <span style="color:#719e07">returns</span> (<span style="color:#dc322f">bool</span>);
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// INFT合约：基于ERC721的智能NFT，支持加密元数据和授权管理
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">contract</span> <span style="color:#268bd2">INFT</span> <span style="color:#719e07">is</span> ERC721, Ownable, ReentrancyGuard {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">contract</span> <span style="color:#268bd2">INFT</span> <span style="color:#719e07">is</span> ERC721, Ownable, ReentrancyGuard {
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 状态变量
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">mapping</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">=&gt;</span> <span style="color:#dc322f">bytes32</span>) <span style="color:#719e07">private</span> _metadataHashes;  <span style="color:#586e75">// 存储每个NFT的元数据哈希
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">mapping</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">=&gt;</span> <span style="color:#dc322f">string</span>) <span style="color:#719e07">private</span> _encryptedURIs;    <span style="color:#586e75">// 存储加密的URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">mapping</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">=&gt;</span> <span style="color:#268bd2">mapping</span>(<span style="color:#dc322f">address</span> <span style="color:#719e07">=&gt;</span> <span style="color:#dc322f">bytes</span>)) <span style="color:#719e07">private</span> _authorizations;  <span style="color:#586e75">// 存储使用授权信息
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">mapping</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">=&gt;</span> <span style="color:#dc322f">bytes32</span>) <span style="color:#719e07">private</span> _metadataHashes;  <span style="color:#586e75">// 存储每个NFT的元数据哈希
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">mapping</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">=&gt;</span> <span style="color:#dc322f">string</span>) <span style="color:#719e07">private</span> _encryptedURIs;    <span style="color:#586e75">// 存储加密的URI
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">mapping</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">=&gt;</span> <span style="color:#268bd2">mapping</span>(<span style="color:#dc322f">address</span> <span style="color:#719e07">=&gt;</span> <span style="color:#dc322f">bytes</span>)) <span style="color:#719e07">private</span> _authorizations;  <span style="color:#586e75">// 存储使用授权信息
+</span></span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#dc322f">address</span> <span style="color:#719e07">public</span> oracle;  <span style="color:#586e75">// Oracle合约地址
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#dc322f">uint256</span> <span style="color:#719e07">private</span> _nextTokenId <span style="color:#719e07">=</span> <span style="color:#2aa198">1</span>;  <span style="color:#586e75">// 下一个待铸造的token ID
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    
+</span></span></span><span style="display:flex;"><span>    <span style="color:#dc322f">uint256</span> <span style="color:#719e07">private</span> _nextTokenId <span style="color:#719e07">=</span> <span style="color:#2aa198">1</span>;  <span style="color:#586e75">// 下一个待铸造的token ID
+</span></span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 事件
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">event</span> <span style="color:#268bd2">MetadataUpdated</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">indexed</span> tokenId, <span style="color:#dc322f">bytes32</span> newHash);  <span style="color:#586e75">// 元数据更新事件
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">event</span> <span style="color:#268bd2">UsageAuthorized</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">indexed</span> tokenId, <span style="color:#dc322f">address</span> <span style="color:#719e07">indexed</span> executor);  <span style="color:#586e75">// 使用授权事件
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">event</span> <span style="color:#268bd2">MetadataUpdated</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">indexed</span> tokenId, <span style="color:#dc322f">bytes32</span> newHash);  <span style="color:#586e75">// 元数据更新事件
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">event</span> <span style="color:#268bd2">UsageAuthorized</span>(<span style="color:#dc322f">uint256</span> <span style="color:#719e07">indexed</span> tokenId, <span style="color:#dc322f">address</span> <span style="color:#719e07">indexed</span> executor);  <span style="color:#586e75">// 使用授权事件
+</span></span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 构造函数
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">constructor</span>(
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">constructor</span>(
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">string</span> <span style="color:#719e07">memory</span> <span style="color:#b58900">name</span>,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">string</span> <span style="color:#719e07">memory</span> symbol,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">address</span> _oracle
@@ -185,7 +185,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 铸造新NFT
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">mint</span>(
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">mint</span>(
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">address</span> to,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">string</span> calldata encryptedURI,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">bytes32</span> metadataHash
@@ -200,7 +200,7 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 转移NFT（需要零知识证明验证）
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">transfer</span>(
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">transfer</span>(
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">address</span> <span style="color:#719e07">from</span>,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">address</span> to,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">uint256</span> tokenId,
@@ -211,16 +211,16 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#b58900">require</span>(IOracle(oracle).verifyProof(proof), <span style="color:#2aa198">&#34;Invalid proof&#34;</span>);
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 为新所有者更新元数据访问权限
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        _updateMetadataAccess(tokenId, to, sealedKey, proof);
+</span></span></span><span style="display:flex;"><span>        _updateMetadataAccess(tokenId, to, sealedKey, proof);
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 转移token所有权
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        _transfer(<span style="color:#719e07">from</span>, to, tokenId);
+</span></span></span><span style="display:flex;"><span>        _transfer(<span style="color:#719e07">from</span>, to, tokenId);
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        emit MetadataUpdated(tokenId, <span style="color:#b58900">keccak256</span>(sealedKey));
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 授权特定地址使用NFT
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">authorizeUsage</span>(
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">authorizeUsage</span>(
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">uint256</span> tokenId,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">address</span> executor,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">bytes</span> calldata permissions
@@ -231,30 +231,30 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 内部函数：更新元数据访问权限
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">_updateMetadataAccess</span>(
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">_updateMetadataAccess</span>(
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">uint256</span> tokenId,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">address</span> newOwner,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">bytes</span> calldata sealedKey,
 </span></span><span style="display:flex;"><span>        <span style="color:#dc322f">bytes</span> calldata proof
 </span></span><span style="display:flex;"><span>    ) <span style="color:#719e07">internal</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 从proof中提取新的元数据哈希
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#dc322f">bytes32</span> newHash <span style="color:#719e07">=</span> <span style="color:#dc322f">bytes32</span>(proof[<span style="color:#2aa198">0</span><span style="color:#719e07">:</span><span style="color:#2aa198">32</span>]);
+</span></span></span><span style="display:flex;"><span>        <span style="color:#dc322f">bytes32</span> newHash <span style="color:#719e07">=</span> <span style="color:#dc322f">bytes32</span>(proof[<span style="color:#2aa198">0</span><span style="color:#719e07">:</span><span style="color:#2aa198">32</span>]);
 </span></span><span style="display:flex;"><span>        _metadataHashes[tokenId] <span style="color:#719e07">=</span> newHash;
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 如果proof中包含新URI，则更新加密URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#719e07">if</span> (proof.length <span style="color:#719e07">&gt;</span> <span style="color:#2aa198">64</span>) {
+</span></span></span><span style="display:flex;"><span>        <span style="color:#719e07">if</span> (proof.length <span style="color:#719e07">&gt;</span> <span style="color:#2aa198">64</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#dc322f">string</span> <span style="color:#719e07">memory</span> newURI <span style="color:#719e07">=</span> <span style="color:#dc322f">string</span>(proof[<span style="color:#2aa198">64</span><span style="color:#719e07">:</span>]);
 </span></span><span style="display:flex;"><span>            _encryptedURIs[tokenId] <span style="color:#719e07">=</span> newURI;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 获取NFT的元数据哈希
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">getMetadataHash</span>(<span style="color:#dc322f">uint256</span> tokenId) <span style="color:#719e07">external</span> <span style="color:#719e07">view</span> <span style="color:#719e07">returns</span> (<span style="color:#dc322f">bytes32</span>) {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">getMetadataHash</span>(<span style="color:#dc322f">uint256</span> tokenId) <span style="color:#719e07">external</span> <span style="color:#719e07">view</span> <span style="color:#719e07">returns</span> (<span style="color:#dc322f">bytes32</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">return</span> _metadataHashes[tokenId];
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 获取NFT的加密URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">getEncryptedURI</span>(<span style="color:#dc322f">uint256</span> tokenId) <span style="color:#719e07">external</span> <span style="color:#719e07">view</span> <span style="color:#719e07">returns</span> (<span style="color:#dc322f">string</span> <span style="color:#719e07">memory</span>) {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">function</span> <span style="color:#268bd2">getEncryptedURI</span>(<span style="color:#dc322f">uint256</span> tokenId) <span style="color:#719e07">external</span> <span style="color:#719e07">view</span> <span style="color:#719e07">returns</span> (<span style="color:#dc322f">string</span> <span style="color:#719e07">memory</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">return</span> _encryptedURIs[tokenId];
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
@@ -274,7 +274,7 @@
 </span></span></code></pre></div><p>这段代码如果执行成功，那么就是没有proof直接transfer了</p>
 <p>验证是否newOwner === attacker.address</p>
 <div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#586e75">// scripts/exploit_bypass.ts
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">import</span> { ethers } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#34;hardhat&#34;</span>;
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">import</span> { ethers } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#34;hardhat&#34;</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#268bd2">async</span> <span style="color:#268bd2">function</span> main() {
 </span></span><span style="display:flex;"><span>    <span style="color:#268bd2">const</span> INFT_ADDRESS <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;0x074D5F95eC6E8Da11fa80EBcf8211661b9a60144&#34;</span>; 
@@ -384,60 +384,60 @@
 <p><strong><code>AIAgentData</code></strong>: <strong>（中间产物）</strong> 处理完准备上链的数据。包含加密后的链接、密封的密钥、数据哈希。</p>
 <p><strong><code>MintResult</code></strong>: <strong>（输出）</strong> 铸造成功后的回执单，包含 Token ID 和交易哈希。</p>
 <div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#586e75">// 从 ethers 库导入必要的类型
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">import</span> { ethers, Contract, TransactionReceipt, ContractTransactionResponse } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;ethers&#39;</span>;
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">import</span> { ethers, Contract, TransactionReceipt, ContractTransactionResponse } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;ethers&#39;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 导入 Node.js 的加密模块
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">import</span> <span style="color:#719e07">*</span> <span style="color:#268bd2">as</span> crypto <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;crypto&#39;</span>;
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">import</span> <span style="color:#719e07">*</span> <span style="color:#268bd2">as</span> crypto <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;crypto&#39;</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 0G 存储接口：定义存储和检索数据的方法
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> OGStorage {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> OGStorage {
 </span></span><span style="display:flex;"><span>    store(data: <span style="color:#dc322f">any</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;{ uri: <span style="color:#dc322f">string</span> }<span style="color:#719e07">&amp;</span>gt;;  <span style="color:#586e75">// 存储数据，返回URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    retrieve(uri: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;<span style="color:#dc322f">any</span><span style="color:#719e07">&amp;</span>gt;;  <span style="color:#586e75">// 通过URI检索数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>}
+</span></span></span><span style="display:flex;"><span>    retrieve(uri: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;<span style="color:#dc322f">any</span><span style="color:#719e07">&amp;</span>gt;;  <span style="color:#586e75">// 通过URI检索数据
+</span></span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 加密服务接口：定义加密和密钥密封的方法
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> EncryptionService {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> EncryptionService {
 </span></span><span style="display:flex;"><span>    encrypt(data: <span style="color:#dc322f">string</span>, key: <span style="color:#dc322f">Buffer</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;<span style="color:#dc322f">any</span><span style="color:#719e07">&amp;</span>gt;;  <span style="color:#586e75">// 使用密钥加密数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    sealKey(key: <span style="color:#dc322f">Buffer</span>, pubKey: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;<span style="color:#dc322f">any</span><span style="color:#719e07">&amp;</span>gt;;  <span style="color:#586e75">// 使用公钥密封密钥
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>}
+</span></span></span><span style="display:flex;"><span>    sealKey(key: <span style="color:#dc322f">Buffer</span>, pubKey: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;<span style="color:#dc322f">any</span><span style="color:#719e07">&amp;</span>gt;;  <span style="color:#586e75">// 使用公钥密封密钥
+</span></span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// AI 模型数据接口：定义模型的原始数据结构
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> AIModelData {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> AIModelData {
 </span></span><span style="display:flex;"><span>    model: <span style="color:#dc322f">string</span>;  <span style="color:#586e75">// 模型名称
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    weights: <span style="color:#dc322f">string</span>;  <span style="color:#586e75">// 权重文件路径
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    config: <span style="color:#dc322f">any</span>;  <span style="color:#586e75">// 配置参数
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    capabilities: <span style="color:#dc322f">string</span>[];  <span style="color:#586e75">// 模型能力列表
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>}
+</span></span></span><span style="display:flex;"><span>    weights: <span style="color:#dc322f">string</span>;  <span style="color:#586e75">// 权重文件路径
+</span></span></span><span style="display:flex;"><span>    config: <span style="color:#dc322f">any</span>;  <span style="color:#586e75">// 配置参数
+</span></span></span><span style="display:flex;"><span>    capabilities: <span style="color:#dc322f">string</span>[];  <span style="color:#586e75">// 模型能力列表
+</span></span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// AI Agent 数据接口：定义准备上链的数据结构
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> AIAgentData {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> AIAgentData {
 </span></span><span style="display:flex;"><span>    encryptedURI: <span style="color:#dc322f">string</span>;  <span style="color:#586e75">// 加密数据的存储URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    sealedKey: <span style="color:#dc322f">any</span>;  <span style="color:#586e75">// 密封的解密密钥
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    metadataHash: <span style="color:#dc322f">string</span>;  <span style="color:#586e75">// 元数据哈希值
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>}
+</span></span></span><span style="display:flex;"><span>    sealedKey: <span style="color:#dc322f">any</span>;  <span style="color:#586e75">// 密封的解密密钥
+</span></span></span><span style="display:flex;"><span>    metadataHash: <span style="color:#dc322f">string</span>;  <span style="color:#586e75">// 元数据哈希值
+</span></span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 铸造结果接口：定义铸造成功后返回的数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> MintResult {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> MintResult {
 </span></span><span style="display:flex;"><span>    tokenId: <span style="color:#dc322f">number</span>;  <span style="color:#586e75">// NFT的Token ID
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    sealedKey: <span style="color:#dc322f">any</span>;  <span style="color:#586e75">// 密封的密钥
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    transactionHash: <span style="color:#dc322f">string</span>;  <span style="color:#586e75">// 交易哈希
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>}
+</span></span></span><span style="display:flex;"><span>    sealedKey: <span style="color:#dc322f">any</span>;  <span style="color:#586e75">// 密封的密钥
+</span></span></span><span style="display:flex;"><span>    transactionHash: <span style="color:#dc322f">string</span>;  <span style="color:#586e75">// 交易哈希
+</span></span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 元数据管理器类：负责处理NFT元数据的创建、加密和铸造
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">class</span> MetadataManager {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">class</span> MetadataManager {
 </span></span><span style="display:flex;"><span>    <span style="color:#268bd2">public</span> storage: <span style="color:#dc322f">OGStorage</span>;  <span style="color:#586e75">// 存储服务实例
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">public</span> encryption: <span style="color:#dc322f">EncryptionService</span>;  <span style="color:#586e75">// 加密服务实例
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">public</span> encryption: <span style="color:#dc322f">EncryptionService</span>;  <span style="color:#586e75">// 加密服务实例
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 构造函数：初始化存储和加密服务
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">constructor</span>(ogStorage: <span style="color:#dc322f">OGStorage</span>, encryptionService: <span style="color:#dc322f">EncryptionService</span>) {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">constructor</span>(ogStorage: <span style="color:#dc322f">OGStorage</span>, encryptionService: <span style="color:#dc322f">EncryptionService</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">this</span>.storage <span style="color:#719e07">=</span> ogStorage;
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">this</span>.encryption <span style="color:#719e07">=</span> encryptionService;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 创建 AI Agent：处理数据加密、存储和密钥密封
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">async</span> createAIAgent(aiModelData: <span style="color:#dc322f">AIModelData</span>, ownerPublicKey: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;AIAgentData<span style="color:#719e07">&amp;</span>gt; {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">async</span> createAIAgent(aiModelData: <span style="color:#dc322f">AIModelData</span>, ownerPublicKey: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;AIAgentData<span style="color:#719e07">&amp;</span>gt; {
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">try</span> {
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 准备 AI agent 的元数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> metadata <span style="color:#719e07">=</span> {
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> metadata <span style="color:#719e07">=</span> {
 </span></span><span style="display:flex;"><span>                model: <span style="color:#dc322f">aiModelData.model</span>,
 </span></span><span style="display:flex;"><span>                weights: <span style="color:#dc322f">aiModelData.weights</span>,
 </span></span><span style="display:flex;"><span>                config: <span style="color:#dc322f">aiModelData.config</span>,
@@ -447,30 +447,30 @@
 </span></span><span style="display:flex;"><span>            };
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 生成随机加密密钥（32字节）
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> encryptionKey <span style="color:#719e07">=</span> crypto.randomBytes(<span style="color:#2aa198">32</span>);
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> encryptionKey <span style="color:#719e07">=</span> crypto.randomBytes(<span style="color:#2aa198">32</span>);
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 使用生成的密钥加密元数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> encryptedData <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.encryption.encrypt(
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> encryptedData <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.encryption.encrypt(
 </span></span><span style="display:flex;"><span>                JSON.stringify(metadata),
 </span></span><span style="display:flex;"><span>                encryptionKey
 </span></span><span style="display:flex;"><span>            );
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 将加密数据存储到 0G Storage
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> storageResult <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.storage.store(encryptedData);
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> storageResult <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.storage.store(encryptedData);
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 使用所有者的公钥密封加密密钥（只有所有者能解密）
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> sealedKey <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.encryption.sealKey(
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> sealedKey <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.encryption.sealKey(
 </span></span><span style="display:flex;"><span>                encryptionKey,
 </span></span><span style="display:flex;"><span>                ownerPublicKey
 </span></span><span style="display:flex;"><span>            );
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 生成元数据的哈希值（用于链上验证完整性）
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> metadataHash <span style="color:#719e07">=</span> ethers.keccak256(
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> metadataHash <span style="color:#719e07">=</span> ethers.keccak256(
 </span></span><span style="display:flex;"><span>                ethers.toUtf8Bytes(JSON.stringify(metadata))
 </span></span><span style="display:flex;"><span>            );
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 返回准备好的上链数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#719e07">return</span> {
+</span></span></span><span style="display:flex;"><span>            <span style="color:#719e07">return</span> {
 </span></span><span style="display:flex;"><span>                encryptedURI: <span style="color:#dc322f">storageResult.uri</span>,
 </span></span><span style="display:flex;"><span>                sealedKey,
 </span></span><span style="display:flex;"><span>                metadataHash
@@ -481,59 +481,59 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 铸造 INFT：调用合约mint方法并解析返回的tokenId
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">async</span> mintINFT(contract: <span style="color:#dc322f">Contract</span>, recipient: <span style="color:#dc322f">string</span>, aiAgentData: <span style="color:#dc322f">AIAgentData</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;MintResult<span style="color:#719e07">&amp;</span>gt; {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">async</span> mintINFT(contract: <span style="color:#dc322f">Contract</span>, recipient: <span style="color:#dc322f">string</span>, aiAgentData: <span style="color:#dc322f">AIAgentData</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&amp;</span>lt;MintResult<span style="color:#719e07">&amp;</span>gt; {
 </span></span><span style="display:flex;"><span>        <span style="color:#268bd2">const</span> { encryptedURI, sealedKey, metadataHash } <span style="color:#719e07">=</span> aiAgentData;
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 调用合约的mint方法
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#268bd2">const</span> tx <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract.mint(
+</span></span></span><span style="display:flex;"><span>        <span style="color:#268bd2">const</span> tx <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract.mint(
 </span></span><span style="display:flex;"><span>            recipient,
 </span></span><span style="display:flex;"><span>            encryptedURI,
 </span></span><span style="display:flex;"><span>            metadataHash
 </span></span><span style="display:flex;"><span>        );
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 等待交易确认
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#268bd2">const</span> receipt <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> tx.wait();
+</span></span></span><span style="display:flex;"><span>        <span style="color:#268bd2">const</span> receipt <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> tx.wait();
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 确保交易收据和日志存在
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>receipt <span style="color:#719e07">||</span> <span style="color:#719e07">!</span>receipt.logs <span style="color:#719e07">||</span> receipt.logs.length <span style="color:#719e07">===</span> <span style="color:#2aa198">0</span>) {
+</span></span></span><span style="display:flex;"><span>        <span style="color:#719e07">if</span> (<span style="color:#719e07">!</span>receipt <span style="color:#719e07">||</span> <span style="color:#719e07">!</span>receipt.logs <span style="color:#719e07">||</span> receipt.logs.length <span style="color:#719e07">===</span> <span style="color:#2aa198">0</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#719e07">throw</span> <span style="color:#719e07">new</span> <span style="color:#b58900">Error</span>(<span style="color:#2aa198">&#34;交易失败或没有日志输出&#34;</span>);
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 解析日志以找到包含 tokenId 的 Transfer 事件
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 假设第一个事件包含 tokenId（符合原始代码逻辑）
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 原始代码: receipt.events[0].args.tokenId
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 在 ethers v6 中，日志是 Log 对象数组
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 如果合约接口可用，可能会自动解析
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 假设第一个事件包含 tokenId（符合原始代码逻辑）
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 原始代码: receipt.events[0].args.tokenId
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 在 ethers v6 中，日志是 Log 对象数组
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 如果合约接口可用，可能会自动解析
+</span></span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#268bd2">let</span> tokenId: <span style="color:#dc322f">number</span>;
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// Ethers v6 的 Contract 返回 ContractTransactionResponse
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// .wait() 返回 TransactionReceipt
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// receipt.logs 包含 Log[] 数组
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 如果我们知道这是 Transfer(from, to, tokenId) 事件，它通常是mint的第一个日志
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 可以尝试解析 topics 或使用已解析的日志（例如使用 TypeChain）
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 由于这里传入的 &#39;Contract&#39; 没有明确的 TypeChain 类型
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 我们尝试按标准行为访问或回退
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// .wait() 返回 TransactionReceipt
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// receipt.logs 包含 Log[] 数组
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 如果我们知道这是 Transfer(from, to, tokenId) 事件，它通常是mint的第一个日志
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 可以尝试解析 topics 或使用已解析的日志（例如使用 TypeChain）
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 由于这里传入的 &#39;Contract&#39; 没有明确的 TypeChain 类型
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 我们尝试按标准行为访问或回退
+</span></span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 为简化并匹配原始逻辑：
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#268bd2">const</span> log: <span style="color:#dc322f">any</span> <span style="color:#719e07">=</span> receipt.logs[<span style="color:#2aa198">0</span>];
+</span></span></span><span style="display:flex;"><span>        <span style="color:#268bd2">const</span> log: <span style="color:#dc322f">any</span> <span style="color:#719e07">=</span> receipt.logs[<span style="color:#2aa198">0</span>];
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 在 Ethers v6 中，除非使用解析接口，否则收据日志上不会直接有解析的日志
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 如果 &#39;contract&#39; 是已连接的 Contract 实例，我们可能可以解析
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 但原始代码直接访问 args
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// 让我们尝试假设日志有 args（如果已解析），或使用 topics
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// ERC721 Transfer: topic0 = keccak256(&#34;Transfer(address,address,uint256)&#34;)
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#586e75">// topic3 是 tokenId（已索引）
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 如果 &#39;contract&#39; 是已连接的 Contract 实例，我们可能可以解析
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 但原始代码直接访问 args
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 让我们尝试假设日志有 args（如果已解析），或使用 topics
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// ERC721 Transfer: topic0 = keccak256(&#34;Transfer(address,address,uint256)&#34;)
+</span></span></span><span style="display:flex;"><span>        <span style="color:#586e75">// topic3 是 tokenId（已索引）
+</span></span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">if</span> (log.args) {
 </span></span><span style="display:flex;"><span>             <span style="color:#586e75">// 如果日志已解析，从 args 中获取 tokenId
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>             tokenId <span style="color:#719e07">=</span> <span style="color:#b58900">Number</span>(log.args.tokenId <span style="color:#719e07">||</span> log.args[<span style="color:#2aa198">2</span>]);
+</span></span></span><span style="display:flex;"><span>             tokenId <span style="color:#719e07">=</span> <span style="color:#b58900">Number</span>(log.args.tokenId <span style="color:#719e07">||</span> log.args[<span style="color:#2aa198">2</span>]);
 </span></span><span style="display:flex;"><span>        } <span style="color:#719e07">else</span> {
 </span></span><span style="display:flex;"><span>             <span style="color:#586e75">// 回退方案：从 topics 解析 Transfer 事件（索引3是tokenId）
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>             tokenId <span style="color:#719e07">=</span> <span style="color:#b58900">Number</span>(BigInt(log.topics[<span style="color:#2aa198">3</span>]));
+</span></span></span><span style="display:flex;"><span>             tokenId <span style="color:#719e07">=</span> <span style="color:#b58900">Number</span>(BigInt(log.topics[<span style="color:#2aa198">3</span>]));
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 返回铸造结果
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#719e07">return</span> {
+</span></span></span><span style="display:flex;"><span>        <span style="color:#719e07">return</span> {
 </span></span><span style="display:flex;"><span>            tokenId,
 </span></span><span style="display:flex;"><span>            sealedKey,
 </span></span><span style="display:flex;"><span>            transactionHash: <span style="color:#dc322f">receipt.hash</span>
@@ -572,70 +572,70 @@
 </ul>
 <p>TransferManager.ts</p>
 <div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#586e75">// 导入 ethers 库中的类型定义
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">import</span> { Contract, ContractTransactionResponse, TransactionReceipt } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;ethers&#39;</span>;
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">import</span> { Contract, ContractTransactionResponse, TransactionReceipt } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;ethers&#39;</span>;
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 导入 OGStorage 接口
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">import</span> { OGStorage } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;./MetadataManager&#39;</span>;
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">import</span> { OGStorage } <span style="color:#268bd2">from</span> <span style="color:#2aa198">&#39;./MetadataManager&#39;</span>;
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// Oracle 接口：定义预言机的转移处理方法
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> Oracle {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> Oracle {
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 处理转移请求，返回新的密封密钥、证明和URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    processTransfer(request: <span style="color:#dc322f">any</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&lt;</span>{ sealedKey: <span style="color:#dc322f">any</span>, proof: <span style="color:#dc322f">any</span>, newURI: <span style="color:#dc322f">string</span> }<span style="color:#719e07">&gt;</span>;
+</span></span></span><span style="display:flex;"><span>    processTransfer(request: <span style="color:#dc322f">any</span>)<span style="color:#719e07">:</span> Promise<span style="color:#719e07">&lt;</span>{ sealedKey: <span style="color:#dc322f">any</span>, proof: <span style="color:#dc322f">any</span>, newURI: <span style="color:#dc322f">string</span> }<span style="color:#719e07">&gt;</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 元数据合约接口：定义获取加密URI的方法
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> IMetadataContract {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> IMetadataContract {
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 根据 tokenId 获取加密的URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    getEncryptedURI(tokenId: <span style="color:#dc322f">number</span>)<span style="color:#719e07">:</span> Promise&lt;<span style="color:#268bd2">string</span>&gt;;
+</span></span></span><span style="display:flex;"><span>    getEncryptedURI(tokenId: <span style="color:#dc322f">number</span>)<span style="color:#719e07">:</span> Promise&lt;<span style="color:#268bd2">string</span>&gt;;
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 转移请求接口：定义转移所需的所有信息
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> TransferRequest {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> TransferRequest {
 </span></span><span style="display:flex;"><span>    tokenId: <span style="color:#dc322f">number</span>;        <span style="color:#586e75">// NFT的ID
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    encryptedData: <span style="color:#dc322f">any</span>;     <span style="color:#586e75">// 加密的数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    fromAddress: <span style="color:#dc322f">string</span>;    <span style="color:#586e75">// 发送方地址
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    toAddress: <span style="color:#dc322f">string</span>;      <span style="color:#586e75">// 接收方地址
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    toPublicKey: <span style="color:#dc322f">string</span>;    <span style="color:#586e75">// 接收方的公钥
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>}
+</span></span></span><span style="display:flex;"><span>    encryptedData: <span style="color:#dc322f">any</span>;     <span style="color:#586e75">// 加密的数据
+</span></span></span><span style="display:flex;"><span>    fromAddress: <span style="color:#dc322f">string</span>;    <span style="color:#586e75">// 发送方地址
+</span></span></span><span style="display:flex;"><span>    toAddress: <span style="color:#dc322f">string</span>;      <span style="color:#586e75">// 接收方地址
+</span></span></span><span style="display:flex;"><span>    toPublicKey: <span style="color:#dc322f">string</span>;    <span style="color:#586e75">// 接收方的公钥
+</span></span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 转移数据接口：定义执行转移所需的数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> TransferData {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> TransferData {
 </span></span><span style="display:flex;"><span>    <span style="color:#268bd2">from</span><span style="color:#719e07">:</span> <span style="color:#dc322f">string</span>;           <span style="color:#586e75">// 发送方地址
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    to: <span style="color:#dc322f">string</span>;             <span style="color:#586e75">// 接收方地址
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    tokenId: <span style="color:#dc322f">number</span>;        <span style="color:#586e75">// NFT的ID
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    sealedKey: <span style="color:#dc322f">any</span>;         <span style="color:#586e75">// 密封的密钥
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    proof: <span style="color:#dc322f">any</span>;             <span style="color:#586e75">// 零知识证明
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>}
+</span></span></span><span style="display:flex;"><span>    to: <span style="color:#dc322f">string</span>;             <span style="color:#586e75">// 接收方地址
+</span></span></span><span style="display:flex;"><span>    tokenId: <span style="color:#dc322f">number</span>;        <span style="color:#586e75">// NFT的ID
+</span></span></span><span style="display:flex;"><span>    sealedKey: <span style="color:#dc322f">any</span>;         <span style="color:#586e75">// 密封的密钥
+</span></span></span><span style="display:flex;"><span>    proof: <span style="color:#dc322f">any</span>;             <span style="color:#586e75">// 零知识证明
+</span></span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 转移准备结果接口：定义准备阶段返回的数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> TransferPrepResult {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">interface</span> TransferPrepResult {
 </span></span><span style="display:flex;"><span>    sealedKey: <span style="color:#dc322f">any</span>;         <span style="color:#586e75">// 新的密封密钥
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    proof: <span style="color:#dc322f">any</span>;             <span style="color:#586e75">// 零知识证明
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    newEncryptedURI: <span style="color:#dc322f">string</span>; <span style="color:#586e75">// 新的加密URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>}
+</span></span></span><span style="display:flex;"><span>    proof: <span style="color:#dc322f">any</span>;             <span style="color:#586e75">// 零知识证明
+</span></span></span><span style="display:flex;"><span>    newEncryptedURI: <span style="color:#dc322f">string</span>; <span style="color:#586e75">// 新的加密URI
+</span></span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#586e75">// 转移管理器类：负责处理 INFT 的转移逻辑
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span><span style="color:#268bd2">export</span> <span style="color:#268bd2">class</span> TransferManager {
+</span></span></span><span style="display:flex;"><span><span style="color:#268bd2">export</span> <span style="color:#268bd2">class</span> TransferManager {
 </span></span><span style="display:flex;"><span>    <span style="color:#268bd2">private</span> oracle: <span style="color:#dc322f">Oracle</span>;                 <span style="color:#586e75">// 预言机实例
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">private</span> metadata: <span style="color:#dc322f">IMetadataContract</span>;    <span style="color:#586e75">// 元数据合约实例
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">private</span> storage: <span style="color:#dc322f">OGStorage</span>;             <span style="color:#586e75">// 存储服务实例
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">private</span> metadata: <span style="color:#dc322f">IMetadataContract</span>;    <span style="color:#586e75">// 元数据合约实例
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">private</span> storage: <span style="color:#dc322f">OGStorage</span>;             <span style="color:#586e75">// 存储服务实例
+</span></span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 构造函数：初始化转移管理器
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">constructor</span>(oracle: <span style="color:#dc322f">Oracle</span>, metadataManager: <span style="color:#dc322f">IMetadataContract</span>, storage: <span style="color:#dc322f">OGStorage</span>) {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">constructor</span>(oracle: <span style="color:#dc322f">Oracle</span>, metadataManager: <span style="color:#dc322f">IMetadataContract</span>, storage: <span style="color:#dc322f">OGStorage</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">this</span>.oracle <span style="color:#719e07">=</span> oracle;
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">this</span>.metadata <span style="color:#719e07">=</span> metadataManager;
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">this</span>.storage <span style="color:#719e07">=</span> storage;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 准备转移：获取当前数据并请求预言机重新加密
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">async</span> prepareTransfer(tokenId: <span style="color:#dc322f">number</span>, fromAddress: <span style="color:#dc322f">string</span>, toAddress: <span style="color:#dc322f">string</span>, toPublicKey: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> Promise&lt;<span style="color:#268bd2">TransferPrepResult</span>&gt; {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">async</span> prepareTransfer(tokenId: <span style="color:#dc322f">number</span>, fromAddress: <span style="color:#dc322f">string</span>, toAddress: <span style="color:#dc322f">string</span>, toPublicKey: <span style="color:#dc322f">string</span>)<span style="color:#719e07">:</span> Promise&lt;<span style="color:#268bd2">TransferPrepResult</span>&gt; {
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">try</span> {
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 1. 从合约获取当前的加密URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> currentURI <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.metadata.getEncryptedURI(tokenId);
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> currentURI <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.metadata.getEncryptedURI(tokenId);
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 2. 从存储服务检索加密数据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> encryptedData <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.storage.retrieve(currentURI);
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> encryptedData <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.storage.retrieve(currentURI);
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 3. 构造转移请求，发送给预言机进行重新加密
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> transferRequest: <span style="color:#dc322f">TransferRequest</span> <span style="color:#719e07">=</span> {
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> transferRequest: <span style="color:#dc322f">TransferRequest</span> <span style="color:#719e07">=</span> {
 </span></span><span style="display:flex;"><span>                tokenId,
 </span></span><span style="display:flex;"><span>                encryptedData,
 </span></span><span style="display:flex;"><span>                fromAddress,
@@ -644,10 +644,10 @@
 </span></span><span style="display:flex;"><span>            };
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 4. 预言机处理：解密原数据，用新主人的公钥重新加密，并生成证明
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#268bd2">const</span> oracleResponse <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.oracle.processTransfer(transferRequest);
+</span></span></span><span style="display:flex;"><span>            <span style="color:#268bd2">const</span> oracleResponse <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> <span style="color:#719e07">this</span>.oracle.processTransfer(transferRequest);
 </span></span><span style="display:flex;"><span>            
 </span></span><span style="display:flex;"><span>            <span style="color:#586e75">// 5. 返回新的密封密钥、证明和URI
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>            <span style="color:#719e07">return</span> {
+</span></span></span><span style="display:flex;"><span>            <span style="color:#719e07">return</span> {
 </span></span><span style="display:flex;"><span>                sealedKey: <span style="color:#dc322f">oracleResponse.sealedKey</span>,
 </span></span><span style="display:flex;"><span>                proof: <span style="color:#dc322f">oracleResponse.proof</span>,
 </span></span><span style="display:flex;"><span>                newEncryptedURI: <span style="color:#dc322f">oracleResponse.newURI</span>
@@ -658,11 +658,11 @@
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    
 </span></span><span style="display:flex;"><span>    <span style="color:#586e75">// 执行转移：调用合约的 transfer 方法完成链上转移
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>    <span style="color:#268bd2">async</span> executeTransfer(contract: <span style="color:#dc322f">Contract</span>, transferData: <span style="color:#dc322f">TransferData</span>)<span style="color:#719e07">:</span> Promise&lt;<span style="color:#268bd2">TransactionReceipt</span> | null&gt; {
+</span></span></span><span style="display:flex;"><span>    <span style="color:#268bd2">async</span> executeTransfer(contract: <span style="color:#dc322f">Contract</span>, transferData: <span style="color:#dc322f">TransferData</span>)<span style="color:#719e07">:</span> Promise&lt;<span style="color:#268bd2">TransactionReceipt</span> | null&gt; {
 </span></span><span style="display:flex;"><span>        <span style="color:#268bd2">const</span> { <span style="color:#268bd2">from</span>, to, tokenId, sealedKey, proof } <span style="color:#719e07">=</span> transferData;
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 调用合约的 transfer 方法，传入密封密钥和证明
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#268bd2">const</span> tx: <span style="color:#dc322f">ContractTransactionResponse</span> <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract.transfer(
+</span></span></span><span style="display:flex;"><span>        <span style="color:#268bd2">const</span> tx: <span style="color:#dc322f">ContractTransactionResponse</span> <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> contract.transfer(
 </span></span><span style="display:flex;"><span>            <span style="color:#268bd2">from</span>,
 </span></span><span style="display:flex;"><span>            to,
 </span></span><span style="display:flex;"><span>            tokenId,
@@ -671,7 +671,7 @@
 </span></span><span style="display:flex;"><span>        );
 </span></span><span style="display:flex;"><span>        
 </span></span><span style="display:flex;"><span>        <span style="color:#586e75">// 等待交易确认并返回交易收据
-</span></span></span><span style="display:flex;"><span><span style="color:#586e75"></span>        <span style="color:#719e07">return</span> <span style="color:#719e07">await</span> tx.wait();
+</span></span></span><span style="display:flex;"><span>        <span style="color:#719e07">return</span> <span style="color:#719e07">await</span> tx.wait();
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>在 INFT 系统中，转移不是简单地调用 transferFrom，而是需要经过以下两个步骤：</p>
@@ -1032,7 +1032,7 @@ Click on
           
             
               <li class="post">
-                <a href="../../blog/2025-12-19-heart/">heart?</a>
+                <a href="../../blog/2025-12-20-heart/">heart?</a>
               </li>
             
           
@@ -1084,7 +1084,7 @@ Click on
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-FD696TRRSE"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
