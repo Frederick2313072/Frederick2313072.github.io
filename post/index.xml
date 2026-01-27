@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Frederick</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Dec 2025 10:32:19 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 05:36:43 +0000</lastBuildDate>
     <atom:link href="https://Frederick2313072.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>seo问题</title>
+      <link>https://Frederick2313072.github.io/blog/2026-01-27-seo%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 27 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://Frederick2313072.github.io/blog/2026-01-27-seo%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;h3 id=&#34;问题1seo设置不稳定&#34;&gt;问题1：SEO设置不稳定&lt;/h3&gt;&#xA;&lt;p&gt;每次加载网站时，SEO设置都会发生变化，无法保持一致性。这导致网站的SEO表现不稳定，影响搜索引擎优化效果。&lt;/p&gt;&#xA;&lt;p&gt;原因：详见seoManager.ts:90&lt;/p&gt;</description>
+    </item>
     <item>
       <title>沉思录</title>
       <link>https://Frederick2313072.github.io/blog/2025-12-19-%E6%B2%89%E6%80%9D%E5%BD%95/</link>

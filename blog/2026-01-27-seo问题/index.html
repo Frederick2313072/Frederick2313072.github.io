@@ -14,7 +14,7 @@
   
 
   
-  <title>Summary in November</title>
+  <title>seo问题</title>
 
   
   
@@ -118,14 +118,14 @@
         
 
 <header>
-  <p class="meta">Dec 2, 2024
+  <p class="meta">Jan 27, 2026
      - 2 minute read 
-     - <a href="https://Frederick2313072.github.io/blog/2024-12-02-summary-in-november/#giscus-container">评论</a>
+     - <a href="https://Frederick2313072.github.io/blog/2026-01-27-seo%E9%97%AE%E9%A2%98/#giscus-container">评论</a>
 
     
   </p>
   <h1 class="entry-title">
-     Summary in November 
+     seo问题 
   </h1>
 </header>
 
@@ -134,35 +134,44 @@
           
           
           
-          <h2 id="python">Python</h2>
-<p>基础语法到面向对象编程，小项目只用过pygame写了一个窗口射击游戏，图灵系列那本python编程学的很流畅，很快能上手项目</p>
-<h2 id="javascript">Javascript</h2>
-<p>到现在只学了点皮毛，只会做动态内容更新，也只是自己做html网页时乱加上去的</p>
-<h2 id="linux">Linux</h2>
-<p>一开始甚至打算买个电脑重装Linux，看到无数人因为Linux整个大学没敲几行代码被劝退了，最后只学了Bash，但是和windows的shell不兼容，用的乌班图版本，以下是我试过的所有办法：</p>
-<ul>
-<li>虚拟盘开机和Windows双系统</li>
-<li>虚拟机如virtualbox和Vmware（据说可以申请阿里云学生服务器，但我用的前者）</li>
-<li>Windows自带wsl，最后自己搞了个图形化界面，甚至现在偶尔还在用</li>
-</ul>
-<h2 id="工具">工具</h2>
-<ul>
-<li>Vim：很容易上手，但不常用就会很快忘了（谁没事会在shell里面编辑文本）</li>
-<li>Nano：可读性比Vim强，但我已经习惯Vim了</li>
-<li>SSH</li>
-<li>Docker</li>
-<li>Git：最重要的一个，不用多说</li>
-</ul>
-<h2 id="数据库">数据库</h2>
-<p>学校课程，但反而很不上心，明天开始重学</p>
-<h2 id="cs常识">CS常识</h2>
-<p>b站有个做的很好的科普视频，会放在Resource里面</p>
-<h2 id="html">Html</h2>
-<p>严格来说，太简单算不上编程语言</p>
-<h2 id="css">CSS</h2>
-<p>之前自己做了个CSS模板，结果在运行cmd时被tailwind覆盖完了，没有git到远程仓库&hellip;&hellip;</p>
-<h2 id="数学分析3概率论">数学分析3，概率论</h2>
-<p>前者太难听不懂，后者太简单不想听</p>
+          <h3 id="问题1seo设置不稳定">问题1：SEO设置不稳定</h3>
+<p>每次加载网站时，SEO设置都会发生变化，无法保持一致性。这导致网站的SEO表现不稳定，影响搜索引擎优化效果。</p>
+<p>原因：详见seoManager.ts:90</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>this<span style="color:#719e07">.</span><span style="color:#586e75">#originMetaRoutes = metaRoutes;</span>
+</span></span></code></pre></div><p>每次打开SEO面板时，<code>initSeoInfo()</code>都从<code>readdy-sitemap.json</code>重新获取数据</p>
+<p>系统没有区分服务器和本地数据，用户的编辑只存在于内存中，页面刷新后丢失</p>
+<h3 id="问题2发布时seo设置未保存">问题2：发布时SEO设置未保存</h3>
+<p>发布页面后，SEO设置似乎没有被正确保存。每次分享页面给自己查看时，所有页面都使用相同的标题。</p>
+<p>指包含用户手动编辑的页面，如果选择ai自动生成，<code>editedSeoJson.pages</code>为空数组，导致AI生成时没有保留用户之前的编辑</p>
+<p>src/views/project/components/Seo/index.vue</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>const editedSeoJson <span style="color:#719e07">=</span> getEditedSeoJson(); <span style="color:#719e07">//</span> 只在手动编辑模式下有数据
+</span></span><span style="display:flex;"><span>const params <span style="color:#719e07">=</span> {
+</span></span><span style="display:flex;"><span>  embedCode: JSON<span style="color:#719e07">.</span>stringify(editedSeoJson), <span style="color:#719e07">//</span> 自动生成时为空对象
+</span></span><span style="display:flex;"><span>  isSEO: true
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>getEditedSeoJson()</code> 只返回用户在当前会话中手动编辑的数据，JSON.stringify(editedSeoJson)将这个可能为空的对象序列化后传给AI</p>
+<h3 id="问题3分享链接都使用相同标题">问题3：<strong>分享链接都使用相同标题</strong></h3>
+<p>原因：share.ts</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>export interface projectShareParams {
+</span></span><span style="display:flex;"><span>  projectId: string;
+</span></span><span style="display:flex;"><span>  versionId: number; 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>分享API只传递项目ID和版本ID，后端无法知道用户要分享的是哪个具体页面，所有分享链接都使用项目默认的meta标签</p>
+<p>无论从哪个页面分享，社交平台显示的都是：（不确定，还没验证）</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#586e75">&lt;!-- 微信、Twitter、Facebook等显示的都是这个 --&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2">meta</span> property<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;og:title&#34;</span> content<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;AI网站生成器 - Readdy.ai&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2">meta</span> property<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;og:description&#34;</span> content<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;使用AI快速生成专业网站&#34;</span> /&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#268bd2">meta</span> property<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;og:url&#34;</span> content<span style="color:#719e07">=</span><span style="color:#2aa198">&#34;https://yoursite.com&#34;</span> /&gt;
+</span></span></code></pre></div><p>问题四：<strong>Schema标记生成打乱SEO设置</strong></p>
+<p>seoPrompt.ts</p>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#2aa198">2</span>.Update the corresponding meta data <span style="color:#719e07">in</span> each page based on the data I provided
+</span></span><span style="display:flex;"><span><span style="color:#719e07">-</span>Exclude empty<span style="color:#719e07">/</span><span style="color:#cb4b16">null</span> data fields <span style="color:#268bd2">from</span> consideration
+</span></span></code></pre></div><p>AI prompt没有指示保留用户手动编辑的metadata,生成时会完全重写所有SEO设置,用户的精心编辑被AI的自动生成覆盖</p>
+<h2 id="一些解决思路">一些解决思路</h2>
+<p>加载时重置问题：添加持久化本地存储，将用户编辑保存到localstorge，然后恢复用户编辑</p>
+<p>修复发布时数据丢失，修改geteditedseojson函数，主要是传递的哪些metadata</p>
+<p>分享链接问题：增加参数，添加具体页面路径和标题，然后调用时await json页面路径+标题</p>
+<p>改进seo的prompt</p>
 
         </div>
         
@@ -171,7 +180,7 @@
   <p class="meta">
     <span class="byline author vcard">Posted by <span class="fn">Frederick</span></span>
     
-    <time>Dec 2, 2024</time>
+    <time>Jan 27, 2026</time>
     
     </span>
   </p>
@@ -180,11 +189,9 @@
 
   <p class="meta">
     
-        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/1-01-01-/" title=""></a>
+        <a class="basic-alignment left" href="https://Frederick2313072.github.io/blog/2025-12-19-%E6%B2%89%E6%80%9D%E5%BD%95/" title="沉思录">沉思录</a>
     
 
-    
-      <a class="basic-alignment right" href="https://Frederick2313072.github.io/blog/2024-12-02-plan-after-this-semester/" title="Plan after this semester">Plan after this semester</a>
     
   </p>
   

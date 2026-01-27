@@ -6,8 +6,15 @@
     <description>Recent content on Frederick</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Dec 2025 10:32:19 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 Jan 2026 05:36:43 +0000</lastBuildDate>
     <atom:link href="https://Frederick2313072.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>seo问题</title>
+      <link>https://Frederick2313072.github.io/blog/2026-01-27-seo%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 27 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://Frederick2313072.github.io/blog/2026-01-27-seo%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;h3 id=&#34;问题1seo设置不稳定&#34;&gt;问题1：SEO设置不稳定&lt;/h3&gt;&#xA;&lt;p&gt;每次加载网站时，SEO设置都会发生变化，无法保持一致性。这导致网站的SEO表现不稳定，影响搜索引擎优化效果。&lt;/p&gt;&#xA;&lt;p&gt;原因：详见seoManager.ts:90&lt;/p&gt;</description>
+    </item>
     <item>
       <title>沉思录</title>
       <link>https://Frederick2313072.github.io/blog/2025-12-19-%E6%B2%89%E6%80%9D%E5%BD%95/</link>
@@ -296,11 +303,11 @@
       <description>&lt;h2 id=&#34;python&#34;&gt;Python&lt;/h2&gt;&#xA;&lt;p&gt;基础语法到面向对象编程，小项目只用过pygame写了一个窗口射击游戏，图灵系列那本python编程学的很流畅，很快能上手项目&lt;/p&gt;&#xA;&lt;h2 id=&#34;javascript&#34;&gt;Javascript&lt;/h2&gt;&#xA;&lt;p&gt;到现在只学了点皮毛，只会做动态内容更新，也只是自己做html网页时乱加上去的&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Archives</title>
+      <title>📚 文章归档</title>
       <link>https://Frederick2313072.github.io/archives/</link>
       <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
       <guid>https://Frederick2313072.github.io/archives/</guid>
-      <description></description>
+      <description>&lt;p&gt;这里是我所有博客文章的归档页面，按年份和时间顺序整理。你可以通过这个页面快速浏览我的写作历程和感兴趣的话题。&lt;/p&gt;&#xA;&lt;h2 id=&#34;-快速导航&#34;&gt;🔍 快速导航&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;最新文章&lt;/strong&gt;: 查看我最近的思考和学习笔记&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;技术分类&lt;/strong&gt;: 浏览不同技术领域的文章&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;学习总结&lt;/strong&gt;: 各种课程和知识点的整理&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;</description>
     </item>
     <item>
       <title></title>
