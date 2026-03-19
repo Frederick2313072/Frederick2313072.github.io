@@ -6,21 +6,21 @@
     <description>Recent content in Pages on Frederick</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 27 Jan 2026 13:36:15 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2026 10:21:30 +0800</lastBuildDate>
     <atom:link href="https://Frederick2313072.github.io/page/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>📚 文章归档</title>
+      <title>Archives</title>
       <link>https://Frederick2313072.github.io/archives/</link>
       <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
       <guid>https://Frederick2313072.github.io/archives/</guid>
-      <description>&lt;p&gt;这里是我所有博客文章的归档页面，按年份和时间顺序整理。你可以通过这个页面快速浏览我的写作历程和感兴趣的话题。&lt;/p&gt;&#xA;&lt;h2 id=&#34;-快速导航&#34;&gt;🔍 快速导航&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;最新文章&lt;/strong&gt;: 查看我最近的思考和学习笔记&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;技术分类&lt;/strong&gt;: 浏览不同技术领域的文章&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;学习总结&lt;/strong&gt;: 各种课程和知识点的整理&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;</description>
+      <description></description>
     </item>
     <item>
       <title>About</title>
       <link>https://Frederick2313072.github.io/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Frederick2313072.github.io/about/</guid>
-      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;strong&gt;我们现在讲起往事的时候，总是以“过去了几个月，过去了一年两年，一段时间”这种轻描淡写的手法一笔带过。&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;&lt;strong&gt;可是对于当事人来说，恰恰是不知道这种情况究竟要持续多久，才会迷茫、失措，甚至痛苦，当事人是没有全知视角的，这才是痛苦的根源&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;</description>
+      <description>&lt;ul&gt;&#xA;&lt;li&gt;lol手游上海市50萨勒芬妮，千年韭菜，合约亏损1w+&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;命运给我怎样的境遇，我就接受怎么的安排，安排我去种水稻，我会成为水稻大王，安排我去养猪，我就会成为养猪仙人&lt;/p&gt;</description>
     </item>
     <item>
       <title>Links</title>
@@ -28,6 +28,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://Frederick2313072.github.io/links/</guid>
       <description></description>
+    </item>
+    <item>
+      <title>Talks</title>
+      <link>https://Frederick2313072.github.io/talks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://Frederick2313072.github.io/talks/</guid>
+      <description>&lt;h2 id=&#34;qa-为什么选择-quant&#34;&gt;QA: 为什么选择 quant？&lt;/h2&gt;&#xA;&lt;p&gt;严格来说现在不算 quant，只能说先做个 QD 笱着攒钱，等跑出一个好看的资金曲线，做一个量化散户，如果要赚钱，可以直接去做 QR，quant trading 的本质还是交易，量化投资的本质还是投资，还有不亚于互联网的数理统计和 coding 要求，从线性代数到时间序列，从数据结构生命周期到各种 wait-lock、free-lock，运气好的话有师傅带。交易本质上是从其他市场参与者的口袋里赚钱，必然是一个零和博弈，你必须非常清楚你赚的是谁的钱，一时凭运气赚的认知外的钱肯定会亏回去，这是一个一将功成万骨枯的地方，也适合最优秀最聪明最有野心的大脑。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

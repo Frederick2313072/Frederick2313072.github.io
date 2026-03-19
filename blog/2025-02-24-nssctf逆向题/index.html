@@ -42,7 +42,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.154.5">
+  <meta name="generator" content="Hugo 0.158.0">
 
   
   
@@ -70,11 +70,13 @@
   <select onchange="location = this.value;">
     <option value="">Navigate…</option>
       
-        <option value="https://Frederick2313072.github.io/about/">» About</option>
-      
-        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+        <option value="https://Frederick2313072.github.io/">» Home</option>
       
         <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+        <option value="https://Frederick2313072.github.io/talks/">» Talks</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
       
   </select>
 </fieldset>
@@ -84,15 +86,19 @@
   
   
     
-      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
-    
-  
-    
-      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+      <li><a href="https://Frederick2313072.github.io/" title="Home">Home</a></li>
     
   
     
       <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/talks/" title="Talks"  target="_blank"  rel="noopener noreferrer">Talks</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
     
   
 </ul>
@@ -387,13 +393,13 @@ print(flag)
 <p>判断是否添加的约束条件是否有解，有解返回sat，无解返回unsat</p>
 <p>model()</p>
 <p>在有解的情况下，求解的交集再输出创建求解约束器</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cobol" data-lang="cobol"><span style="display:flex;"><span><span style="color:#586e75">solver</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">Solver</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cobol" data-lang="cobol"><span style="display:flex;"><span><span style="color:#586e75">solver</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">Solver</span>
 </span></span></code></pre></div><p>添加约束条件</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>solver.<span style="color:#719e07">add</span>()
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span>solver.<span style="color:#719e07">add</span>()
 </span></span></code></pre></div><p>判断解是否存在</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cobol" data-lang="cobol"><span style="display:flex;"><span><span style="color:#586e75"> if so</span><span style="color:#268bd2">lver</span>.<span style="color:#268bd2">check</span>()<span style="color:#719e07">==</span><span style="color:#268bd2">sat</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cobol" data-lang="cobol"><span style="display:flex;"><span><span style="color:#586e75"> if so</span><span style="color:#268bd2">lver</span>.<span style="color:#268bd2">check</span>()<span style="color:#719e07">==</span><span style="color:#268bd2">sat</span>
 </span></span></code></pre></div><p>求解</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#719e07">print</span> solver<span style="color:#719e07">.</span>model()
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#719e07">print</span> solver<span style="color:#719e07">.</span>model()
 </span></span></code></pre></div><p>题目</p>
 <pre tabindex="0"><code>#include &lt;iostream&gt;
 using namespace std;
@@ -774,68 +780,64 @@ if __name__ == &#39;__main__&#39;:
     
 
 <aside class="sidebar thirds">
-  <section class="first odd">
 
-    
-      <h1>About me</h1>
-    
+  
+  
+  
 
-    <p>
+  
+  <section class="odd">
+    <h1>Archives</h1>
+    <ul id="sidebar-archives">
       
-        <p>2023南开DS在读</p>
-<p>目前在TJUNLP</p>
-<p>感兴趣的方向：NLP,OS,LLM,Security</p>
-<p>最喜欢的编程语言：Rust<br>
-Click on 
-<a href="../../about/">About</a> to know more.</p>
-
       
-    </p>
+        <li>
+          <a href="../../archives/#january-2026">January 2026</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#december-2025">December 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#september-2025">September 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#august-2025">August 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#june-2025">June 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#may-2025">May 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#april-2025">April 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#march-2025">March 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#february-2025">February 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#january-2025">January 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#december-2024">December 2024</a>
+        </li>
+      
+    </ul>
   </section>
 
-  
-  
-
-
-
-<ul class="sidebar-nav">
-  <li class="sidebar-nav-item">
-    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-  
-  
-  </li>
-</ul>
-
-  
-
-  
-    
-      <section class="odd">
-        
-          <h1>Collections</h1>
-        
-        
-          <li>
-            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
-          </li>
-        
-      </section>
-    
-  
-
-  
   
   
     
@@ -874,6 +876,7 @@ Click on
       </section>
     
   
+
 </aside>
 
   </div>

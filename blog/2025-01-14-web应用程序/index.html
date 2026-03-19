@@ -42,7 +42,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.154.5">
+  <meta name="generator" content="Hugo 0.158.0">
 
   
   
@@ -70,11 +70,13 @@
   <select onchange="location = this.value;">
     <option value="">Navigate…</option>
       
-        <option value="https://Frederick2313072.github.io/about/">» About</option>
-      
-        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+        <option value="https://Frederick2313072.github.io/">» Home</option>
       
         <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+        <option value="https://Frederick2313072.github.io/talks/">» Talks</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
       
   </select>
 </fieldset>
@@ -84,15 +86,19 @@
   
   
     
-      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
-    
-  
-    
-      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+      <li><a href="https://Frederick2313072.github.io/" title="Home">Home</a></li>
     
   
     
       <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/talks/" title="Talks"  target="_blank"  rel="noopener noreferrer">Talks</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
     
   
 </ul>
@@ -258,7 +264,7 @@
       </tr>
   </tbody>
 </table>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>#&#34;<span style="color:#719e07">&gt;&lt;</span>img src<span style="color:#719e07">=</span>/ onerror=alert(document.cookie)&gt;
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>#&#34;<span style="color:#719e07">&gt;&lt;</span>img src<span style="color:#719e07">=</span>/ onerror=alert(document.cookie)&gt;
 </span></span></code></pre></div><p>显示当前用户的cookie</p>
 <h2 id="后端服务器">后端服务器</h2>
 <p>软件</p>
@@ -506,27 +512,27 @@
 <ul>
 <li>寻找公开漏洞</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo apt install exploitdb -y
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>searchsploit openssh 7.2
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>sudo apt install exploitdb -y
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>searchsploit openssh 7.2
 </span></span></code></pre></div><p>Nibbles</p>
 <p>1.扫描端口枚举</p>
 <pre tabindex="0"><code>nmap -sV --open -oA nibbles_initial_scan &lt;ip address&gt; //服务枚举，仅返回开放端口，扫描所有形式
-</code></pre><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>nc -nv 10.129.42.190 22 //Using `nc` to do some banner grabbing
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>nc -nv 10.129.42.190 22 //Using `nc` to do some banner grabbing
 </span></span></code></pre></div><p>当知道哪些端口是特定开放可以选择特定端口扫描节省时间，如</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>nmap -sC -p 22,80 -oA nibbles_script_scan 10.129.42.190
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>nmap -sC -p 22,80 -oA nibbles_script_scan 10.129.42.190
 </span></span></code></pre></div><p>使用
 <a href="https://nmap.org/nsedoc/scripts/http-enum.html" target="_blank" rel="noopener">http-enum 脚本</a>来完成枚举，该脚本可用于枚举常见的 Web 应用程序目录</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> nmap -sV --script=http-enum -oA nibbles_nmap_http_enum 10.129.42.190
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> nmap -sV --script=http-enum -oA nibbles_nmap_http_enum 10.129.42.190
 </span></span></code></pre></div><p>2.网络足迹</p>
 <p>使用<code>whatweb</code>来尝试识别正在使用的 Web 应用程序。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>whatweb 10.129.42.190
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>whatweb 10.129.42.190
 </span></span></code></pre></div><p>检查源码</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>curl http://10.129.42.190
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>curl http://10.129.42.190
 </span></span></code></pre></div><p>使用
 <a href="https://github.com/OJ/gobuster" target="_blank" rel="noopener">Gobuster</a>进行彻底检查并检查任何其他可访问的页面/目录</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>gobuster dir -u http://10.129.42.190/nibbleblog/ --wordlist /usr/share/seclists/Discovery/Web-Content/common.txt
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>gobuster dir -u http://10.129.42.190/nibbleblog/ --wordlist /usr/share/seclists/Discovery/Web-Content/common.txt
 </span></span></code></pre></div><p>再次使用curl扫描文件</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> curl http://10.129.42.190/nibbleblog/README
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> curl http://10.129.42.190/nibbleblog/README
 </span></span></code></pre></div><ul>
 <li>我们从一个简单的<code>nmap</code>扫描开始，显示两个开放的端口</li>
 <li>发现了一个实例<code>Nibbleblog</code></li>
@@ -595,68 +601,64 @@
     
 
 <aside class="sidebar thirds">
-  <section class="first odd">
 
-    
-      <h1>About me</h1>
-    
+  
+  
+  
 
-    <p>
+  
+  <section class="odd">
+    <h1>Archives</h1>
+    <ul id="sidebar-archives">
       
-        <p>2023南开DS在读</p>
-<p>目前在TJUNLP</p>
-<p>感兴趣的方向：NLP,OS,LLM,Security</p>
-<p>最喜欢的编程语言：Rust<br>
-Click on 
-<a href="../../about/">About</a> to know more.</p>
-
       
-    </p>
+        <li>
+          <a href="../../archives/#january-2026">January 2026</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#december-2025">December 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#september-2025">September 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#august-2025">August 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#june-2025">June 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#may-2025">May 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#april-2025">April 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#march-2025">March 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#february-2025">February 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#january-2025">January 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#december-2024">December 2024</a>
+        </li>
+      
+    </ul>
   </section>
 
-  
-  
-
-
-
-<ul class="sidebar-nav">
-  <li class="sidebar-nav-item">
-    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-  
-  
-  </li>
-</ul>
-
-  
-
-  
-    
-      <section class="odd">
-        
-          <h1>Collections</h1>
-        
-        
-          <li>
-            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
-          </li>
-        
-      </section>
-    
-  
-
-  
   
   
     
@@ -695,6 +697,7 @@ Click on
       </section>
     
   
+
 </aside>
 
   </div>

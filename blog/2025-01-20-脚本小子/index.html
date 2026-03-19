@@ -42,7 +42,7 @@
   <meta name="author" content="Frederick">
 
   
-  <meta name="generator" content="Hugo 0.154.5">
+  <meta name="generator" content="Hugo 0.158.0">
 
   
   
@@ -70,11 +70,13 @@
   <select onchange="location = this.value;">
     <option value="">Navigate…</option>
       
-        <option value="https://Frederick2313072.github.io/about/">» About</option>
-      
-        <option value="https://Frederick2313072.github.io/links/">» Links</option>
+        <option value="https://Frederick2313072.github.io/">» Home</option>
       
         <option value="https://Frederick2313072.github.io/archives/">» Archives</option>
+      
+        <option value="https://Frederick2313072.github.io/talks/">» Talks</option>
+      
+        <option value="https://Frederick2313072.github.io/about/">» About</option>
       
   </select>
 </fieldset>
@@ -84,15 +86,19 @@
   
   
     
-      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
-    
-  
-    
-      <li><a href="https://Frederick2313072.github.io/links/" title="Links"  target="_blank"  rel="noopener noreferrer">Links</a></li>
+      <li><a href="https://Frederick2313072.github.io/" title="Home">Home</a></li>
     
   
     
       <li><a href="https://Frederick2313072.github.io/archives/" title="Archives"  target="_blank"  rel="noopener noreferrer">Archives</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/talks/" title="Talks"  target="_blank"  rel="noopener noreferrer">Talks</a></li>
+    
+  
+    
+      <li><a href="https://Frederick2313072.github.io/about/" title="About"  target="_blank"  rel="noopener noreferrer">About</a></li>
     
   
 </ul>
@@ -204,7 +210,7 @@
 <p>intext:index of</p>
 <h2 id="暴力攻击">暴力攻击</h2>
 <h3 id="破解pin码">破解PIN码</h3>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">import</span> requests
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">import</span> requests
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>ip <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;127.0.0.1&#34;</span>  <span style="color:#586e75"># Change this to your instance IP address</span>
 </span></span><span style="display:flex;"><span>port <span style="color:#719e07">=</span> <span style="color:#2aa198">1234</span>       <span style="color:#586e75"># Change this to your instance port number</span>
@@ -226,7 +232,7 @@
 <p>python pin-solver.py</p>
 <h3 id="字典攻击">字典攻击</h3>
 <p>字典攻击的有效性在于它能够利用人类倾向于优先选择容易记住的密码而不是安全的密码这一倾向。尽管屡次受到警告，但许多人仍然选择基于字典单词、常用短语、名称或容易猜测的模式等现成信息的密码。这种可预测性使他们容易受到字典攻击，攻击者会系统地针对目标系统测试预定义的潜在密码列表。</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">import</span> requests
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#719e07">import</span> requests
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>ip <span style="color:#719e07">=</span> <span style="color:#2aa198">&#34;127.0.0.1&#34;</span>  <span style="color:#586e75"># Change this to your instance IP address</span>
 </span></span><span style="display:flex;"><span>port <span style="color:#719e07">=</span> <span style="color:#2aa198">1234</span>       <span style="color:#586e75"># Change this to your instance port number</span>
@@ -246,7 +252,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#b58900">print</span>(<span style="color:#2aa198">f</span><span style="color:#2aa198">&#34;Correct password found: </span><span style="color:#2aa198">{</span>password<span style="color:#2aa198">}</span><span style="color:#2aa198">&#34;</span>)
 </span></span><span style="display:flex;"><span>        <span style="color:#b58900">print</span>(<span style="color:#2aa198">f</span><span style="color:#2aa198">&#34;Flag: </span><span style="color:#2aa198">{</span>response<span style="color:#719e07">.</span>json()[<span style="color:#2aa198">&#39;flag&#39;</span>]<span style="color:#2aa198">}</span><span style="color:#2aa198">&#34;</span>)
 </span></span><span style="display:flex;"><span>        <span style="color:#719e07">break</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> python3 dictionary-solver.py
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span> python3 dictionary-solver.py
 </span></span></code></pre></div><h2 id="hydra">Hydra</h2>
 <h3 id="为-hydra-构建-params-字符串">为 Hydra 构建 params 字符串</h3>
 <ul>
@@ -259,11 +265,11 @@
 <li>
 <p><code>Success Condition</code>：这定义了 Hydra 用来识别成功登录的标准。它可以是 HTTP 状态代码（例如<code>S=302</code>重定向）或服务器响应中特定文本的存在或不存在（例如<code>F=Invalid credentials</code>或<code>S=Welcome</code>）。</p>
 <p>Hydra 命令的一般结构<code>http-post-form</code>如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>hydra [options] target http-post-form &#34;path:params:condition_string&#34;
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-shell-session" data-lang="shell-session"><span style="display:flex;"><span>hydra [options] target http-post-form &#34;path:params:condition_string&#34;
 </span></span></code></pre></div></li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hydra ... http-post-form <span style="color:#2aa198">&#34;/login:user=^USER^&amp;pass=^PASS^:F=Invalid credentials&#34;</span>
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hydra ... http-post-form <span style="color:#2aa198">&#34;/login:user=^USER^&amp;pass=^PASS^:S=302&#34;</span>
+<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hydra ... http-post-form <span style="color:#2aa198">&#34;/login:user=^USER^&amp;pass=^PASS^:F=Invalid credentials&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hydra ... http-post-form <span style="color:#2aa198">&#34;/login:user=^USER^&amp;pass=^PASS^:S=302&#34;</span>
 </span></span></code></pre></div><p>我们将使用
 <a href="https://github.com/danielmiessler/SecLists/blob/master/Usernames/top-usernames-shortlist.txt" target="_blank" rel="noopener">top-usernames-shortlist.txt</a>作为用户名列表，使用
 <a href="https://raw.githubusercontent.com/danielmiessler/SecLists/refs/heads/master/Passwords/Common-Credentials/2023-200_most_used_passwords.txt" target="_blank" rel="noopener">2023-200_most_used_passwords.txt</a>作为密码列表。</p>
@@ -328,68 +334,64 @@
     
 
 <aside class="sidebar thirds">
-  <section class="first odd">
 
-    
-      <h1>About me</h1>
-    
+  
+  
+  
 
-    <p>
+  
+  <section class="odd">
+    <h1>Archives</h1>
+    <ul id="sidebar-archives">
       
-        <p>2023南开DS在读</p>
-<p>目前在TJUNLP</p>
-<p>感兴趣的方向：NLP,OS,LLM,Security</p>
-<p>最喜欢的编程语言：Rust<br>
-Click on 
-<a href="../../about/">About</a> to know more.</p>
-
       
-    </p>
+        <li>
+          <a href="../../archives/#january-2026">January 2026</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#december-2025">December 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#september-2025">September 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#august-2025">August 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#june-2025">June 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#may-2025">May 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#april-2025">April 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#march-2025">March 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#february-2025">February 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#january-2025">January 2025</a>
+        </li>
+      
+        <li>
+          <a href="../../archives/#december-2024">December 2024</a>
+        </li>
+      
+    </ul>
   </section>
 
-  
-  
-
-
-
-<ul class="sidebar-nav">
-  <li class="sidebar-nav-item">
-    <a target="_blank" rel="noopener noreferrer" href="https://github.com/Frederick2313072" title="https://github.com/Frederick2313072"><i class="fa fa-github fa-3x"></i></a>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-  
-  
-  </li>
-</ul>
-
-  
-
-  
-    
-      <section class="odd">
-        
-          <h1>Collections</h1>
-        
-        
-          <li>
-            <a href="https://Frederick2313072.github.io/categories/golang/" title="Hugo category" >Hugo category</a>
-          </li>
-        
-      </section>
-    
-  
-
-  
   
   
     
@@ -428,6 +430,7 @@ Click on
       </section>
     
   
+
 </aside>
 
   </div>
